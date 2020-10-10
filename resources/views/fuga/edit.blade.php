@@ -105,6 +105,7 @@
 							<option>{{$parroquia->nombre}}</option>
 						@endforeach
 					</select>
+					<a href="{{asset('files/MapaCuenca.pdf')}}" target="_blank" role="button" data-toggle="tooltip" title="Mapa" class="btn btn-outline-info" ><i class="icon-file icon-2x"></i></a>
 				</div>
 				<div class="form-group input-group col-md-4">
 					<div class="input-group-prepend">
