@@ -100,6 +100,12 @@
 						<p class="text-info text-wrap text-break">{{$fuga->tipo_cilindro}}</p>
 
 				</div>
+				<div class="col-md-4 ol-sm-12">
+
+						<span class="bg-gray font-weight-bold">Color_Cilindro</span>
+						<p class="text-info text-wrap text-break">{{$fuga->color_cilindro}}</p>
+
+				</div>
 				<div class="col-md-4 col-sm-12">
 
 						<span class="bg-gray font-weight-bold">Tipo_Fallo</span>

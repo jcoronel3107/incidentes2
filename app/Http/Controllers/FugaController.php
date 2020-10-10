@@ -242,7 +242,7 @@ class FugaController extends Controller
                                 'informacion_inicial' => $request->informacion_inicial,
                                 'detalle_emergencia' => $request->detalle_emergencia,
                                 'tipo_cilindro'=>$request->tipo_cilindro,
-                                'color_cilindro' => $request->color_cilindro;
+                                'color_cilindro' => $request->color_cilindro,
                                 'tipo_fallo'=> $request->tipo_fallo,
                                 'usuario_afectado' => $request->usuario_afectado,
                                 'danos_estimados' => $request->danos_estimados,

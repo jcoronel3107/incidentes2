@@ -34,6 +34,7 @@ class CreateFugasTable extends Migration
             $table->string("usuario_afectado");
             $table->string("danos_estimados",300);
             $table->string("tipo_cilindro",50);
+            $table->string("color_cilindro",50);
             $table->string("tipo_fallo",25);
             $table->string("usr_creador");
             $table->string("usr_editor")->nullable();

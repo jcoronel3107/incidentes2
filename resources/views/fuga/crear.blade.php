@@ -103,16 +103,17 @@
 					</div>
 					<textarea class="form-control" name="direccion" id="pdireccion" placeholder="Ubicacion del Evento" aria-label="With textarea" required="">{{old('direccion')}}</textarea>
 				</div>
-				<div class="form-group input-group input-group-prepend col-md-4 col-sm-12">
-					<div >
+				<div class="form-group input-group col-md-4 col-sm-12">
+					<div class="input-group-prepend" >
 						<span class="input-group-text">Parroquia</span>
 					</div>
-					<select name="parroquia_id" class="form-control" required="">
+					<select name="parroquia_id" class="form-control" required="" >
 						<option selected>{{old('parroquia_id')}}</option>
 						@foreach($parroquias as $parroquia)
 							<option>{{$parroquia->nombre}}</option>
 						@endforeach
 					</select>
+					<a href="{{asset('files/MapaCuenca.pdf')}}" target="_blank" role="button" data-toggle="tooltip" title="Mapa" class="btn btn-outline-info" ><i class="icon-file icon-2x"></i></a>
 				</div>
 				<div class="form-group input-group col-md-4 col-sm-12">
 					<div class="input-group-prepend">
@@ -191,7 +192,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Detalle Emergencia</span>
 					</div>
-					<input type="text" class="form-control" name="detalle_emergencia" maxlength="83" id="detalle_emergencia" value="{{old('detalle_emergencia')}}" placeholder="Digite a detalle lo ocurrido en Emergencia" required="">
+					<input type="text" class="form-control" name="detalle_emergencia" maxlength="300" id="detalle_emergencia" value="{{old('detalle_emergencia')}}" placeholder="Digite a detalle lo ocurrido en Emergencia" required="">
 				</div>
 			</div><!--Detalle Emergencia-->
 			<div class="form-row">
@@ -237,7 +238,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Ciud. Afectado</span>
 					</div>
-					<input type="text" maxlength="83" class="form-control" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado')}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia" required="">
+					<input type="text" maxlength="200" class="form-control" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado')}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia" required="">
 				</div>
 			</div>{{--Usuario Afectado--}}
 			<div class="form-row">
@@ -245,7 +246,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDaños">Daños Estimados</span>
 					</div>
-					<input type="text" class="form-control" name="danos_estimados" maxlength="83" id="danos_estimados" value="{{old('danos_estimados')}}" placeholder="Detalle los daños producidos por  el incidente" required="">
+					<input type="text" class="form-control" name="danos_estimados" maxlength="300" id="danos_estimados" value="{{old('danos_estimados')}}" placeholder="Detalle los daños producidos por  el incidente" required="">
 				</div>
 			</div>{{-- Danos Estimados --}}
 			<div class="card">
@@ -321,6 +322,9 @@
 			</div>
 
 		</form>
+
+
+		
 		@if(count($errors)>0)
 			@foreach($errors->all() as $error)
 					<div class="alert alert-danger" role="alert">{{$error}}</div>
