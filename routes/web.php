@@ -49,6 +49,7 @@ Route::resource('salud',     	 	'SaludController');
 Route::resource('derrame',     	 	'DerrameController');
 Route::resource('consulta',      	'ConsultasController');
 
+Route::get('/activitylog',			'ConsultasController@activitylog');
 Route::get('/download/{file}', 		'DownloadsController@download');
 Route::post('cie10/import/',		'CieController@importacion');
 Route::post('inundacions/import/',	'InundacionController@importacion');

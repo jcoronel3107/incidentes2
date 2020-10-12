@@ -13,6 +13,7 @@ use App\ Incendio;
 use App\ Fuga;
 use App\ Derrame;
 use PDF;
+use Spatie\Activitylog\Models\Activity;
 
 use Illuminate\ Support\Carbon;
 
@@ -30,6 +31,12 @@ class ConsultasController extends Controller
         return view("estadisticas");
     }
 
+    public function activitylog()
+    {
+    	$lastActivity = Activity::all(); //returns the last logged activity
+    	
+    	return  $lastActivity;
+    }
 
     public function index(Request $request)
     {
