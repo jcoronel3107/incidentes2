@@ -15,6 +15,7 @@ use Illuminate\ Support\ Facades\ Auth;
 use Illuminate\Support\Facades\DB;
 use App\Exports\ ClavesExport;
 use PDF;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 
 class ClaveController extends Controller {
@@ -98,6 +99,7 @@ class ClaveController extends Controller {
 			$clave->vehiculo_id = $idvehiculo;
 			$clave->Orden = $request->Orden;
 			$clave->save();
+			
 			Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
 			return redirect( "/clave" );
 		} else {

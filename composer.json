@@ -21,7 +21,7 @@
         "laravelcollective/html": "^6.1",
         "maatwebsite/excel": "^3.1",
         "spatie/geocoder": "^3.9",
-        "spatie/laravel-activitylog": "^3.14",
+        "spatie/laravel-activitylog": "^3.16",
         "spatie/laravel-permission": "^3.16"
     },
     "require-dev": {

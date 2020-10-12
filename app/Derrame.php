@@ -4,10 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Derrame extends Model
 {
      use SoftDeletes;
+     use LogsActivity;
 
      protected $fillable=[
 		"incidente_id",
@@ -29,6 +31,9 @@ class Derrame extends Model
 		"danos_estimados",
 		"usr_creador",
 		"usr_editor"];
+
+	protected static $logFillable = true;
+	
      public function station(){
 		//Muestra informacion del vehiculo en la clave consultada
 		return $this->belongsTo(Station::class);

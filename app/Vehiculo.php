@@ -4,10 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Vehiculo extends Model
 {
     //
+    use LogsActivity;
 	use SoftDeletes;
 	//protected $primaryKey = "codigo";  en caso de la primary key no sea autonumerica.
 	protected $fillable=[
@@ -41,6 +43,8 @@ class Vehiculo extends Model
 	"usuaedit",
 	"combustible"];
 
+	protected static $logFillable = true;
+	
 	public function clave(){
 	//Muestra informacion de las Claves14 por id de vehiculo
 	return $this->hasMany(Clave::class);

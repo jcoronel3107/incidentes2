@@ -4,14 +4,19 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Parroquia extends Model
 {
     //
+    use LogsActivity;
     use SoftDeletes;
+
 	protected $fillable=[
 		"nombre","Postalcode"];
 
+	protected static $logFillable = true;
+	
 	public function inundacion(){
 	//Muestra informacion de las inundaciones por id de parroquia
 		return $this->hasMany(Inundacion::class);

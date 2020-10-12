@@ -4,10 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Incendio extends Model
 {
+	use LogsActivity;
     use SoftDeletes;
+
     protected $fillable=[
 		"incidente_id",
 		"tipo_escena",
@@ -29,6 +32,8 @@ class Incendio extends Model
 		"usr_creador",
 		"usr_editor"];
 
+	protected static $logFillable = true;
+	
 	public function station(){
 		//Muestra informacion del vehiculo en la clave consultada
 		return $this->belongsTo(Station::class);
