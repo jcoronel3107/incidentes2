@@ -5,7 +5,7 @@
 	@endsection
 
 	@section( "cuerpo" )
-		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Consulta Información de Inundaciones</h2>
+		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">{!! trans('messages.Consult Flood Information') !!}</h2>
 		@if(Session::has('Envio Mail Correcto'))
 			<div class="alert alert-success alert-dismissible fade show" role="alert">
 			{{session('Envio Mail Correcto')}}

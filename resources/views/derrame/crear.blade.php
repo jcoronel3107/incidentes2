@@ -109,13 +109,14 @@
 				</div>
 			</div><!--Div Tipo Evento-->
 			<div class="form-row">
-				<div class="form-group input-group col-md-4">
+				<div class="form-group input-group col-md-5">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Dirección</span>
 					</div>
 					<textarea class="form-control" id="pdireccion" name="address" placeholder="Ubicacion del Evento" aria-label="With textarea" required=""></textarea>
+					<button data-toggle="tooltip" title="Geolocaliza" value="Encode" onclick="codeAddress()"><i class="icon-globe"></i></button>
 				</div>
-				<div class="form-group input-group input-group-prepend col-md-4">
+				<div class="form-group input-group input-group-prepend col-md-3">
 					<div >
 						<span class="input-group-text">Parroquia</span>
 					</div>
@@ -131,10 +132,12 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" >Geoposicion</span>
 					</div>
-					<textarea class="form-control" name="geoposicion" aria-label="With textarea"></textarea>
+					<textarea class="form-control" id="pgeoposicion" placeholder="Formato:. -2.56985, -79.23658" name="geoposicion" aria-label="With textarea"></textarea>
 				</div>
 			</div><!--Div Ubicacion Evento-->
 			<div class="counter col-md-3 col-sm-12" id="pcounter1">0</div>
+			<div onload="initMap()" id="map" style="width: 100%; height: 280px;"></div>
+			<hr >
 			<div class="form-row">
 				<div class="form-group input-group col-md-4">
 					<div class="input-group-prepend">
@@ -346,7 +349,7 @@
 				var jqkm_llegada=0;
 				subtotal=[];
 				$("#Enviar").hide();
-
+				
 				function agregar() {
 					// body...
 						jqkm_salida=$("#pkm_salida").val();

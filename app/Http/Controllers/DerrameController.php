@@ -195,6 +195,7 @@ class DerrameController extends Controller
             $maquinistas=User::where('cargo','maquinista')
             ->orderBy("name",'asc')
             ->get();
+            
             $incidentes = Incidente::where("tipo_incidente","Derrame")
             ->orderBy("nombre_incidente",'asc')
             ->get();

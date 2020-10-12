@@ -1,0 +1,40 @@
+<?php
+
+//resources/lang/en/messages.php
+
+return [
+    'name_app' => 'Incidents',
+    'event' => 'Events',
+    'flood' => 'Flood',
+    'rescue' => 'Rescue',
+    'leak' => 'Leak',
+    'transit' => 'Transit',
+    'Health' => 'Health',
+    'fire' => 'Fire',
+    'Hazmat' => 'Hazmat',
+    'Clave14' => 'Clave14',
+    'login' => 'Login',
+    'E-Mail Address' => 'E-Mail Address',
+    'Password' => 'Password',
+    'Remember Me' => 'Remember Me',
+    'Register' => 'Register',
+    'Index' => 'Index',
+    'Import' => 'Import',
+    'Choices' => 'Choices',
+    'Parameterization' => 'Parameterization',
+    'language' => 'Language',
+    'Current Month Events' => 'Current Month Events',
+    'Incidents' => 'Incidents',
+    'Firefighter station' => 'Firefighter station',
+    'Service Station' => 'Service Station',
+    'Parishes' => 'Parishes',
+    'Vehicles' => 'Vehicles',
+    'statistics' => 'Statistics',
+    'Consult Flood Information' => 'Consult Flood Information',
+    'Consult Hazmat Information' => 'Consult Hazmat Information',
+    'Consult Rescue Information' => 'Consult Rescue Information',
+    'Consult Traffic Accident Information' => 'Consult Traffic Accident Information',
+    'Consult Fire Information' => 'Consult Fire Information',
+    'Consult Leak Information' => 'Consult Leak Information',
+
+];

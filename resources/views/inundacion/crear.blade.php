@@ -24,11 +24,7 @@
 					</div>
 					<input type="date" required="" name="fecha" class="form-control">
 				</div>
-				<div class="col-md-4"></div>
-				<div class="custom-control custom-checkbox">
-	  				<input type="checkbox" class="custom-control-input" id="customCheck1">
-	  				<label class="custom-control-label" for="customCheck1">Falsa Alarma / Clave 5</label>
-				</div>
+				
 			</div><!--Div Fecha-->
 			<div class="form-row ">
 				<div class='col-md-6'>
@@ -108,6 +104,7 @@
 						<span class="input-group-text">Dirección</span>
 					</div>
 					<textarea class="form-control" id="pdireccion" name="address" placeholder="Ubicacion del Evento" aria-label="With textarea" required=""></textarea>
+					<input type="button" value="Encode" onclick="codeAddress()">
 				</div>
 				<div class="form-group input-group input-group-prepend col-md-4">
 					<div >
@@ -125,10 +122,13 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" >Geoposicion</span>
 					</div>
-					<textarea class="form-control" name="geoposicion" aria-label="With textarea"></textarea>
+					<textarea class="form-control" placeholder="Formato:. -2.56985, -79.23658" id="pgeoposicion" name="geoposicion" aria-label="With textarea"></textarea>
 				</div>
+				
 			</div><!--Div Ubicacion Evento-->
 			<div class="counter col-md-3 col-sm-12" id="pcounter1">0</div>
+			<div onload="initMap()" id="map" style="width: 100%; height: 280px;"></div>
+			<hr >
 			<div class="form-row">
 				<div class="form-group input-group col-md-4">
 					<div class="input-group-prepend">
@@ -298,7 +298,8 @@
 		@endif
 		@push ('scripts')
 			<script>
-				$(document).ready(function(){
+					$(document).ready(function(){
+					
 					$("#bt_add").click(function () {
 						agregar();
 					});
@@ -340,6 +341,8 @@
 				var jqkm_llegada=0;
 				subtotal=[];
 				$("#Enviar").hide();
+
+				  
 
 				function agregar() {
 					// body...

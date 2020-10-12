@@ -37,7 +37,9 @@
 					<span class="bg-gray font-weight-bold">Dirección:</span>
 					 <p class="text-info">{{$inundacion->address}}</p>
 					<span class="bg-gray font-weight-bold">Parroquia: </span>
-					<p class="text-info">{{$inundacion->parroquia->nombre}}</p><br/>
+					<p class="text-info">{{$inundacion->parroquia->nombre}}</p>
+					<span class="bg-gray font-weight-bold">Georeferencia:</span>
+					 <p class="text-info">{{$inundacion->geoposicion}}</p><br/>
 			<hr>
 					<span class="bg-gray font-weight-bold">Hora Salida a Emergencia:</span>
 					<p class="text-info">{{$inundacion->hora_salida_a_emergencia}}</p><br/>

@@ -6,7 +6,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-car"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">Incidentes<sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">{!! trans('messages.name_app') !!}<sup>2</sup></div>
       </a>
 
       <!-- Divider -->
@@ -24,12 +24,12 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-shower"></i>
-          <span>Inundacion</span>
+          <span>{!! trans('messages.flood') !!}</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Opciones:</h6>
-            <a class="collapse-item" href="/inundacion">Index</a>
+            <a class="collapse-item" href="/inundacion">{!! trans('messages.Index') !!}</a>
           </div>
         </div>
       </li>
@@ -42,8 +42,8 @@
         </a>
         <div id="collapseDerrame" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Opciones:</h6>
-            <a class="collapse-item" href="/derrame">Index</a>
+            <h6 class="collapse-header">{!! trans('messages.Choices') !!}:</h6>
+            <a class="collapse-item" href="/derrame">{!! trans('messages.Index') !!}</a>
           </div>
         </div>
       </li>
@@ -52,12 +52,12 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRescate" aria-expanded="true" aria-controls="collapseRescate">
           <i class="fas fa-fw fa-life-ring"></i>
-          <span>Rescate</span>
+          <span>{!! trans('messages.rescue')!!}</span>
         </a>
         <div id="collapseRescate" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Opciones</h6>
-            <a class="collapse-item" href="/rescate">Index</a>
+            <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
+            <a class="collapse-item" href="/rescate">{!! trans('messages.Index') !!}</a>
           </div>
         </div>
       </li>
@@ -65,12 +65,12 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTransito" aria-expanded="true" aria-controls="collapseTransito">
           <i class="fas fa-fw fa-wrench"></i>
-          <span>Transito</span>
+          <span>{!! trans('messages.transit')!!}</span>
         </a>
         <div id="collapseTransito" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Opciones</h6>
-            <a class="collapse-item" href="/transito">Index</a>
+            <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
+            <a class="collapse-item" href="/transito">{!! trans('messages.Index') !!}</a>
           </div>
         </div>
       </li>
@@ -78,12 +78,12 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSalud" aria-expanded="true" aria-controls="collapseSalud">
           <i class="fas fa-fw fa-heartbeat"></i>
-          <span>Salud</span>
+          <span>{!! trans('messages.Health')!!}</span>
         </a>
         <div id="collapseSalud" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Opciones</h6>
-            <a class="collapse-item" href="/salud">Index</a>
+            <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
+            <a class="collapse-item" href="/salud">{!! trans('messages.Index') !!}</a>
           </div>
         </div>
       </li>
@@ -91,12 +91,12 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFuego" aria-expanded="true" aria-controls="collapseFuego">
           <i class="fas fa-fw fa-fire"></i>
-          <span>Fuego</span>
+          <span>{!! trans('messages.fire')!!}</span>
         </a>
         <div id="collapseFuego" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Opciones</h6>
-            <a class="collapse-item" href="/fuego">Index</a>
+            <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
+            <a class="collapse-item" href="/fuego">{!! trans('messages.Index') !!}</a>
           </div>
         </div>
       </li>
@@ -104,12 +104,12 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFGas" aria-expanded="true" aria-controls="collapseFGas">
           <i class="fas fa-fw fa-fire-extinguisher"></i>
-          <span>F_Gas</span>
+          <span>{!! trans('messages.leak')!!}</span>
         </a>
         <div id="collapseFGas" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Opciones</h6>
-            <a class="collapse-item" href="/fuga">Index</a>
+            <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
+            <a class="collapse-item" href="/fuga">{!! trans('messages.Index') !!}</a>
           </div>
         </div>
       </li>
@@ -117,12 +117,12 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseClave14" aria-expanded="true" aria-controls="collapseClave14">
           <i class="fas fa-fw fa-wallet"></i>
-          <span>Clave14</span>
+          <span>{!! trans('messages.Clave14')!!}</span>
         </a>
         <div id="collapseClave14" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Opciones</h6>
-            <a class="collapse-item" href="/clave">Index</a>
+            <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
+            <a class="collapse-item" href="/clave">{!! trans('messages.Index') !!}</a>
           </div>
         </div>
       </li>
@@ -138,12 +138,12 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEstadistica" aria-expanded="true" aria-controls="collapseEstadistica">
           <i class="fas fa-fw fa-filter"></i>
-          <span>Estadisticas</span>
+          <span>{!! trans('messages.statistics') !!}</span>
         </a>
         <div id="collapseEstadistica" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Opciones</h6>
-            <a class="collapse-item" href="/consulta">Index</a>
+            <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
+            <a class="collapse-item" href="/consulta">{!! trans('messages.Index') !!}</a>
           </div>
         </div>
       </li>
@@ -153,16 +153,16 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseParametros" aria-expanded="true" aria-controls="collapseParametros">
           <i class="fas fa-fw fa-cogs"></i>
-          <span>Parametrización</span>
+          <span>{!! trans('messages.Parameterization')!!}</span>
         </a>
         <div id="collapseParametros" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Opciones</h6>
-            <a class="collapse-item" href="/incidente/">Incidente</a>
-            <a class="collapse-item" href="/estacion">Estación Bomberos</a>
-            <a class="collapse-item" href="/gasolinera">Estación Servicio</a>
-            <a class="collapse-item" href="/parroquia">Parroquias</a>
-            <a class="collapse-item" href="/vehiculo">Vehiculos</a>
+            <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
+            <a class="collapse-item" href="/incidente/"> {!! trans('messages.Incidents') !!}</a>
+            <a class="collapse-item" href="/estacion">{!! trans('messages.Firefighter station') !!}</a>
+            <a class="collapse-item" href="/gasolinera">{!! trans('messages.Service Station') !!}</a>
+            <a class="collapse-item" href="/parroquia">{!! trans('messages.Parishes') !!}</a>
+            <a class="collapse-item" href="/vehiculo">{!! trans('messages.Vehicles') !!}</a>
             <a class="collapse-item" href="/cie10/importar">Cie10</a>
           </div>
         </div>

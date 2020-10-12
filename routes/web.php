@@ -33,6 +33,7 @@ use Spatie\Geocoder\Geocoder;
 */
 Route::get('/',                  	'PagesController@index');
 Auth::routes();
+Route::get('lang/{lang}', 			'LanguageController@swap')->name('lang.swap');
 Route::resource('clave',         	'ClaveController');
 Route::resource('incidente',     	'IncidenteController');
 Route::resource('inundacion',    	'InundacionController');
@@ -169,7 +170,7 @@ Route::get('/prueba2',function()
 		$geocoder->setRegion(config('geocoder.region'));
 		$geocoder->setBounds(config('geocoder.bounds'));
 		//$resp = Geocoder::getCoordinatesForAddress('Gaspar Sangurima & Daniel Alvarado,Cuenca,Ecuador');
-		$geocoder->getCoordinatesForAddress('Gaspar Sangurima & Daniel Alvarado,Cuenca,Ecuador');
+		$geocoder->getCoordinatesForAddress('Gaspar Sangurima y Daniel Alvarado,Cuenca,Ecuador');
 
 
 		//dd($geocoder);

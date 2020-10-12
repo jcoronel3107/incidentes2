@@ -46,9 +46,9 @@
                             <div class="col-xl-3 col-lg-3 col-md-4 sm-6">
                                 <div class="card mb-4">
 
-                                    <h5 class="card-header text-white bg-primary"><i class="fas fa-fw fa-shower"></i> Inundaciones</h5>
+                                    <h5 class="card-header text-white bg-primary"><i class="fas fa-fw fa-shower"></i> {!! trans('messages.flood') !!}</h5>
                                     <div class="card-body">
-                                    	<p class="card-text text-black"> <h1>{{$mensualesInundacion}}</h1> Eventos Mes Actual</p>
+                                    	<p class="card-text text-black"> <h1>{{$mensualesInundacion}}</h1> {!! trans('messages.Current Month Events') !!}</p>
                                     </div>
                                 </div>
                             </div>
@@ -65,39 +65,39 @@
 							</div>
                             <div class="col-xl-3 col-lg-3 col-md-4 sm-6">
                                 <div class="card mb-4">
-                                    <h5 class="card-header text-white bg-secondary"><i class="fas fa-fw fa-life-ring"></i> Rescates</h5>
+                                    <h5 class="card-header text-white bg-secondary"><i class="fas fa-fw fa-life-ring"></i> {!! trans('messages.rescue') !!}</h5>
                                     <div class="card-body">
-                                    	<p class="card-text text-black"> <h1>{{$mensualesRescate}}</h1> Eventos Mes Actual</p>
+                                    	<p class="card-text text-black"> <h1>{{$mensualesRescate}}</h1> {!! trans('messages.Current Month Events') !!}</p>
                                     </div>
                                 </div>
                             </div>
                              <div class="col-xl-3 col-lg-3 col-md-4 sm-6">
                                 <div class="card mb-4">
-                                    <h5 class="card-header text-white bg-secondary"><i class="fas fa-fw fa-life-ring"></i> Derrames</h5>
+                                    <h5 class="card-header text-white bg-secondary"><i class="fas fa-fw fa-life-ring"></i> {!! trans('messages.Hazmat') !!}</h5>
                                     <div class="card-body">
-                                    	<p class="card-text text-black"> <h1>{{$mensualesDerrame}}</h1> Eventos Mes Actual</p>
+                                    	<p class="card-text text-black"> <h1>{{$mensualesDerrame}}</h1> {!! trans('messages.Current Month Events') !!}</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-3 col-md-4 sm-6">
                                 <div class="card mb-4">
-                                    <h5 class="card-header text-white bg-success"><i class="fas fa-fw fa-wrench"></i> Transito</h5>
+                                    <h5 class="card-header text-white bg-success"><i class="fas fa-fw fa-wrench"></i> {!! trans('messages.transit') !!}</h5>
                                     <div class="card-body">
-                                    	<p class="card-text text-black"> <h1>{{$mensualesTransito}}</h1> Eventos Mes Actual</p>
+                                    	<p class="card-text text-black"> <h1>{{$mensualesTransito}}</h1> {!! trans('messages.Current Month Events') !!}</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-3 col-md-4 sm-6">
                                 <div class="card mb-4">
-                                    <h5 class="card-header text-white bg-warning"><i class="fas fa-fw fa-heartbeat"></i> Salud</h5>
+                                    <h5 class="card-header text-white bg-warning"><i class="fas fa-fw fa-heartbeat"></i> {!! trans('messages.Health') !!}</h5>
                                     <div class="card-body">
-                                    	<p class="card-text text-black"> <h1>{{$mensualesSalud}}</h1> Eventos Mes Actual</p>
+                                    	<p class="card-text text-black"> <h1>{{$mensualesSalud}}</h1> {!! trans('messages.Current Month Events') !!}</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-3 col-md-4 sm-6">
                                 <div class="card mb-4">
-                                    <h5 class="card-header text-white bg-danger"><i class="fas fa-fw fa-fire"></i>Fuego</h5>
+                                    <h5 class="card-header text-white bg-danger"><i class="fas fa-fw fa-fire"></i>{!! trans('messages.fire') !!}</h5>
                                     <div class="card-body">
                                     	<p class="card-text text-black"> <h1>{{$mensualesIncendio}}</h1> Eventos Mes Actual</p>
                                     </div>
@@ -105,9 +105,9 @@
                             </div>
                             <div class="col-xl-3 col-lg-3 col-md-4 sm-6">
                                 <div class="card mb-4">
-                                    <h5 class="card-header text-white bg-info"><i class="fas fa-fw fa-fire-extinguisher"></i> Fugas</h5>
+                                    <h5 class="card-header text-white bg-info"><i class="fas fa-fw fa-fire-extinguisher"></i> {!! trans('messages.leak') !!}</h5>
                                     <div class="card-body">
-                                    	<p class="card-text text-black"> <h1>{{$mensualesFuga}}</h1> Eventos Mes Actual</p>
+                                    	<p class="card-text text-black"> <h1>{{$mensualesFuga}}</h1> {!! trans('messages.Current Month Events') !!}</p>
                                     </div>
                                 </div>
                             </div>
@@ -115,7 +115,7 @@
                                 <div class="card mb-4">
                                     <h5 class="card-header text-gray bg-light"><i class="fas fa-fw fa-wallet"></i> Claves</h5>
                                     <div class="card-body">
-                                    	<p class="card-text text-black"> <h1>{{$mensualesClave}}</h1> Eventos Mes Actual</p>
+                                    	<p class="card-text text-black"> <h1>{{$mensualesClave}}</h1> {!! trans('messages.Current Month Events') !!}</p>
                                     </div>
                                 </div>
                             </div>

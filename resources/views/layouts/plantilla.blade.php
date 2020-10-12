@@ -54,8 +54,28 @@
 						    <!-- Topbar Navbar -->
 						    <img  src="/images/encabezado.png" alt="encabezadopdf" width="auto" height="70">
 						    <ul class="navbar-nav ml-auto">
+						    	<div class="topbar-divider d-none d-sm-block">
+						        </div>
+						    	<!--Comprobamos si el status esta a true y existe más de un lenguaje-->
+								@if (config('locale.status') && count(config('locale.languages')) > 1)
+								                <div class="top-right links">
+								                    @foreach (array_keys(config('locale.languages')) as $lang)
+								                        @if ($lang != App::getLocale())
+								                            <i class="icon-flag icon-2x" ></i>
+								                            <a href="{!! route('lang.swap', $lang) !!}">
+								                                    {!! $lang !!} 
+								                            </a>
+								                        @endif
+								                    @endforeach
+								                </div>
+								@endif
+								                
+						    </ul>
+						    
+						    <ul class="navbar-nav ml-right ">
 						        <div class="topbar-divider d-none d-sm-block">
 						        </div>
+
 						        <!-- Authentication Links -->
 								@guest
 											<li class="nav-item dropdown no-arrow">
@@ -101,11 +121,17 @@
 		<!-- Optional JavaScript -->
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 		<!-- Bootstrap core JavaScript-->
+		<script defer
+ 		 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQWkyaqY4K2sOinX5crayMw6oVrg6LrwE&callback=initMap">
+		</script>
   		<script src="/vendor/jquery/jquery.min.js"></script>
   		<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
  		 <!-- Core plugin JavaScript-->
  		 <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+ 		 <!-- Geolocalizacion  for all pages-->
+  		<script src="/js/geocoder.js"></script>
 
  		 <!-- Custom scripts for all pages-->
   		<script src="/js/sb-admin-2.min.js"></script>

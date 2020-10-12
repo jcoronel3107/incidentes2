@@ -101,7 +101,8 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Dirección</span>
 					</div>
-					<textarea class="form-control" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea"></textarea>
+					<textarea class="form-control" id="pdireccion" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea"></textarea>
+					<input type="button" value="Encode" onclick="codeAddress()">
 				</div>
 				<div class="form-group input-group input-group-prepend col-md-4">
 					<div >
@@ -119,9 +120,11 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputAddress">Geoposicion</span>
 					</div>
-					<textarea class="form-control" name="geoposicion" aria-label="With textarea"></textarea>
+					<textarea class="form-control" placeholder="Formato:. -2.56985, -79.23658" id="pgeoposicion" name="geoposicion" aria-label="With textarea"></textarea>
 				</div>
 			</div><!--Div Ubicacion Evento-->
+			<div onload="initMap()" id="map" style="width: 100%; height: 280px;"></div>
+			<hr >
 			<div class="form-row">
 				<div class="form-group input-group col-md-4">
 					<div class="input-group-prepend">

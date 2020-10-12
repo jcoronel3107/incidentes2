@@ -37,7 +37,9 @@
 					<span class="bg-gray font-weight-bold">Dirección:</span>
 					 <p class="text-info">{{$rescate->direccion}}</p>
 					<span class="bg-gray font-weight-bold">Parroquia: </span>
-					<p class="text-info">{{$rescate->parroquia->nombre}}</p><br/>
+					<p class="text-info">{{$rescate->parroquia->nombre}}</p>
+					<span class="bg-gray font-weight-bold">Georeferencia:</span>
+					 <p class="text-info">{{$rescate->geoposicion}}</p><br/><br/>
 			<hr>
 					<span class="bg-gray font-weight-bold">Hora Salida a Emergencia:</span>
 					<p class="text-info">{{$rescate->hora_salida_a_emergencia}}</p><br/>

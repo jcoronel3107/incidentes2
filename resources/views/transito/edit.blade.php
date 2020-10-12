@@ -79,7 +79,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Estacion</span>
 					</div>
-					<select name="estacion_id" class="form-control">
+					<select name="station_id" class="form-control">
 						<option selected>{{old('estacion_id',$transito->station->nombre)}}</option>
 						@foreach($estaciones as $estacion)
 						<option>{{$estacion->nombre}}</option>
@@ -92,7 +92,8 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Dirección</span>
 					</div>
-					<textarea class="form-control" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$transito->direccion)}}</textarea>
+					<textarea class="form-control" id="pdireccion" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$transito->direccion)}}</textarea>
+					<input type="button" value="Encode" onclick="codeAddress()">
 				</div>
 				<div class="form-group input-group input-group-prepend col-md-4">
 					<div >
@@ -110,16 +111,18 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputAddress">Geoposicion</span>
 					</div>
-					<textarea class="form-control" name="geoposicion" aria-label="With textarea">{{old('geoposicion',$transito->geoposicion)}}</textarea>
+					<textarea class="form-control" id="pgeoposicion" name="geoposicion" aria-label="With textarea">{{old('geoposicion',$transito->geoposicion)}}</textarea>
 				</div>
 			</div><!--Div Ubicacion Evento-->
+			<div onload="initMap()" id="map" style="width: 100%; height: 280px;"></div>
+			<hr >
 			<div class="form-row">
 				<div class="form-group input-group col-md-4">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Jefe Guardia</span>
 					</div>
 					<select class="form-control" name="jefeguardia_id">
-						<option selected>{{old($bombero_nombre->name)}}</option>
+						<option selected></option>
 						@foreach($bomberos as $bombero)
 						<option>{{$bombero->name}}</option>
 						@endforeach
@@ -160,7 +163,8 @@
 						<span class="input-group-text" id="inputDetalle">Hora Llegada A Emergencia</span>
 					</div>
 					<input type="text" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm:ss" value="{{old('hora_llegada_a_emergencia',$transito->hora_llegada_a_emergencia)}}">
-			</div><!--Div Horas Evento-->
+				</div><!--Div Horas Evento-->
+			</div>
 			<div class="form-row">
 				<div class="form-group  input-group col-md-6">
 					<div class="input-group-prepend">
@@ -174,26 +178,13 @@
 					<input type="text" class="form-control" name="hora_en_base" id="hora_en_base" placeholder="hh:mm:ss" value="{{old('hora_en_base',$transito->hora_en_base)}}">
 					</div>
 			</div><!--Div Horas Evento-->
-			<div class="form-row">
-				<div class="form-group  input-group col-md-6">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="inputDetalle">Km.Salida A Emergencia</span>
-					</div>
-					<input type="text" class="form-control" value="{{old('km_salida',$transito->km_salida)}}"  name="km_salida" id="km_salida" placeholder="000000">
-				</div>
-				<div class="form-group  input-group col-md-6">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="inputDetalle">Km.Llegada Emergencia</span>
-					</div>
-					<input type="text" class="form-control" name="km_llegada" value="{{old('km_llegada',$transito->km_llegada)}}" id="km_llegada" placeholder="000000">
-				</div>
-			</div><!--Div Kilometraje Evento-->
+			
 			<div class="form-row">
 				<div class="form-group input-group  col-md-12">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Detalle Emergencia</span>
 					</div>
-					<input type="text" class="form-control" name="detalle_emergencia" id="detalle_emergencia" value="{{old('detalle_emergencia')}}" placeholder="Digite a detalle lo ocurrido en Emergencia">
+					<input type="text" class="form-control" name="detalle_emergencia" id="detalle_emergencia" value="{{old('detalle_emergencia',$transito->detalle_emergencia)}}" placeholder="Digite a detalle lo ocurrido en Emergencia">
 				</div>
 			</div><!--Detalle Emergencia-->
 			<div class="form-row">

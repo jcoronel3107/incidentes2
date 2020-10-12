@@ -103,6 +103,7 @@
 						<span class="input-group-text">Dirección</span>
 					</div>
 					<textarea  class="form-control" required name="direccion" id="pdireccion" placeholder="Ubicacion del Evento" aria-label="With textarea"></textarea>
+					<input type="button" value="Encode" onclick="codeAddress()">
 				</div>
 				<div class="form-group input-group input-group-prepend col-md-4">
 					<div >
@@ -120,10 +121,12 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputAddress">Geoposicion</span>
 					</div>
-					<textarea class="form-control" name="geoposicion" placeholder="Formato:. -2.56985, -79.23658" aria-label="With textarea"></textarea>
+					<textarea class="form-control" id="pgeoposicion" name="geoposicion" placeholder="Formato:. -2.56985, -79.23658" aria-label="With textarea"></textarea>
 				</div>
 			</div><!--Div Ubicacion Evento-->
 			<div class="counter col-md-3 col-sm-12" id="pcounter1">0</div>
+			<div onload="initMap()" id="map" style="width: 100%; height: 280px;"></div>
+			<hr >
 			<div class="form-row">
 				<div class="form-group input-group col-md-4">
 					<div class="input-group-prepend">
@@ -193,7 +196,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Detalle Emergencia</span>
 					</div>
-					<input type="text" class="form-control" required="" name="detalle_emergencia" maxlength="83" id="detalle_emergencia" value="{{old('detalle_emergencia')}}" placeholder="Digite a detalle lo ocurrido en Emergencia">
+					<input type="text" class="form-control" required="" name="detalle_emergencia" maxlength="300" id="detalle_emergencia" value="{{old('detalle_emergencia')}}" placeholder="Digite a detalle lo ocurrido en Emergencia">
 				</div>
 			</div><!--Detalle Emergencia-->
 			<div class="form-row">
@@ -201,7 +204,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Ciud. Afectado</span>
 					</div>
-					<input type="text" maxlength="83" class="form-control" required="" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado')}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia">
+					<input type="text" maxlength="250" class="form-control" required="" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado')}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia">
 				</div>
 			</div>{{--Usuario Afectado--}}
 			<div class="form-row">
@@ -209,7 +212,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDaños">Daños Estimados</span>
 					</div>
-					<input type="text" class="form-control" required="" name="danos_estimados" maxlength="83" id="danos_estimados" value="{{old('danos_estimados')}}" placeholder="Detalle los daños producidos por  el incidente">
+					<input type="text" class="form-control" required="" name="danos_estimados" maxlength="300" id="danos_estimados" value="{{old('danos_estimados')}}" placeholder="Detalle los daños producidos por  el incidente">
 				</div>
 			</div>{{-- Danos Estimados --}}
 			<div class="card">

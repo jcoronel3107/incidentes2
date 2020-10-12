@@ -14,16 +14,16 @@ return [
      * More info: https://developers.google.com/maps/faq#languagesupport
      */
 
-    'language' => 'es',
-    //'language' => '',
+    //'language' => 'es',
+    'language' => '',
 
     /*
      * The region param used to finetune the geocoding process.
      *
      * More info: https://developers.google.com/maps/documentation/geocoding/intro#RegionCodes
      */
-    //'region' => 'EC',
-    'region' => 'EC',
+    //'region' => '',
+     'region' => 'EC',
 
     /*
      * The bounds param used to finetune the geocoding process.

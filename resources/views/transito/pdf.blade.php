@@ -15,9 +15,7 @@
 <body>
 	<img src="images/encabezado.png" alt="encabezadopdf" width="500" height="90">
 	<div class="container">
-
 		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Consultar Información de Evento 10-33</h2>
-
 		    	<h3>Registro Nro.{{$transito->id}}</h3>
 					<span class="bg-gray font-weight-bold">Cod_Incidente:</span>
 					<p class="text-info">{{$transito->incidente->nombre_incidente}}</p>
@@ -26,7 +24,6 @@
 					<span class="bg-gray font-weight-bold">Cod_Estacion:</span>
 					<p class=" text-info">{{$transito->station_id}}</p>
 			<hr>
-
 					<span class="bg-gray font-weight-bold">Fecha:</span>
 					<p class="text-info">{{$transito->fecha}}</p>
 					<span class="bg-gray font-weight-bold">Ficha_Ecu911:</span>
@@ -37,7 +34,9 @@
 					<span class="bg-gray font-weight-bold">Dirección:</span>
 					 <p class="text-info">{{$transito->direccion}}</p>
 					<span class="bg-gray font-weight-bold">Parroquia: </span>
-					<p class="text-info">{{$transito->parroquia->nombre}}</p><br/>
+					<p class="text-info">{{$transito->parroquia->nombre}}</p>
+					<span class="bg-gray font-weight-bold">Georeferencia:</span>
+					 <p class="text-info">{{$transito->geoposicion}}</p><br/>
 			<hr>
 					<span class="bg-gray font-weight-bold">Hora Salida a Emergencia:</span>
 					<p class="text-info">{{$transito->hora_salida_a_emergencia}}</p><br/>
