@@ -33,7 +33,7 @@ class ConsultasController extends Controller
 
     public function activitylog()
     {
-    	$lastActivity = Activity::all(); //returns the last logged activity
+    	$lastActivity = Activity::all(); //returns the  logged activity
     	
     	return  $lastActivity;
     }
