@@ -1,5 +1,10 @@
 
 
+
+
+
+
+
 Sistema de Control y Registro de Incidentes a los que acude una institucion de Bomberos
 ## License
 
