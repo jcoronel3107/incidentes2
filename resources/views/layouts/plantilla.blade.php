@@ -4,9 +4,9 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta name="description" content="">
-		<meta name="author" content="">
-		<title>B.C.B.V.C - </title>
+		<meta name="description" content="System for the Control and Registration of Incidents to which a Firefighters Institution attends. Fully responsive system, that is, it works on mobiles, tablets and computers">
+		<meta name="Ing. Juan Coronel" content="">
+		<title>B.C.B.V.C - Incidentes2</title>
 		<!-- Custom styles for this template-->
 		<link href="/css/sb-admin-2.min.css" rel="stylesheet">
 		<!-- Custom fonts for this template-->
@@ -15,7 +15,7 @@
 		<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 	  	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 	</head>
-	<body onload="startTime()" id="page-top">
+	<body onload="startTime()"  id="page-top">
 		<!-- Page Wrapper -->
 		<div id="wrapper">
 @yield("cabeza")
@@ -112,7 +112,9 @@
 						<div class="container-fluid">
 @yield("cuerpo")
 						</div>
-					</div>
+						<div onload="initMap()" hidden="" id="map" style="width: 100%; height: 280px;"></div>
+							<hr >
+						</div>
 		      		<!-- End of Main Content -->
 @yield("piepagina")
 					@include("layouts.footer")
@@ -139,10 +141,8 @@
   		<!-- Page level plugins -->
   		<script src="/vendor/chart.js/Chart.min.js"></script>
 
-  		<!-- Page level custom scripts -->
+  		
 
-  		{{--
-  		<script src="/js/demo/chart-pie-demo.js"></script> --}}
 		@stack('scripts')
 	</body>
 </html>

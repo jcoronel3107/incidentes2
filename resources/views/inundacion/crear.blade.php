@@ -10,19 +10,24 @@
 		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Registro Información de Eventos 10-20</h2>
 		<ul class="nav justify-content-end">
 		  <li class="nav-item">
-		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('inundacion.index')}}"><i class="icon-remove icon-2x"></i>
-						</a>
+		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('inundacion.index')}}"><i class="icon-remove icon-2x"></i></a>
+			<a class="btn btn-outline-info"  data-toggle="tooltip" title="Whatsapp" role="button" onclick="notificacionWhatsapp();"><i class="icon-comments-alt icon-2x"></i></a>
+
 		  </li>
+		  
+
+		    
+		  
 		</ul>
 		<hr style="border:2px;">
 		<form method="post" action="/inundacion">
-			<div class="form-row">
+			<div  class="form-row">
 				{{csrf_field()}}
 				<div class="form-group input-group  col-md-4">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Fecha</span>
 					</div>
-					<input type="date" required="" name="fecha" class="form-control">
+					<input type="date" placeholder="Introduce una fecha" required="" id="fecha" name="fecha" class="form-control">
 				</div>
 				
 			</div><!--Div Fecha-->
@@ -297,8 +302,8 @@
 		 @endforeach
 		@endif
 		@push ('scripts')
-			<script>
-					$(document).ready(function(){
+		<script>
+				$(document).ready(function(){
 					
 					$("#bt_add").click(function () {
 						agregar();
@@ -334,7 +339,8 @@
 				            $("#pdireccion").removeClass('error');
 				          }
 				      });
-				});
+					});
+
 				total=0;
 				var cont=0;
 				var jqkm_salida=0;
@@ -388,7 +394,24 @@
 				function mayus( e ) {
 					e.value = e.value.toUpperCase();
 				}
-			</script>
+		</script>
+		<script type="text/javascript">
+				$(document).ready(function(){
+					var dtToday = new Date();
+					var month = dtToday.getMonth() + 1;     // getMonth() is zero-based
+					var day = dtToday.getDate();
+					var year = dtToday.getFullYear();
+					if(month < 10)
+					      month = '0' + month.toString();
+					if(day < 10)
+					      day = '0' + day.toString();
+
+					
+				    var maxDate = year + '-' + month + '-' + day;
+					$('#fecha').attr('min', maxDate);
+				    
+				});
+		</script>
 
 		@endpush
 	@endsection

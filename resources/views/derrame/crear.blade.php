@@ -14,7 +14,9 @@
 			<a href="{{asset('files/hazmat.pdf')}}" target="_blank" role="button" data-toggle="tooltip" title="Ver Guia MatPel" class="btn btn-outline-info" ><i class="icon-file icon-2x"></i></a>
 					
 			<a href="/download/hazmat.pdf"  target="_blank" role="button" data-toggle="tooltip" title="Descargar Guia MatPel" class="btn btn-outline-info"><i class="icon-cloud-download icon-2x"></i></a>
-				
+
+		    <a class="btn btn-outline-info"  data-toggle="tooltip" title="Whatsapp" role="button" onclick="notificacionWhatsapp();"><i class="icon-comments-alt icon-2x"></i></a>
+
 			<a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('derrame.index')}}"><i class="icon-remove icon-2x"></i></a>	
 		  </li>
 		</ul>
@@ -32,7 +34,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Fecha</span>
 					</div>
-					<input type="date" required="" name="fecha" class="form-control">
+					<input type="date" required="" id="fecha" name="fecha" class="form-control">
 				</div>
 				
 			</div><!--Div Fecha-->
@@ -395,6 +397,23 @@
 					e.value = e.value.toUpperCase();
 				}
 			</script>
+			<script type="text/javascript">
+				$(document).ready(function(){
+					var dtToday = new Date();
+					var month = dtToday.getMonth() + 1;     // getMonth() is zero-based
+					var day = dtToday.getDate();
+					var year = dtToday.getFullYear();
+					if(month < 10)
+					      month = '0' + month.toString();
+					if(day < 10)
+					      day = '0' + day.toString();
+
+					
+				    var maxDate = year + '-' + month + '-' + day;
+					$('#fecha').attr('min', maxDate);
+				    
+				});
+		</script>
 
 		@endpush
 	@endsection

@@ -51,6 +51,26 @@
 				    });
 				  }
 
+				  function notificacionWhatsapp(){
+				  	var address = document.getElementById('pdireccion').value;
+				  	if (address!="") {
+				  	var name = document.getElementById('pgeoposicion').value;
+				  	name = (name.replace(/ /g, ""));
+				  	var urlgeo = 'https://maps.google.com/?q='+name+'&z=14&t=k';
+				  	
+				  	var url = 'https://wa.me/?text=Incidente%20Tipo%2010_20%20Ubicacion%20'+urlgeo;
+				  	window.open(url);
+				  	}
+				  	else
+				  		alert('Campo Dirección esta vacio');
+				  }
+
+				  
+				  
+        		
+      
+
+
 
 
 				

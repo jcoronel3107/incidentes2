@@ -53,6 +53,7 @@ Route::get('/activitylog',			'ConsultasController@activitylog');
 Route::get('/download/{file}', 		'DownloadsController@download');
 Route::post('cie10/import/',		'CieController@importacion');
 Route::post('inundacions/import/',	'InundacionController@importacion');
+Route::post('rescates/import/',		'RescateController@importacion');
 Route::post('transitos/import/',	'TransitoController@importacion');
 Route::post('incendios/import/',	'IncendioController@importacion');
 Route::post('fugas/import/',		'FugaController@importacion');
@@ -143,20 +144,22 @@ Route::get('/prueba', function () {
 
 
 	$mensualesInundacion= Inundacion::select(DB::raw("Month(fecha) as Mes,count(*) as count, 'inundacion'"))->whereYear('fecha',date('Y'))->groupBy(\DB::raw("Month(fecha)"))->get();
+	
 	$mensualesRescate= Rescate::select(DB::raw("Month(fecha) as Mes,count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(\DB::raw("Month(fecha)"))->get();
+	
 	$mensualesTransito= Transito::select(DB::raw("Month(fecha) as Mes,count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(\DB::raw("Month(fecha)"))->get();
 	$mensualesSalud= Salud::select(DB::raw("Month(fecha) as Mes,count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(\DB::raw("Month(fecha)"))->get();
 	$mensualesFuego= Incendio::select(DB::raw("Month(fecha) as Mes,count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(DB::raw("Month(fecha)"))->get();
 	$mensualesGas= Fuga::select(DB::raw("Month(fecha) as Mes,count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(DB::raw("Month(fecha)"))->get();
 	$mensualesDerrames= Derrame::select(DB::raw("Month(fecha) as Mes,count(*) as count,'derrame'"))->whereYear('fecha',date('Y'))->groupBy(DB::raw("Month(fecha)"))->get();
 	$EventosMensuales = $mensualesInundacion->merge($mensualesRescate);
-	$EventosMensuales = $EventosMensuales->merge($mensualesTransito);
-	$EventosMensuales = $EventosMensuales->merge($mensualesSalud);
-	$EventosMensuales = $EventosMensuales->merge($mensualesFuego);
-	$EventosMensuales = $EventosMensuales->merge($mensualesGas);
-	$EventosMensuales = $EventosMensuales->merge($mensualesDerrames);
+	//$EventosMensuales = $EventosMensuales->merge($mensualesTransito);
+	//$EventosMensuales = $EventosMensuales->merge($mensualesSalud);
+	//$EventosMensuales = $EventosMensuales->merge($mensualesFuego);
+	//$EventosMensuales = $EventosMensuales->merge($mensualesGas);
+	//$EventosMensuales = $EventosMensuales->merge($mensualesDerrames);
 
-	return $mensualesInundacion 	;
+	return $mensualesInundacion;
 });
 
 Route::get('/prueba2',function()

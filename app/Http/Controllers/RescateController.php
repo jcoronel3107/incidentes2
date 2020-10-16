@@ -16,7 +16,7 @@ use Illuminate\ Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\ Support\ Facades\Session;
 use App\Exports\ RescatesExport;
-use App\Exports\ RescatesImport;
+use App\Imports\ RescatesImport;
 use PDF;
 
 class RescateController extends Controller

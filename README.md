@@ -46,6 +46,8 @@ Fully responsive system, that is, it works on mobiles, tablets and computers
 6. Seed database
 `php artisan db:seed`
 
+## Authors
+Juan Fernando Coronel - jcoronel3107
 
 ## License
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

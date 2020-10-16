@@ -9,6 +9,7 @@
 		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Registro Información de Eventos 10-42</h2>
 		<ul class="nav justify-content-end">
 		  <li class="nav-item">
+		  	<a class="btn btn-outline-info"  data-toggle="tooltip" title="Whatsapp" role="button" onclick="notificacionWhatsapp();"><i class="icon-comments-alt icon-2x"></i></a>	
 		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{route('transito.index')}}"><i class="icon-remove icon-2x"></i>
 						</a>
 		  </li>
@@ -20,7 +21,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Fecha</span>
 					</div>
-					<input type="date" name="fecha" class="form-control" placeholder="AA-MM-DD" value="{{old('fecha',$now->format('Y-m-d'))}}">
+					<input type="date" name="fecha" id="fecha" class="form-control" placeholder="AA-MM-DD">
 				</div>
 			</div><!--Div Fecha-->
 			<div class="form-row ">
@@ -351,6 +352,24 @@
 
 				}
 			</script>
+			<script type="text/javascript">
+				$(document).ready(function(){
+					var dtToday = new Date();
+					var month = dtToday.getMonth() + 1;     // getMonth() is zero-based
+					var day = dtToday.getDate();
+					var year = dtToday.getFullYear();
+					if(month < 10)
+					      month = '0' + month.toString();
+					if(day < 10)
+					      day = '0' + day.toString();
+
+					
+				    var maxDate = year + '-' + month + '-' + day;
+					$('#fecha').attr('min', maxDate);
+				    
+				});
+		</script>
+
 		@endpush
 	@endsection
 	@section( "piepagina" )

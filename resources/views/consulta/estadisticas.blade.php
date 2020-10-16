@@ -667,7 +667,7 @@
 		    series: [{
         		type: 'areaspline',
         		name: 'Inundacion',
-		        data: [3, 2, 1, 3, 4,10,8, 5, 12, 31]
+		        data: [3, 2, 1, 0, 4,10,8, 5, 12, 31]
 	    	}, {
     		    type: 'areaspline',
         		name: 'Rescate',
