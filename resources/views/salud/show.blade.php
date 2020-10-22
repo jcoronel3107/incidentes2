@@ -93,17 +93,7 @@
 			</div>
 		</div>
 		<hr>
-		<div class="row p-3 border-left-primary">
-
-			<div class="col-6">
-				<span class="bg-gray font-weight-bold">Usuario Afectado:</span>
-				<p class="text-info">{{$salud->usuario_afectado}}</p>
-			</div>
-			<div class="col-6">
-				<span class="bg-gray font-weight-bold"> Danos Estimados:</span>
-				<p class="text-info text-wrap text-break">{{$salud->danos_estimados}}</p>
-			</div>
-		</div>
+		
 		<hr>
 		<div class="row p-3 border-left-primary">
 
@@ -130,6 +120,52 @@
 				      <th scope="row">{{$user->id}}</th>
 				      <td>{{$user->name}}</td>
 				      <td>{{$user->cargo}}</td>
+
+				    </tr>
+					@endforeach
+				  </tbody>
+				</table>
+			</div>
+		</div>
+		<hr>
+		<div class="row p-3 border-left-primary">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<p class="text-center"><h4>Usuarios Asistidos en Emergencia</h4></p>
+				<table class="table table-sm table-hover">
+				  <thead>
+				    <tr>
+				      <th scope="col">#</th>
+				      <th scope="col">cie_id</th>
+				      <th scope="col">paciente</th>
+				      <th scope="col">edad</th>
+				      <th scope="col">genero</th>
+
+				      <th scope="col">presion1</th>
+				      <th scope="col">presion2</th>
+				      <th scope="col">temperatura</th>
+				      <th scope="col">glasglow</th>
+				      <th scope="col">saturacion</th>
+				      <th scope="col">hoja prehospitalaria</th>
+				      <th scope="col">casasalud</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	@foreach($salud->pacientes as $paciente)
+				    <tr>
+				      <th scope="row">{{$paciente->id}}</th>
+				      <td>{{$paciente->cie_id}}</td>
+				      <td>{{$paciente->paciente}}</td>
+				      <td>{{$paciente->edad}}</td>
+				      <td>{{$paciente->genero}}</td>
+				    
+				      <td>{{$paciente->presion1}}</td>
+				      <td>{{$paciente->presion2}}</td>
+				      <td>{{$paciente->temperatura}}</td>
+				      <td>{{$paciente->glasglow}}</td>
+				      <td>{{$paciente->saturacion}}</td>
+				      <td>{{$paciente->hojapre}}</td>
+				      <td>{{$paciente->casasalud}}</td>
+
 
 				    </tr>
 					@endforeach

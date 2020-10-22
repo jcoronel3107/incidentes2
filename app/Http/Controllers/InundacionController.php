@@ -112,7 +112,7 @@ class InundacionController extends Controller
         		$inundacion->fecha = $request->fecha;
         		$inundacion->address = $request->address;
         		$inundacion->parroquia_id = $parroquia_id;
-        		$inundacion->geoposicion = "";
+        		$inundacion->geoposicion = $request->geoposicion;
         		$inundacion->ficha_ecu911 = $request->ficha_ecu911;
         		$inundacion->hora_fichaecu911 = $request->hora_fichaecu911;
         		$inundacion->hora_salida_a_emergencia = $request->hora_salida_a_emergencia;

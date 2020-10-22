@@ -14,6 +14,7 @@ class Paciente extends Model
 	protected $fillable=
 		[
 			"salud_id",
+			"cie_id",
 			"paciente",
 			"edad",
 			"genero",

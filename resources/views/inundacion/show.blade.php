@@ -57,7 +57,7 @@
 				</div>
 				<div class="col-4">
 					<span class="bg-gray font-weight-bold">Geoposición:</span>
-					<p class="text-info"></p>
+					<p class="text-info">{{$inundacion->geoposicion}}</p>
 				</div>
 			</div>
 			<hr>

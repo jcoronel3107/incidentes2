@@ -25,6 +25,7 @@ class CreatePacientesTable extends Migration
             $table->decimal("temperatura")->nullable();
             $table->unsignedinteger("glasglow")->nullable();
             $table->unsignedinteger("saturacion")->nullable();
+            $table->unsignedinteger("hojapre")->nullable();
             $table->string("casasalud",300)->nullable();
             $table->foreign('salud_id')->references('id')->on('saluds')
             ->constrained()

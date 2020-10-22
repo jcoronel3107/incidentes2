@@ -119,9 +119,10 @@ class SaludController extends Controller
             $salud->detalle_emergencia = $request->detalle_emergencia;
             $salud->usr_creador = auth()->user()->name;
             $salud->save();
+            //para almacenar Bomberos asistentes al evento
             $id = DB::table('saluds')
                 ->select(DB::raw('max(id) as id'))
-                ->first();
+                ->value('id');
             $maqui = User::findOrFail($conductor_id);
             $maqui->saluds()->sync($id);
             $jefe = User::findOrFail($jefeguardia_id);
@@ -148,6 +149,7 @@ class SaludController extends Controller
             //para almacenar personas asistidas en emergencia
             $cont=0;
             $cie10 = $request->get('frcie10');
+            
             $usuariof = $request->get('frpaciente');
             $edad = $request->get('fredad');
             $genero = $request->get('frgenero');
@@ -156,6 +158,7 @@ class SaludController extends Controller
             $temperatura = $request->get('frtemperatura');
             $glasglow = $request->get('frglasglow');
             $saturacion = $request->get('frsaturacion');
+            $hoja = $request->get('frhoja');
             $casasalud = $request->get('frcasasalud');
 
             while ($cont < count($cie10)) {
@@ -163,6 +166,7 @@ class SaludController extends Controller
                  $cie_id = DB::table('cies')
                   ->where('codigo',$cie10[$cont])
                   ->value('id');
+
                 $paciente->cie_id = $cie_id;
                 $paciente->paciente = $usuariof[$cont];
                 $paciente->edad = $edad[$cont];
@@ -172,7 +176,9 @@ class SaludController extends Controller
                 $paciente->temperatura = $temperatura[$cont];
                 $paciente->glasglow = $glasglow[$cont];
                 $paciente->saturacion = $saturacion[$cont];
+                $paciente->hojapre = $hoja[$cont];
                 $paciente->casasalud = $casasalud[$cont];
+                //dd($paciente);
                 $paciente->save();
                 $cont=$cont+1;
               }

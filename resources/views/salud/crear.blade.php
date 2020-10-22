@@ -237,7 +237,7 @@
 								</select>
 							</div>
 						</div>
-						<div class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
+						<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
 								<div class="form-group  input-group">
 									<div class="input-group-prepend">
 										<span class="input-group-text" >Presión sistólica</span>
@@ -277,7 +277,14 @@
 									<input type="number" class="form-control" value="{{old('saturación')}}"  name="saturación" id="psaturacion" placeholder="Digite Valor">
 								</div>
 						</div>
-
+						<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
+								<div class="form-group  input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text" ># Hoja Prehosp</span>
+									</div>
+									<input type="number" class="form-control" value="{{old('hoja')}}"  name="hoja" id="phoja" placeholder="Digite Valor">
+								</div>
+						</div>
 
 						<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
 								<div class="form-group  input-group">
@@ -333,10 +340,12 @@
 									<th>Temperatura</th>
 									<th>Glasgow</th>
 									<th>Saturación</th>
+									<th>#Hoja Prehosp</th>
 									<th>Casa Salud</th>
 									<th>Cie10</th>
 								</thead>
 								<tfoot></tfoot>
+									<th></th>
 									<th></th>
 									<th></th>
 									<th></th>
@@ -378,7 +387,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text" >Km.Salida</span>
 									</div>
-									<input type="number" class="form-control" value="{{old('km_salida')}}"  name="km_salida" id="pkm_salida" placeholder="000000">
+									<input type="number" class="form-control" value="{{old('ikm_salida')}}"  name="ikm_salida" id="pkm_salida" placeholder="000000">
 								</div>
 						</div>
 						<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
@@ -386,7 +395,7 @@
 									<div class="input-group-prepend">
 									<span class="input-group-text" id="inputDetalle">Km.Llegada</span>
 									</div>
-									<input type="number" class="form-control" id="pkm_llegada" name="km_llegada" value="{{old('km_llegada')}}" placeholder="000000">
+									<input type="number" class="form-control" id="pkm_llegada" name="ikm_llegada" value="{{old('ikm_llegada')}}" placeholder="000000">
 								</div>
 						</div>
 						<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2">
@@ -503,6 +512,7 @@
 				var jqpresion2=0;
 				var jqtemp=0;
 				var jqglas=0;
+				var jqhoja=0;
 				var jqsatura=0;
 				var jqcsalud="";
 				var jqcie="";
@@ -518,13 +528,14 @@
 					jqpresio2=$("#ppresiondias").val();
 					jqtemp=$("#ptemperatura").val();
 					jqglas=$("#pglasgow").val();
+					jqhoja=$("#phoja").val();
 					jqsatura=$("#psaturacion").val();
 					jqcsalud=$("#pcasasalud ").val();
 					jqcie=$("#pcie10").val();
 
-					if((jqnombres!="") && (jqedad!="") && (jqgenero !="") && (jqpresio1!="") && (jqpresio2!="") && (jqtemp!="")&&(jqglas!="")&&(jqsatura!="")&&(jqcsalud!="")&&(jqcie!=""))
+					if((jqnombres!="") && (jqedad!="") && (jqgenero !="") && (jqpresio1!="") && (jqpresio2!="") && (jqtemp!="")&&(jqglas!="")&&(jqsatura!="")&&(jqhoja!="")&&(jqcsalud!="")&&(jqcie!=""))
 					{
-						var filapaciente = '<tr class ="selected" id="filapaciente'+contpac+'"><td><button type="button" class="btn btn-warning" onclick="eliminar2('+contpac+')" type="button">X</button></td><td><input type="hidden" name="frpaciente[]" value="'+jqnombres+'">'+jqnombres+'</td><td><input type="hidden" readonly="true" name="fredad[]" value="'+jqedad+'">'+jqedad+'</td><td><input type="hidden" readonly="true" name="frgenero[]" value="'+jqgenero+'">'+jqgenero+'</td><td><input type="hidden" readonly="true" name="frpresion1[]" value="'+jqpresio1+'">'+jqpresio1+'</td><td><input type="hidden" readonly="true" name="frpresion2[]" value="'+jqpresio2+'">'+jqpresio2+'</td><td><input type="hidden" readonly="true" name="frtemperatura[]" value="'+jqtemp+'">'+jqtemp+'</td><td><input type="hidden" readonly="true" name="frglasglow[]" value="'+jqglas+'">'+jqglas+'</td><td><input type="hidden" readonly="true" name="frsaturacion[]" value="'+jqsatura+'">'+jqsatura+'</td><td><input type="hidden" readonly="true" name="frcasasalud[]" value="'+jqcsalud+'">'+jqcsalud+'</td><td><input type="hidden" readonly="true" name="frcie10[]" value="'+jqcie+'">'+jqcie+'</td></tr>';
+						var filapaciente = '<tr class ="selected" id="filapaciente'+contpac+'"><td><button type="button" class="btn btn-warning" onclick="eliminar2('+contpac+')" type="button">X</button></td><td><input type="hidden" name="frpaciente[]" value="'+jqnombres+'">'+jqnombres+'</td><td><input type="hidden" readonly="true" name="fredad[]" value="'+jqedad+'">'+jqedad+'</td><td><input type="hidden" readonly="true" name="frgenero[]" value="'+jqgenero+'">'+jqgenero+'</td><td><input type="hidden" readonly="true" name="frpresion1[]" value="'+jqpresio1+'">'+jqpresio1+'</td><td><input type="hidden" readonly="true" name="frpresion2[]" value="'+jqpresio2+'">'+jqpresio2+'</td><td><input type="hidden" readonly="true" name="frtemperatura[]" value="'+jqtemp+'">'+jqtemp+'</td><td><input type="hidden" readonly="true" name="frglasglow[]" value="'+jqglas+'">'+jqglas+'</td><td><input type="hidden" readonly="true" name="frsaturacion[]" value="'+jqsatura+'">'+jqsatura+'</td><td><input type="hidden" readonly="true" name="frhoja[]" value="'+jqhoja+'">'+jqhoja+'</td><td><input type="hidden" readonly="true" name="frcasasalud[]" value="'+jqcsalud+'">'+jqcsalud+'</td><td><input type="hidden" readonly="true" name="frcie10[]" value="'+jqcie+'">'+jqcie+'</td></tr>';
 						contpac++;
 						limpiarpaciente();
 						evaluarpaciente();

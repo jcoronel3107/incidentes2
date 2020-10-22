@@ -164,7 +164,7 @@ Route::get('/prueba', function () {
 
 Route::get('/prueba2',function()
 	{
-		$client = new \GuzzleHttp\Client();
+		/*$client = new \GuzzleHttp\Client();
 
 		$geocoder = new Geocoder($client);
 		$geocoder->setApiKey(env('GOOGLE_MAPS_GEOCODING_API_KEY'));
@@ -180,6 +180,14 @@ Route::get('/prueba2',function()
 		//dd($geocoder);
 
 		return view('google')->with('geocoder',$geocoder);
+*/
+		$attrs="";
+		$ids = DB::table('saluds')->select(DB::raw('max(id) as id'))->value('id')
+                ;
+                //foreach($ids as $id){
 
+					//$attrs->id;}
+
+                return $ids;
 	});
 
