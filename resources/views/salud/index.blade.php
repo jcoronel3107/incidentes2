@@ -87,13 +87,12 @@
 		<table class="table table-hover table-condensed">
 			<thead>
 				<tr class="table-primary">
-
-					<th>Incidente</th>
-					<th>Estacion</th>
-					<th>Fecha</th>
-					<th>Direccion</th>
-					<th>Ficha_Ecu911</th>
-					<th>Opciones</th>
+					<th>{!! trans('messages.Incident') !!}</th>
+					<th>{!! trans('messages.Station') !!}</th>
+					<th>{!! trans('messages.Date') !!}</th>
+					<th>{!! trans('messages.Address') !!}</th>
+					<th>{!! trans('messages.Options') !!}</th>
+					
 				</tr>
 			</thead>
 			<tbody>
@@ -104,7 +103,6 @@
 					<td>{{$salud->station->nombre}}</td>
 					<td>{{$salud->fecha}}</td>
 					<td>{{$salud->direccion}}</td>
-					<td>{{$salud->ficha_ecu911}}</td>
 					<td>
 						@can('edit evento')
 						<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Edit" href="{{route('salud.edit',$salud->id)}}"><i class="icon-edit"></i></a>
@@ -124,12 +122,11 @@
 			</tbody>
 			<tfoot>
 				<tr class="table-primary">
-					<td>Incidente</td>
-					<td>Estacion</td>
-					<td>Fecha</td>
-					<td>Direccion</td>
-					<td>Ficha_Ecu911</td>
-					<td>Opciones</td>
+					<th>{!! trans('messages.Incident') !!}</th>
+					<th>{!! trans('messages.Station') !!}</th>
+					<th>{!! trans('messages.Date') !!}</th>
+					<th>{!! trans('messages.Address') !!}</th>
+					<th>{!! trans('messages.Options') !!}</th>
 				</tr>
 			</tfoot>
 		</table>

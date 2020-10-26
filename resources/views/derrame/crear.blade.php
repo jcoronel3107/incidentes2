@@ -7,7 +7,7 @@
 
 	@section( "cuerpo" )
 
-		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Registro Información de Eventos Derrame</h2>
+		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">{!! trans('messages.Hazmat Event Information Log') !!}</h2>
 		<ul class="nav justify-content-end">
 		  <li class="nav-item">
 		    

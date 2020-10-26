@@ -86,12 +86,12 @@
 		<table id="dataTable" class="table table-hover table-condensed dataTable" role="grid" aria-describedby="dataTable_info">
 			<thead>
 				<tr role="row" class="table-primary">
-					<th>Incidente</th>
-					<th>Estacion</th>
-					<th>Fecha</th>
-					<th>Direccion</th>
-					<th>Ficha_Ecu911</th>
-					<th>Opciones</th>
+					<th>{!! trans('messages.Incident') !!}</th>
+					<th>{!! trans('messages.Station') !!}</th>
+					<th>{!! trans('messages.Date') !!}</th>
+					<th>{!! trans('messages.Address') !!}</th>
+					<th>{!! trans('messages.Options') !!}</th>
+
 				</tr>
 			</thead>
 			<tbody>
@@ -101,7 +101,6 @@
 					<td>{{$rescate->station->nombre}}</td>
 					<td>{{$rescate->fecha}}</td>
 					<td align="left">{{$rescate->direccion}}</td>
-					<td>{{$rescate->ficha_ecu911}}</td>
 					<td>
 						@can('edit evento')
 						<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Edit" href="{{route('rescate.edit',$rescate->id)}}"><i class="icon-edit"></i></a>
@@ -120,12 +119,11 @@
 			</tbody>
 			<tfoot>
 				<tr class="table-primary">
-					<td>Incidente</td>
-					<td>Estacion</td>
-					<td>Fecha</td>
-					<td>Direccion</td>
-					<td>Ficha_Ecu911</td>
-					<td>Opciones</td>
+					<th>{!! trans('messages.Incident') !!}</th>
+					<th>{!! trans('messages.Station') !!}</th>
+					<th>{!! trans('messages.Date') !!}</th>
+					<th>{!! trans('messages.Address') !!}</th>
+					<th>{!! trans('messages.Options') !!}</th>
 				</tr>
 			</tfoot>
 		</table>

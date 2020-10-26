@@ -84,13 +84,12 @@
 		<table class="table table-hover table-condensed">
 			<thead>
 				<tr class="table-primary">
-					<th>Incidente</th>
-					<th>Estacion</th>
-					<td>Fecha</td>
-					<th>Direccion</th>
-					<th>Ficha_Ecu911</th>
-					<th>Created_at</th>
-					<th>Opciones</th>
+					<th>{!! trans('messages.Incident') !!}</th>
+					<th>{!! trans('messages.Station') !!}</th>
+					<th>{!! trans('messages.Date') !!}</th>
+					<th>{!! trans('messages.Address') !!}</th>
+					<th>{!! trans('messages.Options') !!}</th>
+					
 				</tr>
 			</thead>
 			<tbody>
@@ -100,8 +99,6 @@
 					<td>{{$incendio->station->nombre}}</td>
 					<td>{{$incendio->fecha}}</td>
 					<td>{{$incendio->direccion}}</td>
-					<td>{{$incendio->ficha_ecu911}}</td>
-					<td>{{$incendio->created_at}}</td>
 					<td>
 					@can('edit evento')
 						<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Edit" href="{{route('fuego.edit',$incendio->id)}}"><i class="icon-edit"></i></a>
@@ -145,13 +142,11 @@
 			</tbody>
 			<tfoot>
 				<tr class="table-primary">
-					<td>Incidente</td>
-					<td>Estacion</td>
-					<td>Fecha</td>
-					<td>Direccion</td>
-					<td>Ficha_Ecu911</td>
-					<td>Created_at</td>
-					<td>Opciones</td>
+					<th>{!! trans('messages.Incident') !!}</th>
+					<th>{!! trans('messages.Station') !!}</th>
+					<th>{!! trans('messages.Date') !!}</th>
+					<th>{!! trans('messages.Address') !!}</th>
+					<th>{!! trans('messages.Options') !!}</th>
 				</tr>
 			</tfoot>
 		</table>

@@ -5,6 +5,7 @@
 	@endsection
 
 	@section( "cuerpo" )
+		
 		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">{!! trans('messages.Consult Hazmat Information') !!}</h2>
 		@if(Session::has('Envio Mail Correcto'))
 			<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -86,11 +87,11 @@
 		<table class="table table-hover table-condensed">
 			<thead>
 				<tr class="table-primary">
-					<th>Incidente</th>
-					<th>Estacion</th>
-					<th>Fecha</th>
-					<th>Direccion</th>
-					<th>Opciones</th>
+					<th>{!! trans('messages.Incident') !!}</th>
+					<th>{!! trans('messages.Station') !!}</th>
+					<th>{!! trans('messages.Date') !!}</th>
+					<th>{!! trans('messages.Address') !!}</th>
+					<th>{!! trans('messages.Options') !!}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -149,11 +150,11 @@
 			</tbody>
 			<tfoot>
 				<tr class="table-primary">
-					<td>Incidente</td>
-					<td>Estación</td>
-					<td>Fecha</td>
-					<td>Dirección</td>
-					<td>Opciones</td>
+					<th>{!! trans('messages.Incident') !!}</th>
+					<th>{!! trans('messages.Station') !!}</th>
+					<th>{!! trans('messages.Date') !!}</th>
+					<th>{!! trans('messages.Address') !!}</th>
+					<th>{!! trans('messages.Options') !!}</th>
 				</tr>
 			</tfoot>
 		</table>

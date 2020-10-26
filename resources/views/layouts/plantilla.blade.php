@@ -52,7 +52,7 @@
 						    </button>
 
 						    <!-- Topbar Navbar -->
-						    <img  src="/images/encabezado.png" alt="encabezadopdf" width="auto" height="70">
+						    
 						    <ul class="navbar-nav ml-auto">
 						    	<div class="topbar-divider d-none d-sm-block">
 						        </div>
@@ -61,7 +61,7 @@
 								                <div class="top-right links">
 								                    @foreach (array_keys(config('locale.languages')) as $lang)
 								                        @if ($lang != App::getLocale())
-								                            <i class="icon-flag icon-2x" ></i>
+								                            <i class="fas fa-language size:2x"></i>
 								                            <a href="{!! route('lang.swap', $lang) !!}">
 								                                    {!! $lang !!} 
 								                            </a>
@@ -109,7 +109,7 @@
 						    </ul>
 						</nav>
 						<!-- End of Topbar -->
-						<div class="container-fluid">
+						<div class="container-fluid fondo-blur">
 @yield("cuerpo")
 						</div>
 						<div onload="initMap()" hidden="" id="map" style="width: 100%; height: 280px;"></div>

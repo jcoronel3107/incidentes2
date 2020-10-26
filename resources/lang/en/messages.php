@@ -36,5 +36,12 @@ return [
     'Consult Traffic Accident Information' => 'Consult Traffic Accident Information',
     'Consult Fire Information' => 'Consult Fire Information',
     'Consult Leak Information' => 'Consult Leak Information',
+    'Hazmat Event Information Log'=> 'Hazmat Event Information Log',
+    'Edit Hazmat Event Information'=>'Edit Hazmat Event Information',
+    'Incident'=>'Incident',
+    'Station'=>'Station',
+    'Date'=>'Date',
+    'Address'=>'Address',
+    'Options'=>'Options',
 
 ];

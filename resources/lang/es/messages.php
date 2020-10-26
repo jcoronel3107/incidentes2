@@ -36,5 +36,12 @@ return [
     'Consult Traffic Accident Information' => 'Consulta Información de Accidentes Tránsito',
     'Consult Fire Information' => 'Consulta Información de Incendios',
     'Consult Leak Information' => 'Consulta Información de Fuga',
+    'Hazmat Event Information Log'=> 'Registro de Información Eventos Hazmat',
+    'Edit Hazmat Event Information'=>'Editar Información de Eventos Hazmat',
+    'Incident'=>'Incidente',
+    'Station'=>'Estación',
+    'Date'=>'Fecha',
+    'Address'=>'Dirección',
+    'Options'=>'Opciones'
 
 ];
