@@ -29,10 +29,10 @@ class CreateInundacionsTable extends Migration
 			$table->time("hora_llegada_a_emergencia");
 			$table->time("hora_fin_emergencia");
 			$table->time("hora_en_base");
-			$table->string("informacion_inicial",300);
-			$table->string("detalle_emergencia",300);
+			$table->string("informacion_inicial",1000);
+			$table->string("detalle_emergencia",1000);
 			$table->string("usuario_afectado");
-			$table->string("danos_estimados",300);
+			$table->string("danos_estimados",1000);
 			$table->string("usr_creador");
 			$table->string("usr_editor")->nullable();
             $table->foreign('incidente_id')->references('id')->on('incidentes')

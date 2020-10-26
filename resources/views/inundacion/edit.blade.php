@@ -54,7 +54,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Información Inicial</span>
 							</div>
-							<textarea class="form-control" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$inundacion->informacion_inicial)}}</textarea>
+							<textarea class="form-control" maxlength="1000" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$inundacion->informacion_inicial)}}</textarea>
 						</div>
 					</div>
 				</div>
@@ -101,7 +101,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Dirección</span>
 					</div>
-					<textarea class="form-control" id="pdireccion" name="address" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$inundacion->address)}}</textarea>
+					<textarea class="form-control" id="pdireccion" name="address" maxlength="1000" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$inundacion->address)}}</textarea>
 					<input type="button" value="Encode" onclick="codeAddress()">
 				</div>
 				<div class="form-group input-group input-group-prepend col-md-4">
@@ -120,7 +120,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputAddress">Geoposicion</span>
 					</div>
-					<textarea class="form-control" id="pgeoposicion" name="geoposicion" aria-label="With textarea">{{old('geoposicion',$inundacion->geoposicion)}}</textarea>
+					<textarea class="form-control" id="pgeoposicion" maxlength="1000" name="geoposicion" aria-label="With textarea">{{old('geoposicion',$inundacion->geoposicion)}}</textarea>
 				</div>
 			</div><!--Div Ubicacion Evento-->
 			<div onload="initMap()" id="map" style="width: 100%; height: 280px;"></div>
@@ -193,7 +193,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Detalle Emergencia</span>
 						</div>
-						<textarea class="form-control"name="detalle_emergencia" id="detalle_emergencia"  aria-label="With textarea" placeholder="Digite a detalle lo ocurrido en Emergencia">{{old('detalle_emergencia',$inundacion->detalle_emergencia)}}</textarea>
+						<textarea class="form-control"name="detalle_emergencia" id="detalle_emergencia" maxlength="1000"  aria-label="With textarea" placeholder="Digite a detalle lo ocurrido en Emergencia">{{old('detalle_emergencia',$inundacion->detalle_emergencia)}}</textarea>
 					</div>
 				</div>
 			</div>{{--Detalle Emergencia--}}
@@ -212,7 +212,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDaños">Daños Estimados</span>
 					</div>
-					<textarea  class="form-control" name="danos_estimados" id="danos_estimados">{{old('danos_estimados',$inundacion->danos_estimados)}}</textarea>
+					<textarea  class="form-control" maxlength="1000" name="danos_estimados" id="danos_estimados">{{old('danos_estimados',$inundacion->danos_estimados)}}</textarea>
 				</div>
 			</div>{{-- Daños Estimados --}}
 			<div class="form-group py-3 " id="divguardar">

@@ -51,7 +51,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Informacion Inicial</span>
 							</div>
-							<textarea class="form-control" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$salud->informacion_inicial)}}</textarea>
+							<textarea class="form-control" maxlength="1000" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$salud->informacion_inicial)}}</textarea>
 
 						</div>
 					</div>

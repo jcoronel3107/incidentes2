@@ -55,7 +55,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Informacion Inicial</span>
 							</div>
-							<textarea class="form-control Text-uppercase" id="pinformacion_inicial" name="informacion_inicial"  aria-label="With textarea" required="" ></textarea>
+							<textarea class="form-control Text-uppercase" maxlength="1000" id="pinformacion_inicial" name="informacion_inicial"  aria-label="With textarea" required="" ></textarea>
 						</div>
 					</div>
 					<p class="text-sm-left" id="pcounter">0</p>
@@ -103,7 +103,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Dirección</span>
 					</div>
-					<textarea  class="form-control" required name="direccion" id="pdireccion" placeholder="Ubicacion del Evento" aria-label="With textarea"></textarea>
+					<textarea  class="form-control" required name="direccion" maxlength="1000" id="pdireccion" placeholder="Ubicacion del Evento" aria-label="With textarea"></textarea>
 					<input type="button" value="Encode" onclick="codeAddress()">
 				</div>
 				<div class="form-group input-group input-group-prepend col-md-4">
@@ -197,7 +197,8 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Detalle Emergencia</span>
 					</div>
-					<input type="text" class="form-control" required="" name="detalle_emergencia" maxlength="300" id="detalle_emergencia" value="{{old('detalle_emergencia')}}" placeholder="Digite a detalle lo ocurrido en Emergencia">
+					<textarea class="form-control Text-uppercase" maxlength="1000" id="detalle_emergencia" name="detalle_emergencia"  aria-label="With textarea" required="" >{{old('danos_estimados')}}</textarea>
+					
 				</div>
 			</div><!--Detalle Emergencia-->
 			<div class="form-row">
@@ -213,7 +214,8 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDaños">Daños Estimados</span>
 					</div>
-					<input type="text" class="form-control" required="" name="danos_estimados" maxlength="300" id="danos_estimados" value="{{old('danos_estimados')}}" placeholder="Detalle los daños producidos por  el incidente">
+					<textarea class="form-control Text-uppercase" maxlength="1000" id="danos_estimados" name="danos_estimados"  aria-label="With textarea" required="" >{{old('danos_estimados')}}</textarea>
+
 				</div>
 			</div>{{-- Danos Estimados --}}
 			<div class="card">
@@ -298,7 +300,7 @@
 		@push ('scripts')
 			<script>
 				$(document).ready(function(){
-					var max_chars = 80;
+					var max_chars = 1000;
 					$('#max').html(max_chars);
 					$("#bt_add").click(function () {
 								agregar();
@@ -310,7 +312,7 @@
 			        var leyenda = "Caracteres Permitidos 180 Cant:";
 			        var res = leyenda.concat(chars);
 			        $("#pcounter").html(res);
-			        if(chars >= 180){
+			        if(chars >= 1000){
 			           $("#pinformacion_inicial").addClass('error');
 			           $("#pinformacion_inicial").addClass('error');
 			          }else{
@@ -325,7 +327,7 @@
 			        var leyenda = "Caracteres Permitidos 180 Cant:";
 			        var res = leyenda.concat(chars);
 			        $("#pcounter1").html(res);
-			        if(chars >= 180){
+			        if(chars >= 1000){
 			           $("#pdireccion").addClass('error');
 			           $("#pdireccion").addClass('error');
 			          }else{

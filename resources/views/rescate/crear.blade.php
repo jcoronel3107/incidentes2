@@ -57,7 +57,7 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text">Informacion Inicial</span>
 								</div>
-								<textarea class="form-control" id="pinformacion_inicial" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial')}}</textarea>
+								<textarea class="form-control" id="pinformacion_inicial" name="informacion_inicial" maxlength="1000"  aria-label="With textarea" >{{old('informacion_inicial')}}</textarea>
 							</div>
 						</div>
 					</div>
