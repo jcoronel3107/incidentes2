@@ -24,7 +24,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Fecha</span>
 					</div>
-					<input type="date" id="fecha" name="fecha" class="form-control" placeholder="AA-MM-DD" value="{{old('fecha',$now->format('Y-m-m'))}}">
+					<input type="date" id="fecha" name="fecha" class="form-control" placeholder="AA-MM-DD" value="{{$now->format('Y-m-m')}}">
 				</div>
 			</div><!--Div Fecha-->
 			<div class="form-row ">
@@ -200,7 +200,8 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Detalle Emergencia</span>
 					</div>
-					<input type="text" maxlength="180" class="form-control" name="detalle_emergencia" id="detalle_emergencia" value="{{old('detalle_emergencia')}}" placeholder="Digite a detalle lo ocurrido en Emergencia">
+					<textarea class="form-control Text-uppercase" maxlength="1000" id="detalle_emergencia" name="detalle_emergencia"  placeholder="Digite a detalle lo ocurrido en Emergencia" aria-label="With textarea" required="" >{{old('detalle_emergencia')}}</textarea>
+					
 				</div>
 			</div><!--Detalle Emergencia-->
 			<div class="form-row">
@@ -216,7 +217,8 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDaños">Daños Estimados</span>
 					</div>
-					<input type="text" maxlength="180" class="form-control" name="danos_estimados" id="danos_estimados" value="{{old('danos_estimados')}}" placeholder="Detalle los daños producidos por  el incidente">
+					<textarea class="form-control Text-uppercase" maxlength="1000" id="danos_estimados" name="danos_estimados"  placeholder="Detalle los daños producidos por  el incidente" required="" >{{old('danos_estimados')}}</textarea>
+					
 				</div>
 			</div>{{-- Danos Estimados --}}
 			<div class="card">

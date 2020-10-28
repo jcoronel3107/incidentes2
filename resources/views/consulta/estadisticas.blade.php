@@ -11,22 +11,22 @@
     <a class="nav-link active" id="General-tab" data-toggle="tab" href="#General" role="tab" aria-controls="General" aria-selected="true">General</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="Inundaciones-tab" data-toggle="tab" href="#Inundaciones" role="tab" aria-controls="Inundaciones" aria-selected="true">Inundaciones</a>
+    <a class="nav-link" id="Inundaciones-tab" data-toggle="tab" href="#Inundaciones" role="tab" aria-controls="Inundaciones" aria-selected="true">{!! trans('messages.flood') !!}</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="Rescates-tab" data-toggle="tab" href="#Rescates" role="tab" aria-controls="Rescates" aria-selected="false">Rescates</a>
+    <a class="nav-link" id="Rescates-tab" data-toggle="tab" href="#Rescates" role="tab" aria-controls="Rescates" aria-selected="false">{!! trans('messages.rescue') !!}</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="Transito-tab" data-toggle="tab" href="#Transito" role="tab" aria-controls="Transito" aria-selected="false">Transito</a>
+    <a class="nav-link" id="Transito-tab" data-toggle="tab" href="#Transito" role="tab" aria-controls="Transito" aria-selected="false">{!! trans('messages.transit') !!}</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="Salud-tab" data-toggle="tab" href="#Salud" role="tab" aria-controls="Salud" aria-selected="false">Salud</a>
+    <a class="nav-link" id="Salud-tab" data-toggle="tab" href="#Salud" role="tab" aria-controls="Salud" aria-selected="false">{!! trans('messages.Health') !!}</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="Fuego-tab" data-toggle="tab" href="#Fuego" role="tab" aria-controls="Fuego" aria-selected="false">Fuego</a>
+    <a class="nav-link" id="Fuego-tab" data-toggle="tab" href="#Fuego" role="tab" aria-controls="Fuego" aria-selected="false">{!! trans('messages.fire') !!}</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="F-Gas-tab" data-toggle="tab" href="#F-Gas" role="tab" aria-controls="F-Gas" aria-selected="false">F-Gas</a>
+    <a class="nav-link" id="F-Gas-tab" data-toggle="tab" href="#F-Gas" role="tab" aria-controls="F-Gas" aria-selected="false">{!! trans('messages.leak') !!}</a>
   </li>
 </ul>
 <div class="tab-content" id="myTabContent">

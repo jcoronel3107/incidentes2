@@ -17,7 +17,7 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Eventos
+        {!! trans('messages.event') !!}
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
@@ -64,7 +64,7 @@
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTransito" aria-expanded="true" aria-controls="collapseTransito">
-          <i class="fas fa-fw fa-wrench"></i>
+          <i class="fas fa-car-crash"></i>
           <span>{!! trans('messages.transit')!!}</span>
         </a>
         <div id="collapseTransito" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
@@ -129,7 +129,7 @@
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="true" aria-controls="collapseServicios">
-          <i class="fas fa-fw fa-wallet"></i>
+          <i class="fas fa-clipboard-check"></i>
           <span>{!! trans('messages.Services')!!}</span>
         </a>
         <div id="collapseServicios" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
