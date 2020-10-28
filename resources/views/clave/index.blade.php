@@ -76,15 +76,14 @@
 			<thead>
 				<tr class="table-primary">
 
-					<td>Orden</td>
-					<td>Dolares</td>
-					<td>Galones</td>
-					<td>Combustible</td>
-					<td>Gasolinera</td>
-					<td>Conductor</td>
-					<td>Vehiculo</td>
-					<td>Opciones</td>
-
+					<td>{!! trans('messages.Order') !!}</td>
+					<td>{!! trans('messages.Dollars') !!}</td>
+					<td>{!! trans('messages.Gallons') !!}</td>
+					<td>{!! trans('messages.Fuel') !!}</td>
+					<td>{!! trans('messages.Gas Station') !!}</td>
+					<td>{!! trans('messages.Driver') !!}</td>
+					<td>{!! trans('messages.Vehicle') !!}</td>
+					<td>{!! trans('messages.Options') !!}</td>
 
 			</thead>
 			<tbody>

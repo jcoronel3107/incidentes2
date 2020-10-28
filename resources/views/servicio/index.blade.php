@@ -6,7 +6,7 @@
 	@endsection
 
 	@section( "cuerpo" )
-		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Consultar Información de Clave_14</h2>
+		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">{!! trans('messages.Check Services Commission Information') !!}</h2>
 		@if(Session::has('Envio Mail Correcto'))
 			<div class="alert alert-success alert-dismissible fade show" role="alert">
 			{{session('Envio Mail Correcto')}}
@@ -59,61 +59,60 @@
 		<ul class="nav justify-content-end">
 		  <li class="nav-item">
 		      @can('create evento')
-		      <a class="btn btn-outline-danger" href="clave/create">Nuevo</a>
+		      <a class="btn btn-outline-danger" href="servicio/create">Nuevo</a>
 		      @endcan
 		      @can('allow export')
-		      <a class="btn btn-outline-success" href="claves/export/">Exporta Excel</a>
+		      <a class="btn btn-outline-success" href="servicios/export/">Exporta Excel</a>
 		      @endcan
 		      @can('allow import')
-		      <a class="btn btn-outline-success" href="claves/import/">Importar Excel</a>
+		      <a class="btn btn-outline-success" href="servicios/import/">Importar Excel</a>
 		      @endcan
-		      <a class="btn btn-outline-success" href="claves/grafic/">Grafica</a>
+		      <a class="btn btn-outline-success" href="servicios/grafic/">Grafica</a>
 		    </li>
 		</ul>
 		<hr style="border:2px;">
-		@include('clave.search')
+		@include('servicio.search')
 		<table class="table p-3 table-hover table-condensed">
 			<thead>
 				<tr class="table-primary">
 
-					<td>Orden</td>
-					<td>Dolares</td>
-					<td>Galones</td>
-					<td>Combustible</td>
-					<td>Gasolinera</td>
-					<td>Conductor</td>
-					<td>Vehiculo</td>
-					<td>Opciones</td>
-
+					<td>{!! trans('messages.departure date') !!}</td>
+					<td>{!! trans('messages.return_date') !!}</td>
+					<td>{!! trans('messages.office') !!}</td>
+					<td>{!! trans('messages.delegative') !!}</td>
+					<td>{!! trans('messages.km_output') !!}</td>
+					<td>{!! trans('messages.km_return') !!}</td>
+					<td>{!! trans('messages.Vehicle') !!}</td>
+					<td>{!! trans('messages.Options') !!}</td>
 
 			</thead>
 			<tbody>
-				@foreach($claves as $clave)
+				@foreach($servicios as $servicio)
 				<tr>
-					<td>{{$clave->Orden}}</td>
-					<td>{{$clave->dolares}}.USD</td>
-					<td>{{$clave->galones}}</td>
-					<td>{{$clave->combustible}}</td>
-					<td>{{$clave->gasolinera->razonsocial}}</td>
-					<td>{{$clave->user->name}}</td>
-					<td>{{$clave->vehiculo->codigodis}}</td>
+					<td>{{$servicio->fecha_salida}}</td>
+					<td>{{$servicio->fecha_retorno}}</td>
+					<td>{{$servicio->unidad}}</td>
+					<td>{{$servicio->delegante}}</td>
+					<td>{{$servicio->km_salida}}.Km</td>
+					<td>{{$servicio->km_retorno}}.Km</td>
+					<td>{{$servicio->vehiculo->codigodis}}</td>
 					<td>
 					@can('edit evento')
-						<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Edit" href="{{route('clave.edit',$clave->id)}}"><i class="icon-edit"></i></a>
+						<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Edit" href="{{route('servicio.edit',$servicio->id)}}"><i class="icon-edit"></i></a>
 					@endcan
-						<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Ver" href="{{route('clave.show',$clave->id)}}" role="button"><i class="icon-list"></i></a>
+						<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Ver" href="{{route('servicio.show',$servicio->id)}}" role="button"><i class="icon-list"></i></a>
 					@can('send mail')
 						<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" data-target="#exampleModal" role="button"><i class="icon-envelope"></i></a>
 					@endcan
 					@can('create pdf')
-						<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="PDF" href="{{action('ClaveController@downloadPDF', $clave->id)}}" role="button"><i class="icon-file-text"></i></a>
+						<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="PDF" href="{{action('ServicioController@downloadPDF', $servicio->id)}}" role="button"><i class="icon-file-text"></i></a>
 					@endcan
 					</td>
 				</tr>
 				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
-		      <form method="get" action="{{action('MailController@SendMailsClave', $clave->id  )}}" class="form-horizontal">
+		      <form method="get" action="{{action('MailController@SendMailsServicio', $servicio->id  )}}" class="form-horizontal">
 			      <div class="modal-header">
 			      		<h5 class="modal-title" id="exampleModalLabel">Destinatario</h5>
 			        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -141,6 +140,6 @@
 			</tbody>
 		</table>
 
-		{{ $claves -> appends(['searchText' => $query]) -> links() }}
+		{{ $servicios -> appends(['searchText' => $query]) -> links() }}
 	@endsection
  @section( "piepagina" ) @endsection

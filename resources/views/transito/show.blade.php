@@ -27,7 +27,7 @@
 				<p class=" text-info">{{$transito->tipo_escena}}</p>
 			</div>
 			<div class="col-2">
-				<span class="bg-gray font-weight-bold">Cod_Estacion:</span>
+				<span class="bg-gray font-weight-bold">Estación:</span>
 				<p class=" text-info">{{$transito->station_id}}</p>
 			</div>
 			<div class="col-2">
@@ -35,11 +35,11 @@
 				<p class="text-info">{{$transito->fecha}}</p>
 			</div>
 			<div class="col-2">
-				<span class="bg-gray font-weight-bold">Ficha_Ecu911:</span>
+				<span class="bg-gray font-weight-bold"># Ficha E911:</span>
 				<p class="text-info">{{$transito->ficha_ecu911}}</p>
 			</div>
 			<div class="col-2">
-				<span class="bg-gray font-weight-bold">Hora_FichaEcu911:</span>
+				<span class="bg-gray font-weight-bold">H. FichaEcu911:</span>
 				<p class="text-info">{{$transito->hora_fichaecu911}}</p>
 			</div>
 		</div>

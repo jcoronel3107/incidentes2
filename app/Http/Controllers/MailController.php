@@ -15,6 +15,7 @@ use App\Incendio;
 use App\Salud;
 use App\Parroquia;
 use App\Vehiculo;
+use App\Servicio;
 use Illuminate\Support\Facades\ Mail;
 use Illuminate\ Support\ Facades\ Auth;
 use Illuminate\ Support\ Facades\Session;
@@ -26,6 +27,7 @@ use App\Mail\ReportSentIncendio;
 use App\Mail\ReportSentGas;
 use App\Mail\ReportSentClave;
 use App\Mail\ReportSentDerrame;
+use App\Mail\ReportSentServicio;
 
 
 class MailController extends Controller
@@ -105,5 +107,14 @@ class MailController extends Controller
         Mail::to($destinatario)->send(new ReportSentDerrame($data));
         Session::flash('Envio Mail Correcto',"Reporte Enviado con Exito!!!");
         return redirect( "/derrame" );
+    }
+
+    public function SendMailsServicio($id,Request $request){
+        $destinatario = $request->email;
+        /*$destinatario = auth()->user()->email;*/
+        $data = Servicio::findOrFail($id);
+        Mail::to($destinatario)->send(new ReportSentServicio($data));
+        Session::flash('Envio Mail Correcto',"Reporte Enviado con Exito!!!");
+        return redirect( "/servicio" );
     }
 }

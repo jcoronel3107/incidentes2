@@ -74,7 +74,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'cargo'=> 'Asistente Administrativa',
             'password' => Hash::make('secret')
         ]);
-        $user->assignRole($role1);
+        $user->assignRole($role2);
 
         $user = Factory(App\User::class)->create([
             'name' => 'Mayra Cedillo',
@@ -87,9 +87,105 @@ class RolesAndPermissionsSeeder extends Seeder
         $user = Factory(App\User::class)->create([
             'name'=> 'Severo Regalado',
             'email'=> 'sregalado@bomberos.gob.ec',
-            'cargo'=> 'bombero',
+            'cargo'=> 'operador',
             'password'=> Hash::make('secret')
         ]);
         $user->assignRole($role3);
+
+        $user = Factory(App\User::class)->create([
+            'name'=> 'Freddy Romero',
+            'email'=> 'fromero@bomberos.gob.ec',
+            'cargo'=> 'operador',
+            'password'=> Hash::make('secret')
+        ]);
+        $user->assignRole($role3);
+
+        $user = Factory(App\User::class)->create([
+            'name'=> 'Renato Fernandez Cordova',
+            'email'=> 'rfernandezcordova@bomberos.gob.ec',
+            'cargo'=> 'operador',
+            'password'=> Hash::make('secret')
+        ]);
+        $user->assignRole($role3);
+
+        $user = Factory(App\User::class)->create([
+            'name'=> 'Patricio Bravo',
+            'email'=> 'pbravo@bomberos.gob.ec',
+            'cargo'=> 'operador',
+            'password'=> Hash::make('secret')
+        ]);
+        $user->assignRole($role3);
+
+        $user = Factory(App\User::class)->create([
+            'name'=> 'Dario Vimos',
+            'email'=> 'dvimos@bomberos.gob.ec',
+            'cargo'=> 'bombero',
+            'password'=> Hash::make('secret')
+        ]);
+        $user->assignRole($role1);
+
+        $user = Factory(App\User::class)->create([
+            'name'=> 'Juan Llivisupa',
+            'email'=> 'jllivisupa@bomberos.gob.ec',
+            'cargo'=> 'bombero',
+            'password'=> Hash::make('secret')
+        ]);
+        $user->assignRole($role1);
+
+        $user = Factory(App\User::class)->create([
+            'name'=> 'Juan Apolo',
+            'email'=> 'japolo@bomberos.gob.ec',
+            'cargo'=> 'bombero',
+            'password'=> Hash::make('secret')
+        ]);
+        $user->assignRole($role1);
+
+        $user = Factory(App\User::class)->create([
+            'name'=> 'Juan Alvarez',
+            'email'=> 'jalvarez@bomberos.gob.ec',
+            'cargo'=> 'maquinista',
+            'password'=> Hash::make('secret')
+        ]);
+        $user->assignRole($role1);
+
+        $user = Factory(App\User::class)->create([
+            'name'=> 'Eduardo Ortega',
+            'email'=> 'eortega@bomberos.gob.ec',
+            'cargo'=> 'maquinista',
+            'password'=> Hash::make('secret')
+        ]);
+        $user->assignRole($role1);
+
+        $user = Factory(App\User::class)->create([
+            'name'=> 'Jorge Webster',
+            'email'=> 'jwebster@bomberos.gob.ec',
+            'cargo'=> 'maquinista',
+            'password'=> Hash::make('secret')
+        ]);
+        $user->assignRole($role1);
+
+        $user = Factory(App\User::class)->create([
+            'name'=> 'Jonathan Quintanilla',
+            'email'=> 'jquintanilla@bomberos.gob.ec',
+            'cargo'=> 'bombero',
+            'password'=> Hash::make('secret')
+        ]);
+        $user->assignRole($role1);
+
+        $user = Factory(App\User::class)->create([
+            'name'=> 'Maria Fernanda Vicuña',
+            'email'=> 'mvicuna@bomberos.gob.ec',
+            'cargo'=> 'bombero',
+            'password'=> Hash::make('secret')
+        ]);
+        $user->assignRole($role1);
+
+        $user = Factory(App\User::class)->create([
+            'name'=> 'Rodolfo Elizalde',
+            'email'=> 'relizalde@bomberos.gob.ec',
+            'cargo'=> 'bombero',
+            'password'=> Hash::make('secret')
+        ]);
+        $user->assignRole($role1);
     }
 }

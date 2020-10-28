@@ -6,129 +6,137 @@
 	@endsection
 
 	@section( "cuerpo" )
-		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Editar Información de Clave_14</h2>
+		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">{!! trans('messages.Edit Service Commission Information') !!}</h2>
 
-
-		<form method="post" action="/clave/{{$claves->id}}">
+		<form method="post" action="/servicio/{{$servicio->id}}">
 			@csrf @method('PATCH')
+			
 			<div class="form-row">
-				<div class="form-group input-group  col-md-8">
+				{{csrf_field()}}
+				<div class="form-group input-group  col-md-4">
 					<div class="input-group-prepend">
-						<span class="input-group-text">Estaciòn Servicio</span>
+						<span class="input-group-text">Fecha Salida</span>
 					</div>
-					<select class="form-control" name="gasolinera_id">
-						<option selected>{{old('gasolinera_id',$claves->gasolinera->razonsocial)}}</option>
-						@foreach($gasolineras as $gasolinera)
-						<option>{{$gasolinera->razonsocial}}</option>
-						@endforeach
+					<input type="input" id="fecha_salida" name="fecha_salida" class="form-control" value="{{old('fecha_salida',$servicio->fecha_salida)}}">
+				</div>
+				<div class="form-group input-group  col-md-4">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Fecha Retorno</span>
+					</div>
+					<input type="input" id="fecha_retorno" name="fecha_retorno" class="form-control" value="{{old('fecha_retorno',$servicio->fecha_retorno)}}">
+				</div>
+
+
+
+			</div>
+			<div class="form-row">
+				<div class="form-group input-group  col-md-6">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Unidad Delegante</span>
+					</div>
+					<select class="form-control selectpicker" name="unidad" data-live-search="true">
+						<option selected>{{old('unidad',$servicio->unidad)}}</option>
+						<option>Jefatura</option>
+						<option>U.Talento Humano</option>
+						<option>U. Operaciones</option>
+						<option>Jefatura</option>
+						
+					</select>
+				</div>
+				<div class="form-group input-group  col-md-6">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Delegante</span>
+					</div>
+					<select class="form-control selectpicker" name="delegante" data-live-search="true">
+						<option selected>{{old('delegante',$servicio->delegante)}}</option>
+						
+						<option>Crnl Lucero</option>
+						<option>Cptn. Heras</option>
+						<option>Econ Castro</option>
+						<option>Econ Segarra</option>
+						
 					</select>
 				</div>
 			</div>
 			<div class="form-row">
-
-
-				<div class="form-group input-group  col-md-8">
-					<div class="input-group-prepend">
-						<span class="input-group-text">Vehìculo</span>
-					</div>
-					<select class="form-control" name="vehiculo_id">
-						<option selected>{{old('vehiculo_id',$claves->vehiculo->codigodis)}}</option>
-						@foreach($vehiculos as $vehiculo)
-						<option>{{$vehiculo->codigodis}}</option>
-						@endforeach
-					</select>
-				</div>
-			</div>
-			<div class="form-row">
-
+				
 				<div class="form-group input-group  col-md-4">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Km. Salida del Vehìculo</span>
 					</div>
-					<input type="text" name="km_salida" value="{{old('km_salida',$claves->km_salida)}}" placeholder="Km. Salida Vehìculo de Estaciòn" class="form-control"> {{csrf_field()}}
-
+					<input type="number" required="" id="km_salida" name="km_salida" placeholder="Km. Salida" class="form-control" value="{{old('km_salida',$servicio->km_salida)}}">
 				</div>
-
-				<div class="form-group input-group  col-md-4">
-					<div class="input-group-prepend">
-						<span class="input-group-text">Km. en Gasolinera</span>
-					</div>
-					<input type="text" name="km_gasolinera" value="{{old('km_gasolinera',$claves->km_gasolinera)}}" class="form-control" placeholder="Km. en Gasolinera">
-				</div>
+				
 				<div class="form-group input-group col-md-4">
 					<div class="input-group-prepend">
-						<span class="input-group-text" id="kmllegada">Km. Llegada Vehìculo</span>
+						<span class="input-group-text" id="kmllegada">Km. Retorno Vehìculo</span>
 					</div>
-					<input type="text" name="km_llegada" value="{{old('km_llegada',$claves->km_llegada)}}" class="form-control" id="kmllegada" placeholder="Km. Llegada Vehìculo a Estaciòn">
-				</div>
-			</div>
-			<div class="form-row">
-				<div class="form-group input-group  col-md-4">
-
-				</div>
-
-
-
-			</div>
-			<div class="form-row">
-				<div class="form-group  input-group col-md-4">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="inputDolares">Dòlares</span>
-					</div>
-					<input type="text" name="dolares" value="{{old('dolares',$claves->dolares)}}" class="form-control" id="inputDolares" placeholder="Valor $ de Carga combustible">
-				</div>
-				<div class="form-group input-group  col-md-4">
-					<div class="input-group-prepend">
-						<span class="input-group-text">Galones</span>
-					</div>
-					<input type="text" name="galones" value="{{$claves->galones}}" class="form-control" id="inputAfectado" placeholder="Galones de Carga combustible">
-				</div>
-				<div class="form-group input-group col-md-4">
-					<div class="input-group-prepend">
-						<span class="input-group-text">Combustible</span>
-					</div>
-					<select class="form-control" name="combustible">
-						<option selected>{{$claves->combustible}}</option>
-						<option>Diesel</option>
-						<option>Eco</option>
-						<option>Super</option>
-					</select>
+					<input type="number" required="" name="km_retorno" class="form-control" id="km_retorno" placeholder="Km. Retorno" value="{{old('km_retorno',$servicio->km_retorno)}}">
 				</div>
 			</div>
 			<div class="form-row">
 
-				<div class="form-group input-group col-md-8">
+
+
+
+			</div>
+			<div class="form-row">
+				<div class="form-group  input-group col-lg-12 col-md-12 ">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="inputDolares">Asunto</span>
+					</div>
+					<textarea required="" maxlength="1000" name="asunto" class="form-control" id="asunto" placeholder="Digite actividades a realizar en comision de servicio">{{old('asunto',$servicio->asunto)}}</textarea> 
+				</div>
+				<div class="counter" id="pcounter">0</div>
+			</div>
+			<div class="form-row">
+
+				<div class="form-group input-group col-md-6">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Conductor</span>
 					</div>
 					<select class="form-control" name="user_id">
-						<option selected>{{$claves->user->name}}</option>
-						@foreach($usuarios as $user)
-						<option>{{$user->name}}</option>
+						<option  selected>{{$servicio->user->name}}</option>
+						@foreach($maquinistas as $user)
+						<option value="{{$servicio->user->id}}">{{$user->name}}</option>
 						@endforeach
 					</select>
 				</div>
-
-				<div class="form-group input-group  col-md-4">
+				<div class="form-group input-group col-md-6">
 					<div class="input-group-prepend">
-						<span class="input-group-text">Orden</span>
+						<span class="input-group-text">Vehiculo</span>
 					</div>
-					<input type="text" name="Orden" class="form-control" id="Orden" value="{{old('Orden',$claves->Orden)}}" placeholder="#Orden Fisica">
+					<select class="form-control" id="vehiculo_id" name="vehiculo_id">
+						<option value="{{$servicio->vehiculo->id}}" selected>{{$servicio->vehiculo->codigodis}}</option>
+						@foreach($vehiculos as $vehiculo)
+							<option value="{{old('vehiculo_id',$servicio->vehiculo->id)}}">{{$vehiculo->codigodis}}</option>
+						@endforeach
+					</select>
 				</div>
-
 			</div>
 
 			<div class="form-group">
-				<button type="submit" name="Enviar" value="Enviar" class="btn btn-success">Actualizar</button>
-
+				<button type="submit" name="Enviar" value="Enviar" class="btn btn-success">Registrar</button>
 				<a class="btn btn btn-primary" role="button"
 					href="{{ route('clave.index')}}">Cancelar
 				</a>
+				
 			</div>
-
 		</form>
 
-		<form method="post" action="/clave/{{$claves->id}}">
+		@if(count($errors)>0) @foreach($errors->all() as $error)
+		<div class="alert alert-danger" role="alert">
+			{{$error}}
+		</div>
+		@endforeach @endif
+		
+
+
+
+			
+		</form>
+
+		<form method="post" action="/servicio/{{$servicio->id}}">
 			{{csrf_field()}}
 			<input type="hidden" name="_method" value="DELETE">
 
@@ -154,11 +162,45 @@
 			  </div>
 			</div>
 		</form>
-		@if(count($errors)>0) @foreach($errors->all() as $error)
-		<div class="alert alert-danger" role="alert">
-			{{$error}}
-		</div>
-		@endforeach @endif
+		
+		@push ('scripts')
+			<script>	
+				$(document).ready(function(){
+					var max_chars = 1000;
+					$('#max').html(max_chars);
+			    	$("#asunto").keyup(function() {
+			        var chars = $("#asunto").val().length;
+			        var diff = max_chars - chars;
+			        var leyenda = "Caracteres Permitidos 1000 Cant:";
+			        var res = leyenda.concat(chars);
+			        $("#pcounter").html(res);
+			        if(chars > 1000){
+			           $("#asunto").addClass('error');
+			           $("#asunto").addClass('error');
+			          }else{
+			            $("#asunto").removeClass('error');
+			            $("#asunto").removeClass('error');
+			          }
+			      });
+				});	
+			</script>
+			<script type="text/javascript">
+					$(document).ready(function(){
+						var dtToday = new Date();
+						var month = dtToday.getMonth() + 1;     // getMonth() is zero-based
+						var day = dtToday.getDate();
+						var year = dtToday.getFullYear();
+						if(month < 10)
+						      month = '0' + month.toString();
+						if(day < 10)
+						      day = '0' + day.toString();
+					    var maxDate = year + '-' + month + '-' + day;
+						$('#fecha_salida').attr('min', maxDate);
+						$('#fecha_retorno').attr('min', maxDate);
+					});
+			</script>
+
+		@endpush
 	@endsection
 
 	@section( "piepagina" )

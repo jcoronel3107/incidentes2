@@ -6,68 +6,76 @@
 	@endsection
 
 	@section( "cuerpo" )
-	<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded">Consultar Registro Información de Clave_14</h2>
+	<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded">Consultar Registro Información de Comisión Servicios</h2>
 	<div class="card">
 		<div class="card-header ">
 		    <div class="row">
-		    	<div class="col-6"><h3>Registro Nro.{{$clave->id}}</h3>
+		    	<div class="col-6"><h3>Registro Nro.{{$servicio->id}}</h3>
 		    	</div>
 		    	<div class="col-6 text-right">
-		    		<a href="{{ route('clave.index')}}" class="btn btn-outline-primary ">Regresar</a>
+		    		<a href="{{ route('servicio.index')}}" class="btn btn-outline-primary ">Regresar</a>
 		    	</div>
 		    </div>
 		</div>
   		<div class="card-body">
     	<div class="row p-3">
 			<div class="col-lg-6 col-md-6 col-sm-12">
-				<span class="bg-gray font-weight-bold">Estación Servicio:</span>
-				<p class="text-info">{{$clave->gasolinera->razonsocial}}</p>
+				<span class="bg-gray font-weight-bold">Fecha_Salida:</span>
+				<p class="text-info">{{$servicio->fecha_salida}}</p>
 			</div>
-			<div class="col-lg-3 col-md-3 col-sm-12">
+			<div class="col-lg-6 col-md-6 col-sm-12">
+				<span class="bg-gray font-weight-bold">Fecha_Retorno:</span>
+				<p class=" text-info">{{$servicio->fecha_retorno}}</p>
+			</div>
+			
+		</div>
+		<hr>
+		<div class="row p-3">
+			<div class="col-lg-6 col-md-6 col-sm-12">
 				<span class="bg-gray font-weight-bold">Vehiculo:</span>
-				<p class=" text-info">{{$clave->vehiculo->codigodis}}</p>
-			</div>
-			<div class="col-lg-3 col-md-3 col-sm-12">
-				<span class="bg-gray font-weight-bold">Fecha:</span>
-				<p class=" text-info">{{$clave->created_at}}</p>
+				<p class=" text-info">{{$servicio->vehiculo->codigodis}}</p>
 			</div>
 			<div class="col-lg-6 col-md-6 col-sm-12">
 				<span class="bg-gray font-weight-bold">Conductor:</span>
-				<p class=" text-info">{{$clave->user->name}}</p>
+				<p class=" text-info">{{$servicio->user->name}}</p>
 			</div>
 		</div>
-		<hr>
 		<div class="row p-3">
-			<div class="col 4">
+			<div class="col-lg-4 col-md-4 col-sm-12">
 				<span class="bg-gray font-weight-bold">km_salida:</span>
-				<p class="text-info">{{$clave->km_salida}} Km</p>
+				<p class="text-info">{{$servicio->km_salida}} Km</p>
 			</div>
-			<div class="col-4">
-				<span class="bg-gray font-weight-bold">km_gasolinera:</span>
-				<p class="text-info">{{$clave->km_gasolinera}} Km</p>
+			<div class="col-lg-4 col-md-4 col-sm-12">
+				<span class="bg-gray font-weight-bold">km_retorno:</span>
+				<p class="text-info">{{$servicio->km_retorno}} Km</p>
 			</div>
-			<div class="col-4">
-				<span class="bg-gray font-weight-bold">km_llegada:</span>
-				<p class="text-info">{{$clave->km_llegada}} Km</p>
-			</div>
+			
+			
 		</div>
 		<div class="row p-3">
-
-			<div class="col-4">
-				<span class="bg-gray font-weight-bold">Dolares:</span>
-				 <p class="text-info">USD $.{{$clave->dolares}}</p>
+			<div class="col-lg-4 col-md-4 col-sm-12">
+				<span class="bg-gray font-weight-bold">Departamento:</span>
+				<p class="text-info">{{$servicio->unidad}}</p>
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-12">
+				<span class="bg-gray font-weight-bold">Delegante:</span>
+				 <p class="text-info">USD $.{{$servicio->delegante}}</p>
 				</div>
-
-			<div class="col-4">
-				<span class="bg-gray font-weight-bold">Galones: </span>
-				<p class="text-info">{{$clave->galones}} Glns</p>
-			</div>
-			<div class="col-4">
-				<span class="bg-gray font-weight-bold">combustible:</span>
-				<p class="text-info">{{$clave->combustible}}</p>
-			</div>
 		</div>
-		<hr>
+		<div class="row p-3">
+			<div class="col-lg-12 col-md-12 col-sm-12">
+				<span class="bg-gray font-weight-bold">asunto: </span>
+				<p class="text-info">{{$servicio->asunto}}</p>
+			</div>
+			
+		</div>
+		<div class="row p-3">
+			<div class="col-lg-8 col-md-8 col-sm-12">
+					<span class="bg-gray font-weight-bold">usr_creador:</span>
+					<p class="text-info">{{$servicio->usr_creador}}</p>
+				</div>
+			<hr>
+		</div>
   		</div>
 	</div>
 @endsection

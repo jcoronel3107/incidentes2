@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateServiciosTable extends Migration
+class CreateServicioTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,20 @@ class CreateServiciosTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('servicios');
         Schema::create('servicios', function (Blueprint $table) {
-            $table->increments ('id');
-            $table->datetime("fecha");
-            $table->datetime("autorizacion");
-            $table->string("km_salida");
-            $table->string("km_llegada");
-            $table->datetime("hrsalida");
-            $table->datetime("hrretorno");
+            $table->id();
+            $table->datetime("fecha_salida");
+            $table->datetime("fecha_retorno");
+            $table->string("delegante");
+            $table->string("unidad");
+            $table->unsignedBigInteger("km_salida");
+            $table->unsignedBigInteger("km_retorno");
+            $table->string("asunto",1000);
             $table->unsignedBigInteger("user_id");
-            $table->text("asunto");
             $table->unsignedBigInteger("vehiculo_id");
-
+            $table->string("usr_creador");
+            $table->string("usr_editor")->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('vehiculo_id')->references('id')->on('vehiculos')

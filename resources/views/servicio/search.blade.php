@@ -1,4 +1,4 @@
-<form method="get" action="/clave" autocomplete="off" role="search" >
+<form method="get" action="/servicio" autocomplete="off" role="search" >
 <div class="form-group col-12">
 	<div class="input-group "> {{csrf_field()}}
 		<input type="text" class="form-control" value="{{$query}}" name="searchText" placeholder="Buscar x Fecha ..." >

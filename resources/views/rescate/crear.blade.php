@@ -300,16 +300,16 @@
 					$("#bt_add").click(function () {
 						agregar();
 					});
-					var max_chars = 300;
+					var max_chars = 1000;
 					$('#max').html(max_chars);
 
 				    $("#pinformacion_inicial").keyup(function() {
 				        var chars = $("#pinformacion_inicial").val().length;
 				        var diff = max_chars - chars;
-				        var leyenda = "Caracteres Permitidos 300 - Digitados: ";
+				        var leyenda = "Caracteres Permitidos 1000 - Digitados: ";
 				        var res = leyenda.concat(chars);
 				        $("#pcounter").html(res);
-				        if(chars > 300){
+				        if(chars > 1000){
 				           $("#pinformacion_inicial").addClass('error');
 				           $("#pinformacion_inicial").addClass('error');
 				          }else{
@@ -323,7 +323,7 @@
 				        var leyenda = "Caracteres Permitidos 300 - Digitados: ";
 				        var res = leyenda.concat(chars);
 				        $("#pcounter1").html(res);
-				        if(chars > 300){
+				        if(chars > 1000){
 				           $("#pdireccion").addClass('error');
 				           $("#pdireccion").addClass('error');
 				          }else{

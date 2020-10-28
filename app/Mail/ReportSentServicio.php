@@ -6,22 +6,19 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Clave;
-
-class ReportSentClave extends Mailable
+use App\Servicio;
+class ReportSentServicio extends Mailable
 {
     use Queueable, SerializesModels;
-    public $clave;
-
+    public $servicio;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    
-    public function __construct(Clave $clave)
+    public function __construct(Servicio $servicio)
     {
-       $this->clave = $clave;
+        $this->servicio = $servicio;
     }
 
     /**
@@ -31,6 +28,6 @@ class ReportSentClave extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.clave');
+        return $this->view('mails.servicio');
     }
 }

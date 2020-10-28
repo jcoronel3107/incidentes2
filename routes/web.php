@@ -47,6 +47,7 @@ Route::resource('rescate',       	'RescateController');
 Route::resource('transito',      	'TransitoController');
 Route::resource('salud',     	 	'SaludController');
 Route::resource('derrame',     	 	'DerrameController');
+Route::resource('servicio',    	 	'ServicioController');
 Route::resource('consulta',      	'ConsultasController');
 
 Route::get('/activitylog',			'ConsultasController@activitylog');
@@ -92,6 +93,7 @@ Route::get('claves/grafic/',     	'ClaveController@grafica');
 Route::get('saluds/grafic/',     	'SaludController@grafica');
 Route::get('fugas/grafic/',     	'FugaController@grafica');
 Route::get('derrames/grafic/',     	'DerrameController@grafica');
+Route::get('servicios/grafic/',    	'ServicioController@grafica');
 
 //Rutas Creacion de Reportes en Formato PDF
 Route::get('/downloadPDFinundacion/{id}',		'InundacionController@downloadPDF');
@@ -101,6 +103,7 @@ Route::get('/downloadPDFsalud/{id}',			'SaludController@downloadPDF');
 Route::get('/downloadPDFincendio/{id}',			'IncendioController@downloadPDF');
 Route::get('/downloadPDFfuga/{id}',				'FugaController@downloadPDF');
 Route::get('/downloadPDFclave/{id}',			'ClaveController@downloadPDF');
+Route::get('/downloadPDFservicio/{id}',			'ServicioController@downloadPDF');
 Route::get('/downloadPDFderrame/{id}',			'DerrameController@downloadPDF');
 
 //Rutas Creacion de Reportes a Mail
@@ -112,6 +115,7 @@ Route::get('/sendReportIncendio/{id}',	'MailController@SendMailsIncendio');
 Route::get('/sendReportFuga/{id}',		'MailController@SendMailsFuga');
 Route::get('/sendReportClave/{id}',		'MailController@SendMailsClave');
 Route::get('/sendReportDerrame/{id}',	'MailController@SendMailsDerrame');
+Route::get('/sendReportServicio/{id}',	'MailController@SendMailsServicio');
 Route::get('/prueba1/',					'ConsultasController@EventosxIncidente');
 
 Route::get('/home',              'HomeController@index');

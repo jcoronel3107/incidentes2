@@ -28,8 +28,8 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Opciones:</h6>
-            <a class="collapse-item" href="/inundacion">{!! trans('messages.Index') !!}</a>
+            <h6 class="collapse-header">{!! trans('messages.Choices') !!}:</h6>
+            <a class="collapse-item" target="_blank" href="/inundacion">{!! trans('messages.Index') !!}</a>
           </div>
         </div>
       </li>
@@ -43,7 +43,7 @@
         <div id="collapseDerrame" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">{!! trans('messages.Choices') !!}:</h6>
-            <a class="collapse-item" href="/derrame">{!! trans('messages.Index') !!}</a>
+            <a class="collapse-item" target="_blank" href="/derrame">{!! trans('messages.Index') !!}</a>
           </div>
         </div>
       </li>
@@ -57,7 +57,7 @@
         <div id="collapseRescate" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-            <a class="collapse-item" href="/rescate">{!! trans('messages.Index') !!}</a>
+            <a class="collapse-item" target="_blank" href="/rescate">{!! trans('messages.Index') !!}</a>
           </div>
         </div>
       </li>
@@ -70,7 +70,7 @@
         <div id="collapseTransito" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-            <a class="collapse-item" href="/transito">{!! trans('messages.Index') !!}</a>
+            <a class="collapse-item" target="_blank" href="/transito">{!! trans('messages.Index') !!}</a>
           </div>
         </div>
       </li>
@@ -83,7 +83,7 @@
         <div id="collapseSalud" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-            <a class="collapse-item" href="/salud">{!! trans('messages.Index') !!}</a>
+            <a class="collapse-item" target="_blank" href="/salud">{!! trans('messages.Index') !!}</a>
           </div>
         </div>
       </li>
@@ -96,7 +96,7 @@
         <div id="collapseFuego" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-            <a class="collapse-item" href="/fuego">{!! trans('messages.Index') !!}</a>
+            <a class="collapse-item" target="_blank" href="/fuego">{!! trans('messages.Index') !!}</a>
           </div>
         </div>
       </li>
@@ -109,7 +109,7 @@
         <div id="collapseFGas" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-            <a class="collapse-item" href="/fuga">{!! trans('messages.Index') !!}</a>
+            <a class="collapse-item" target="_blank" href="/fuga">{!! trans('messages.Index') !!}</a>
           </div>
         </div>
       </li>
@@ -122,7 +122,20 @@
         <div id="collapseClave14" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-            <a class="collapse-item" href="/clave">{!! trans('messages.Index') !!}</a>
+            <a class="collapse-item" target="_blank" href="/clave">{!! trans('messages.Index') !!}</a>
+          </div>
+        </div>
+      </li>
+      <!-- Nav Item - Utilities Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="true" aria-controls="collapseServicios">
+          <i class="fas fa-fw fa-wallet"></i>
+          <span>{!! trans('messages.Services')!!}</span>
+        </a>
+        <div id="collapseServicios" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
+            <a class="collapse-item" target="_blank" href="/servicio">{!! trans('messages.Index') !!}</a>
           </div>
         </div>
       </li>

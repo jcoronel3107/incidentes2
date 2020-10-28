@@ -6,57 +6,70 @@
 	@endsection
 
 	@section( "cuerpo" )
-		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Registro Información de Clave_14</h2>
+		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">{!! trans('messages.Service Commission Information Registry') !!}</h2>
 
-		<form method="post" action="/clave">
+		<form method="post" action="/servicio">
 
 			<div class="form-row">
 				{{csrf_field()}}
-				<div class="form-group input-group  col-md-8">
+				<div class="form-group input-group  col-md-4">
 					<div class="input-group-prepend">
-						<span class="input-group-text">Estaciòn Servicio</span>
+						<span class="input-group-text">Fecha Salida</span>
 					</div>
-					<select class="form-control selectpicker" name="gasolinera_id" data-live-search="true">
-						<option selected>Elija...</option>
-						@foreach($gasolineras as $gasolinera)
-						<option>{{$gasolinera->razonsocial}}</option>
-						@endforeach
-					</select>
+					<input type="datetime-local" id="fecha_salida" name="fecha_salida" class="form-control">
 				</div>
+				<div class="form-group input-group  col-md-4">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Fecha Retorno</span>
+					</div>
+					<input type="datetime-local" id="fecha_retorno" name="fecha_retorno" class="form-control">
+				</div>
+
 
 
 			</div>
 			<div class="form-row">
-				<div class="form-group input-group  col-md-8">
+				<div class="form-group input-group  col-md-6">
 					<div class="input-group-prepend">
-						<span class="input-group-text">Vehìculo</span>
+						<span class="input-group-text">Unidad Delegante</span>
 					</div>
-					<select class="form-control selectpicker" name="vehiculo_id" data-live-search="true">
+					<select class="form-control selectpicker" id="unidad" name="unidad" data-live-search="true">
 						<option selected>Elija...</option>
-						@foreach($vehiculos as $vehiculo)
-						<option>{{$vehiculo->codigodis}}</option>
-						@endforeach
+						<option>Jefatura</option>
+						<option>U.Talento Humano</option>
+						<option>U. Operaciones</option>
+						<option>Jefatura</option>
+						
+					</select>
+				</div>
+				<div class="form-group input-group  col-md-6">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Delegante</span>
+					</div>
+					<select class="form-control selectpicker" id="delegante" name="delegante" data-live-search="true">
+						<option selected>Elija...</option>
+						<option>Tnte.Crnl P.Lucero</option>
+						<option>Cptn. S.Heras</option>
+						<option>Econ R.Castro</option>
+						<option>Econ T.Segarra</option>
+						
 					</select>
 				</div>
 			</div>
 			<div class="form-row">
+				
 				<div class="form-group input-group  col-md-4">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Km. Salida del Vehìculo</span>
 					</div>
-					<input type="number" name="km_salida" placeholder="Km. Salida" class="form-control">
+					<input type="number" required="" id="km_salida" name="km_salida" placeholder="Km. Salida" class="form-control">
 				</div>
-				<div class="form-group input-group  col-md-4">
-					<div class="input-group-prepend">
-						<span class="input-group-text">Km. en Gasolinera</span>
-					</div>
-					<input type="number" required name="km_gasolinera" class="form-control" placeholder="Km. en Gasolinera">
-				</div>
+				
 				<div class="form-group input-group col-md-4">
 					<div class="input-group-prepend">
-						<span class="input-group-text" id="kmllegada">Km. Llegada Vehìculo</span>
+						<span class="input-group-text" id="kmllegada">Km. Retorno Vehìculo</span>
 					</div>
-					<input type="number" required name="km_llegada" class="form-control" id="kmllegada" placeholder="Km. Retorno">
+					<input type="number" required="" name="km_retorno" class="form-control" id="km_retorno" placeholder="Km. Retorno">
 				</div>
 			</div>
 			<div class="form-row">
@@ -66,29 +79,13 @@
 
 			</div>
 			<div class="form-row">
-				<div class="form-group  input-group col-md-4">
+				<div class="form-group  input-group col-lg-12 col-md-12 ">
 					<div class="input-group-prepend">
-						<span class="input-group-text" id="inputDolares">Dòlares</span>
+						<span class="input-group-text" id="inputasunto">Asunto</span>
 					</div>
-					<input type="number" required name="dolares" class="form-control" id="dolares" placeholder="Valor $ de Carga combustible">
+					<textarea required="" maxlength="1000" name="asunto" class="form-control" id="asunto" placeholder="Digite actividades a realizar en comision de servicio"></textarea> 
 				</div>
-				<div class="form-group input-group  col-md-4">
-					<div class="input-group-prepend">
-						<span class="input-group-text">Galones</span>
-					</div>
-					<input type="number" name="galones" class="form-control" id="galones" placeholder="Galones de Carga combustible">
-				</div>
-				<div class="form-group input-group col-md-4">
-					<div class="input-group-prepend">
-						<span class="input-group-text">Combustible</span>
-					</div>
-					<select class="form-control" name="combustible">
-						<option selected>Choose...</option>
-						<option>Diesel</option>
-						<option>Eco</option>
-						<option>Super</option>
-					</select>
-				</div>
+				<div class="counter" id="pcounter">0</div>
 			</div>
 			<div class="form-row">
 
@@ -99,25 +96,30 @@
 					<select class="form-control" name="user_id">
 						<option selected>Choose...</option>
 						@foreach($users as $user)
-						<option>{{$user->name}}</option>
+						<option value="{{$user->id}}">{{$user->name}}</option>
 						@endforeach
 					</select>
 				</div>
-				<div class="form-group input-group  col-md-4">
+				<div class="form-group input-group col-md-8">
 					<div class="input-group-prepend">
-						<span class="input-group-text">Orden</span>
+						<span class="input-group-text">Vehiculo</span>
 					</div>
-					<input type="number" min="0" name="Orden" class="form-control" id="Orden" placeholder="#Orden Fisica">
+					<select class="form-control" id="vehiculo_id" name="vehiculo_id">
+						<option selected>Choose...</option>
+						@foreach($vehiculos as $vehiculo)
+						<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>
+						@endforeach
+					</select>
 				</div>
-
+				
 			</div>
 
 			<div class="form-group">
 				<button type="submit" name="Enviar" value="Enviar" class="btn btn-success">Registrar</button>
 				<a class="btn btn btn-primary" role="button"
-					href="{{ route('clave.index')}}">Cancelar
+					href="{{ route('servicio.index')}}">Cancelar
 				</a>
-				<button type="reset" name="Borrar" value="Borrar" class="btn btn-danger">Borrar Formulario</button>
+				
 			</div>
 		</form>
 
@@ -126,6 +128,46 @@
 			{{$error}}
 		</div>
 		@endforeach @endif
+		@push ('scripts')
+		<script>
+			
+			$(document).ready(function(){
+				var max_chars = 1000;
+				$('#max').html(max_chars);
+		    	$("#asunto").keyup(function() {
+		        var chars = $("#asunto").val().length;
+		        var diff = max_chars - chars;
+		        var leyenda = "Caracteres Permitidos 1000 Cant:";
+		        var res = leyenda.concat(chars);
+		        $("#pcounter").html(res);
+		        if(chars > 1000){
+		           $("#asunto").addClass('error');
+		           $("#asunto").addClass('error');
+		          }else{
+		            $("#asunto").removeClass('error');
+		            $("#asunto").removeClass('error');
+		          }
+		      });
+});
+		
+			
+		</script>
+		<script type="text/javascript">
+				$(document).ready(function(){
+					var dtToday = new Date();
+					var month = dtToday.getMonth() + 1;     // getMonth() is zero-based
+					var day = dtToday.getDate();
+					var year = dtToday.getFullYear();
+					if(month < 10)
+					      month = '0' + month.toString();
+					if(day < 10)
+					      day = '0' + day.toString();
+				    var maxDate = year + '-' + month + '-' + day+'T00:00';
+					$('#fecha_salida').attr('min', maxDate);
+					$('#fecha_retorno').attr('min', maxDate);
+				});
+		</script>
 
+	@endpush
 
 @endsection @section( "piepagina" ) @endsection

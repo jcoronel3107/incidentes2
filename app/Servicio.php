@@ -12,6 +12,19 @@ class Servicio extends Model
 	use LogsActivity;
     use SoftDeletes;
 
+    protected $fillable=[
+    	"fecha_salida",
+    	"fecha_retorno",
+    	"unidad",
+    	"delegante",
+		"km_salida",
+		"km_retorno",
+		"asunto",
+		"user_id",
+		"vehiculo_id",
+		"usr_creador"
+		];
+
     protected static $logFillable = true;
     
     public function vehiculo(){
@@ -19,8 +32,8 @@ class Servicio extends Model
 		return $this->belongsTo(Vehiculo::class);
 	}
 
-	public function users(){
-		return $this->belongsToMany(User::class);
+	public function user(){
+		return $this->belongsTo(User::class);
 	}
 
 

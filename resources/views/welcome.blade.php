@@ -119,6 +119,14 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-xl-3 col-lg-3 col-md-4 sm-6">
+                                <div class="card mb-4">
+                                    <h5 class="card-header text-white bg-primary"><i class="fas fa-fw fa-wallet"></i> Comisiones</h5>
+                                    <div class="card-body">
+                                    	<p class="card-text text-black"> <h1>{{$mensualesServicio}}</h1> {!! trans('messages.Current Month Events') !!}</p>
+                                    </div>
+                                </div>
+                            </div>
         </div>
 
 	@push ('scripts')

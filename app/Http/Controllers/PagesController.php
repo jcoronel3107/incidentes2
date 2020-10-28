@@ -11,6 +11,7 @@ use App\ Salud;
 use App\ Rescate;
 use App\ Fuga;
 use App\Derrame;
+use App\Servicio;
 use App\Http\Requests\CreateClaveRequest;
 use Illuminate\Support\Facades\DB;
 
@@ -46,8 +47,10 @@ class PagesController extends Controller
         ->get()->count();
         $mensualesClave= Clave::whereMonth('created_at', $mes)
         ->get()->count();
+        $mensualesServicio= Servicio::whereMonth('created_at', $mes)
+        ->get()->count();
         $mensualesDerrame= Derrame::whereMonth('created_at', $mes)
         ->get()->count();
-    	return view("welcome",compact("mensualesInundacion","mensualesRescate","mensualesIncendio","mensualesSalud","mensualesTransito","mensualesFuga","mensualesClave","mensualesDerrame"));
+    	return view("welcome",compact("mensualesInundacion","mensualesRescate","mensualesIncendio","mensualesSalud","mensualesTransito","mensualesFuga","mensualesClave","mensualesServicio","mensualesDerrame"));
     }
 }

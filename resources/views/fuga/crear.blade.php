@@ -197,7 +197,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Detalle Emergencia</span>
 					</div>
-					<input type="text" class="form-control" name="detalle_emergencia" maxlength="300" id="detalle_emergencia" value="{{old('detalle_emergencia')}}" placeholder="Digite a detalle lo ocurrido en Emergencia" required="">
+					<input type="text" class="form-control" name="detalle_emergencia" maxlength="1000" id="detalle_emergencia" value="{{old('detalle_emergencia')}}" placeholder="Digite a detalle lo ocurrido en Emergencia" required="">
 				</div>
 			</div><!--Detalle Emergencia-->
 			<div class="form-row">
@@ -251,7 +251,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDaños">Daños Estimados</span>
 					</div>
-					<input type="text" class="form-control" name="danos_estimados" maxlength="300" id="danos_estimados" value="{{old('danos_estimados')}}" placeholder="Detalle los daños producidos por  el incidente" required="">
+					<input type="text" class="form-control" name="danos_estimados" maxlength="1000" id="danos_estimados" value="{{old('danos_estimados')}}" placeholder="Detalle los daños producidos por  el incidente" required="">
 				</div>
 			</div>{{-- Danos Estimados --}}
 			<div class="card">
@@ -338,7 +338,7 @@
 	@push ('scripts')
 		<script>
 			$(document).ready(function(){
-				var max_chars = 300;
+				var max_chars = 1000;
 				$('#max').html(max_chars);
 				$("#bt_add").click(function () {
 							agregar();
@@ -347,10 +347,10 @@
 		    	$("#pinformacion_inicial").keyup(function() {
 		        var chars = $("#pinformacion_inicial").val().length;
 		        var diff = max_chars - chars;
-		        var leyenda = "Caracteres Permitidos 300 Cant:";
+		        var leyenda = "Caracteres Permitidos 1000 Cant:";
 		        var res = leyenda.concat(chars);
 		        $("#pcounter").html(res);
-		        if(chars > 300){
+		        if(chars > 1000){
 		           $("#pinformacion_inicial").addClass('error');
 		           $("#pinformacion_inicial").addClass('error');
 		          }else{
@@ -362,10 +362,10 @@
 		    	$("#pdireccion").keyup(function() {
 		        var chars = $("#pdireccion").val().length;
 		        var diff = max_chars - chars;
-		        var leyenda = "Caracteres Permitidos 300 Cant:";
+		        var leyenda = "Caracteres Permitidos 1000 Cant:";
 		        var res = leyenda.concat(chars);
 		        $("#pcounter1").html(res);
-		        if(chars > 300){
+		        if(chars > 1000){
 		           $("#pdireccion").addClass('error');
 		           $("#pdireccion").addClass('error');
 		          }else{

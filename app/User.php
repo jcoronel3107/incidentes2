@@ -80,4 +80,6 @@ class User extends Authenticatable
     public function saluds(){
         return $this->belongsToMany(Salud::class);
     }
+
+    
 }

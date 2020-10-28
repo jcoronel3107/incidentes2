@@ -40,7 +40,7 @@ class ClaveController extends Controller {
 	        //
 	        $claves = Clave::where("created_at",'LIKE','%'.$query.'%')
 	          ->OrderBy('created_at','desc')
-	          ->paginate(7);
+	          ->paginate(10);
  			return view( "/clave.index", compact( "claves","query" ) );
         }
 	}

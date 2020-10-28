@@ -6,7 +6,7 @@
 	@endsection
 
 	@section( "cuerpo" )
-		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Registro Información de Eventos 10-42</h2>
+		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">{!! trans('messages.Event Information Log 10-42') !!}</h2>
 		<ul class="nav justify-content-end">
 		  <li class="nav-item">
 		  	<a class="btn btn-outline-info"  data-toggle="tooltip" title="Whatsapp" role="button" onclick="notificacionWhatsapp();"><i class="icon-comments-alt icon-2x"></i></a>	
@@ -21,7 +21,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Fecha</span>
 					</div>
-					<input type="date" name="fecha" id="fecha" class="form-control" placeholder="AA-MM-DD">
+					<input type="date" required="" name="fecha" id="fecha" class="form-control" placeholder="AA-MM-DD">
 				</div>
 			</div><!--Div Fecha-->
 			<div class="form-row ">
@@ -31,9 +31,9 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Hora Ficha ECU911</span>
 							</div>
-							<input type="time" name="hora_fichaecu911"  class="form-control" placeholder="hh:mm:ss" value="{{old('hora_fichaecu911',$now->format('H:i:s'))}}">
+							<input type="time" name="hora_fichaecu911" required=""  class="form-control" placeholder="hh:mm:ss" value="{{$now->format('H:i:s')}}">
 						</div>
-					</div>
+					</div>	
 				</div>
 				<div class='col-md-4'>
 					<div class="form-group">
@@ -41,7 +41,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Nro.Ficha ECU911</span>
 							</div>
-							<input type="text" name="ficha_ecu911" value="{{old('ficha_ecu911')}}" class="form-control">
+							<input type="text" name="ficha_ecu911" required="" value="{{old('ficha_ecu911')}}" class="form-control">
 						</div>
 					</div>
 				</div>
@@ -54,18 +54,19 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Informacion Inicial</span>
 							</div>
-							<textarea class="form-control" maxlength="1000" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial')}}</textarea>
+							<textarea class="form-control" required="" maxlength="1000" id="informacion_inicial" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial')}}</textarea>
 
 						</div>
 					</div>
 				</div>
 			</div>
+			<div class="counter" id="pcounter">0</div>
 			<div class="form-row">
 				<div class="form-group input-group col-md-5">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Incidente</span>
 					</div>
-					<select class="form-control" name="incidente_id" id="incidente_id">
+					<select class="form-control" required="" name="incidente_id" id="incidente_id">
 						<option selected>{{old('incidente_id')}}</option>
 						@foreach($incidentes as $incidente)
 							<option>{{$incidente->nombre_incidente}}</option>
@@ -77,7 +78,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Escenario</span>
 					</div>
-					<select class="form-control" name="tipo_escena">
+					<select class="form-control" required="" name="tipo_escena">
 						<option selected>{{old('tipo_escena')}}</option>
 						<option>Tipo 1</option>
 						<option>Tipo 2</option>
@@ -89,7 +90,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Estacion</span>
 					</div>
-					<select name="station_id" class="form-control">
+					<select name="station_id" required="" class="form-control">
 						<option selected>{{old('station_id')}}</option>
 						@foreach($estaciones as $estacion)
 						<option>{{$estacion->nombre}}</option>
@@ -102,14 +103,14 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Dirección</span>
 					</div>
-					<textarea class="form-control" id="pdireccion" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea"></textarea>
+					<textarea class="form-control" required="" id="pdireccion" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea"></textarea>
 					<input type="button" value="Encode" onclick="codeAddress()">
 				</div>
 				<div class="form-group input-group input-group-prepend col-md-4">
 					<div >
 						<span class="input-group-text">Parroquia</span>
 					</div>
-					<select name="parroquia_id" class="form-control">
+					<select name="parroquia_id" required="" class="form-control">
 						<option selected>{{old('parroquia_id')}}</option>
 						@foreach($parroquias as $parroquia)
 							<option>{{$parroquia->nombre}}</option>
@@ -121,7 +122,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputAddress">Geoposicion</span>
 					</div>
-					<textarea class="form-control" placeholder="Formato:. -2.56985, -79.23658" id="pgeoposicion" name="geoposicion" aria-label="With textarea"></textarea>
+					<textarea class="form-control" required="" placeholder="Formato:. -2.56985, -79.23658" id="pgeoposicion" name="geoposicion" aria-label="With textarea"></textarea>
 				</div>
 			</div><!--Div Ubicacion Evento-->
 			<div onload="initMap()" id="map" style="width: 100%; height: 280px;"></div>
@@ -131,7 +132,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Jefe Guardia</span>
 					</div>
-					<select class="form-control" name="jefeguardia_id">
+					<select class="form-control" required="" name="jefeguardia_id">
 						<option selected>{{old('jefeguardia_id')}}</option>
 						@foreach($bomberos as $user)
 						<option>{{$user->name}}</option>
@@ -142,7 +143,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Bombero</span>
 					</div>
-					<select class="form-control" name="bombero_id">
+					<select class="form-control" required="" name="bombero_id">
 						<option selected>{{old('bombero_id')}}</option>
 						@foreach($bomberos as $user)
 						<option>{{$user->name}}</option>
@@ -153,7 +154,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Conductor</span>
 					</div>
-					<select class="form-control" name="conductor_id">
+					<select class="form-control" required="" name="conductor_id">
 						<option selected>{{old('conductor_id')}}</option>
 						@foreach($maquinistas as $maquinista)
 						<option>{{$maquinista->name}}</option>
@@ -166,13 +167,13 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Salida A Emergencia</span>
 					</div>
-					<input type="time" class="form-control" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" value="{{old('hora_salida_a_emergencia',$now->format('H:i:s'))}}" placeholder="hh:mm:ss">
+					<input type="time" class="form-control" required="" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" value="{{old('hora_salida_a_emergencia',$now->format('H:i:s'))}}" placeholder="hh:mm:ss">
 				</div>
 				<div class="form-group  input-group col-md-6">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Llegada A Emergencia</span>
 					</div>
-					<input type="time" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm:ss" value="{{old('hora_llegada_a_emergencia',$now->format('H:i:s'))}}">
+					<input type="time" class="form-control" required="" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm:ss" value="{{old('hora_llegada_a_emergencia',$now->format('H:i:s'))}}">
 				</div>
 			</div><!--Div Horas Evento-->
 			<div class="form-row">
@@ -180,13 +181,13 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Fin Emergencia</span>
 					</div>
-					<input type="time" class="form-control" name="hora_fin_emergencia" id="hora_fin_emergencia" placeholder="hh:mm:ss" value="{{old('hora_fin_emergencia',$now->format('H:i:s'))}}">
+					<input type="time" class="form-control" required="" name="hora_fin_emergencia" id="hora_fin_emergencia" placeholder="hh:mm:ss" value="{{old('hora_fin_emergencia',$now->format('H:i:s'))}}">
 				</div>
 				<div class="form-group  input-group col-md-6">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora En Base</span>
 					</div>
-					<input type="time" class="form-control" name="hora_en_base" id="hora_en_base" placeholder="hh:mm:ss" value="{{old('hora_en_base',$now->format('H:i:s'))}}">
+					<input type="time" class="form-control" required="" name="hora_en_base" id="hora_en_base" placeholder="hh:mm:ss" value="{{old('hora_en_base',$now->format('H:i:s'))}}">
 				</div>
 			</div><!--Div Horas Evento-->
 
@@ -195,7 +196,8 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Detalle Emergencia</span>
 					</div>
-					<input type="text" class="form-control" name="detalle_emergencia" id="detalle_emergencia" value="{{old('detalle_emergencia')}}" placeholder="Digite a detalle lo ocurrido en Emergencia">
+					<textarea class="form-control" required="" maxlength="1000" placeholder="Digite a detalle lo ocurrido en Emergencia" id="detalle_emergencia" name="detalle_emergencia" aria-label="With textarea">{{old('detalle_emergencia')}}</textarea>
+					
 				</div>
 			</div><!--Detalle Emergencia-->
 			<div class="form-row">
@@ -203,7 +205,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Ciud. Afectado</span>
 					</div>
-					<input type="text" class="form-control" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado')}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia">
+					<input type="text" class="form-control" required="" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado')}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia">
 				</div>
 			</div>{{--Usuario Afectado--}}
 			<div class="form-row">
@@ -211,7 +213,8 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDaños">Daños Estimados</span>
 					</div>
-					<input type="text" class="form-control" name="danos_estimados" id="danos_estimados" value="{{old('danos_estimados')}}" placeholder="Detalle los daños producidos por  el incidente">
+					<textarea class="form-control" required="" maxlength="1000" placeholder="Detalle los daños producidos por  el incidente" id="danos_estimados" name="danos_estimados" aria-label="With textarea">{{old('danos_estimados')}}</textarea>
+					
 				</div>
 			</div>{{-- Danos Estimados --}}
 			<div class="card">
@@ -223,7 +226,7 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text">Vehìculo</span>
 								</div>
-								<select class="form-control selectpicker" name="vehiculo_id" id="pvehiculo_id" data-live-search="true">
+								<select class="form-control selectpicker"  name="vehiculo_id" id="pvehiculo_id" data-live-search="true">
 								<option selected>Elija...</option>
 								@foreach($vehiculos as $vehiculo)
 								<option>{{$vehiculo->codigodis}}</option>
@@ -334,6 +337,7 @@
 				function limpiar(){
 					$("#pkm_salida").val("");
 					$("#pkm_llegada").val("");
+					$('#pvehiculo_id').val("");
 				}
 				function evaluar(){
 					if(jqkm_llegada>jqkm_salida){
@@ -370,6 +374,47 @@
 				});
 		</script>
 
+		
+		<script>
+			
+			$(document).ready(function(){
+				var max_chars = 1000;
+				$('#max').html(max_chars);
+		    	$("#informacion_inicial").keyup(function() {
+		        var chars = $("#informacion_inicial").val().length;
+		        var diff = max_chars - chars;
+		        var leyenda = "Caracteres Permitidos 1000 Cant:";
+		        var res = leyenda.concat(chars);
+		        $("#pcounter").html(res);
+		        if(chars > 1000){
+		           $("#informacion_inicial").addClass('error');
+		           $("#informacion_inicial").addClass('error');
+		          }else{
+		            $("#informacion_inicial").removeClass('error');
+		            $("#informacion_inicial").removeClass('error');
+		          }
+		      });
+});
+		
+			
+		</script>
+		<script type="text/javascript">
+				$(document).ready(function(){
+					var dtToday = new Date();
+					var month = dtToday.getMonth() + 1;     // getMonth() is zero-based
+					var day = dtToday.getDate();
+					var year = dtToday.getFullYear();
+					if(month < 10)
+					      month = '0' + month.toString();
+					if(day < 10)
+					      day = '0' + day.toString();
+				    var maxDate = year + '-' + month + '-' + day;
+					$('#fecha_salida').attr('min', maxDate);
+					$('#fecha_retorno').attr('min', maxDate);
+				});
+		</script>
+
+	
 		@endpush
 	@endsection
 	@section( "piepagina" )
