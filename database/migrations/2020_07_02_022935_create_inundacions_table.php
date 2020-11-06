@@ -35,6 +35,9 @@ class CreateInundacionsTable extends Migration
 			$table->string("danos_estimados",1000);
 			$table->string("usr_creador");
 			$table->string("usr_editor")->nullable();
+            $table->string("fileSCI-201")->nullable();
+            $table->string("fileSCI-202")->nullable();
+            $table->string("fileSCI-206A")->nullable();
             $table->foreign('incidente_id')->references('id')->on('incidentes')
             ->constrained()
             ->onUpdate('cascade')

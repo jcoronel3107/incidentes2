@@ -215,6 +215,7 @@
 					<textarea  class="form-control" maxlength="1000" name="danos_estimados" id="danos_estimados">{{old('danos_estimados',$inundacion->danos_estimados)}}</textarea>
 				</div>
 			</div>{{-- Daños Estimados --}}
+			
 			<div class="form-group py-3 " id="divguardar">
 				<input type="hidden" name="token" value="{{csrf_token()}}" >
 				<ul class="nav justify-content-end">
@@ -225,6 +226,8 @@
 		  			</li>
 				</ul>
 			</div>{{-- Botones --}}
+
+			
 
 		</form>
 		<form method="post" action="/inundacion/{{$inundacion->id}}">

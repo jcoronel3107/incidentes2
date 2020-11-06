@@ -53,6 +53,8 @@ Route::resource('consulta',      	'ConsultasController');
 Route::get('/activitylog',			'ConsultasController@activitylog');
 Route::get('/download/{file}', 		'DownloadsController@download');
 Route::post('cie10/import/',		'CieController@importacion');
+Route::get('/inundacions/carga/{id}','InundacionController@cargar');
+Route::post('inundacions/guardaform','InundacionController@upload');
 Route::post('inundacions/import/',	'InundacionController@importacion');
 Route::post('rescates/import/',		'RescateController@importacion');
 Route::post('transitos/import/',	'TransitoController@importacion');
@@ -117,6 +119,7 @@ Route::get('/sendReportClave/{id}',		'MailController@SendMailsClave');
 Route::get('/sendReportDerrame/{id}',	'MailController@SendMailsDerrame');
 Route::get('/sendReportServicio/{id}',	'MailController@SendMailsServicio');
 Route::get('/prueba1/',					'ConsultasController@EventosxIncidente');
+
 
 Route::get('/home',              'HomeController@index');
 Route::get('/admin',             'AdministradorController@index');

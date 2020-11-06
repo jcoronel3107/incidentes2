@@ -20,11 +20,12 @@ class RolesAndPermissionsSeeder extends Seeder
         // create permissions
         Permission::create(['name' => 'edit evento']);
         Permission::create(['name' => 'delete evento']);
-        Permission::create(['name' => 'create evento']);;
+        Permission::create(['name' => 'create evento']);
         Permission::create(['name' => 'view estadisticas']);
         Permission::create(['name' => 'view parametrizacion']);
         Permission::create(['name' => 'allow import']);
         Permission::create(['name' => 'allow export']);
+        Permission::create(['name' => 'allow upload']);
         Permission::create(['name' => 'create pdf']);
         Permission::create(['name' => 'send mail']);
 
@@ -35,6 +36,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $role1->givePermissionTo('edit evento');
         $role1->givePermissionTo('create evento');
         $role1->givePermissionTo('allow import');
+        $role1->givePermissionTo('allow upload');
 
         // this can be done as separate statements
         $role2 = Role::create(['name' => 'consultor']);
@@ -48,6 +50,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $role3->givePermissionTo('view parametrizacion');
         $role3->givePermissionTo('view estadisticas');
         $role3->givePermissionTo('allow export');
+        $role3->givePermissionTo('allow upload');
         $role3->givePermissionTo('create pdf');
         $role3->givePermissionTo('send mail');
 

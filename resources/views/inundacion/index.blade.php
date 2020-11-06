@@ -6,67 +6,7 @@
 
 	@section( "cuerpo" )
 		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">{!! trans('messages.Consult Flood Information') !!}</h2>
-		@if(Session::has('Envio Mail Correcto'))
-			<div class="alert alert-success alert-dismissible fade show" role="alert">
-			{{session('Envio Mail Correcto')}}
-			<button type="button"
-				class="close"
-				data-dismiss="alert"
-				aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-
-		@endif
-
-		@if(Session::has('Importacion_Correcta'))
-			<div class="alert alert-success alert-dismissible fade show" role="alert">
-			{{session('Importacion_Correcta')}}
-			<button type="button"
-				class="close"
-				data-dismiss="alert"
-				aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-
-		@endif
-		@if(Session::has('Registro_Borrado'))
-			<div class="alert alert-danger alert-dismissible fade show" role="alert">
-			{{session('Registro_Borrado')}}
-			<button type="button"
-				class="close"
-				data-dismiss="alert"
-				aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-
-		@endif
-		@if(Session::has('Registro_Actualizado'))
-		<div class="alert alert-success alert-dismissible fade show" role="alert">
-			{{session('Registro_Actualizado')}}
-			<button type="button"
-				class="close"
-				data-dismiss="alert"
-				aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-
-		@endif
-		@if(Session::has('Registro_Almacenado'))
-		<div class="alert alert-success alert-dismissible fade show" role="alert">
-			{{session('Registro_Almacenado')}}
-			<button type="button"
-				class="close"
-				data-dismiss="alert"
-				aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-
-		@endif
+		@include('inundacion.messages')
 		<ul class="nav justify-content-end">
 		  <li class="nav-item">
 		  	@can('create evento')
@@ -86,6 +26,7 @@
 		<table class="table table-hover table-condensed">
 			<thead>
 				<tr class="table-primary">
+					<th>id</th>
 					<th>{!! trans('messages.Incident') !!}</th>
 					<th>{!! trans('messages.Station') !!}</th>
 					<th>{!! trans('messages.Date') !!}</th>
@@ -97,6 +38,7 @@
 			<tbody>
 				@foreach($inundaciones as $inundacion)
 				<tr>
+					<th>{{$inundacion->id}}</th>
 					<td>{{$inundacion->incidente->nombre_incidente}}</td>
 					<td>{{$inundacion->station->nombre}}</td>
 					<td>{{$inundacion->fecha}}</td>
@@ -105,12 +47,15 @@
 						@can('edit evento')
 						<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Edit" href="{{route('inundacion.edit',$inundacion->id)}}"><i class="icon-edit"></i></a>
 						@endcan
+						@can('allow upload')
+						<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Forms SCI" href="/inundacions/carga/{{$inundacion->id}}"><i class="fa fa-upload" aria-hidden="true"></i></a>
+						@endcan
 						<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Ver" href="{{route('inundacion.show',$inundacion->id)}}" role="button"><i class="icon-search"></i></a>
 						@can('create pdf')
 						<a class="btn btn-outline-info btn-sm" role="button" data-toggle="tooltip" title="PDF" href="/downloadPDFinundacion/{{$inundacion->id}}" ><i class="icon-file-text"></i></a>
 						@endcan
 						@can('send mail')
-						<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" data-target="#exampleModal" role="button"><i class="icon-envelope"></i></a>
+						<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" data-target="#exampleModal" role="button"><i class="fas fa-envelope-open"></i></a>
 						@endcan
 
 						{{-- <a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Enviar" href="{{action('MailController@SendMailsInundacion', $inundacion->id)}}" role="button"><i class="icon-envelope"></i></a> --}}
@@ -150,6 +95,7 @@
 			</tbody>
 			<tfoot>
 				<tr class="table-primary">
+					<th>id</th>
 					<th>{!! trans('messages.Incident') !!}</th>
 					<th>{!! trans('messages.Station') !!}</th>
 					<th>{!! trans('messages.Date') !!}</th>

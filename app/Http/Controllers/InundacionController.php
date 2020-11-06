@@ -18,6 +18,8 @@ use Illuminate\ Support\ Facades\Session;
 use App\Exports\ InundacionsExport;
 use App\Imports\ InundacionsImport;
 use PDF;
+use Illuminate\Support\Facades\Storage;
+
 
 
 class InundacionController extends Controller
@@ -242,10 +244,21 @@ class InundacionController extends Controller
                                 'detalle_emergencia' => $request->detalle_emergencia,
                                 'usuario_afectado' => $request->usuario_afectado,
                                 'danos_estimados' => $request->danos_estimados,
-                                'usr_editor' => auth()->user()->name ]);
+                                'usr_editor' => auth()->user()->name,
+                                'ruta201' =>  $request->file('fileSCI-201'),         
+                                'ruta202' =>  $request->file('fileSCI-202'),
+                                'ruta206A'  =>  $request->file('fileSCI-201')]);
+          //obtenemos el campo file definido en el formulario
+          $file = $request->file('fileSCI-201');
 
-            Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
-            return redirect( "/inundacion" );
+          //obtenemos el nombre del archivo
+          $nombre = $file->getClientOriginalName();
+
+          //indicamos que queremos guardar un nuevo archivo en el disco local
+          \Storage::disk('local')->put($nombre,  \File::get($file));
+
+          Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
+          return redirect( "/inundacion" );
         } else {
             return view( "/auth.login" );
         }
@@ -299,5 +312,110 @@ class InundacionController extends Controller
         $pdf = PDF::loadView('inundacion.pdf', compact('inundacion'));
 
         return $pdf->download('inundacion.pdf');
-}
+    }
+
+    public function cargar($id)
+    {
+      return view("/inundacion.carga",compact('id'));
+    }
+
+    public function upload(Request $request)
+    {
+
+       //obtenemos el campo file definido en el formulario
+       /*$files = $request->file('fileSCI');
+        $paths  = [];
+
+    foreach ($files as $file) {
+        $extension = $file->getClientOriginalExtension();
+        $filename  = 'profile-photo-' . time() . '.' . $extension;
+        $paths[]   = $file->storeAs('file', $filename);
+    }
+     dd($paths);*/
+       $file201 = $request->file('fileSCI-201');
+       $extension = 
+       $file202 = $request->file('fileSCI-202');
+       $file206 = $request->file('fileSCI-206');
+
+
+       //obtenemos el nombre del archivo
+
+       $nombre = "201.".$file201->getClientOriginalExtension();;
+       $nombre1 = "202.".$file202->getClientOriginalExtension();
+       $nombre2 = "206A.".$file206->getClientOriginalExtension();
+       
+       //$lastmodified = Storage::lastModified($nombre);
+       
+       //$lastmodified = DateTime::createFromFormat("U", $lastmodified);
+       //$lastmodified = $lastmodified->format('Y-m-d H:i:s');
+       
+       //$size = Storage::size($nombre);
+       //dd($size);
+       $validation = $request->validate([
+        'fileSCI-201' => 'required|file|mimes:pdf|max:1048'
+        // for multiple file uploads
+        // 'photo.*' => 'required|file|image|mimes:jpeg,png,gif,webp|max:2048'
+        ]);
+        
+       //indicamos que queremos guardar un nuevo archivo en el disco local
+       //dd($validation);
+        $file      = $validation['fileSCI-201']; // get the validated file
+        $path      = $file->storeAs($request->id, $nombre);
+        //dd($path);
+        $validation = $request->validate([
+        'fileSCI-202' => 'required|file|mimes:pdf|max:1048'
+        // for multiple file uploads
+        // 'photo.*' => 'required|file|image|mimes:jpeg,png,gif,webp|max:2048'
+        ]);
+        
+       //indicamos que queremos guardar un nuevo archivo en el disco local
+       //dd($validation);
+        $file      = $validation['fileSCI-202']; // get the validated file
+        $path1      = $file->storeAs($request->id, $nombre1);
+        //dd($path);
+        $validation = $request->validate([
+        'fileSCI-206' => 'required|file|mimes:pdf|max:1048'
+        // for multiple file uploads
+        // 'photo.*' => 'required|file|image|mimes:jpeg,png,gif,webp|max:2048'
+        ]);
+        
+       //indicamos que queremos guardar un nuevo archivo en el disco local
+       //dd($validation);
+        $file      = $validation['fileSCI-206']; // get the validated file
+        $path2      = $file->storeAs($request->id, $nombre2);
+        //dd($path);
+        
+        $exists = Storage::disk('local')->exists($path);
+        $exists1 = Storage::disk('local')->exists($path);
+        $exists2 = Storage::disk('local')->exists($path);
+        if ($exists&&$exists1&&$exists2) {
+          Session::flash('Carga_Correcta',"Formularios Subidos con Exito!!!");
+         return redirect( "/inundacion" );
+        } else {
+          Session::flash('Carga_Incorrecta',"Evento Tiene Formularios Cargados con Anterioridad.!!!");
+          return redirect( "/inundacion" );
+        }
+        
+        
+       /*if ($size>1048576) {
+          Session::flash('Tamaño_Excedido',"El tamaño maximo pemitido es de 1 MB por Archivo.!!!".$size/1024);
+          return redirect( "/inundacion" );
+       } 
+       else {
+         if (!$exists) {
+         \Storage::disk('local')->put($nombre,  \File::get($file201));
+         \Storage::disk('local')->put($nombre1,  \File::get($file202));
+         \Storage::disk('local')->put($nombre2,  \File::get($file206));
+         Session::flash('Carga_Correcta',"Formularios Subidos con Exito!!!");
+         return redirect( "/inundacion" );
+         }
+          else
+         {
+          
+          }
+       }*/
+       
+       
+       
+    }
 }
