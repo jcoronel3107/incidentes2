@@ -60,7 +60,7 @@ class DerrameController extends Controller
         $maquinistas = User::where("cargo","maquinista")
             ->orderBy("name",'asc')
          ->get();
-        $incidentes = Incidente::where("tipo_incidente","Derrame")
+        $incidentes = Incidente::where("tipo_incidente","Hazmat")
             ->orderBy("nombre_incidente",'asc')
             ->get();
 
@@ -196,7 +196,7 @@ class DerrameController extends Controller
             ->orderBy("name",'asc')
             ->get();
             
-            $incidentes = Incidente::where("tipo_incidente","Derrame")
+            $incidentes = Incidente::where("tipo_incidente","Hazmat")
             ->orderBy("nombre_incidente",'asc')
             ->get();
             $estaciones = Station::all();
@@ -297,5 +297,61 @@ class DerrameController extends Controller
         $pdf = PDF::loadView('derrame.pdf', compact('derrame'));
 
         return $pdf->download('derrame.pdf');
+    }
+
+    public function cargar($id)
+    {
+      return view("/derrame.carga",compact('id'));
+    }
+
+    public function upload(Request $request)
+    {
+       $file201 = $request->file('fileSCI-201');
+       $extension = 
+       $file202 = $request->file('fileSCI-202');
+       $file206 = $request->file('fileSCI-206');
+       //obtenemos el nombre del archivo
+       $nombre = "201.".$file201->getClientOriginalExtension();;
+       $nombre1 = "202.".$file202->getClientOriginalExtension();
+       $nombre2 = "206A.".$file206->getClientOriginalExtension();
+       
+       
+       $validation = $request->validate([
+        'fileSCI-201' => 'required|file|mimes:pdf|max:1048'
+        // for multiple file uploads
+        // 'photo.*' => 'required|file|image|mimes:jpeg,png,gif,webp|max:2048'
+        ]);
+        
+       //indicamos que queremos guardar un nuevo archivo en el disco local
+       
+        $file      = $validation['fileSCI-201']; // get the validated file
+        $path      = $file->storeAs($request->id, $nombre);
+        
+        $validation = $request->validate([
+        'fileSCI-202' => 'required|file|mimes:pdf|max:1048'
+       
+        ]);
+        
+        $file      = $validation['fileSCI-202']; // get the validated file
+        $path1      = $file->storeAs($request->id, $nombre1);
+        //dd($path);
+        $validation = $request->validate([
+        'fileSCI-206' => 'required|file|mimes:pdf|max:1048'
+        ]);
+        
+        $file      = $validation['fileSCI-206']; // get the validated file
+        $path2      = $file->storeAs($request->id, $nombre2);
+       
+        
+        $exists = Storage::disk('local')->exists($path);
+        $exists1 = Storage::disk('local')->exists($path);
+        $exists2 = Storage::disk('local')->exists($path);
+        if ($exists&&$exists1&&$exists2) {
+          Session::flash('Carga_Correcta',"Formularios Subidos con Exito!!!");
+         return redirect( "/derrame" );
+        } else {
+          Session::flash('Carga_Incorrecta',"Evento Tiene Formularios Cargados con Anterioridad.!!!");
+          return redirect( "/derrame" );
+        }
     }
 }

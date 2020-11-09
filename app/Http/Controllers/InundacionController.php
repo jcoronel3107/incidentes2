@@ -326,14 +326,13 @@ class InundacionController extends Controller
        /*$files = $request->file('fileSCI');
         $paths  = [];
 
-    foreach ($files as $file) {
-        $extension = $file->getClientOriginalExtension();
-        $filename  = 'profile-photo-' . time() . '.' . $extension;
-        $paths[]   = $file->storeAs('file', $filename);
-    }
-     dd($paths);*/
+        foreach ($files as $file) {
+          $extension = $file->getClientOriginalExtension();
+          $filename  = 'profile-photo-' . time() . '.' . $extension;
+          $paths[]   = $file->storeAs('file', $filename);
+        }
+        dd($paths);*/
        $file201 = $request->file('fileSCI-201');
-       $extension = 
        $file202 = $request->file('fileSCI-202');
        $file206 = $request->file('fileSCI-206');
 
@@ -360,7 +359,7 @@ class InundacionController extends Controller
        //indicamos que queremos guardar un nuevo archivo en el disco local
        //dd($validation);
         $file      = $validation['fileSCI-201']; // get the validated file
-        $path      = $file->storeAs($request->id, $nombre);
+        $path      = $file->storeAs('1020/'.$request->id, $nombre);
         //dd($path);
         $validation = $request->validate([
         'fileSCI-202' => 'required|file|mimes:pdf|max:1048'
@@ -371,7 +370,7 @@ class InundacionController extends Controller
        //indicamos que queremos guardar un nuevo archivo en el disco local
        //dd($validation);
         $file      = $validation['fileSCI-202']; // get the validated file
-        $path1      = $file->storeAs($request->id, $nombre1);
+        $path1      = $file->storeAs('1020/'.$request->id, $nombre1);
         //dd($path);
         $validation = $request->validate([
         'fileSCI-206' => 'required|file|mimes:pdf|max:1048'
@@ -382,7 +381,7 @@ class InundacionController extends Controller
        //indicamos que queremos guardar un nuevo archivo en el disco local
        //dd($validation);
         $file      = $validation['fileSCI-206']; // get the validated file
-        $path2      = $file->storeAs($request->id, $nombre2);
+        $path2      = $file->storeAs('1020/'.$request->id, $nombre2);
         //dd($path);
         
         $exists = Storage::disk('local')->exists($path);
@@ -413,9 +412,6 @@ class InundacionController extends Controller
          {
           
           }
-       }*/
-       
-       
-       
+       }*/ 
     }
 }

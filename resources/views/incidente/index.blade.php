@@ -56,6 +56,7 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
+					<td>Id</td>
 					<td>Tipo_Incidente</td>
 					<td>Nombre_Incidente</td>
 					<td>created_at</td>
@@ -66,10 +67,11 @@
 			<tbody>
 				@foreach($incidentes as $incidente)
 				<tr>
-					<td>{{$incidente->tipo_incidente}}&nbsp;</td>
-					<td>{{$incidente->nombre_incidente}}&nbsp;</td>
-					<td>{{$incidente->created_at}}&nbsp;</td>
-					<td>{{$incidente->updated_at}}&nbsp;</td>
+					<td>{{$incidente->id}}</td>
+					<td>{{$incidente->tipo_incidente}}</td>
+					<td>{{$incidente->nombre_incidente}}</td>
+					<td>{{$incidente->created_at}}</td>
+					<td>{{$incidente->updated_at}}</td>
 					<td>
 						<a class="btn btn-outline-danger btn-sm" href="{{route('incidente.edit',$incidente->id)}}" role="button">Edit</a>
 						{{-- <a class="btn btn-outline-info btn-sm" href="{{route('incidente.show',$incidente->id)}}" role="button">Ver</a> --}}
