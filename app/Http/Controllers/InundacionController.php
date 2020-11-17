@@ -385,8 +385,8 @@ class InundacionController extends Controller
         //dd($path);
         
         $exists = Storage::disk('local')->exists($path);
-        $exists1 = Storage::disk('local')->exists($path);
-        $exists2 = Storage::disk('local')->exists($path);
+        $exists1 = Storage::disk('local')->exists($path1);
+        $exists2 = Storage::disk('local')->exists($path2);
         if ($exists&&$exists1&&$exists2) {
           Session::flash('Carga_Correcta',"Formularios Subidos con Exito!!!");
          return redirect( "/inundacion" );

@@ -52,13 +52,25 @@ Route::resource('consulta',      	'ConsultasController');
 
 Route::get('/activitylog',			'ConsultasController@activitylog');
 Route::get('/download/{file}', 		'DownloadsController@download');
-Route::post('cie10/import/',		'CieController@importacion');
+
+
 Route::get('/inundacions/carga/{id}','InundacionController@cargar');
 Route::get('/derrames/carga/{id}',	'DerrameController@cargar');
 Route::get('/incendios/carga/{id}',	'IncendioController@cargar');
+Route::get('/rescates/carga/{id}',	'RescateController@cargar');
+Route::get('/transitos/carga/{id}',	'TransitoController@cargar');
+Route::get('/saluds/carga/{id}',	'SaludController@cargar');
+Route::get('/fugas/carga/{id}',		'FugaController@cargar');
+
 Route::post('inundacions/guardaform','InundacionController@upload');
 Route::post('derrames/guardaform',	'DerrameController@upload');
 Route::post('incendios/guardaform',	'IncendioController@upload');
+Route::post('rescates/guardaform',	'RescateController@upload');
+Route::post('transitos/guardaform',	'TransitoController@upload');
+Route::post('saluds/guardaform',	'SaludController@upload');
+Route::post('fugas/guardaform',		'FugaController@upload');
+
+Route::post('cie10/import/',		'CieController@importacion');
 Route::post('inundacions/import/',	'InundacionController@importacion');
 Route::post('rescates/import/',		'RescateController@importacion');
 Route::post('transitos/import/',	'TransitoController@importacion');
@@ -67,6 +79,7 @@ Route::post('fugas/import/',		'FugaController@importacion');
 Route::post('vehiculos/import/',	'VehiculoController@importacion');
 Route::post('saluds/import/',		'SaludController@importacion');
 Route::post('derrames/import/',		'DerrameController@importacion');
+
 Route::get('cie10/importar',		'CieController@importar');
 Route::get('vehiculos/importar',	'VehiculoController@importar');
 Route::get('fugas/importar',		'FugaController@importar');
@@ -76,6 +89,7 @@ Route::get('rescates/importar',		'RescateController@importar');
 Route::get('transitos/importar',	'TransitoController@importar');
 Route::get('saluds/importar',		'SaludController@importar');
 Route::get('derrames/importar',		'derrameController@importar');
+
 Route::get('incidentes/export/', 	'IncidenteController@export');
 Route::get('vehiculos/export/',    	'VehiculoController@export');
 Route::get('claves/export/',     	'ClaveController@export');

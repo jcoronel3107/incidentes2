@@ -10,7 +10,7 @@
 		<div class="card">
 			<div class="card-header">
 		    	<div class="col-12 text-right">
-		    		<a href="{{ route('incendios.index')}}" class="btn btn-outline-primary ">Regresar</a>
+		    		<a href="{{ route('fuego.index')}}" class="btn btn-outline-primary ">Regresar</a>
 		    	</div>
 			</div>
 		

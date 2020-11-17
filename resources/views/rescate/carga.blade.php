@@ -10,7 +10,7 @@
 		<div class="card">
 			<div class="card-header">
 		    	<div class="col-12 text-right">
-		    		<a href="{{ route('inundacion.index')}}" class="btn btn-outline-primary ">Regresar</a>
+		    		<a href="{{ route('rescate.index')}}" class="btn btn-outline-primary ">Regresar</a>
 		    	</div>
 			</div>
 		
@@ -22,7 +22,7 @@
 				      <div class="panel-heading">Agregar archivos en Registro {{$id}}</div>
 				      <hr>
 				        <div class="panel-body">
-				          <form method="POST" action="http://incidentes2.test/inundacions/guardaform" accept-charset="UTF-8" enctype="multipart/form-data">
+				          <form method="POST" action="http://incidentes2.test/rescates/guardaform" accept-charset="UTF-8" enctype="multipart/form-data">
 				            
 				            <input type="hidden" name="_token" value="{{ csrf_token() }}">
 				            <input type="hidden" name="id" value="{{$id}}">

@@ -18,6 +18,7 @@ use Illuminate\ Support\ Facades\Session;
 use App\Exports\ TransitosExport;
 use App\Imports\ TransitosImport;
 use PDF;
+use Illuminate\Support\Facades\Storage;
 
 
 class TransitoController extends Controller
@@ -299,5 +300,60 @@ class TransitoController extends Controller
         $transito = Transito::find($id);
         $pdf = PDF::loadView('transito.pdf', compact('transito'));
         return $pdf->download('transito.pdf');
+    }
+
+    public function cargar($id)
+    {
+      return view("/transito.carga",compact('id'));
+    }
+
+    public function upload(Request $request)
+    {
+       $file201 = $request->file('fileSCI-201');
+       $file202 = $request->file('fileSCI-202');
+       $file206 = $request->file('fileSCI-206');
+
+
+       //obtenemos el nombre del archivo
+
+       $nombre = "201.".$file201->getClientOriginalExtension();;
+       $nombre1 = "202.".$file202->getClientOriginalExtension();
+       $nombre2 = "206A.".$file206->getClientOriginalExtension();
+       
+       $validation = $request->validate([
+        'fileSCI-201' => 'required|file|mimes:pdf|max:1048'
+        
+        ]);
+        
+      
+        $file      = $validation['fileSCI-201']; // get the validated file        
+        $path      = $file->storeAs('1042/'.$request->id, $nombre);
+        $validation = $request->validate([
+        'fileSCI-202' => 'required|file|mimes:pdf|max:1048'
+        
+        ]);
+        
+       
+        $file      = $validation['fileSCI-202']; // get the validated file
+        $path1      = $file->storeAs('1042/'.$request->id, $nombre1);
+        $validation = $request->validate([
+        'fileSCI-206' => 'required|file|mimes:pdf|max:1048'
+       
+        ]);
+        
+      
+        $file      = $validation['fileSCI-206']; // get the validated file        
+        $path2      = $file->storeAs('1042/'.$request->id, $nombre2);
+        $exists = Storage::disk('local')->exists($path);
+        $exists1 = Storage::disk('local')->exists($path1);
+        $exists2 = Storage::disk('local')->exists($path2);
+        if ($exists&&$exists1&&$exists2) {
+          Session::flash('Carga_Correcta',"Formularios Subidos con Exito!!!");
+         return redirect( "/transito" );
+        } else {
+          Session::flash('Carga_Incorrecta',"Evento Tiene Formularios Cargados con Anterioridad.!!!");
+          return redirect( "/transito" );
+        }
+        
     }
 }

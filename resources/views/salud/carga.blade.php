@@ -6,11 +6,11 @@
 	@endsection
 
 	@section( "cuerpo" )
-		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Adjunta Fichas SCI de Evento 10-20</h2>
+		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Adjunta Fichas SCI de Evento 10-38</h2>
 		<div class="card">
 			<div class="card-header">
 		    	<div class="col-12 text-right">
-		    		<a href="{{ route('inundacion.index')}}" class="btn btn-outline-primary ">Regresar</a>
+		    		<a href="{{ route('salud.index')}}" class="btn btn-outline-primary ">Regresar</a>
 		    	</div>
 			</div>
 		
@@ -22,7 +22,7 @@
 				      <div class="panel-heading">Agregar archivos en Registro {{$id}}</div>
 				      <hr>
 				        <div class="panel-body">
-				          <form method="POST" action="http://incidentes2.test/inundacions/guardaform" accept-charset="UTF-8" enctype="multipart/form-data">
+				          <form method="POST" action="http://incidentes2.test/saluds/guardaform" accept-charset="UTF-8" enctype="multipart/form-data">
 				            
 				            <input type="hidden" name="_token" value="{{ csrf_token() }}">
 				            <input type="hidden" name="id" value="{{$id}}">

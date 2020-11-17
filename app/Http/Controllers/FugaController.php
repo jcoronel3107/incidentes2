@@ -18,6 +18,7 @@ use Illuminate\ Support\ Facades\Session;
 use App\Exports\ FugasExport;
 use App\Imports\ FugasImport;
 use PDF;
+use Illuminate\Support\Facades\Storage;
 
 class FugaController extends Controller
 {
@@ -302,5 +303,60 @@ class FugaController extends Controller
         $pdf = PDF::loadView('fuga.pdf', compact('fuga'));
 
         return $pdf->download('fuga.pdf');
+    }
+
+    public function cargar($id)
+    {
+      return view("/fuga.carga",compact('id'));
+    }
+
+    public function upload(Request $request)
+    {
+       $file201 = $request->file('fileSCI-201');
+       $file202 = $request->file('fileSCI-202');
+       $file206 = $request->file('fileSCI-206');
+
+
+       //obtenemos el nombre del archivo
+
+       $nombre = "201.".$file201->getClientOriginalExtension();;
+       $nombre1 = "202.".$file202->getClientOriginalExtension();
+       $nombre2 = "206A.".$file206->getClientOriginalExtension();
+       
+       $validation = $request->validate([
+        'fileSCI-201' => 'required|file|mimes:pdf|max:1048'
+        
+        ]);
+        
+      
+        $file      = $validation['fileSCI-201']; // get the validated file        
+        $path      = $file->storeAs('fuga/'.$request->id, $nombre);
+        $validation = $request->validate([
+        'fileSCI-202' => 'required|file|mimes:pdf|max:1048'
+        
+        ]);
+        
+       
+        $file      = $validation['fileSCI-202']; // get the validated file
+        $path1      = $file->storeAs('fuga/'.$request->id, $nombre1);
+        $validation = $request->validate([
+        'fileSCI-206' => 'required|file|mimes:pdf|max:1048'
+       
+        ]);
+        
+      
+        $file      = $validation['fileSCI-206']; // get the validated file        
+        $path2      = $file->storeAs('fuga/'.$request->id, $nombre2);
+        $exists = Storage::disk('local')->exists($path);
+        $exists1 = Storage::disk('local')->exists($path1);
+        $exists2 = Storage::disk('local')->exists($path2);
+        if ($exists&&$exists1&&$exists2) {
+          Session::flash('Carga_Correcta',"Formularios Subidos con Exito!!!");
+         return redirect( "/fuga" );
+        } else {
+          Session::flash('Carga_Incorrecta',"Evento Tiene Formularios Cargados con Anterioridad.!!!");
+          return redirect( "/fuga" );
+        }
+        
     }
 }

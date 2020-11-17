@@ -18,6 +18,7 @@ use Illuminate\ Support\ Facades\Session;
 use App\Exports\ DerramesExport;
 use App\Imports\ DerramesImport;
 use PDF;
+use Illuminate\Support\Facades\Storage;
 
 class DerrameController extends Controller
 {
@@ -304,48 +305,46 @@ class DerrameController extends Controller
       return view("/derrame.carga",compact('id'));
     }
 
-    public function upload(Request $request)
+   public function upload(Request $request)
     {
        $file201 = $request->file('fileSCI-201');
-       $extension = 
        $file202 = $request->file('fileSCI-202');
        $file206 = $request->file('fileSCI-206');
+
+
        //obtenemos el nombre del archivo
+
        $nombre = "201.".$file201->getClientOriginalExtension();;
        $nombre1 = "202.".$file202->getClientOriginalExtension();
        $nombre2 = "206A.".$file206->getClientOriginalExtension();
        
-       
        $validation = $request->validate([
         'fileSCI-201' => 'required|file|mimes:pdf|max:1048'
-        // for multiple file uploads
-        // 'photo.*' => 'required|file|image|mimes:jpeg,png,gif,webp|max:2048'
+        
         ]);
         
-       //indicamos que queremos guardar un nuevo archivo en el disco local
-       
-        $file      = $validation['fileSCI-201']; // get the validated file
-        $path      = $file->storeAs($request->id, $nombre);
-        
+      
+        $file      = $validation['fileSCI-201']; // get the validated file        
+        $path      = $file->storeAs('hazmat/'.$request->id, $nombre);
         $validation = $request->validate([
         'fileSCI-202' => 'required|file|mimes:pdf|max:1048'
-       
+        
         ]);
         
+       
         $file      = $validation['fileSCI-202']; // get the validated file
-        $path1      = $file->storeAs($request->id, $nombre1);
-        //dd($path);
+        $path1      = $file->storeAs('hazmat/'.$request->id, $nombre1);
         $validation = $request->validate([
         'fileSCI-206' => 'required|file|mimes:pdf|max:1048'
+       
         ]);
         
-        $file      = $validation['fileSCI-206']; // get the validated file
-        $path2      = $file->storeAs($request->id, $nombre2);
-       
-        
+      
+        $file      = $validation['fileSCI-206']; // get the validated file        
+        $path2      = $file->storeAs('hazmat/'.$request->id, $nombre2);
         $exists = Storage::disk('local')->exists($path);
-        $exists1 = Storage::disk('local')->exists($path);
-        $exists2 = Storage::disk('local')->exists($path);
+        $exists1 = Storage::disk('local')->exists($path1);
+        $exists2 = Storage::disk('local')->exists($path2);
         if ($exists&&$exists1&&$exists2) {
           Session::flash('Carga_Correcta',"Formularios Subidos con Exito!!!");
          return redirect( "/derrame" );
@@ -353,5 +352,6 @@ class DerrameController extends Controller
           Session::flash('Carga_Incorrecta',"Evento Tiene Formularios Cargados con Anterioridad.!!!");
           return redirect( "/derrame" );
         }
+        
     }
 }

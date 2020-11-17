@@ -18,6 +18,8 @@ use Illuminate\ Support\ Facades\Session;
 use App\Exports\ IncendiosExport;
 use App\Imports\ IncendiosImport;
 use PDF;
+use Illuminate\Support\Facades\Storage;
+
 
 class IncendioController extends Controller
 {
@@ -305,7 +307,6 @@ class IncendioController extends Controller
     public function upload(Request $request)
     {
        $file201 = $request->file('fileSCI-201');
-       $extension = 
        $file202 = $request->file('fileSCI-202');
        $file206 = $request->file('fileSCI-206');
 
@@ -322,9 +323,8 @@ class IncendioController extends Controller
         ]);
         
       
-        $file      = $validation['fileSCI-201']; // get the validated file
-        $path      = $file->storeAs($request->id, $nombre);
-      
+        $file      = $validation['fileSCI-201']; // get the validated file        
+        $path      = $file->storeAs('1070/'.$request->id, $nombre);
         $validation = $request->validate([
         'fileSCI-202' => 'required|file|mimes:pdf|max:1048'
         
@@ -332,21 +332,18 @@ class IncendioController extends Controller
         
        
         $file      = $validation['fileSCI-202']; // get the validated file
-        $path1      = $file->storeAs($request->id, $nombre1);
-       
+        $path1      = $file->storeAs('1070/'.$request->id, $nombre1);
         $validation = $request->validate([
         'fileSCI-206' => 'required|file|mimes:pdf|max:1048'
        
         ]);
         
       
-        $file      = $validation['fileSCI-206']; // get the validated file
-        $path2      = $file->storeAs($request->id, $nombre2);
-        
-        
+        $file      = $validation['fileSCI-206']; // get the validated file        
+        $path2      = $file->storeAs('1070/'.$request->id, $nombre2);
         $exists = Storage::disk('local')->exists($path);
-        $exists1 = Storage::disk('local')->exists($path);
-        $exists2 = Storage::disk('local')->exists($path);
+        $exists1 = Storage::disk('local')->exists($path1);
+        $exists2 = Storage::disk('local')->exists($path2);
         if ($exists&&$exists1&&$exists2) {
           Session::flash('Carga_Correcta',"Formularios Subidos con Exito!!!");
          return redirect( "/fuego" );
