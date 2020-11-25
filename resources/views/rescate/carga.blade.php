@@ -6,7 +6,7 @@
 	@endsection
 
 	@section( "cuerpo" )
-		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Adjunta Fichas SCI de Evento 10-20</h2>
+		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Adjunta Fichas SCI de Evento 10-33</h2>
 		<div class="card">
 			<div class="card-header">
 		    	<div class="col-12 text-right">

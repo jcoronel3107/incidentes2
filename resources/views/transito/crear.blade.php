@@ -200,6 +200,7 @@
 					
 				</div>
 			</div><!--Detalle Emergencia-->
+			<div class="counter" id="pcounter1">0</div>
 			<div class="form-row">
 				<div class="form-group input-group  col-md-8">
 					<div class="input-group-prepend">
@@ -372,6 +373,8 @@
 					$('#fecha').attr('min', maxDate);
 				    
 				});
+
+				
 		</script>
 
 		
@@ -394,8 +397,23 @@
 		            $("#informacion_inicial").removeClass('error');
 		          }
 		      });
-});
+		    	$("#detalle_emergencia").keyup(function() {
+				        var chars = $("#detalle_emergencia").val().length;
+				        var diff = max_chars - chars;
+				        var leyenda = "Caracteres Permitidos 1000 - Digitados: ";
+				        var res = leyenda.concat(chars);
+				        $("#pcounter1").html(res);
+				        if(chars > 1000){
+				           $("#detalle_emergencia").addClass('error');
+				           $("#detalle_emergencia").addClass('error');
+				          }else{
+				            $("#detalle_emergencia").removeClass('error');
+				            $("#detalle_emergencia").removeClass('error');
+				          }
+				      });
 		
+			});
+			
 			
 		</script>
 		<script type="text/javascript">

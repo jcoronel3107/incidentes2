@@ -27,6 +27,7 @@
 		<table class="table table-hover table-condensed">
 			<thead>
 				<tr class="table-primary">
+					<th>id</th>
 					<th>{!! trans('messages.Incident') !!}</th>
 					<th>{!! trans('messages.Station') !!}</th>
 					<th>{!! trans('messages.Date') !!}</th>
@@ -37,6 +38,7 @@
 			<tbody>
 				@foreach($derrames as $derrame)
 				<tr>
+					<td>{{$derrame->id}}</td>
 					<td>{{$derrame->incidente->nombre_incidente}}</td>
 					<td>{{$derrame->station->nombre}}</td>
 					<td>{{$derrame->fecha}}</td>
@@ -93,6 +95,7 @@
 			</tbody>
 			<tfoot>
 				<tr class="table-primary">
+					<th>id</th>
 					<th>{!! trans('messages.Incident') !!}</th>
 					<th>{!! trans('messages.Station') !!}</th>
 					<th>{!! trans('messages.Date') !!}</th>

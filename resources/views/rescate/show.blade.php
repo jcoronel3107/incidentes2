@@ -168,6 +168,20 @@
 				</table>
 			</div>
 		</div>
+		<hr>
+			<div class="row p-3 border-left-secondary">
+				<div class="col-sm-12 col-md-12 col-lg-12">
+					<p class="text-center"><h4>Formularios del Incidente</h4></p>
+						<li>	
+						<a target="_blank" href="{{asset('storage/1033/'.$rescate->id.'/201.pdf')}}">Formulario 201 - PDF</a>
+						</li>
+						<li><a target="_blank" href="{{asset('storage/1033/'.$rescate->id.'/202.pdf')}}">Formulario 202 - PDF</a>
+						</li>
+						<li><a target="_blank" href="{{asset('storage/1033/'.$rescate->id.'/206A.pdf')}}">Formulario 206A - PDF</a></li>
+						<!-- <iframe width="400" height="400" src="{{asset('storage/1020/'.$rescate->id.'/206A.pdf')}}" frameborder="0"></iframe>	 -->
+
+				</div>
+			</div>
   		</div>
 	</div>
 @endsection

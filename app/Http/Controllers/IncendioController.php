@@ -310,19 +310,16 @@ class IncendioController extends Controller
        $file202 = $request->file('fileSCI-202');
        $file206 = $request->file('fileSCI-206');
 
-
        //obtenemos el nombre del archivo
 
-       $nombre = "201.".$file201->getClientOriginalExtension();;
+       $nombre = "201.".$file201->getClientOriginalExtension();
        $nombre1 = "202.".$file202->getClientOriginalExtension();
-       $nombre2 = "206A.".$file206->getClientOriginalExtension();
-       
+       $nombre2 = "206A.".$file206->getClientOriginalExtension();      
        $validation = $request->validate([
         'fileSCI-201' => 'required|file|mimes:pdf|max:1048'
         
         ]);
         
-      
         $file      = $validation['fileSCI-201']; // get the validated file        
         $path      = $file->storeAs('1070/'.$request->id, $nombre);
         $validation = $request->validate([
@@ -353,4 +350,6 @@ class IncendioController extends Controller
         }
         
     }
+
+    
 }

@@ -243,7 +243,15 @@ class DerrameController extends Controller
                                 'usuario_afectado' => $request->usuario_afectado,
                                 'danos_estimados' => $request->danos_estimados,
                                 'usr_editor' => auth()->user()->name ]);
+            $derrame->users()->detach();
+            $jefeguardia = User::findOrFail($request->jefeguardia_id);
+            $jefeguardia->derrames()->attach($id);
+           
+            $bombero = User::findOrFail($request->bombero_id);
+            $bombero->derrames()->attach($id);
 
+            $maqui = User::findOrFail($request->conductor_id);
+            $maqui->derrames()->attach($id);
             Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
             return redirect( "/derrame" );
         } else {

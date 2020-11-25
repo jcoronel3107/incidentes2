@@ -32,7 +32,7 @@ return [
     'Vehicles' => 'Vehiculos',
     'statistics' => 'Estadisticas',
     'Consult Flood Information' => 'Consulta Información de Inundaciones',
-    'Consult Hazmat Information' => 'Consulta Información de Derrame',
+    'Consult Hazmat Information' => 'Consulta Información de Hazmat',
     'Consult Rescue Information' => 'Consulta Información de Rescate',
     'Consult Traffic Accident Information' => 'Consulta Información de Accidentes Tránsito',
     'Consult Fire Information' => 'Consulta Información de Incendios',

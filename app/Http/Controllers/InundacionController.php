@@ -147,7 +147,7 @@ class InundacionController extends Controller
                   ->where('codigodis',$nombrevehiculo[$cont])
                   ->value('id');
                 $carro = vehiculo::findOrFail($vehiculo_id);
-                $carro->inundacions()->attach(
+                $carro->inundacions()->sync(
                   $id , [
                     'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
                 $cont=$cont+1;
@@ -244,19 +244,19 @@ class InundacionController extends Controller
                                 'detalle_emergencia' => $request->detalle_emergencia,
                                 'usuario_afectado' => $request->usuario_afectado,
                                 'danos_estimados' => $request->danos_estimados,
-                                'usr_editor' => auth()->user()->name,
-                                'ruta201' =>  $request->file('fileSCI-201'),         
-                                'ruta202' =>  $request->file('fileSCI-202'),
-                                'ruta206A'  =>  $request->file('fileSCI-201')]);
-          //obtenemos el campo file definido en el formulario
-          $file = $request->file('fileSCI-201');
+                                'usr_editor' => auth()->user()->name]);
+                                
+           $inundacion->users()->detach();
+          
 
-          //obtenemos el nombre del archivo
-          $nombre = $file->getClientOriginalName();
+           $jefeguardia = User::findOrFail($request->jefeguardia_id);
+           $jefeguardia->inundacions()->attach($id);
+           
+           $bombero = User::findOrFail($request->bombero_id);
+           $bombero->inundacions()->attach($id);
 
-          //indicamos que queremos guardar un nuevo archivo en el disco local
-          \Storage::disk('local')->put($nombre,  \File::get($file));
-
+           $maqui = User::findOrFail($request->conductor_id);
+           $maqui->inundacions()->attach($id);
           Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
           return redirect( "/inundacion" );
         } else {

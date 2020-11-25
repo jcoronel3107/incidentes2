@@ -220,12 +220,12 @@ class RescateController extends Controller
         //
         if ( Auth::check() ) {
 
-                $jefeguardia_id = DB::table('users')->where('name', $request->jefeguardia_id)->value('id');
-                $incidente_id = DB::table('incidentes')->where('nombre_incidente', $request->incidente_id)->value('id');
-                $station_id = DB::table('stations')->where('nombre', $request->station_id)->value('id');
-                $parroquia_id = DB::table('parroquias')->where('nombre', $request->parroquia_id)->value('id');
-                $rescate = Rescate::findOrFail( $id );
-                $rescate->update([
+            $jefeguardia_id = DB::table('users')->where('name', $request->jefeguardia_id)->value('id');
+            $incidente_id = DB::table('incidentes')->where('nombre_incidente', $request->incidente_id)->value('id');
+            $station_id = DB::table('stations')->where('nombre', $request->station_id)->value('id');
+            $parroquia_id = DB::table('parroquias')->where('nombre', $request->parroquia_id)->value('id');
+            $rescate = Rescate::findOrFail( $id );
+            $rescate->update([
                                 'incidente_id' => $incidente_id,
                                 'tipo_escena' => $request->tipo_escena,
                                 'station_id' => $station_id,
@@ -244,7 +244,15 @@ class RescateController extends Controller
                                 'usuario_afectado' => $request->usuario_afectado,
                                 'danos_estimados' => $request->danos_estimados,
                                 'usr_editor' => auth()->user()->name ]);
+            $rescate->users()->detach();
+            $jefeguardia = User::findOrFail($request->jefeguardia_id);
+            $jefeguardia->rescates()->attach($id);
+           
+            $bombero = User::findOrFail($request->bombero_id);
+            $bombero->rescates()->attach($id);
 
+            $maqui = User::findOrFail($request->conductor_id);
+            $maqui->rescates()->attach($id);
             Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
             return redirect( "/rescate" );
         } else {
@@ -317,7 +325,7 @@ class RescateController extends Controller
 
        //obtenemos el nombre del archivo
 
-       $nombre = "201.".$file201->getClientOriginalExtension();;
+       $nombre = "201.".$file201->getClientOriginalExtension();
        $nombre1 = "202.".$file202->getClientOriginalExtension();
        $nombre2 = "206A.".$file206->getClientOriginalExtension();
        
