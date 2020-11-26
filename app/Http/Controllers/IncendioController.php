@@ -197,7 +197,7 @@ class IncendioController extends Controller
             ->get();
             $estaciones = Station::all();
             $parroquias = Parroquia::all();
-
+            
             return view( "fuego.edit", compact("incendio","vehiculos","bomberos","maquinistas","incidentes","estaciones","parroquias"));
         } else {
             return view( "/auth.login" );
@@ -240,7 +240,19 @@ class IncendioController extends Controller
                             'usuario_afectado' => $request->usuario_afectado,
                             'danos_estimados' => $request->danos_estimados,
                             'usr_editor' => auth()->user()->name ]);
-            //  return $request->km_salida;
+
+            $incendio->users()->detach();
+          
+
+           $jefeguardia = User::findOrFail($request->jefeguardia_id);
+           $jefeguardia->incendios()->attach($id);
+           
+           $bombero = User::findOrFail($request->bombero_id);
+           $bombero->incendios()->attach($id);
+
+           $maqui = User::findOrFail($request->conductor_id);
+           $maqui->incendios()->attach($id);
+
             Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
             return redirect( "/fuego" );
         } else {

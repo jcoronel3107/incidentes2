@@ -10,8 +10,9 @@
 		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Registro Información de Eventos 10-20</h2>
 		<ul class="nav justify-content-end">
 		  <li class="nav-item">
-		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('inundacion.index')}}"><i class="icon-remove icon-2x"></i></a>
+		    
 			<a class="btn btn-outline-info"  data-toggle="tooltip" title="Whatsapp" role="button" onclick="notificacionWhatsapp();"><i class="icon-comments-alt icon-2x"></i></a>
+			<a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('inundacion.index')}}"><i class="icon-remove icon-2x"></i></a>
 
 		  </li>
 		  

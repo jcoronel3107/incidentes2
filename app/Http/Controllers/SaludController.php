@@ -276,7 +276,18 @@ class SaludController extends Controller
                                 'usuario_afectado' => $request->usuario_afectado,
                                 'danos_estimados' => $request->danos_estimados,
                                 'usr_editor' => auth()->user()->name ]);
+           $salud->users()->detach();
+          
 
+           $jefeguardia = User::findOrFail($request->jefeguardia_id);
+           $jefeguardia->saluds()->attach($id);
+           
+           $bombero = User::findOrFail($request->bombero_id);
+           $bombero->saluds()->attach($id);
+
+           $maqui = User::findOrFail($request->conductor_id);
+           $maqui->saluds()->attach($id);
+           
             Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
             return redirect( "/salud" );
         } else {

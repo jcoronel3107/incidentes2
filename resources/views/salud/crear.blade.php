@@ -12,7 +12,7 @@
 		<ul class="nav justify-content-end">
 		  <li class="nav-item">
 		  	<a class="btn btn-outline-info"  data-toggle="tooltip" title="Whatsapp" role="button" onclick="notificacionWhatsapp();"><i class="icon-comments-alt icon-2x"></i></a>
-		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('inundacion.index')}}"><i class="icon-remove icon-2x"></i>
+		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('salud.index')}}"><i class="icon-remove icon-2x"></i>
 						</a>
 		  </li>
 		</ul>
