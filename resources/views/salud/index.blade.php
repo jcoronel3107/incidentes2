@@ -7,66 +7,7 @@
 
 	@section( "cuerpo" )
 		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Consulta Información de Salud</h2>
-		@if(Session::has('Envio Mail Correcto'))
-			<div class="alert alert-success alert-dismissible fade show" role="alert">
-			{{session('Envio Mail Correcto')}}
-			<button type="button"
-				class="close"
-				data-dismiss="alert"
-				aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-
-		@endif
-		@if(Session::has('Importacion_Correcta'))
-			<div class="alert alert-success alert-dismissible fade show" role="alert">
-			{{session('Importacion_Correcta')}}
-			<button type="button"
-				class="close"
-				data-dismiss="alert"
-				aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-
-		@endif
-		@if(Session::has('Registro_Borrado'))
-		<div class="alert alert-danger alert-dismissible fade show" role="alert">
-			{{session('Registro_Borrado')}}
-			<button type="button"
-				class="close"
-				data-dismiss="alert"
-				aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-
-		@endif
-		@if(Session::has('Registro_Actualizado'))
-		<div class="alert alert-success alert-dismissible fade show" role="alert">
-			{{session('Registro_Actualizado')}}
-			<button type="button"
-				class="close"
-				data-dismiss="alert"
-				aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-
-		@endif
-		@if(Session::has('Registro_Almacenado'))
-		<div class="alert alert-success alert-dismissible fade show" role="alert">
-			{{session('Registro_Almacenado')}}
-			<button type="button"
-				class="close"
-				data-dismiss="alert"
-				aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-
-		@endif
+		@include('salud.messages')
 		<ul class="nav justify-content-end">
 		  <li class="nav-item">
 		  	@can('create evento')
@@ -87,6 +28,7 @@
 		<table class="table table-hover table-condensed">
 			<thead>
 				<tr class="table-primary">
+					<th>id</th>
 					<th>{!! trans('messages.Incident') !!}</th>
 					<th>{!! trans('messages.Station') !!}</th>
 					<th>{!! trans('messages.Date') !!}</th>
@@ -98,7 +40,7 @@
 			<tbody>
 				@foreach($saluds as $salud)
 				<tr>
-
+					<td>{{$salud->id}}</td>
 					<td>{{$salud->incidente->nombre_incidente}}</td>
 					<td>{{$salud->station->nombre}}</td>
 					<td>{{$salud->fecha}}</td>
@@ -122,6 +64,7 @@
 			</tbody>
 			<tfoot>
 				<tr class="table-primary">
+					<th>id</th>
 					<th>{!! trans('messages.Incident') !!}</th>
 					<th>{!! trans('messages.Station') !!}</th>
 					<th>{!! trans('messages.Date') !!}</th>

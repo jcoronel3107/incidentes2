@@ -34,7 +34,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Hora Ficha ECU911</span>
 							</div>
-							<input type="time" required="" name="hora_fichaecu911"  class="form-control" placeholder="hh:mm:ss" value="{{old('hora_fichaecu911',$now->format('H:i:s'))}}">
+							<input type="time" required="" name="hora_fichaecu911"  class="form-control" placeholder="hh:mm:ss" value="{{old('hora_fichaecu911')}}">
 						</div>
 					</div>
 				</div>
@@ -44,7 +44,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Nro.Ficha ECU911</span>
 							</div>
-							<input type="text" required="" name="ficha_ecu911" value="{{old('ficha_ecu911')}}" class="form-control">
+							<input type="text" required="" onkeyup="mayus(this);" name="ficha_ecu911" value="{{old('ficha_ecu911')}}" class="form-control">
 						</div>
 					</div>
 				</div>
@@ -57,12 +57,13 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Informacion Inicial</span>
 							</div>
-							<textarea class="form-control" maxlength="1000" name="informacion_inicial"  aria-label="With textarea" required="" ></textarea>
+							<textarea class="form-control" maxlength="1000" id="pinformacion_inicial" name="informacion_inicial"  aria-label="With textarea" required="" ></textarea>
 
 						</div>
 					</div>
 				</div>
 			</div>
+			<div class="counter" id="pcounter">0</div>
 			<div class="form-row">
 				<div class="form-group input-group col-md-5">
 					<div class="input-group-prepend">
@@ -198,7 +199,8 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Detalle Emergencia</span>
 					</div>
-					<input type="text" class="form-control" name="detalle_emergencia" id="detalle_emergencia" value="{{old('detalle_emergencia')}}" required="" placeholder="Digite a detalle lo ocurrido en Emergencia">
+					
+					<textarea class="form-control" maxlength="1000" id="detalle_emergencia" name="detalle_emergencia" placeholder="Digite a detalle lo ocurrido en Emergencia" aria-label="With textarea" required="">{{old('detalle_emergencia')}}</textarea>
 				</div>
 			</div><!--Detalle Emergencia-->
 
@@ -443,6 +445,7 @@
 			{{$error}}</div>
 			@endforeach
 		@endif
+		
 		@push ('scripts')
 			{{-- Script para almacenar vehiculos asisten --}}
 			<script>
@@ -453,6 +456,39 @@
 					$("#bt_addpaciente").click(function () {
 						agregarpaciente();
 					});
+
+					var max_chars = 1000;
+					$('#max').html(max_chars);
+
+				    $("#pinformacion_inicial").keyup(function() {
+				        var chars = $("#pinformacion_inicial").val().length;
+				        var diff = max_chars - chars;
+				        var leyenda = "Caracteres Permitidos 1000 - Digitados: ";
+				        var res = leyenda.concat(chars);
+				        $("#pcounter").html(res);
+				        if(chars > 1000){
+				           $("#pinformacion_inicial").addClass('error');
+				           $("#pinformacion_inicial").addClass('error');
+				          }else{
+				            $("#pinformacion_inicial").removeClass('error');
+				            $("#pinformacion_inicial").removeClass('error');
+				          }
+				      });
+				    $("#detalle_emergencia").keyup(function() {
+				        var chars = $("#detalle_emergencia").val().length;
+				        var diff = max_chars - chars;
+				        var leyenda = "Caracteres Permitidos 1000 - Digitados: ";
+				        var res = leyenda.concat(chars);
+				        $("#pcounter1").html(res);
+				        if(chars > 1000){
+				           $("#detalle_emergencia").addClass('error');
+				           $("#detalle_emergencia").addClass('error');
+				          }else{
+				            $("#detalle_emergencia").removeClass('error');
+				            $("#detalle_emergencia").removeClass('error');
+				          }
+				      });
+
 				});
 
 				//total=0;
@@ -502,6 +538,11 @@
 					$("#fila"+index).remove();
 					evaluar();
 				}
+
+				function mayus( e ) {
+					e.value = e.value.toUpperCase();
+				}
+
 				{{-- Script para almacenar pacientes atendidos --}}
 				//total=0;
 				var contpac=0;
@@ -595,7 +636,7 @@
 					$('#fecha').attr('min', maxDate);
 				    
 				});
-		</script>
+			</script>
 
 		@endpush
 	@endsection

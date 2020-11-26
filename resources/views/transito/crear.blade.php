@@ -41,7 +41,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Nro.Ficha ECU911</span>
 							</div>
-							<input type="text" name="ficha_ecu911" required="" value="{{old('ficha_ecu911')}}" class="form-control">
+							<input type="text" name="ficha_ecu911" onkeyup="mayus(this);" required="" value="{{old('ficha_ecu911')}}" class="form-control">
 						</div>
 					</div>
 				</div>
@@ -355,6 +355,10 @@
 					$("#fila"+index).remove();
 					evaluar();
 
+				}
+
+				function mayus( e ) {
+					e.value = e.value.toUpperCase();
 				}
 			</script>
 			<script type="text/javascript">

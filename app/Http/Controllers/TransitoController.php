@@ -246,7 +246,15 @@ class TransitoController extends Controller
                                 'usuario_afectado' => $request->usuario_afectado,
                                 'danos_estimados' => $request->danos_estimados,
                                 'usr_editor' => auth()->user()->name ]);
+                $transito->users()->detach();
+                $jefeguardia = User::findOrFail($request->jefeguardia_id);
+                $jefeguardia->transitos()->attach($id);
+           
+                $bombero = User::findOrFail($request->bombero_id);
+                $bombero->transitos()->attach($id);
 
+                $maqui = User::findOrFail($request->conductor_id);
+                $maqui->transitos()->attach($id);
             Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
             return redirect( "/transito" );
         } else {
