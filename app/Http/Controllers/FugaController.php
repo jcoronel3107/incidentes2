@@ -248,9 +248,19 @@ class FugaController extends Controller
                                 'usuario_afectado' => $request->usuario_afectado,
                                 'danos_estimados' => $request->danos_estimados,
                                 'usr_editor' => auth()->user()->name ]);
+           $fuga->users()->detach();
+          
 
-            Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
-            return redirect( "/fuga" );
+           $jefeguardia = User::findOrFail($request->jefeguardia_id);
+           $jefeguardia->fugas()->attach($id);
+           
+           $bombero = User::findOrFail($request->bombero_id);
+           $bombero->fugas()->attach($id);
+
+           $maqui = User::findOrFail($request->conductor_id);
+           $maqui->fugas()->attach($id);
+           Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
+           return redirect( "/fuga" );
         } else {
             return view( "/auth.login" );
         }

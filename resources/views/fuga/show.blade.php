@@ -198,6 +198,20 @@
 				</table>
 			</div>
 		</div>
+		<hr>
+		<div class="row p-3">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<p class="text-center"><h4>Formularios del Incidente</h4></p>
+					<li>	
+					<a target="_blank" href="{{asset('storage/fuga/'.$fuga->id.'/201.pdf')}}">Formulario 201 - PDF</a>
+					</li>
+					<li><a target="_blank" href="{{asset('storage/fuga/'.$fuga->id.'/202.pdf')}}">Formulario 202 - PDF</a>
+					</li>
+					<li><a target="_blank" href="{{asset('storage/fuga/'.$fuga->id.'/206A.pdf')}}">Formulario 206A - PDF</a></li>
+						
+
+			</div>
+		</div>
   </div>
 </div>
 @endsection

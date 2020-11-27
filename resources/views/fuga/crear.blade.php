@@ -125,7 +125,7 @@
 					<textarea class="form-control" id="pgeoposicion" name="geoposicion" placeholder="Formato:. -2.56985, -79.23658" aria-label="With textarea" >{{old('geoposicion')}}</textarea>
 				</div>
 			</div><!--Div Ubicacion Evento-->
-			<div class="counter col-md-3 col-sm-12" id="pcounter1">0</div>
+			
 			<div onload="initMap()" id="map" style="width: 100%; height: 280px;"></div>
 			<hr >
 			<div class="form-row">
@@ -197,9 +197,11 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Detalle Emergencia</span>
 					</div>
-					<input type="text" class="form-control" name="detalle_emergencia" maxlength="1000" id="detalle_emergencia" value="{{old('detalle_emergencia')}}" placeholder="Digite a detalle lo ocurrido en Emergencia" required="">
+					<textarea class="form-control"  name="detalle_emergencia" maxlength="1000" id="detalle_emergencia" placeholder="Digite a detalle lo ocurrido en Emergencia" aria-label="With textarea" required="">{{old('detalle_emergencia')}}</textarea>
+					
 				</div>
 			</div><!--Detalle Emergencia-->
+			<div class="counter col-md-3 col-sm-12" id="pcounter1">0</div>
 			<div class="form-row">
 				<div class="form-group input-group col-md-4 col-sm-12">
 					<div class="input-group-prepend">
@@ -359,18 +361,18 @@
 		          }
 		      });
 
-		    	$("#pdireccion").keyup(function() {
-		        var chars = $("#pdireccion").val().length;
+		    	$("#detalle_emergencia").keyup(function() {
+		        var chars = $("#detalle_emergencia").val().length;
 		        var diff = max_chars - chars;
 		        var leyenda = "Caracteres Permitidos 1000 Cant:";
 		        var res = leyenda.concat(chars);
 		        $("#pcounter1").html(res);
 		        if(chars > 1000){
-		           $("#pdireccion").addClass('error');
-		           $("#pdireccion").addClass('error');
+		           $("#detalle_emergencia").addClass('error');
+		           $("#detalle_emergencia").addClass('error');
 		          }else{
-		            $("#pdireccion").removeClass('error');
-		            $("#pdireccion").removeClass('error');
+		            $("#detalle_emergencia").removeClass('error');
+		            $("#detalle_emergencia").removeClass('error');
 		          }
 		      });
 
@@ -422,6 +424,9 @@
 				$("#fila"+index).remove();
 				evaluar();
 			}
+			function mayus( e ) {
+					e.value = e.value.toUpperCase();
+				}
 		</script>
 		<script type="text/javascript">
 				$(document).ready(function(){

@@ -7,64 +7,7 @@
 
 	@section( "cuerpo" )
 		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">{!! trans('messages.Consult Leak Information') !!}</h2>
-		@if(Session::has('Envio Mail Correcto'))
-			<div class="alert alert-success alert-dismissible fade show" role="alert">
-			{{session('Envio Mail Correcto')}}
-			<button type="button"
-				class="close"
-				data-dismiss="alert"
-				aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-
-		@endif
-
-		@if(Session::has('Importacion_Correcta'))
-			<div class="alert alert-success alert-dismissible fade show" role="alert">
-			{{session('Importacion_Correcta')}}
-			<button type="button"
-				class="close"
-				data-dismiss="alert"
-				aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-
-		@endif
-		@if(Session::has('Registro_Borrado'))
-			<div class="alert alert-danger alert-dismissible fade show" role="alert">
-			{{session('Registro_Borrado')}}
-			<button type="button"
-				class="close"
-				data-dismiss="alert"
-				aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-			</div>
-		@endif
-		@if(Session::has('Registro_Actualizado'))
-			<div class="alert alert-success alert-dismissible fade show" role="alert">
-				{{session('Registro_Actualizado')}}
-				<button type="button"
-					class="close"
-					data-dismiss="alert"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-		@endif
-		@if(Session::has('Registro_Almacenado'))
-			<div class="alert alert-success alert-dismissible fade show" role="alert">
-				{{session('Registro_Almacenado')}}
-				<button type="button"
-					class="close"
-					data-dismiss="alert"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-		@endif
+		@include('fuga.messages')
 		<ul class="nav justify-content-end">
 		  <li class="nav-item">
 		  	@can('create evento')
@@ -85,28 +28,31 @@
 		<table class="table table-hover table-condensed">
 			<thead>
 				<tr class="table-primary">
-					<td>Incidente</td>
-					<td>Estacion</td>
-					<td>Fecha</td>
-					<td>Direccion</td>
-					<td>Ficha_Ecu911</td>
-					<td>Created_at</td>
-					<td>Opciones</td>
+					<th>id</th>
+					<th>{!! trans('messages.Incident') !!}</th>
+					<th>{!! trans('messages.Station') !!}</th>
+					<th>{!! trans('messages.Date') !!}</th>
+					<th>{!! trans('messages.Address') !!}</th>					
+					
+					<th>{!! trans('messages.Options') !!}</th>
 				</tr>
 			</thead>
 			<tbody>
 				@foreach($fugas as $fuga)
 				<tr>
+					<td>{{$fuga->id}}</td>
 					<td>{{$fuga->incidente->nombre_incidente}}</td>
 					<td>{{$fuga->station->nombre}}</td>
 					<td>{{$fuga->fecha}}</td>
 					<td>{{$fuga->direccion}}</td>
-					<td>{{$fuga->ficha_ecu911}}</td>
-					<td>{{$fuga->created_at}}</td>
+					
 					<td>
 						@can('edit evento')
 						<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Edit" href="{{route('fuga.edit',$fuga->id)}}"><i class="icon-edit"></i></a>
 						@endcan
+						@can('allow upload')
+						<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Forms SCI" href="/fugas/carga/{{$fuga->id}}"><i class="fa fa-upload" aria-hidden="true"></i></a>
+					@endcan
 						<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Ver" href="{{route('fuga.show',$fuga->id)}}" role="button"><i class="icon-search"></i></a>
 						@can('send mail')
 						<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" data-target="#exampleModal" role="button"><i class="icon-envelope"></i></a>
@@ -145,6 +91,22 @@
 			</div>
 				@endforeach
 			</tbody>
+			<tfoot>
+				<tr class="table-primary">
+					<th>id</th>
+					<th>{!! trans('messages.Incident') !!}</th>
+					<th>{!! trans('messages.Station') !!}</th>
+					<th>{!! trans('messages.Date') !!}</th>
+					<th>{!! trans('messages.Address') !!}</th>					
+					
+					<th>{!! trans('messages.Options') !!}</th>
+
+					
+					
+					
+					
+				</tr>
+			</tfoot>
 		</table>
 
 		{{ $fugas -> appends(['searchText' => $query]) -> links() }}

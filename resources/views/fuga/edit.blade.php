@@ -125,7 +125,7 @@
 					<select class="form-control" name="jefeguardia_id">
 						<option selected></option>
 						@foreach($bomberos as $bombero)
-						<option>{{$bombero->name}}</option>
+						<option value="{{$bombero->id}}">{{$bombero->name}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -136,7 +136,7 @@
 					<select class="form-control" name="bombero_id">
 						<option selected>{{old('bombero_id')}}</option>
 						@foreach($bomberos as $bombero)
-						<option>{{$bombero->name}}</option>
+						<option value="{{$bombero->id}}">{{$bombero->name}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -147,7 +147,7 @@
 					<select class="form-control" name="conductor_id">
 						<option selected>{{old('conductor_id')}}</option>
 						@foreach($maquinistas as $maquinista)
-						<option>{{$maquinista->name}}</option>
+						<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>
 						@endforeach
 					</select>
 				</div>

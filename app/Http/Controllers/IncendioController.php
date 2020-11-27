@@ -316,40 +316,56 @@ class IncendioController extends Controller
       return view("/fuego.carga",compact('id'));
     }
 
-    public function upload(Request $request)
+   public function upload(Request $request)
     {
+
+       
        $file201 = $request->file('fileSCI-201');
        $file202 = $request->file('fileSCI-202');
        $file206 = $request->file('fileSCI-206');
 
+
        //obtenemos el nombre del archivo
 
-       $nombre = "201.".$file201->getClientOriginalExtension();
+       $nombre = "201.".$file201->getClientOriginalExtension();;
        $nombre1 = "202.".$file202->getClientOriginalExtension();
-       $nombre2 = "206A.".$file206->getClientOriginalExtension();      
+       $nombre2 = "206A.".$file206->getClientOriginalExtension();
+       
+       
        $validation = $request->validate([
         'fileSCI-201' => 'required|file|mimes:pdf|max:1048'
-        
+        // for multiple file uploads
+        // 'photo.*' => 'required|file|image|mimes:jpeg,png,gif,webp|max:2048'
         ]);
         
-        $file      = $validation['fileSCI-201']; // get the validated file        
+       //indicamos que queremos guardar un nuevo archivo en el disco local
+      
+        $file      = $validation['fileSCI-201']; // get the validated file
         $path      = $file->storeAs('1070/'.$request->id, $nombre);
+        //dd($path);
         $validation = $request->validate([
         'fileSCI-202' => 'required|file|mimes:pdf|max:1048'
-        
+        // for multiple file uploads
+        // 'photo.*' => 'required|file|image|mimes:jpeg,png,gif,webp|max:2048'
         ]);
         
-       
+       //indicamos que queremos guardar un nuevo archivo en el disco local
+       //dd($validation);
         $file      = $validation['fileSCI-202']; // get the validated file
         $path1      = $file->storeAs('1070/'.$request->id, $nombre1);
+        //dd($path);
         $validation = $request->validate([
         'fileSCI-206' => 'required|file|mimes:pdf|max:1048'
-       
+        // for multiple file uploads
+        // 'photo.*' => 'required|file|image|mimes:jpeg,png,gif,webp|max:2048'
         ]);
         
-      
-        $file      = $validation['fileSCI-206']; // get the validated file        
+       //indicamos que queremos guardar un nuevo archivo en el disco local
+       //dd($validation);
+        $file      = $validation['fileSCI-206']; // get the validated file
         $path2      = $file->storeAs('1070/'.$request->id, $nombre2);
+        //dd($path);
+        
         $exists = Storage::disk('local')->exists($path);
         $exists1 = Storage::disk('local')->exists($path1);
         $exists2 = Storage::disk('local')->exists($path2);
@@ -361,6 +377,24 @@ class IncendioController extends Controller
           return redirect( "/fuego" );
         }
         
+        
+       /*if ($size>1048576) {
+          Session::flash('Tamaño_Excedido',"El tamaño maximo pemitido es de 1 MB por Archivo.!!!".$size/1024);
+          return redirect( "/inundacion" );
+       } 
+       else {
+         if (!$exists) {
+         \Storage::disk('local')->put($nombre,  \File::get($file201));
+         \Storage::disk('local')->put($nombre1,  \File::get($file202));
+         \Storage::disk('local')->put($nombre2,  \File::get($file206));
+         Session::flash('Carga_Correcta',"Formularios Subidos con Exito!!!");
+         return redirect( "/inundacion" );
+         }
+          else
+         {
+          
+          }
+       }*/ 
     }
 
     

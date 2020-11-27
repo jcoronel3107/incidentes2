@@ -386,6 +386,10 @@
 					$("#fila"+index).remove();
 					evaluar();
 				}
+
+				function mayus( e ) {
+					e.value = e.value.toUpperCase();
+				}
 			</script>
 			<script type="text/javascript">
 				$(document).ready(function(){
