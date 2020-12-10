@@ -51,7 +51,7 @@ class IncendioController extends Controller
     public function create() {
         //
         $now = Carbon::now();
-        $vehiculos = Vehiculo::all();
+        $vehiculos = Vehiculo::orderBy('codigodis')->get();
         $estaciones = Station::all();
         $parroquias = Parroquia::all();
         $incidentes = Incidente::where("tipo_incidente","10_70")
@@ -60,7 +60,10 @@ class IncendioController extends Controller
         $maquinistas = User::where("cargo","maquinista")
         ->orderBy("name",'asc')
         ->get();
-        $users = User::where("cargo","bombero")
+        $users = DB::table('users')->where([
+          ['cargo','=','Bombero'],
+        ])
+        ->orWhere('cargo','=','Paramedico')
         ->orderBy("name",'asc')
         ->get();
 

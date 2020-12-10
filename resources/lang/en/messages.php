@@ -55,6 +55,7 @@ return [
     'Gas Station'=>'Gas Station',
     'Driver'=>'Driver',
     'Vehicle'=>'Vehicle',
+    'Users'=>'Users',
     'departure date'=>'departure date',
     'return_date'=>'return_date',
     'delegative'=>'delegative',

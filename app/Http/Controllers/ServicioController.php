@@ -75,7 +75,11 @@ class ServicioController extends Controller
             
             $servicio = new Servicio;
             $servicio->fecha_salida = $request->fecha_salida;
-            $servicio->fecha_retorno = $request->fecha_retorno;
+            if($request->fecha_retorno=="")
+                $request->fecha_retorno=$request->fecha_salida;
+            else
+                $servicio->fecha_retorno = $request->fecha_retorno;
+            
             $servicio->unidad = $request->unidad;
             $servicio->delegante = $request->delegante;
             $servicio->km_salida = $request->km_salida;
@@ -141,14 +145,15 @@ class ServicioController extends Controller
                 
                 $servicio->update([
                                 'fecha_salida' => $request->fecha_salida,
-                                'fecha_retorno' => $request->fecha_retorno,
-                                'unidad' => $request->unidad,
+                                'fecha_retorno' => $request->fecha_retorno,                                
                                 'delegante' => $request->delegante,
+                                'unidad' => $request->unidad,
                                 'km_salida' => $request->km_salida,
                                 'km_retorno' => $request->km_retorno,
                                 'asunto' => $request->asunto,
-                                'usr_editor' => auth()->user()->name,
-                                'vehiculo_id' => $request->vehiculo_id
+                                'user_id' => $request->user_id,
+                                'vehiculo_id' => $request->vehiculo_id,
+                                'usr_editor' => auth()->user()->name 
                             ]);
             
             Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");

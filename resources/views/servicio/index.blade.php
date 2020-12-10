@@ -75,7 +75,7 @@
 		<table class="table p-3 table-hover table-condensed">
 			<thead>
 				<tr class="table-primary">
-
+					<td>id</td>
 					<td>{!! trans('messages.departure date') !!}</td>
 					<td>{!! trans('messages.return_date') !!}</td>
 					<td>{!! trans('messages.office') !!}</td>
@@ -89,6 +89,7 @@
 			<tbody>
 				@foreach($servicios as $servicio)
 				<tr>
+					<td>{{$servicio->id}}</td>
 					<td>{{$servicio->fecha_salida}}</td>
 					<td>{{$servicio->fecha_retorno}}</td>
 					<td>{{$servicio->unidad}}</td>

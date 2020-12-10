@@ -16,13 +16,13 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Fecha Salida</span>
 					</div>
-					<input type="datetime-local" id="fecha_salida" name="fecha_salida" class="form-control">
+					<input type="datetime-local" required="" id="fecha_salida" name="fecha_salida" class="form-control">
 				</div>
 				<div class="form-group input-group  col-md-4">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Fecha Retorno</span>
 					</div>
-					<input type="datetime-local" id="fecha_retorno" name="fecha_retorno" class="form-control">
+					<input type="datetime-local" value="" id="fecha_retorno" name="fecha_retorno" class="form-control">
 				</div>
 
 
@@ -33,7 +33,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Unidad Delegante</span>
 					</div>
-					<select class="form-control selectpicker" id="unidad" name="unidad" data-live-search="true">
+					<select required="" class="form-control selectpicker" id="unidad" name="unidad" data-live-search="true">
 						<option selected>Elija...</option>
 						<option>Jefatura</option>
 						<option>U.Talento Humano</option>
@@ -46,7 +46,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Delegante</span>
 					</div>
-					<select class="form-control selectpicker" id="delegante" name="delegante" data-live-search="true">
+					<select required="" class="form-control selectpicker" id="delegante" name="delegante" data-live-search="true">
 						<option selected>Elija...</option>
 						<option>Tnte.Crnl P.Lucero</option>
 						<option>Cptn. S.Heras</option>
@@ -69,7 +69,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="kmllegada">Km. Retorno Vehìculo</span>
 					</div>
-					<input type="number" required="" name="km_retorno" class="form-control" id="km_retorno" placeholder="Km. Retorno">
+					<input type="number" name="km_retorno" class="form-control" id="km_retorno" placeholder="Km. Retorno">
 				</div>
 			</div>
 			<div class="form-row">
@@ -93,7 +93,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Conductor</span>
 					</div>
-					<select class="form-control" name="user_id">
+					<select required="" class="form-control" name="user_id">
 						<option selected>Choose...</option>
 						@foreach($users as $user)
 						<option value="{{$user->id}}">{{$user->name}}</option>
@@ -104,7 +104,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Vehiculo</span>
 					</div>
-					<select class="form-control" id="vehiculo_id" name="vehiculo_id">
+					<select required="" class="form-control" id="vehiculo_id" name="vehiculo_id">
 						<option selected>Choose...</option>
 						@foreach($vehiculos as $vehiculo)
 						<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>

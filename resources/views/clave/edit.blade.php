@@ -75,13 +75,13 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDolares">Dòlares</span>
 					</div>
-					<input type="text" name="dolares" value="{{old('dolares',$claves->dolares)}}" class="form-control" id="inputDolares" placeholder="Valor $ de Carga combustible">
+					<input type="number" step=".01" name="dolares" value="{{old('dolares',$claves->dolares)}}" class="form-control" id="dolares" placeholder="Valor $ de Carga combustible">
 				</div>
 				<div class="form-group input-group  col-md-4">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Galones</span>
 					</div>
-					<input type="text" name="galones" value="{{$claves->galones}}" class="form-control" id="inputAfectado" placeholder="Galones de Carga combustible">
+					<input type="number" step=".01" name="galones" value="{{$claves->galones}}" class="form-control" id="galones" placeholder="Galones de Carga combustible">
 				</div>
 				<div class="form-group input-group col-md-4">
 					<div class="input-group-prepend">

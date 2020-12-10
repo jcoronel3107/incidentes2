@@ -55,8 +55,11 @@ class RescateController extends Controller
         $now = Carbon::now();
         $estaciones = Station::all();
         $parroquias = Parroquia::all();
-        $vehiculos = Vehiculo::all();
-        $bomberos = User::where("cargo","bombero")
+        $vehiculos = Vehiculo::orderBy('codigodis')->get();
+        $bomberos = DB::table('users')->where([
+          ['cargo','=','Bombero'],
+        ])
+        ->orWhere('cargo','=','Paramedico')
         ->orderBy("name",'asc')
         ->get();
         $maquinistas = User::where("cargo","maquinista")

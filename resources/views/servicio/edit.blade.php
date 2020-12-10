@@ -34,7 +34,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Unidad Delegante</span>
 					</div>
-					<select class="form-control selectpicker" name="unidad" data-live-search="true">
+					<select class="form-control selectpicker" id="unidad" name="unidad" data-live-search="true">
 						<option selected>{{old('unidad',$servicio->unidad)}}</option>
 						<option>Jefatura</option>
 						<option>U.Talento Humano</option>
@@ -47,7 +47,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Delegante</span>
 					</div>
-					<select class="form-control selectpicker" name="delegante" data-live-search="true">
+					<select class="form-control selectpicker" id="delegante" name="delegante" data-live-search="true">
 						<option selected>{{old('delegante',$servicio->delegante)}}</option>
 						
 						<option>Crnl Lucero</option>
@@ -95,10 +95,10 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Conductor</span>
 					</div>
-					<select class="form-control" name="user_id">
-						<option  selected>{{$servicio->user->name}}</option>
+					<select class="form-control" id="user_id" name="user_id">
+						<option value="{{$servicio->user->id}}" selected>{{$servicio->user->name}}</option>
 						@foreach($maquinistas as $user)
-						<option value="{{$servicio->user->id}}">{{$user->name}}</option>
+						<option value="{{$user->id}}">{{$user->name}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -109,7 +109,7 @@
 					<select class="form-control" id="vehiculo_id" name="vehiculo_id">
 						<option value="{{$servicio->vehiculo->id}}" selected>{{$servicio->vehiculo->codigodis}}</option>
 						@foreach($vehiculos as $vehiculo)
-							<option value="{{old('vehiculo_id',$servicio->vehiculo->id)}}">{{$vehiculo->codigodis}}</option>
+							<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -118,7 +118,7 @@
 			<div class="form-group">
 				<button type="submit" name="Enviar" value="Enviar" class="btn btn-success">Registrar</button>
 				<a class="btn btn btn-primary" role="button"
-					href="{{ route('clave.index')}}">Cancelar
+					href="{{ route('servicio.index')}}">Cancelar
 				</a>
 				
 			</div>

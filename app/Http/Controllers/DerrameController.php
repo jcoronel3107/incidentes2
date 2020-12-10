@@ -54,7 +54,7 @@ class DerrameController extends Controller
         $now = Carbon::now();
         $estaciones = Station::all();
         $parroquias = Parroquia::all();
-        $vehiculos = Vehiculo::all();
+        $vehiculos = Vehiculo::orderBy('codigodis')->get();
         $users = User::where("cargo","bombero")
             ->orderBy("name",'asc')
             ->get();

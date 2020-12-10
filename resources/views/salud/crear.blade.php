@@ -389,7 +389,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text" >Km.Salida</span>
 									</div>
-									<input type="number" class="form-control" value="{{old('ikm_salida')}}"  name="ikm_salida" id="pkm_salida" placeholder="000000">
+									<input type="number" class="form-control" value="{{old('ikm_salida')}}"  name="ikm_salida" id="pkm_salida" placeholder="Digite Valor">
 								</div>
 						</div>
 						<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
@@ -397,7 +397,7 @@
 									<div class="input-group-prepend">
 									<span class="input-group-text" id="inputDetalle">Km.Llegada</span>
 									</div>
-									<input type="number" class="form-control" id="pkm_llegada" name="ikm_llegada" value="{{old('ikm_llegada')}}" placeholder="000000">
+									<input type="number" class="form-control" id="pkm_llegada" name="ikm_llegada" value="{{old('ikm_llegada')}}" placeholder="Digite Valor">
 								</div>
 						</div>
 						<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2">
@@ -504,10 +504,10 @@
 					jqkm_llegada=$("#pkm_llegada").val();
 					jqvehiculo=$("#pvehiculo_id").val();
 					jqvehiculo_id=$("#pvehiculo_id option.selected").text();
-					if(jqkm_salida!="" && jqkm_salida>0 && jqkm_llegada!="" && jqkm_llegada>0 && jqvehiculo!="")
+					if(jqkm_salida!="" && jqkm_salida>=0 && jqkm_llegada!="" && jqkm_llegada>=0 && jqvehiculo!="")
 					{
 						//total = total + subtotal[cont];
-						var fila = '<tr class = "selected" id="fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminar1('+cont+')" type="button">X</button></td><td><input type="hidden" name="vehiculo_id[]" value="'+jqvehiculo+'">'+jqvehiculo+'</td><td><input type="hidden" readonly="true" name="km_salida[]" value="'+jqkm_salida+'">'+jqkm_salida+'</td><td><input type="hidden" readonly="true" name="km_llegada[]" value="'+jqkm_llegada+'">'+jqkm_llegada+'</td></tr>';
+						var fila = '<tr class = "selected" id="fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminar1('+cont+')" type="button">X</button></td><td><input type="hidden" name="vehiculo_id[]" value="'+jqvehiculo+'">'+jqvehiculo+'</td><td><input type="number"  name="km_salida[]" value="'+jqkm_salida+'"></td><td><input type="number"  name="km_llegada[]" value="'+jqkm_llegada+'"></td></tr>';
 						cont++;
 						limpiar();
 						evaluar();
@@ -524,13 +524,13 @@
 					$("#pkm_llegada").val("");
 				}
 				function evaluar(){
-					if(jqkm_llegada>jqkm_salida && jqnombres!="" ){
+					//if(jqkm_llegada>jqkm_salida && jqnombres!="" ){
 						$("#divguardar").show();
 						$("#Enviar").show();
-					}
-					else{
-						$("#divguardar").hide();
-					}
+					//}
+					//else{
+					//	$("#divguardar").hide();
+					//}
 				}
 
 				function eliminar1(index){

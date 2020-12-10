@@ -79,6 +79,7 @@ Route::post('fugas/import/',		'FugaController@importacion');
 Route::post('vehiculos/import/',	'VehiculoController@importacion');
 Route::post('saluds/import/',		'SaludController@importacion');
 Route::post('derrames/import/',		'DerrameController@importacion');
+Route::post('users/import/',		'UserController@importacion');
 
 Route::get('cie10/importar',		'CieController@importar');
 Route::get('vehiculos/importar',	'VehiculoController@importar');
@@ -89,6 +90,7 @@ Route::get('rescates/importar',		'RescateController@importar');
 Route::get('transitos/importar',	'TransitoController@importar');
 Route::get('saluds/importar',		'SaludController@importar');
 Route::get('derrames/importar',		'derrameController@importar');
+Route::get('users/importar',		'UserController@importar');
 
 Route::get('incidentes/export/', 	'IncidenteController@export');
 Route::get('vehiculos/export/',    	'VehiculoController@export');

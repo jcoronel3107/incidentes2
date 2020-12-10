@@ -56,9 +56,12 @@ class SaludController extends Controller
         $now = Carbon::now();
         $estaciones = Station::all();
         $parroquias = Parroquia::all();
-        $vehiculos = Vehiculo::all();
+        $vehiculos = Vehiculo::orderBy('codigodis')->get();
         $cies = Cie::where('nivel','=','3')->get();
-        $users = User::where("cargo","bombero")
+        $users = DB::table('users')->where([
+          ['cargo','=','Bombero'],
+        ])
+        ->orWhere('cargo','=','Paramedico')
         ->orderBy("name",'asc')
         ->get();
         $maquinistas = User::where("cargo","maquinista")

@@ -176,6 +176,7 @@
             <a class="collapse-item" href="/gasolinera">{!! trans('messages.Service Station') !!}</a>
             <a class="collapse-item" href="/parroquia">{!! trans('messages.Parishes') !!}</a>
             <a class="collapse-item" href="/vehiculo">{!! trans('messages.Vehicles') !!}</a>
+            <a class="collapse-item" href="/users/importar/">{!! trans('messages.Users') !!}</a>
             <a class="collapse-item" href="/cie10/importar">Cie10</a>
           </div>
         </div>

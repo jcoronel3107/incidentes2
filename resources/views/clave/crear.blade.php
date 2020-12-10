@@ -50,13 +50,13 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Km. en Gasolinera</span>
 					</div>
-					<input type="number" required name="km_gasolinera" class="form-control" placeholder="Km. en Gasolinera">
+					<input type="number"  name="km_gasolinera" class="form-control" placeholder="Km. en Gasolinera">
 				</div>
 				<div class="form-group input-group col-md-4">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="kmllegada">Km. Llegada Vehìculo</span>
 					</div>
-					<input type="number" required name="km_llegada" class="form-control" id="kmllegada" placeholder="Km. Retorno">
+					<input type="number"  name="km_llegada" class="form-control" id="kmllegada" placeholder="Km. Retorno">
 				</div>
 			</div>
 			<div class="form-row">
@@ -70,13 +70,13 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDolares">Dòlares</span>
 					</div>
-					<input type="number" required name="dolares" class="form-control" id="dolares" placeholder="Valor $ de Carga combustible">
+					<input type="number" step=".01" required="" name="dolares" class="form-control" id="dolares" placeholder="Valor $ de Carga combustible">
 				</div>
 				<div class="form-group input-group  col-md-4">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Galones</span>
 					</div>
-					<input type="number" name="galones" class="form-control" id="galones" placeholder="Galones de Carga combustible">
+					<input type="number" step=".01" name="galones" class="form-control" id="galones" placeholder="Galones de Carga combustible">
 				</div>
 				<div class="form-group input-group col-md-4">
 					<div class="input-group-prepend">

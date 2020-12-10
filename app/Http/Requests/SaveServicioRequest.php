@@ -27,11 +27,11 @@ class SaveServicioRequest extends FormRequest
         return [
             
             'fecha_salida'=>'required',
-            'fecha_retorno'=>'required',
+            //'fecha_retorno'=>'required',
             'unidad'=>'required',
             'delegante'=>'required',
             'km_salida'=>'required',
-            'km_retorno'=>'required',
+            //'km_retorno'=>'required',
             'asunto'=>'required',
             'user_id'=>'required',
             'vehiculo_id'=>'required'

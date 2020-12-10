@@ -42,6 +42,7 @@
                       @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div><!-- /.col -->
                   </div><!-- /.form-group row -->
+                  
                   <hr>
                   <div class="form-group row">
                     <div class="col-sm-4 mx-auto">
@@ -56,7 +57,7 @@
                 <hr>
                 <div class="row justify-content-center">
                   <div class="col-md-6 text-center mb-2">
-                    <img src="{{ asset('storage/avatars/'.Auth::user()->avatar) }}" style="max-width: 100%" />
+                    <img src="{{ asset('storage/avatar/'.Auth::user()->avatar) }}" height="50px" style="max-width: 100%" />
                   </div>
                 </div><!-- /.row -->
                 <hr>
@@ -66,7 +67,7 @@
                   <div class="form-group row">
                     <label class="col-sm-3 col-form-label text-sm-right">Cambiar foto</label>
                     <div class="col-sm-9">
-                      <input type="file" class="form-control-file @error('avatar') is-invalid @enderror" name="avatar" aria-describedby="fileHelp">
+                      <input type="file" required="" class="form-control-file @error('avatar') is-invalid @enderror" name="avatar" aria-describedby="fileHelp">
                       @error('avatar') <div class="invalid-feedback">{{ $message }}</div> @enderror
                       <small class="form-text text-muted">Adjunta un archivo válido de imagen. No debe exceder los 2MB.</small>
                     </div><!-- /.col -->
