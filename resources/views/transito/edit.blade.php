@@ -2,7 +2,7 @@
 
 	@section( "cabeza" )
 
-
+	<title>Transito - Edición - BCBVC<title>
 	@endsection
 
 	@section( "cuerpo" )

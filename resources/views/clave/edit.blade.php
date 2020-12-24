@@ -2,7 +2,7 @@
 
 	@section( "cabeza" )
 
-
+	<title>Clave - Edición - BCBVC</title>
 	@endsection
 
 	@section( "cuerpo" )
@@ -25,16 +25,14 @@
 				</div>
 			</div>
 			<div class="form-row">
-
-
 				<div class="form-group input-group  col-md-8">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Vehìculo</span>
 					</div>
 					<select class="form-control" name="vehiculo_id">
-						<option selected>{{old('vehiculo_id',$claves->vehiculo->codigodis)}}</option>
+						<option value="{{$claves->vehiculo->codigodis}}" selected>{{old('vehiculo_id',$claves->vehiculo->codigodis)}}</option>
 						@foreach($vehiculos as $vehiculo)
-						<option>{{$vehiculo->codigodis}}</option>
+						<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>
 						@endforeach
 					</select>
 				</div>

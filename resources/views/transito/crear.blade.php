@@ -1,7 +1,7 @@
 	@extends( "layouts.plantilla" )
 
 	@section( "cabeza" )
-
+	<title>Transito - Crear - BCBVC</title>
 
 	@endsection
 

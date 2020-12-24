@@ -256,7 +256,7 @@ class SaludController extends Controller
     {
         if ( Auth::check() ) {
 
-           $jefeguardia_id = DB::table('users')->where('name', $request->jefeguardia_id)->value('id');
+           //$jefeguardia_id = DB::table('users')->where('name', $request->jefeguardia_id)->value('id');
            $incidente_id = DB::table('incidentes')->where('nombre_incidente', $request->incidente_id)->value('id');
            $station_id = DB::table('stations')->where('nombre', $request->station_id)->value('id');
            $salud = Salud::findOrFail( $id );
@@ -287,10 +287,27 @@ class SaludController extends Controller
            
            $bombero = User::findOrFail($request->bombero_id);
            $bombero->saluds()->attach($id);
-
+           
            $maqui = User::findOrFail($request->conductor_id);
            $maqui->saluds()->attach($id);
            
+           $cont=0;
+            $nombrevehiculo = $request->get('vehiculo_id');
+            $kmsalidavehiculo = $request->get('km_salida');
+            $kmllegadavehiculo = $request->get('km_llegada');
+            
+            while ($cont < count($nombrevehiculo)) {
+                $vehiculo_id = DB::table('vehiculos')
+                  ->where('codigodis',$nombrevehiculo[$cont])
+                  ->value('id');
+                  dd($vehiculo_id);
+                $carro = Vehiculo::findOrFail($vehiculo_id);
+                $carro->saluds()->attach(
+                  $id , [
+                    'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
+                $cont=$cont+1;
+              }
+
             Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
             return redirect( "/salud" );
         } else {

@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="description" content="System for the Control and Registration of Incidents to which a Firefighters Institution attends. Fully responsive system, that is, it works on mobiles, tablets and computers">
 		<meta name="Ing. Juan Coronel" content="">
-		<title>B.C.B.V.C - Incidentes2</title>
+		
 		<!-- Custom styles for this template-->
 		<link href="/css/sb-admin-2.min.css" rel="stylesheet">
 		<!-- Custom fonts for this template-->
@@ -53,9 +53,7 @@
 						    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
 						            <i class="fa fa-bars"></i>
 						    </button>
-
 						    <!-- Topbar Navbar -->
-						    
 						    <ul class="navbar-nav ml-auto">
 						    	<div class="topbar-divider d-none d-sm-block">
 						        </div>
@@ -64,9 +62,8 @@
 								                <div class="top-right links">
 								                    @foreach (array_keys(config('locale.languages')) as $lang)
 								                        @if ($lang != App::getLocale())
-								                            <i class="fas fa-language size:2x"></i>
-								                            <a href="{!! route('lang.swap', $lang) !!}">
-								                                    {!! $lang !!} 
+								                            <a href="{!! route('lang.swap', $lang) !!}" title="{!! trans('messages.language') !!}">
+								                                    <i class="fa fa-language fa-lg" aria-hidden="true"></i>
 								                            </a>
 								                        @endif
 								                    @endforeach

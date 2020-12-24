@@ -2,6 +2,7 @@
 	@extends( "layouts.plantilla" )
 
 	@section( "cabeza" )
+	<title>Inundación - Index - BCBVC</title>
 	@endsection
 
 	@section( "cuerpo" )

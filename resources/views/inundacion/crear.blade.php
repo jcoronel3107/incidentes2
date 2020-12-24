@@ -2,7 +2,7 @@
 
 	@section( "cabeza" )
 
-
+	<title>Inundación - Crear - BCBVC</title>
 	@endsection
 
 	@section( "cuerpo" )

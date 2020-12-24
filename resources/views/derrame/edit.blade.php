@@ -2,7 +2,7 @@
 
 	@section( "cabeza" )
 
-
+	<title>Hazmat - Edición - BCBVC</title>
 	@endsection
 
 	@section( "cuerpo" )

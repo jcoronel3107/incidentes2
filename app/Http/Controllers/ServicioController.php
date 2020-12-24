@@ -51,11 +51,14 @@ class ServicioController extends Controller
     public function create()
     {
        
-        $vehiculos = Vehiculo::all();
+        $vehiculos = Vehiculo::orderBy('codigodis')->get();
 
         $users = User::where('cargo','maquinista')
+            ->orWhere('cargo','bombero')
+            ->orderBy("name",'asc')
             ->get();
 
+       
         if ( Auth::check() ) {
             return view( "/servicio.crear",compact("vehiculos","users") );
         } else {
@@ -120,10 +123,12 @@ class ServicioController extends Controller
         if ( Auth::check() ) {
             
             $servicio = Servicio::findOrFail( $id );
-            $vehiculos = Vehiculo::all();
-            $maquinistas=User::where('cargo','maquinista')
+            $vehiculos = Vehiculo::orderBy('codigodis')->get();
+            $maquinistas = User::where('cargo','maquinista')
+            ->orWhere('cargo','bombero')
             ->orderBy("name",'asc')
             ->get();
+            
             
             return view( "servicio.edit", compact("servicio","vehiculos","maquinistas"));
         } else {

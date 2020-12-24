@@ -2,7 +2,7 @@
 
 	@section( "cabeza" )
 
-
+	<title>Fuego - Index - BCBVC</title>
 	@endsection
 
 	@section( "cuerpo" )

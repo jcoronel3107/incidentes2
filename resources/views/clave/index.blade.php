@@ -2,7 +2,7 @@
 
 	@section( "cabeza" )
 
-
+	<title>Clave - Index - BCBVC</title>
 	@endsection
 
 	@section( "cuerpo" )
@@ -75,7 +75,7 @@
 		<table class="table p-3 table-hover table-condensed">
 			<thead>
 				<tr class="table-primary">
-
+					<td>id</td>
 					<td>{!! trans('messages.Order') !!}</td>
 					<td>{!! trans('messages.Dollars') !!}</td>
 					<td>{!! trans('messages.Gallons') !!}</td>
@@ -89,8 +89,9 @@
 			<tbody>
 				@foreach($claves as $clave)
 				<tr>
+					<td>{{$clave->id}}</td>
 					<td>{{$clave->Orden}}</td>
-					<td>{{$clave->dolares}}.USD</td>
+					<td>USD ${{$clave->dolares}}</td>
 					<td>{{$clave->galones}}</td>
 					<td>{{$clave->combustible}}</td>
 					<td>{{$clave->gasolinera->razonsocial}}</td>

@@ -1,7 +1,7 @@
 	@extends( "layouts.plantilla" )
 
 	@section( "cabeza" )
-
+	<title>Rescate - Crear - BCBVC</title>
 
 	@endsection
 

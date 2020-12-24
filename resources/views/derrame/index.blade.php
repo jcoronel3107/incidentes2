@@ -2,6 +2,7 @@
 	@extends( "layouts.plantilla" )
 
 	@section( "cabeza" )
+	<title>Hazmat - Index - BCBVC</title>
 	@endsection
 
 	@section( "cuerpo" )

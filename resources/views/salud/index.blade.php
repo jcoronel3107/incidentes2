@@ -2,7 +2,7 @@
 
 	@section( "cabeza" )
 
-
+	<title>Salud - Index - BCBVC</title>
 	@endsection
 
 	@section( "cuerpo" )

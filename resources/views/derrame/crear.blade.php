@@ -2,7 +2,7 @@
 
 	@section( "cabeza" )
 
-
+	<title>Hazmat - Crear - BCBVC</title>
 	@endsection
 
 	@section( "cuerpo" )

@@ -2,7 +2,7 @@
 
 	@section( "cabeza" )
 
-
+	<title>Servicio - Crear - BCBVC</title>
 	@endsection
 
 	@section( "cuerpo" )
@@ -36,10 +36,11 @@
 					<select required="" class="form-control selectpicker" id="unidad" name="unidad" data-live-search="true">
 						<option selected>Elija...</option>
 						<option>Jefatura</option>
-						<option>U.Talento Humano</option>
 						<option>U. Operaciones</option>
-						<option>Jefatura</option>
-						
+						<option>U.Talento Humano</option>
+						<option>Dirección Administrativa Financiera</option>
+						<option>Mantenimiento</option>
+						<option>Bodega</option>
 					</select>
 				</div>
 				<div class="form-group input-group  col-md-6">
@@ -48,11 +49,12 @@
 					</div>
 					<select required="" class="form-control selectpicker" id="delegante" name="delegante" data-live-search="true">
 						<option selected>Elija...</option>
-						<option>Tnte.Crnl P.Lucero</option>
+						<option>Tnte.Crnl. P.Lucero</option>
 						<option>Cptn. S.Heras</option>
-						<option>Econ R.Castro</option>
-						<option>Econ T.Segarra</option>
-						
+						<option>Econ. R.Castro</option>
+						<option>Econ. T.Segarra</option>
+						<option>Ing. Efrain Gomez</option>
+						<option>Econ. Johana Parra</option>
 					</select>
 				</div>
 			</div>
@@ -62,14 +64,14 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Km. Salida del Vehìculo</span>
 					</div>
-					<input type="number" required="" id="km_salida" name="km_salida" placeholder="Km. Salida" class="form-control">
+					<input type="number" step=".01" required="" id="km_salida" name="km_salida" placeholder="Km. Salida" class="form-control">
 				</div>
 				
 				<div class="form-group input-group col-md-4">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="kmllegada">Km. Retorno Vehìculo</span>
 					</div>
-					<input type="number" name="km_retorno" class="form-control" id="km_retorno" placeholder="Km. Retorno">
+					<input type="number" step=".01" name="km_retorno" class="form-control" id="km_retorno" placeholder="Km. Retorno">
 				</div>
 			</div>
 			<div class="form-row">

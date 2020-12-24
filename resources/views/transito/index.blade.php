@@ -2,7 +2,7 @@
 
 	@section( "cabeza" )
 
-
+	<title>Tránsito - Index - BCBVC</title>
 	@endsection
 
 	@section( "cuerpo" )

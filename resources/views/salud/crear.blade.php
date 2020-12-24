@@ -1,7 +1,7 @@
 	@extends( "layouts.plantilla" )
 
 	@section( "cabeza" )
-
+	<title>Salud - Crear - BCBVC</title>
 
 	@endsection
 
@@ -24,7 +24,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Fecha</span>
 					</div>
-					<input type="date" required="" id="fecha" name="fecha" class="form-control">
+					<input type="date" required="" id="fecha" name="fecha" value="{{old('fecha')}}" class="form-control">
 				</div>
 			</div><!--Div Fecha-->
 			<div class="form-row ">
@@ -57,7 +57,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Informacion Inicial</span>
 							</div>
-							<textarea class="form-control" maxlength="1000" id="pinformacion_inicial" name="informacion_inicial"  aria-label="With textarea" required="" ></textarea>
+							<textarea class="form-control" maxlength="1000" id="pinformacion_inicial" name="informacion_inicial"  aria-label="With textarea" required="" >{{old('informacion_inicial')}}</textarea>
 
 						</div>
 					</div>
@@ -146,7 +146,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Bombero</span>
 					</div>
-					<select class="form-control" name="bombero_id">
+					<select class="form-control" name="bombero_id" required="">
 						<option selected>{{old('bombero_id')}}</option>
 						@foreach($users as $user)
 						<option>{{$user->name}}</option>
@@ -176,7 +176,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Llegada A Emergencia</span>
 					</div>
-					<input type="time" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm:ss" required="" value="{{old('hora_llegada_a_emergencia',$now->format('H:i:s'))}}">
+					<input type="time" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm:ss"  value="{{old('hora_llegada_a_emergencia')}}">
 				</div>
 			</div><!--Div Horas Evento-->
 			<div class="form-row">
@@ -184,13 +184,13 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Fin Emergencia</span>
 					</div>
-					<input type="time" class="form-control" required="" name="hora_fin_emergencia" id="hora_fin_emergencia" placeholder="hh:mm:ss" value="{{old('hora_fin_emergencia',$now->format('H:i:s'))}}">
+					<input type="time" class="form-control" name="hora_fin_emergencia" id="hora_fin_emergencia" placeholder="hh:mm:ss" value="{{old('hora_fin_emergencia',$now->format('H:i:s'))}}">
 				</div>
 				<div class="form-group  input-group col-md-6">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora En Base</span>
 					</div>
-					<input type="time" required="" class="form-control" name="hora_en_base" id="hora_en_base" placeholder="hh:mm:ss" value="{{old('hora_en_base',$now->format('H:i:s'))}}">
+					<input type="time" class="form-control" name="hora_en_base" id="hora_en_base" placeholder="hh:mm:ss" value="{{old('hora_en_base',$now->format('H:i:s'))}}">
 				</div>
 			</div><!--Div Horas Evento-->
 
@@ -200,7 +200,7 @@
 						<span class="input-group-text">Detalle Emergencia</span>
 					</div>
 					
-					<textarea class="form-control" maxlength="1000" id="detalle_emergencia" name="detalle_emergencia" placeholder="Digite a detalle lo ocurrido en Emergencia" aria-label="With textarea" required="">{{old('detalle_emergencia')}}</textarea>
+					<textarea class="form-control" maxlength="1000" id="detalle_emergencia" name="detalle_emergencia" placeholder="Digite a detalle lo ocurrido en Emergencia" aria-label="With textarea" >{{old('detalle_emergencia')}}</textarea>
 				</div>
 			</div><!--Detalle Emergencia-->
 
@@ -307,10 +307,12 @@
 										<option>Hosp.Militar</option>
 										<option>Hosp.Snta.Ana</option>
 										<option>Clínica</option>
+										<option>No Amerita Traslado</option>
+										<option>Rehusa Traslado</option>
 									</select>
 								</div>
 						</div>
-						<div class="col-lg-8 col-sm-12 col-md-12 col-xs-12">
+						<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
 							<div class="form-group  input-group">
 									<div class="input-gro4up-prepend">
 										<span class="input-group-text" >Cie</span>
@@ -319,7 +321,7 @@
 									<select class="form-control selectpicker" name="cie10" id="pcie10" data-live-search="true" >
 										<option selected>Elija...</option>
 										@foreach($cies as $cie)
-										<option value="{{$cie->codigo}}">{{$cie->concepto}}</option>
+										<option value="{{$cie->padres}}">{{$cie->padre}}</option>
 										@endforeach
 									</select>
 								</div>
@@ -449,7 +451,11 @@
 		@push ('scripts')
 			{{-- Script para almacenar vehiculos asisten --}}
 			<script>
+
+
 				$(document).ready(function(){
+					
+
 					$("#bt_add").click(function () {
 						agregar();
 					});
@@ -497,6 +503,9 @@
 				var jqkm_llegada=0;
 				subtotal=[];
 				$("#Enviar").hide();
+
+				
+
 
 				function agregar() {
 				// body...

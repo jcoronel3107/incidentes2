@@ -2,7 +2,7 @@
 
 	@section( "cabeza" )
 
-
+	<title>Servicio - Index - BCBVC</title>
 	@endsection
 
 	@section( "cuerpo" )

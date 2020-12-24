@@ -2,7 +2,7 @@
 
 	@section( "cabeza" )
 
-
+	<title>Fuga - Edición - BCBVC</title>
 	@endsection
 
 	@section( "cuerpo" )

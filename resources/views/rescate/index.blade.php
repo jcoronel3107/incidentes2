@@ -2,6 +2,7 @@
 	@extends( "layouts.plantilla" )
 
 	@section( "cabeza" )
+	<title>Rescate - Index - BCBVC</title>
 	@endsection
 
 	@section( "cuerpo" )

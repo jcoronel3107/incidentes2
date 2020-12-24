@@ -56,9 +56,14 @@ class ClaveController extends Controller {
 		//
 		$gasolineras = Gasolinera::all();
 		$vehiculos = Vehiculo::all();
-
-		$users = User::where('cargo','maquinista')
-			->get();
+		$users = DB::table('users')->where([
+          ['cargo','=','Bombero'],
+        ])
+        ->orWhere('cargo','=','maquinista')
+        ->orderBy("name",'asc')
+        ->get();
+		/*$users = User::where('cargo','maquinista')
+			->get();*/
 
 		if ( Auth::check() ) {
 			return view( "/clave.crear",compact("gasolineras","vehiculos","users") );
@@ -134,7 +139,13 @@ class ClaveController extends Controller {
 		if ( Auth::check() ) {
 			$gasolineras = Gasolinera::all();
 			$vehiculos = Vehiculo::all();
-			$usuarios=User::all();
+			$usuarios = DB::table('users')->where([
+          ['cargo','=','Bombero'],
+        ])
+        ->orWhere('cargo','=','maquinista')
+        ->orderBy("name",'asc')
+        ->get();
+			//$usuarios=User::all();
 			$claves = Clave::findOrFail( $id );
 			return view( "clave.edit", compact("claves","gasolineras","vehiculos","usuarios"));
 		} else {
