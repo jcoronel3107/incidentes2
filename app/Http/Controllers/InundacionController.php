@@ -70,7 +70,7 @@ class InundacionController extends Controller
             ->get();
 
     		if ( Auth::check() ) {
-    			return view( "/inundacion.crear", compact( "incidentes","now","estaciones","users","maquinistas", "parroquias","vehiculos" ) );
+    			return view( "/inundacion.crear", compact( "incidentes","now","estaciones","users","maquinistas", "parroquias","vehiculos") );
     		} else {
     			return view( "/auth.login" );
     		}

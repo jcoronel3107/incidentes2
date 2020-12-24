@@ -33,6 +33,7 @@ use Spatie\Geocoder\Geocoder;
 */
 Route::get('/',                  	'PagesController@index');
 Auth::routes();
+
 Route::get('lang/{lang}', 			'LanguageController@swap')->name('lang.swap');
 Route::resource('clave',         	'ClaveController');
 Route::resource('incidente',     	'IncidenteController');
@@ -139,6 +140,16 @@ Route::get('/sendReportClave/{id}',		'MailController@SendMailsClave');
 Route::get('/sendReportDerrame/{id}',	'MailController@SendMailsDerrame');
 Route::get('/sendReportServicio/{id}',	'MailController@SendMailsServicio');
 Route::get('/prueba1/',					'ConsultasController@EventosxIncidente');
+Route::get('/eventoE1/',				'MenuController@evento');
+Route::get('/eventoE2/',				'MenuController@evento2');
+Route::get('/eventoE3/',				'MenuController@evento3');
+Route::get('/eventoE4/',				'MenuController@evento4');
+Route::get('/eventoE5/',				'MenuController@evento5');
+Route::get('/eventoE6/',				'MenuController@evento6');
+Route::get('/eventoE7/',				'MenuController@evento7');
+Route::get('/eventoE8/',				'MenuController@evento8');
+Route::get('/eventoE9/',				'MenuController@evento9');
+
 
 
 Route::get('/home',              'HomeController@index');

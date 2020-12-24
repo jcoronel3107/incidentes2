@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\ Support\Carbon;
 
 class MenuController extends Controller
 {
@@ -11,6 +12,7 @@ class MenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
        return view("welcome");
@@ -90,5 +92,71 @@ class MenuController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function evento()
+    {
+        $now = Carbon::now();
+        $mensualesInundacion="";
+        $station = trans('messages.Station1');
+        return view("evento", compact( "mensualesInundacion","station","now") );
+    }
+
+    public function evento2()
+    {
+        $now = Carbon::now();
+        $mensualesInundacion="";
+        $station = trans('messages.Station2');
+        return view("evento", compact( "mensualesInundacion","station","now") );
+    }
+
+    public function evento3()
+    {
+        $now = Carbon::now();
+        $mensualesInundacion="";
+        $station = trans('messages.Station3');
+        return view("evento", compact( "mensualesInundacion","station","now") );
+    }
+    public function evento4()
+    {
+        $now = Carbon::now();
+        $mensualesInundacion="";
+        $station = trans('messages.Station4');
+        return view("evento", compact( "mensualesInundacion","station","now") );
+    }
+    public function evento5()
+    {
+        $now = Carbon::now();
+        $mensualesInundacion="";
+        $station = trans('messages.Station5');
+        return view("evento", compact( "mensualesInundacion","station","now") );
+    }
+    public function evento6()
+    {
+        $now = Carbon::now();
+        $mensualesInundacion="";
+        $station = trans('messages.Station6');
+        return view("evento", compact( "mensualesInundacion","station","now") );
+    }
+    public function evento7()
+    {
+        $now = Carbon::now();
+        $mensualesInundacion="";
+        $station = trans('messages.Station7');
+        return view("evento", compact( "mensualesInundacion","station","now") );
+    }
+    public function evento8()
+    {
+        $now = Carbon::now();
+        $mensualesInundacion="";
+        $station = trans('messages.Station8');
+        return view("evento", compact( "mensualesInundacion","station","now") );
+    }
+    public function evento9()
+    {
+        $now = Carbon::now();
+        $mensualesInundacion="";
+        $station = trans('messages.Station9');
+        return view("evento", compact( "mensualesInundacion","station","now") );
     }
 }

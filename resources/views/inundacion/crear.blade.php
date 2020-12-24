@@ -2,7 +2,7 @@
 
 	@section( "cabeza" )
 
-	<title>Inundación - Crear - BCBVC</title>
+	<title>Inundacion</title>
 	@endsection
 
 	@section( "cuerpo" )
@@ -381,6 +381,12 @@
 						//if(jqkm_llegada>jqkm_salida){
 							$("#divguardar").show();
 							$("#Enviar").show();
+							if(document.title=="Inundacion"){
+							jqtitle = jqvehiculo +" - Inundación - BCBVC";
+								console.log(jqtitle);
+								document.title =jqtitle;
+							}
+							
 						//}
 						//else{
 						//	$("#divguardar").hide();

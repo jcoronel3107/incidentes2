@@ -65,5 +65,15 @@ return [
     'km_return'=>'km_return',
     'Select "Logout" below if you are ready to end your current session.'=>'Select "Logout" below if you are ready to end your current session.',
     'Ready to Leave?'=>'Ready to Leave?',
-
+    'Station1'=>'Station 1',
+    'Station2'=>'Station 2',
+    'Station3'=>'Station 3',
+    'Station4'=>'Station 4',
+    'Station5'=>'Station 5',
+    'Station6'=>'Station 6',
+    'Station7'=>'Station 7',
+    'Station8'=>'Station 8',
+    'Station9'=>'Station 9',
+    'New'=>'New',
+    'Edit'=>'Edit',
 ];
