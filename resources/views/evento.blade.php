@@ -42,16 +42,16 @@
 	@section( "cuerpo" )
 
         <div class="row">
-                <h1> - {{$station}} - </h1></div>
+                <h1>  <i class="fa fa-university" aria-hidden="true"></i> {{$station}}</h1></div>
     	<div  class="row">
 
                             <div class="col-xl-3 col-lg-3 col-md-4 sm-6">
                                 <div class="card mb-4">
 
-                                    <a class="collapse-item" target="_blank" href="/inundacion/create"><h5 class="card-header text-white bg-primary" ><i class="fas fa-fw fa-shower"></i> {!! trans('messages.flood') !!}</h5></a>
+                                    <a class="collapse-item" target="_blank" href="/inundacion/create"><h5 class="card-header text-white bg-primary" ><i class="fas fa-fw fa-shower"></i>{!! trans('messages.flood') !!}</h5></a>
 
                                     <div class="card-body">
-                                    	<p class="card-text text-black"> <h1>{{$mensualesInundacion}}</h1> {!! trans('messages.Current Month Events') !!}</p>
+                                    	<a class="collapse-item" target="_blank" href="/inundacion"><p class="card-text text-black"> <h1>{{$mensualesInundacion}}</h1>{!! trans('messages.Current Month Events') !!}</p></a>
                                     </div>
                                 </div>
                             </div>
@@ -68,19 +68,20 @@
 							</div>
                             <div class="col-xl-3 col-lg-3 col-md-4 sm-6">
                                 <div class="card mb-4">
-                                    <a class="collapse-item" target="_blank" href="/rescate/create"><h5 class="card-header text-white bg-secondary"><i class="fas fa-fw fa-life-ring"></i> {!! trans('messages.rescue') !!}</h5></a>
+                                    <a class="collapse-item" target="_blank" href="/rescate/create"><h5 class="card-header text-white bg-secondary"><i class="fas fa-fw fa-life-ring"></i>{!! trans('messages.rescue') !!}</h5></a>
                                     
                                     <div class="card-body">
-                                    	<p class="card-text text-black"> <h1>{{$mensualesInundacion}}</h1> {!! trans('messages.Current Month Events') !!}</p>
+                                        <a class="collapse-item" target="_blank" href="/rescate"><p class="card-text text-black"> <h1>{{$mensualesInundacion}}</h1> {!! trans('messages.Current Month Events') !!}</p></a>
+                                    	
                                     </div>
                                 </div>
                             </div>
                              <div class="col-xl-3 col-lg-3 col-md-4 sm-6">
                                 <div class="card mb-4">
-                                    <a class="collapse-item" target="_blank" href="/derrame/create"><h5 class="card-header text-white bg-secondary"><i class="fas fa-fw fa-life-ring"></i> {!! trans('messages.Hazmat') !!}</h5></a>
+                                    <a class="collapse-item" target="_blank" href="/derrame/create"><h5 class="card-header text-white bg-secondary"><i class="fas fa-fw fa-life-ring"></i>{!! trans('messages.Hazmat') !!}</h5></a>
 
                                     <div class="card-body">
-                                    	<p class="card-text text-black"> <h1>{{$mensualesInundacion}}</h1> {!! trans('messages.Current Month Events') !!}</p>
+                                    	<p class="card-text text-black"><h1>{{$mensualesInundacion}}</h1> {!! trans('messages.Current Month Events') !!}</p>
                                     </div>
                                 </div>
                             </div>
@@ -107,13 +108,13 @@
                                     <a class="collapse-item" target="_blank" href="/fuego/create"><h5 class="card-header text-white bg-danger"><i class="fas fa-fw fa-fire"></i>{!! trans('messages.fire') !!}</h5></a>
 
                                     <div class="card-body">
-                                    	<p class="card-text text-black"> <h1>{{$mensualesInundacion}}</h1> Eventos Mes Actual</p>
+                                    	<p class="card-text text-black"> <h1>{{$mensualesInundacion}}</h1> {!! trans('messages.Current Month Events') !!}</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-3 col-md-4 sm-6">
                                 <div class="card mb-4">
-                                    <a class="collapse-item" target="_blank" href="/fuego/create"><h5 class="card-header text-white bg-info"><i class="fas fa-fw fa-fire-extinguisher"></i> {!! trans('messages.leak') !!}</h5></a>
+                                    <a class="collapse-item" target="_blank" href="/derrame/create"><h5 class="card-header text-white bg-info"><i class="fas fa-fw fa-fire-extinguisher"></i> {!! trans('messages.leak') !!}</h5></a>
 
                                     <div class="card-body">
                                     	<p class="card-text text-black"> <h1>{{$mensualesInundacion}}</h1> {!! trans('messages.Current Month Events') !!}</p>
@@ -125,11 +126,16 @@
 
 	@push ('scripts')
       <script type="text/javascript">
+       $(document).ready(function(){
+              document.title ="<?php echo $station.' - BCBVC'; ?>" ;
+       });
+
        function startTime() {
 				    var today = new Date();
 				    var hr = today.getHours();
 				    var min = today.getMinutes();
 				    var sec = today.getSeconds();
+                   
 				    ap = (hr < 12) ? "<span>AM</span>" : "<span>PM</span>";
 				    hr = (hr == 0) ? 12 : hr;
 				    hr = (hr > 12) ? hr - 12 : hr;

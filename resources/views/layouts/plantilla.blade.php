@@ -62,8 +62,8 @@
 								                <div class="top-right links">
 								                    @foreach (array_keys(config('locale.languages')) as $lang)
 								                        @if ($lang != App::getLocale())
-								                            <a href="{!! route('lang.swap', $lang) !!}" title="{!! trans('messages.language') !!}">
-								                                    <i class="fa fa-language fa-lg" aria-hidden="true"></i>
+								                            <a href="{!! route('lang.swap', $lang) !!}"  title="{!! trans('messages.language') !!}">
+								                                    <i class="fa fa-language fa-lg" aria-hidden="true">&nbsp;{{$lang}}</i>
 								                            </a>
 								                        @endif
 								                    @endforeach

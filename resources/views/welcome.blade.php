@@ -2,6 +2,7 @@
 
 	@section( "cabeza" )
 
+        <title>Incidentes2 - BCBVC</title>
 		<style type="text/css">
 			.clockdate-wrapper
 			{

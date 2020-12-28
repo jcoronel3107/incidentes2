@@ -32,7 +32,10 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Hora Ficha ECU911</span>
 							</div>
-							<input type="time" name="hora_fichaecu911"  class="form-control" placeholder="hh:mm:ss" value="{{old('hora_fichaecu911')}}" required="">
+							<input type="time" id="hora_fichaecu911" name="hora_fichaecu911"  class="form-control" placeholder="hh:mm:ss" value="" required="">
+							<div class="input-group-append">
+								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual0" id="horactual0"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -42,7 +45,10 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Nro.Ficha ECU911</span>
 							</div>
-							<input type="text" onkeyup="mayus(this);" name="ficha_ecu911" value="{{old('ficha_ecu911')}}" class="form-control">
+							<input type="text" onkeyup="mayus(this);" name="ficha_ecu911" value="" class="form-control">
+							<div class="input-group-append">
+								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual" id="horactual"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -168,13 +174,19 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Salida A Emergencia</span>
 					</div>
-					<input type="time" class="form-control" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" value="{{old('hora_salida_a_emergencia',$now->format('H:i:s'))}}" placeholder="hh:mm:ss">
+					<input type="time" class="form-control" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" value="" placeholder="hh:mm:ss">
+					<div class="input-group-append">
+								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual" id="horactual"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+					</div>
 				</div>
 				<div class="form-group  input-group col-md-6 col-sm-12">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Llegada A Emergencia</span>
 					</div>
-					<input type="time" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm:ss" value="{{old('hora_llegada_a_emergencia',$now->format('H:i:s'))}}" required="">
+					<input type="time" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm:ss" value="" required="">
+					<div class="input-group-append">
+								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual1" id="horactual1"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+					</div>
 				</div>
 			</div><!--Div Horas Evento-->
 			<div class="form-row">
@@ -182,13 +194,19 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Fin Emergencia</span>
 					</div>
-					<input type="time" class="form-control" name="hora_fin_emergencia" id="hora_fin_emergencia" placeholder="hh:mm:ss" value="{{old('hora_fin_emergencia',$now->format('H:i:s'))}}" required="">
+					<input type="time" class="form-control" name="hora_fin_emergencia" id="hora_fin_emergencia" placeholder="hh:mm:ss" value="" required="">
+				</div>
+				<div class="input-group-append">
+								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual2" id="horactual2"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 				</div>
 				<div class="form-group  input-group col-md-6 col-sm-12	">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora En Base</span>
 					</div>
-					<input type="time" class="form-control" name="hora_en_base" id="hora_en_base" placeholder="hh:mm:ss" value="{{old('hora_en_base',$now->format('H:i:s'))}}" required="">
+					<input type="time" class="form-control" name="hora_en_base" id="hora_en_base" placeholder="hh:mm:ss" value="" required="">
+					<div class="input-group-append">
+								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual3" id="horactual3"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+					</div>
 				</div>
 			</div><!--Div Horas Evento-->
 
@@ -345,6 +363,22 @@
 				$("#bt_add").click(function () {
 							agregar();
 						});
+				$("#horactual0").click(function () {
+								hractual(this);
+							});
+				$("#horactual").click(function () {
+								hractual(this);
+							});
+				$("#horactual1").click(function () {
+								hractual(this);
+							});
+
+				$("#horactual2").click(function () {
+								hractual(this);
+							});
+				$("#horactual3").click(function () {
+								hractual(this);
+							});
 
 		    	$("#pinformacion_inicial").keyup(function() {
 		        var chars = $("#pinformacion_inicial").val().length;
@@ -426,6 +460,34 @@
 			}
 			function mayus( e ) {
 					e.value = e.value.toUpperCase();
+				}
+
+			function hractual(e) {
+					console.log(e);
+					var hoy = new Date();
+					var h1 = hoy.getHours();
+					if(h1>=0 && h1<10) {
+						h1 = "0"+ h1;
+						}
+					var min = hoy.getMinutes();
+					if(min>=0 && min<10) {
+						min = "0"+ min;
+						}
+					var sec = hoy.getSeconds();
+					if(sec>=0 && sec<10) {
+						sec = "0"+ sec;
+						}
+					var hora = h1  + ':' + min + ':' + sec;
+					if(e.name == "horactual")
+						$('#hora_salida_a_emergencia').attr('value', hora);
+					else if (e.name == "horactual1")
+						$('#hora_llegada_a_emergencia').attr('value', hora);
+					else if (e.name == "horactual2")
+						$('#hora_fin_emergencia').attr('value', hora);
+					else if(e.name == "horactual3")
+						$('#hora_en_base').attr('value', hora);
+					else
+						$('#hora_fichaecu911').attr('value', hora);
 				}
 		</script>
 		<script type="text/javascript">
