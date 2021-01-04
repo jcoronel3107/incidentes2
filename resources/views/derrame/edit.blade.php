@@ -128,7 +128,7 @@
 						<span class="input-group-text">Jefe Guardia</span>
 					</div>
 					<select class="form-control" name="jefeguardia_id">
-						<option selected></option>
+						<option value="{{$derrame->users[2]->id}}" selected="{{$derrame->users[2]->id}}">{{$derrame->users[2]->name}}</option>
 						@foreach($bomberos as $bombero)
 						<option value="{{$bombero->id}}">{{$bombero->name}}</option>
 						@endforeach
@@ -139,7 +139,7 @@
 						<span class="input-group-text">Bombero</span>
 					</div>
 					<select class="form-control" name="bombero_id">
-						<option selected></option>
+						<option value="{{$derrame->users[1]->id}}" selected="{{$derrame->users[1]->id}}">{{$derrame->users[1]->name}}</option>
 						@foreach($bomberos as $bombero)
 						<option value="{{$bombero->id}}">{{$bombero->name}}</option>
 						@endforeach
@@ -150,7 +150,7 @@
 						<span class="input-group-text">Conductor</span>
 					</div>
 					<select class="form-control" name="conductor_id">
-						<option selected>{{old('conductor_id')}}</option>
+						<option value="{{$derrame->users[0]->id}}" selected="{{$derrame->users[0]->id}}">{{$derrame->users[0]->name}}</option>
 						@foreach($maquinistas as $maquinista)
 						<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>
 						@endforeach

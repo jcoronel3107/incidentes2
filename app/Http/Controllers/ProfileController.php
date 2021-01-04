@@ -120,12 +120,12 @@ class ProfileController extends Controller
 
     public function update_avatar(Request $request){
         
-         $user = \Auth::user();
-         $fileavatar = $request->file('avatar');
+        $user = \Auth::user();
+        $fileavatar = $request->file('avatar');
         
-         $nombre = $user->id.'_avatar'.time().'.'.request()->avatar->getClientOriginalExtension();
+        $nombre = $user->id.'_avatar'.time().'.'.request()->avatar->getClientOriginalExtension();
         
-         $validation = $request->validate([
+        $validation = $request->validate([
         'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1048'
         
         ]);

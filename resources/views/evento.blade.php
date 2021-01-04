@@ -81,7 +81,8 @@
                                     <a class="collapse-item" target="_blank" href="/derrame/create"><h5 class="card-header text-white bg-secondary"><i class="fas fa-fw fa-life-ring"></i>{!! trans('messages.Hazmat') !!}</h5></a>
 
                                     <div class="card-body">
-                                    	<p class="card-text text-black"><h1>{{$mensualesInundacion}}</h1> {!! trans('messages.Current Month Events') !!}</p>
+                                    	<a class="collapse-item" target="_blank" href="/derrame"><p class="card-text text-black"><h1>{{$mensualesInundacion}}</h1> {!! trans('messages.Current Month Events') !!}</p></a>
+
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +91,7 @@
                                     <a class="collapse-item" target="_blank" href="/transito/create"><h5 class="card-header text-white bg-success"><i class="fas fa-fw fa-wrench"></i> {!! trans('messages.transit') !!}</h5></a>
 
                                     <div class="card-body">
-                                    	<p class="card-text text-black"> <h1>{{$mensualesInundacion}}</h1> {!! trans('messages.Current Month Events') !!}</p>
+                                    	<a class="collapse-item" target="_blank" href="/transito"><p class="card-text text-black"><h1>{{$mensualesInundacion}}</h1> {!! trans('messages.Current Month Events') !!}</p></a>
                                     </div>
                                 </div>
                             </div>
@@ -99,7 +100,7 @@
                                     <a class="collapse-item" target="_blank" href="/salud/create"><h5 class="card-header text-white bg-warning"><i class="fas fa-fw fa-heartbeat"></i> {!! trans('messages.Health') !!}</h5></a>
 
                                     <div class="card-body">
-                                    	<p class="card-text text-black"> <h1>{{$mensualesInundacion}}</h1> {!! trans('messages.Current Month Events') !!}</p>
+                                    	<a class="collapse-item" target="_blank" href="/salud"><p class="card-text text-black"><h1>{{$mensualesInundacion}}</h1> {!! trans('messages.Current Month Events') !!}</p></a>
                                     </div>
                                 </div>
                             </div>
@@ -108,16 +109,16 @@
                                     <a class="collapse-item" target="_blank" href="/fuego/create"><h5 class="card-header text-white bg-danger"><i class="fas fa-fw fa-fire"></i>{!! trans('messages.fire') !!}</h5></a>
 
                                     <div class="card-body">
-                                    	<p class="card-text text-black"> <h1>{{$mensualesInundacion}}</h1> {!! trans('messages.Current Month Events') !!}</p>
+                                    	<a class="collapse-item" target="_blank" href="/fuego"><p class="card-text text-black"><h1>{{$mensualesInundacion}}</h1> {!! trans('messages.Current Month Events') !!}</p></a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-3 col-md-4 sm-6">
                                 <div class="card mb-4">
-                                    <a class="collapse-item" target="_blank" href="/derrame/create"><h5 class="card-header text-white bg-info"><i class="fas fa-fw fa-fire-extinguisher"></i> {!! trans('messages.leak') !!}</h5></a>
+                                    <a class="collapse-item" target="_blank" href="/fuga/create"><h5 class="card-header text-white bg-info"><i class="fas fa-fw fa-fire-extinguisher"></i> {!! trans('messages.leak') !!}</h5></a>
 
                                     <div class="card-body">
-                                    	<p class="card-text text-black"> <h1>{{$mensualesInundacion}}</h1> {!! trans('messages.Current Month Events') !!}</p>
+                                    	<a class="collapse-item" target="_blank" href="/fuga"><p class="card-text text-black"><h1>{{$mensualesInundacion}}</h1> {!! trans('messages.Current Month Events') !!}</p></a>
                                     </div>
                                 </div>
                             </div>

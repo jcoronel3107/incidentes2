@@ -9,7 +9,7 @@ use App\ Station;
 use App\ User;
 use App\ Parroquia;
 use App\ Vehiculo;
-use App\ Http\ Requests\ SavetransitoRequest;
+use App\ Http\ Requests\ SaveTransitoRequest;
 use Maatwebsite\ Excel\ Facades\ Excel;
 use Illuminate\ Support\ Facades\ Auth;
 use Illuminate\ Support\Carbon;

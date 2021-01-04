@@ -1,7 +1,7 @@
 	@extends( "layouts.plantilla" )
 
 	@section( "cabeza" )
-	<title>Salud - Crear - BCBVC</title>
+	<title>Salud</title>
 
 	@endsection
 
@@ -34,7 +34,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Hora Ficha ECU911</span>
 							</div>
-							<input type="time" required="" id="hora_fichaecu911" name="hora_fichaecu911"  class="form-control" placeholder="hh:mm:ss" value="">
+							<input type="time" required="" id="hora_fichaecu911" name="hora_fichaecu911"  class="form-control" placeholder="hh:mm:ss" value="{{old('hora_fichaecu911')}}">
 							<div class="input-group-append">
 								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual0" id="horactual0"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 							</div>
@@ -53,6 +53,66 @@
 				</div>
 
 			</div><!--Div Informacion ECU911-->
+			<hr>
+			<div class="card">
+				<div class="card-header text-white bg-primary">Vehiculos en la Emergencia</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
+							<div class="form-group input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Vehìculo</span>
+								</div>
+								<select class="form-control selectpicker" name="vehiculo_id" id="pvehiculo_id" data-live-search="true">
+								<option selected>Elija...</option>
+								@foreach($vehiculos as $vehiculo)
+								<option>{{$vehiculo->codigodis}}</option>
+								@endforeach
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+								<div class="form-group  input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text" >Km.Salida</span>
+									</div>
+									<input type="number" class="form-control" value="{{old('ikm_salida')}}"  name="ikm_salida" id="pkm_salida" placeholder="Digite Valor">
+								</div>
+						</div>
+						<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+							<div class="form-group  input-group">
+									<div class="input-group-prepend">
+									<span class="input-group-text" id="inputDetalle">Km.Llegada</span>
+									</div>
+									<input type="number" class="form-control" id="pkm_llegada" name="ikm_llegada" value="{{old('ikm_llegada')}}" placeholder="Digite Valor">
+								</div>
+						</div>
+						<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2">
+							<button type="button" id="bt_add" class="btn btn-primary">Agregar</button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+							<table id="detalles" class="table table-striped table bordered table condensed table-hover">
+								<thead style="background-color: #A9D0F5 ">
+									<th>Opciones</th>
+									<th>Vehiculo</th>
+									<th>Km.Salida</th>
+									<th>Km.Llegada</th>
+								</thead>
+								<tfoot></tfoot>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+								<tbody></tbody>
+
+							</table>
+						</div>
+					</div>
+				</div>
+			</div> <!--Vehiculos asisten emergencia -->
+			<hr>
 			<div class="form-row ">
 				<div class='col-md-12'>
 					<div class="form-group">
@@ -61,7 +121,6 @@
 								<span class="input-group-text">Informacion Inicial</span>
 							</div>
 							<textarea class="form-control" maxlength="1000" id="pinformacion_inicial" name="informacion_inicial"  aria-label="With textarea" required="" >{{old('informacion_inicial')}}</textarea>
-
 						</div>
 					</div>
 				</div>
@@ -73,9 +132,9 @@
 						<span class="input-group-text">Incidente</span>
 					</div>
 					<select required="" class="form-control" name="incidente_id" id="incidente_id">
-						<option selected>{{old('incidente_id')}}</option>
+						<option selected="">{{old('incidente_id')}}</option>
 						@foreach($incidentes as $incidente)
-							<option>{{$incidente->nombre_incidente}}</option>
+							<option value="{{$incidente->id}}">{{$incidente->nombre_incidente}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -85,11 +144,11 @@
 						<span class="input-group-text">Escenario</span>
 					</div>
 					<select required="" class="form-control" name="tipo_escena">
-						<option selected>{{old('tipo_escena')}}</option>
-						<option>Tipo 1</option>
-						<option>Tipo 2</option>
-						<option>Tipo 3</option>
-						<option>Tipo 4</option>
+						
+						<option selected="" value="Tipo 1">Tipo 1</option>
+						<option value="Tipo 2">Tipo 2</option>
+						<option value="Tipo 3">Tipo 3</option>
+						<option value="Tipo 4">Tipo 4</option>
 					</select>
 				</div>
 				<div class="form-group input-group col-md-4">
@@ -99,7 +158,7 @@
 					<select required="" name="station_id" class="form-control">
 						<option selected>{{old('station_id')}}</option>
 						@foreach($estaciones as $estacion)
-						<option>{{$estacion->nombre}}</option>
+						<option value="$estacion->id">{{$estacion->nombre}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -382,65 +441,7 @@
 				</div>
 			</div>
 			<hr>
-			{{--Vehiculos asisten emergencia --}}
-			<div class="card">
-				<div class="card-header text-white bg-primary">Vehiculos en la Emergencia</div>
-				<div class="card-body">
-					<div class="row">
-						<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
-							<div class="form-group input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text">Vehìculo</span>
-								</div>
-								<select class="form-control selectpicker" name="vehiculo_id" id="pvehiculo_id" data-live-search="true">
-								<option selected>Elija...</option>
-								@foreach($vehiculos as $vehiculo)
-								<option>{{$vehiculo->codigodis}}</option>
-								@endforeach
-								</select>
-							</div>
-						</div>
-						<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
-								<div class="form-group  input-group">
-									<div class="input-group-prepend">
-										<span class="input-group-text" >Km.Salida</span>
-									</div>
-									<input type="number" class="form-control" value="{{old('ikm_salida')}}"  name="ikm_salida" id="pkm_salida" placeholder="Digite Valor">
-								</div>
-						</div>
-						<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
-							<div class="form-group  input-group">
-									<div class="input-group-prepend">
-									<span class="input-group-text" id="inputDetalle">Km.Llegada</span>
-									</div>
-									<input type="number" class="form-control" id="pkm_llegada" name="ikm_llegada" value="{{old('ikm_llegada')}}" placeholder="Digite Valor">
-								</div>
-						</div>
-						<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2">
-							<button type="button" id="bt_add" class="btn btn-primary">Agregar</button>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-							<table id="detalles" class="table table-striped table bordered table condensed table-hover">
-								<thead style="background-color: #A9D0F5 ">
-									<th>Opciones</th>
-									<th>Vehiculo</th>
-									<th>Km.Salida</th>
-									<th>Km.Llegada</th>
-								</thead>
-								<tfoot></tfoot>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
-								<tbody></tbody>
-
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
+			
 			<div class="form-group py-3 " id="divguardar">
 				<input type="hidden" name="token" value="{{csrf_token()}}" >
 				<ul class="nav justify-content-end">
@@ -463,249 +464,10 @@
 		@endif
 		
 		@push ('scripts')
-			{{-- Script para almacenar vehiculos asisten --}}
-			<script>
-
-
-				$(document).ready(function(){
-					
-
-					$("#bt_add").click(function () {
-						agregar();
-					});
-					$("#bt_addpaciente").click(function () {
-						agregarpaciente();
-					});
-
-					$("#horactual0").click(function () {
-								hractual(this);
-							});
-					$("#horactual").click(function () {
-								hractual(this);
-							});
-					$("#horactual1").click(function () {
-								hractual(this);
-							});
-
-					$("#horactual2").click(function () {
-								hractual(this);
-							});
-					$("#horactual3").click(function () {
-								hractual(this);
-							});
-					var max_chars = 1000;
-					$('#max').html(max_chars);
-
-				    $("#pinformacion_inicial").keyup(function() {
-				        var chars = $("#pinformacion_inicial").val().length;
-				        var diff = max_chars - chars;
-				        var leyenda = "Caracteres Permitidos 1000 - Digitados: ";
-				        var res = leyenda.concat(chars);
-				        $("#pcounter").html(res);
-				        if(chars > 1000){
-				           $("#pinformacion_inicial").addClass('error');
-				           $("#pinformacion_inicial").addClass('error');
-				          }else{
-				            $("#pinformacion_inicial").removeClass('error');
-				            $("#pinformacion_inicial").removeClass('error');
-				          }
-				      });
-				    $("#detalle_emergencia").keyup(function() {
-				        var chars = $("#detalle_emergencia").val().length;
-				        var diff = max_chars - chars;
-				        var leyenda = "Caracteres Permitidos 1000 - Digitados: ";
-				        var res = leyenda.concat(chars);
-				        $("#pcounter1").html(res);
-				        if(chars > 1000){
-				           $("#detalle_emergencia").addClass('error');
-				           $("#detalle_emergencia").addClass('error');
-				          }else{
-				            $("#detalle_emergencia").removeClass('error');
-				            $("#detalle_emergencia").removeClass('error');
-				          }
-				      });
-
-				});
-
-				//total=0;
-				var cont=0;
-				var jqkm_salida=0;
-				var jqkm_llegada=0;
-				subtotal=[];
-				$("#Enviar").hide();
-
-				
-
-
-				function agregar() {
-				// body...
-					jqkm_salida=$("#pkm_salida").val();
-					jqkm_llegada=$("#pkm_llegada").val();
-					jqvehiculo=$("#pvehiculo_id").val();
-					jqvehiculo_id=$("#pvehiculo_id option.selected").text();
-					if(jqkm_salida!="" && jqkm_salida>=0 && jqkm_llegada!="" && jqkm_llegada>=0 && jqvehiculo!="")
-					{
-						//total = total + subtotal[cont];
-						var fila = '<tr class = "selected" id="fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminar1('+cont+')" type="button">X</button></td><td><input type="hidden" name="vehiculo_id[]" value="'+jqvehiculo+'">'+jqvehiculo+'</td><td><input type="number"  name="km_salida[]" value="'+jqkm_salida+'"></td><td><input type="number"  name="km_llegada[]" value="'+jqkm_llegada+'"></td></tr>';
-						cont++;
-						limpiar();
-						evaluar();
-						$('#detalles').append(fila);
-
-					}else{
-						alert("Error al ingresar el detalle de vehiculos,revise los datos!!!");
-					}
-
-				}
-
-				function limpiar(){
-					$("#pkm_salida").val("");
-					$("#pkm_llegada").val("");
-				}
-				function evaluar(){
-					//if(jqkm_llegada>jqkm_salida && jqnombres!="" ){
-						$("#divguardar").show();
-						$("#Enviar").show();
-					//}
-					//else{
-					//	$("#divguardar").hide();
-					//}
-				}
-
-				function eliminar1(index){
-					//total = total - subtotal[index];
-					$("#fila"+index).remove();
-					evaluar();
-				}
-
-				function mayus( e ) {
-					e.value = e.value.toUpperCase();
-				}
-
-				function hractual(e) {
-					console.log(e);
-					var hoy = new Date();
-					var h1 = hoy.getHours();
-					if(h1>=0 && h1<10) {
-						h1 = "0"+ h1;
-						}
-					var min = hoy.getMinutes();
-					if(min>=0 && min<10) {
-						min = "0"+ min;
-						}
-					var sec = hoy.getSeconds();
-					if(sec>=0 && sec<10) {
-						sec = "0"+ sec;
-						}
-					var hora = h1  + ':' + min + ':' + sec;
-					if(e.name == "horactual")
-						$('#hora_salida_a_emergencia').attr('value', hora);
-					else if (e.name == "horactual1")
-						$('#hora_llegada_a_emergencia').attr('value', hora);
-					else if (e.name == "horactual2")
-						$('#hora_fin_emergencia').attr('value', hora);
-					else if(e.name == "horactual3")
-						$('#hora_en_base').attr('value', hora);
-					else
-						$('#hora_fichaecu911').attr('value', hora);
-
-					
-				}
-
-				{{-- Script para almacenar pacientes atendidos --}}
-				//total=0;
-				var contpac=0;
-				var jqnombres="";
-				var jqedad=0;
-				var jqgenero="";
-				var jqpresio1=0;
-				var jqpresion2=0;
-				var jqtemp=0;
-				var jqglas=0;
-				var jqhoja=0;
-				var jqsatura=0;
-				var jqcsalud="";
-				var jqcie="";
-				subtotal=[];
-				$("#Enviar").hide();
-
-				function agregarpaciente() {
-				// body...
-					jqnombres=$("#pnombres").val();
-					jqedad=$("#pedad").val();
-					jqgenero=$("#pgenero").val();
-					jqpresio1=$("#ppresionsis").val();
-					jqpresio2=$("#ppresiondias").val();
-					jqtemp=$("#ptemperatura").val();
-					jqglas=$("#pglasgow").val();
-					jqhoja=$("#phoja").val();
-					jqsatura=$("#psaturacion").val();
-					jqcsalud=$("#pcasasalud ").val();
-					jqcie=$("#pcie10").val();
-
-					if((jqnombres!="") && (jqedad!="") && (jqgenero !="") && (jqpresio1!="") && (jqpresio2!="") && (jqtemp!="")&&(jqglas!="")&&(jqsatura!="")&&(jqhoja!="")&&(jqcsalud!="")&&(jqcie!=""))
-					{
-						var filapaciente = '<tr class ="selected" id="filapaciente'+contpac+'"><td><button type="button" class="btn btn-warning" onclick="eliminar2('+contpac+')" type="button">X</button></td><td><input type="hidden" name="frpaciente[]" value="'+jqnombres+'">'+jqnombres+'</td><td><input type="hidden" readonly="true" name="fredad[]" value="'+jqedad+'">'+jqedad+'</td><td><input type="hidden" readonly="true" name="frgenero[]" value="'+jqgenero+'">'+jqgenero+'</td><td><input type="hidden" readonly="true" name="frpresion1[]" value="'+jqpresio1+'">'+jqpresio1+'</td><td><input type="hidden" readonly="true" name="frpresion2[]" value="'+jqpresio2+'">'+jqpresio2+'</td><td><input type="hidden" readonly="true" name="frtemperatura[]" value="'+jqtemp+'">'+jqtemp+'</td><td><input type="hidden" readonly="true" name="frglasglow[]" value="'+jqglas+'">'+jqglas+'</td><td><input type="hidden" readonly="true" name="frsaturacion[]" value="'+jqsatura+'">'+jqsatura+'</td><td><input type="hidden" readonly="true" name="frhoja[]" value="'+jqhoja+'">'+jqhoja+'</td><td><input type="hidden" readonly="true" name="frcasasalud[]" value="'+jqcsalud+'">'+jqcsalud+'</td><td><input type="hidden" readonly="true" name="frcie10[]" value="'+jqcie+'">'+jqcie+'</td></tr>';
-						contpac++;
-						limpiarpaciente();
-						evaluarpaciente();
-						$('#detallespaciente').append(filapaciente);
-
-
-					}else{
-						alert("Error al ingresar el detalle de paciente,Llene los campos requeridos!!");
-					}
-
-				}
-
-				function limpiarpaciente(){
-					$("#pnombres").val("");
-					$("#pedad").val("");
-					$("#pgenero").val("");
-					$("#ppresionsis").val("");
-					$("#ppresiondias").val("");
-					$("#ptemperatura").val("");
-					$("#pglasgow").val("");
-					$("#psaturacion").val("");
-					$("#pcasasalud").val("");
-					$("#pcie10").val("");
-
-
-				}
-				function evaluarpaciente(){
-					if(jqnombres!=""){
-						$("#divguardar").show();
-						$("#Enviar").show();
-					}
-					else{
-						$("#divguardar").hide();
-					}
-				}
-
-				function eliminar2(index){
-					//total = total - subtotal[index];
-					$("#filapaciente"+index).remove();
-					evaluar();
-
-				}
-			</script>
-			<script type="text/javascript">
-				$(document).ready(function(){
-					var dtToday = new Date();
-					var month = dtToday.getMonth() + 1;     // getMonth() is zero-based
-					var day = dtToday.getDate();
-					var year = dtToday.getFullYear();
-					if(month < 10)
-					      month = '0' + month.toString();
-					if(day < 10)
-					      day = '0' + day.toString();
-
-					
-				    var maxDate = year + '-' + month + '-' + day;
-					$('#fecha').attr('min', maxDate);
-				    
-				});
-			</script>
+			
+			
+			<script src="/js/funciones.js"></script>
+			
 
 		@endpush
 	@endsection
