@@ -51,7 +51,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Información Inicial</span>
 							</div>
-							<textarea class="form-control" maxlength="1000" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$derrame->informacion_inicial)}}</textarea>
+							<textarea onkeyup="mayus(this);" class="form-control" maxlength="1000" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$derrame->informacion_inicial)}}</textarea>
 						</div>
 					</div>
 				</div>
@@ -98,7 +98,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Dirección</span>
 					</div>
-					<textarea class="form-control" id="pdireccion" maxlength="1000" name="address" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$derrame->address)}}</textarea>
+					<textarea onkeyup="mayus(this);" class="form-control" id="pdireccion" maxlength="1000" name="address" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$derrame->address)}}</textarea>
 					<input type="button" value="Encode" onclick="codeAddress()">
 				</div>
 				<div class="form-group input-group input-group-prepend col-md-4">
@@ -190,7 +190,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Detalle Emergencia</span>
 						</div>
-						<textarea class="form-control"name="detalle_emergencia" id="detalle_emergencia" maxlength="1000"  aria-label="With textarea" placeholder="Digite a detalle lo ocurrido en Emergencia">{{old('detalle_emergencia',$derrame->detalle_emergencia)}}</textarea>
+						<textarea onkeyup="mayus(this);" class="form-control"name="detalle_emergencia" id="detalle_emergencia" maxlength="1000"  aria-label="With textarea" placeholder="Digite a detalle lo ocurrido en Emergencia">{{old('detalle_emergencia',$derrame->detalle_emergencia)}}</textarea>
 					</div>
 				</div>
 			</div>{{--Detalle Emergencia--}}

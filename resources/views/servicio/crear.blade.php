@@ -41,6 +41,7 @@
 						<option>Dirección Administrativa Financiera</option>
 						<option>Mantenimiento</option>
 						<option>Bodega</option>
+						<option>Sala Situacional</option>
 					</select>
 				</div>
 				<div class="form-group input-group  col-md-6">
@@ -55,6 +56,7 @@
 						<option>Econ. T.Segarra</option>
 						<option>Ing. Efrain Gomez</option>
 						<option>Econ. Johana Parra</option>
+						<option>Sala Situacional</option>
 					</select>
 				</div>
 			</div>

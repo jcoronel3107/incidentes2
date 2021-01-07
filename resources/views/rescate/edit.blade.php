@@ -35,7 +35,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Nro.Ficha ECU911</span>
 							</div>
-							<input type="text" name="ficha_ecu911" value="{{old('ficha_ecu911',$rescate->ficha_ecu911)}}" class="form-control">
+							<input onkeyup="mayus(this);" type="text" name="ficha_ecu911" value="{{old('ficha_ecu911',$rescate->ficha_ecu911)}}" class="form-control">
 						</div>
 					</div>
 				</div>
@@ -45,7 +45,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Información Inicial</span>
 							</div>
-							<textarea class="form-control" maxlength="1000" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$rescate->informacion_inicial)}}</textarea>
+							<textarea onkeyup="mayus(this);" class="form-control" maxlength="1000" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$rescate->informacion_inicial)}}</textarea>
 						</div>
 					</div>
 				</div>
@@ -184,7 +184,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Detalle Emergencia</span>
 						</div>
-						<textarea class="form-control" maxlength="1000" name="detalle_emergencia" id="detalle_emergencia"  aria-label="With textarea" placeholder="Digite a detalle lo ocurrido en Emergencia">{{old('detalle_emergencia',$rescate->detalle_emergencia)}}</textarea>
+						<textarea onkeyup="mayus(this);" class="form-control" maxlength="1000" name="detalle_emergencia" id="detalle_emergencia"  aria-label="With textarea" placeholder="Digite a detalle lo ocurrido en Emergencia">{{old('detalle_emergencia',$rescate->detalle_emergencia)}}</textarea>
 					</div>
 				</div>
 			</div>{{--Detalle Emergencia--}}
@@ -194,7 +194,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Ciud. Afectado</span>
 					</div>
-					<input type="text" class="form-control" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado',$rescate->usuario_afectado)}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia">
+					<input onkeyup="mayus(this);" type="text" class="form-control" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado',$rescate->usuario_afectado)}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia">
 				</div>
 				</div>
 			</div>{{--Usuario Afectado --}}
@@ -203,7 +203,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDaños">Daños Estimados</span>
 					</div>
-					<input type="text" class="form-control" name="danos_estimados" id="danos_estimados" value="{{old('danos_estimados',$rescate->danos_estimados)}}" placeholder="Detalle los daños producidos por  el incidente">
+					<input onkeyup="mayus(this);" type="text" class="form-control" name="danos_estimados" id="danos_estimados" value="{{old('danos_estimados',$rescate->danos_estimados)}}" placeholder="Detalle los daños producidos por  el incidente">
 				</div>
 			</div>{{-- Daños Estimados --}}
 			<div class="form-group">

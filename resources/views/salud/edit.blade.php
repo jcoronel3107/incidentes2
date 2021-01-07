@@ -31,7 +31,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Hora Ficha ECU911</span>
 							</div>
-							<input type="text" name="hora_fichaecu911"  class="form-control" placeholder="hh:mm:ss" value="{{old('hora_fichaecu911',$salud->hora_fichaecu911)}}">
+							<input type="text" required="" name="hora_fichaecu911"  class="form-control" placeholder="hh:mm:ss" value="{{old('hora_fichaecu911',$salud->hora_fichaecu911)}}">
 						</div>
 					</div>
 				</div>
@@ -41,7 +41,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Nro.Ficha ECU911</span>
 							</div>
-							<input type="text" name="ficha_ecu911" value="{{old('ficha_ecu911',$salud->ficha_ecu911)}}" class="form-control">
+							<input onkeyup="mayus(this);" type="text" name="ficha_ecu911" value="{{old('ficha_ecu911',$salud->ficha_ecu911)}}" class="form-control">
 						</div>
 					</div>
 				</div>
@@ -51,7 +51,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Informacion Inicial</span>
 							</div>
-							<textarea class="form-control" maxlength="1000" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$salud->informacion_inicial)}}</textarea>
+							<textarea onkeyup="mayus(this);" class="form-control" maxlength="1000" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$salud->informacion_inicial)}}</textarea>
 
 						</div>
 					</div>
@@ -63,9 +63,9 @@
 						<span class="input-group-text">Incidente</span>
 					</div>
 					<select class="form-control" name="incidente_id" id="incidente_id">
-						<option selected>{{old('incidente_id',$salud->incidente->nombre_incidente)}}</option>
+						<option value="{{$salud->incidente_id}}" >{{old('incidente_id',$salud->incidente->nombre_incidente)}}</option>
 						@foreach($incidentes as $incidente)
-							<option>{{$incidente->nombre_incidente}}</option>
+							<option value="{{$incidente->id}}">{{$incidente->nombre_incidente}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -75,11 +75,11 @@
 						<span class="input-group-text">Escenario</span>
 					</div>
 					<select class="form-control" name="tipo_escena">
-						<option selected>{{old('tipo_escena',$salud->tipo_escena)}}</option>
-						<option>Tipo 1</option>
-						<option>Tipo 2</option>
-						<option>Tipo 3</option>
-						<option>Tipo 4</option>
+						<option value="{{$salud->tipo_escena}}" >{{old('tipo_escena',$salud->tipo_escena)}}</option>
+						<option value="Tipo 1">Tipo 1</option>
+						<option value="Tipo 2">Tipo 2</option>
+						<option value="Tipo 3">Tipo 3</option>
+						<option value="Tipo 4">Tipo 4</option>
 					</select>
 				</div>
 				<div class="form-group input-group col-md-4">
@@ -87,9 +87,9 @@
 						<span class="input-group-text">Estacion</span>
 					</div>
 					<select name="station_id" class="form-control">
-						<option selected>{{old('estacion_id',$salud->station->nombre)}}</option>
+						<option value="{{$salud->station_id}}" >{{old('station_id',$salud->station->nombre)}}</option>
 						@foreach($estaciones as $estacion)
-						<option>{{$estacion->nombre}}</option>
+						<option value="{{$estacion->id}}">{{$estacion->nombre}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -107,9 +107,9 @@
 						<span class="input-group-text">Parroquia</span>
 					</div>
 					<select name="parroquia_id" class="form-control">
-						<option selected>{{old('parroquia_id',$salud->parroquia->nombre)}}</option>
+						<option value="{{$salud->parroquia_id}}" selected="">{{old('parroquia_id',$salud->parroquia->nombre)}}</option>
 						@foreach($parroquias as $parroquia)
-							<option>{{$parroquia->nombre}}</option>
+							<option value="{{$parroquia->id}}">{{$parroquia->nombre}}</option>
 						@endforeach
 					</select>
 					<a href="{{asset('files/MapaCuenca.pdf')}}" target="_blank" role="button" data-toggle="tooltip" title="Mapa" class="btn btn-outline-info" ><i class="icon-file icon-2x"></i></a>
@@ -192,7 +192,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Detalle Emergencia</span>
 					</div>
-					<input type="text" class="form-control" name="detalle_emergencia" id="detalle_emergencia" value="{{old('detalle_emergencia',$salud->detalle_emergencia)}}" placeholder="Digite a detalle lo ocurrido en Emergencia">
+					<input onkeyup="mayus(this);" type="text" class="form-control" name="detalle_emergencia" id="detalle_emergencia" value="{{old('detalle_emergencia',$salud->detalle_emergencia)}}" placeholder="Digite a detalle lo ocurrido en Emergencia">
 				</div>
 			</div><!--Detalle Emergencia-->
 			{{--Vehiculos asisten emergencia --}}

@@ -24,6 +24,9 @@ class Paciente extends Model
 			"glasglow",
 			"saturacion",
 			"casasalud",
+			"Frecuencia_Cardiaca",
+			"Frecuencia_Respiratoria",
+			"Glicemia"
 		];
 	protected static $logFillable = true;
 

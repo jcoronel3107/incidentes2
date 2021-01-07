@@ -44,7 +44,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Informacion Inicial</span>
 							</div>
-							<textarea class="form-control" maxlength="1000" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$transito->informacion_inicial)}}</textarea>
+							<textarea onkeyup="mayus(this);" class="form-control" maxlength="1000" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$transito->informacion_inicial)}}</textarea>
 
 						</div>
 					</div>
@@ -184,7 +184,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Detalle Emergencia</span>
 					</div>
-					<input type="text" class="form-control" name="detalle_emergencia" id="detalle_emergencia" value="{{old('detalle_emergencia',$transito->detalle_emergencia)}}" placeholder="Digite a detalle lo ocurrido en Emergencia">
+					<textarea onkeyup="mayus(this);" class="form-control" name="detalle_emergencia" id="detalle_emergencia" maxlength="1000"  aria-label="With textarea" placeholder="Digite a detalle lo ocurrido en Emergencia">{{old('detalle_emergencia',$transito->detalle_emergencia)}}</textarea>
 				</div>
 			</div><!--Detalle Emergencia-->
 			<div class="form-row">
@@ -192,7 +192,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Ciud. Afectado</span>
 					</div>
-					<input type="text" class="form-control" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado',$transito->usuario_afectado)}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia">
+					<input onkeyup="mayus(this);" type="text" class="form-control" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado',$transito->usuario_afectado)}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia">
 				</div>
 			</div><!--Usuario Afectado-->
 			<div class="form-row">
@@ -200,7 +200,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDaños">Daños Estimados</span>
 					</div>
-					<input type="text" class="form-control" name="danos_estimados" id="danos_estimados" value="{{old('danos_estimados',$transito->danos_estimados)}}" placeholder="Detalle los daños producidos por  el incidente">
+					<input onkeyup="mayus(this);" type="text" class="form-control" name="danos_estimados" id="danos_estimados" value="{{old('danos_estimados',$transito->danos_estimados)}}" placeholder="Detalle los daños producidos por  el incidente">
 				</div>
 			</div>
 

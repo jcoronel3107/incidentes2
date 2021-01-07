@@ -202,30 +202,12 @@ Route::get('/prueba', function () {
 
 Route::get('/prueba2',function()
 	{
-		/*$client = new \GuzzleHttp\Client();
-
-		$geocoder = new Geocoder($client);
-		$geocoder->setApiKey(env('GOOGLE_MAPS_GEOCODING_API_KEY'));
-
-		$geocoder->setCountry(config('geocoder.country'));
-		$geocoder->setLanguage(config('geocoder.language'));
-		$geocoder->setRegion(config('geocoder.region'));
-		$geocoder->setBounds(config('geocoder.bounds'));
-		//$resp = Geocoder::getCoordinatesForAddress('Gaspar Sangurima & Daniel Alvarado,Cuenca,Ecuador');
-		$geocoder->getCoordinatesForAddress('Gaspar Sangurima y Daniel Alvarado,Cuenca,Ecuador');
-
-
-		//dd($geocoder);
-
-		return view('google')->with('geocoder',$geocoder);
-*/
-		$attrs="";
-		$ids = DB::table('saluds')->select(DB::raw('max(id) as id'))->value('id')
-                ;
-                //foreach($ids as $id){
-
-					//$attrs->id;}
-
-                return $ids;
+		$Saludxestacion = DB::table('saluds')
+				->select('station_id', DB::raw('count(station_id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->groupBy('station_id')
+				->havingRaw('count(station_id) >= ?',[1])
+				->get();
+			return $Saludxestacion;
 	});
 

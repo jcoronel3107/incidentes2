@@ -55,7 +55,7 @@ class SaludController extends Controller
     {
         $now = Carbon::now();
         $estaciones = Station::all();
-        $parroquias = Parroquia::all();
+        $parroquias = Parroquia::orderBy('nombre')->get();
         $vehiculos = Vehiculo::orderBy('codigodis')->get();
         $cies = Cie::where('nivel','=','3')->get();
         $users = DB::table('users')->where([
@@ -95,23 +95,13 @@ class SaludController extends Controller
             $salud = new Salud;
             $paciente = new Paciente;
 
-            $incidente_id = Incidente::where('nombre_incidente', $request->incidente_id)->value('id');
-            $estacion_id = Station::where('nombre', $request->station_id)
-                  ->value('id');
-            $parroquia_id = Parroquia::where('nombre', $request->parroquia_id)
-                  ->value('id');
-            $jefeguardia_id = User::where('name',$request->jefeguardia_id)
-                    ->value('id');
-            $conductor_id = User::where('name',$request->conductor_id)
-                ->value('id');
-            $bombero_id = User::where('name',$request->bombero_id)
-                ->value('id');
-            $salud->incidente_id = $incidente_id;
+            
+            $salud->incidente_id = $request->incidente_id;
             $salud->tipo_escena = $request->tipo_escena;
-            $salud->station_id = $estacion_id;
+            $salud->station_id = $request->station_id;
             $salud->fecha = $request->fecha;
             $salud->direccion = $request->direccion;
-            $salud->parroquia_id = $parroquia_id;
+            $salud->parroquia_id = $request->parroquia_id;
             $salud->geoposicion = $request->geoposicion;
             $salud->ficha_ecu911 = $request->ficha_ecu911;
             $salud->hora_fichaecu911 = $request->hora_fichaecu911;
@@ -122,16 +112,17 @@ class SaludController extends Controller
             $salud->informacion_inicial = $request->informacion_inicial;
             $salud->detalle_emergencia = $request->detalle_emergencia;
             $salud->usr_creador = auth()->user()->name;
+            //dd($request);
             $salud->save();
             //para almacenar Bomberos asistentes al evento
             $id = DB::table('saluds')
                 ->select(DB::raw('max(id) as id'))
                 ->value('id');
-            $maqui = User::findOrFail($conductor_id);
+            $maqui = User::findOrFail($request->conductor_id);
             $maqui->saluds()->sync($id);
-            $jefe = User::findOrFail($jefeguardia_id);
+            $jefe = User::findOrFail($request->jefeguardia_id);
             $jefe->saluds()->sync($id);
-            $bomb = User::findOrFail($bombero_id);
+            $bomb = User::findOrFail($request->bombero_id);
             $bomb->saluds()->sync($id);
 
             //para almacenar kilimetrajes por vehiculos asistentes al evento
@@ -164,7 +155,9 @@ class SaludController extends Controller
             $saturacion = $request->get('frsaturacion');
             $hoja = $request->get('frhoja');
             $casasalud = $request->get('frcasasalud');
-
+            $frrespiratoria = $request->get('frrespiratoria');
+            $frcardiaca = $request->get('frcardiaca');
+            $glicemia = $request->get('frglicemia');
             while ($cont < count($cie10)) {
                 $paciente->salud_id = $id;
                  $cie_id = DB::table('cies')
@@ -182,7 +175,9 @@ class SaludController extends Controller
                 $paciente->saturacion = $saturacion[$cont];
                 $paciente->hojapre = $hoja[$cont];
                 $paciente->casasalud = $casasalud[$cont];
-                //dd($paciente);
+                $paciente->Frecuencia_Cardiaca = $frcardiaca[$cont];
+                $paciente->Frecuencia_Respiratoria = $frrespiratoria[$cont];
+                $paciente->Glicemia = $glicemia[$cont];
                 $paciente->save();
                 $cont=$cont+1;
               }
@@ -255,18 +250,15 @@ class SaludController extends Controller
     public function update(SaveSaludRequest $request, $id)
     {
         if ( Auth::check() ) {
-
-           //$jefeguardia_id = DB::table('users')->where('name', $request->jefeguardia_id)->value('id');
-           $incidente_id = DB::table('incidentes')->where('nombre_incidente', $request->incidente_id)->value('id');
-           $station_id = DB::table('stations')->where('nombre', $request->station_id)->value('id');
+          
            $salud = Salud::findOrFail( $id );
            $salud->update([
-                                'incidente_id' => $incidente_id,
+                                'incidente_id' => $request->incidente_id,
                                 'tipo_escena' => $request->tipo_escena,
-                                'station_id' => $station_id,
+                                'station_id' => $request->station_id,
                                 'fecha' => $request->fecha,
                                 'direccion' => $request->direccion,
-                                'parroquia_id' => $salud->parroquia->id,
+                                'parroquia_id' => $request->parroquia_id,
                                 'geoposicion' => $request->geoposicion,
                                 'ficha_ecu911' => $request->ficha_ecu911,
                                 'hora_fichaecu911' => $request->hora_fichaecu911,
@@ -279,37 +271,38 @@ class SaludController extends Controller
                                 'usuario_afectado' => $request->usuario_afectado,
                                 'danos_estimados' => $request->danos_estimados,
                                 'usr_editor' => auth()->user()->name ]);
-           $salud->users()->detach();
+          $salud->users()->detach();
           
 
-           $jefeguardia = User::findOrFail($request->jefeguardia_id);
-           $jefeguardia->saluds()->attach($id);
-           
-           $bombero = User::findOrFail($request->bombero_id);
-           $bombero->saluds()->attach($id);
-           
-           $maqui = User::findOrFail($request->conductor_id);
-           $maqui->saluds()->attach($id);
-           
-           $cont=0;
-            $nombrevehiculo = $request->get('vehiculo_id');
-            $kmsalidavehiculo = $request->get('km_salida');
-            $kmllegadavehiculo = $request->get('km_llegada');
-            
-            while ($cont < count($nombrevehiculo)) {
-                $vehiculo_id = DB::table('vehiculos')
+          $jefeguardia = User::findOrFail($request->jefeguardia_id);
+          $jefeguardia->saluds()->attach($id);
+          
+          $bombero = User::findOrFail($request->bombero_id);
+          $bombero->saluds()->attach($id);
+          
+          $maqui = User::findOrFail($request->conductor_id);
+          $maqui->saluds()->attach($id);
+          
+          $cont=0;
+          $nombrevehiculo = $request->get('vehiculo_id');
+          $kmsalidavehiculo = $request->get('km_salida');
+          $kmllegadavehiculo = $request->get('km_llegada');
+          $salud->vehiculos()->detach();
+          while ($cont < count($nombrevehiculo)) {
+                //dd($id)  ;
+                /*$vehiculo_id = DB::table('vehiculos')
                   ->where('codigodis',$nombrevehiculo[$cont])
                   ->value('id');
-                  dd($vehiculo_id);
-                $carro = Vehiculo::findOrFail($vehiculo_id);
+                  dd($vehiculo_id);*/
+                $carro = Vehiculo::findOrFail($nombrevehiculo[$cont]);
                 $carro->saluds()->attach(
                   $id , [
                     'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
                 $cont=$cont+1;
-              }
+          }
 
-            Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
-            return redirect( "/salud" );
+          Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
+          return redirect( "/salud" );
         } else {
             return view( "/auth.login" );
         }

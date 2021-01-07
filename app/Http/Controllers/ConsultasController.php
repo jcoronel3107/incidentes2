@@ -44,10 +44,19 @@ class ConsultasController extends Controller
         {
         	$now = Carbon::now();
 
+        	/**************************************
+        	*
+        	*	Inundacion
+        	*
+        	*
+        	***************************************/
+
         	$mensualesInundacion= Inundacion::select(DB::raw("Month(fecha) as Mes,count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(\DB::raw("Month(fecha)"))->get();
 
 			$Inundacionxestacion = DB::table('inundacions')
 				->select('station_id', DB::raw('count(station_id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull('inundacions.deleted_at')
 				->groupBy('station_id')
 				->havingRaw('count(station_id) >= ?',[1])
 				->get();
@@ -55,6 +64,8 @@ class ConsultasController extends Controller
 			$Inundacionxincidente = DB::table('inundacions')
 				->join('incidentes', 'inundacions.incidente_id', '=', 'incidentes.id')
 				->select('nombre_incidente', DB::raw('count(station_id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull('inundacions.deleted_at')
 				->groupBy('nombre_incidente')
 				->havingRaw('count(station_id) >= ?',[1])
 				->get();
@@ -62,14 +73,25 @@ class ConsultasController extends Controller
 			$Inundacionxparroquia = DB::table('inundacions')
 				->join('parroquias', 'inundacions.parroquia_id', '=', 'parroquias.id')
 				->select('parroquias.nombre', DB::raw('count(inundacions.id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull('inundacions.deleted_at')
 				->groupBy('parroquias.nombre')
 				->havingRaw('count(inundacions.id) >= ?',[1])
 				->get();
+
+			/**************************************
+        	*
+        	*	Rescate
+        	*
+        	*
+        	***************************************/
 
 			$mensualesRescate= Rescate::select(DB::raw("Month(fecha) as Mes,count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(\DB::raw("Month(fecha)"))->get();
 
 			$Rescatexestacion = DB::table('rescates')
 				->select('station_id', DB::raw('count(station_id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull('rescates.deleted_at')
 				->groupBy('station_id')
 				->havingRaw('count(station_id) >= ?',[1])
 				/*->pluck('salidas','station_id');*/
@@ -78,30 +100,53 @@ class ConsultasController extends Controller
 			$Rescatexincidente = DB::table('rescates')
 				->join('incidentes', 'rescates.incidente_id', '=', 'incidentes.id')
 				->select('nombre_incidente', DB::raw('count(station_id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull('rescates.deleted_at')
 				->groupBy('nombre_incidente')
 				->havingRaw('count(station_id) >= ?',[1])
 				/*->pluck('salidas','station_id');*/
 				->get();
 
+			/**************************************
+        	*
+        	*	Transito
+        	*
+        	*
+        	***************************************/
+
 			$mensualesTransito= Transito::select(DB::raw("Month(fecha) as Mes,count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(\DB::raw("Month(fecha)"))->get();
+			
 			$Transitoxestacion = DB::table('transitos')
 				->select('station_id', DB::raw('count(station_id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull('transitos.deleted_at')
 				->groupBy('station_id')
 				->havingRaw('count(station_id) >= ?',[1])
-				/*->pluck('salidas','station_id');*/
 				->get();
 
 			$Transitoxincidente = DB::table('transitos')
 				->join('incidentes', 'transitos.incidente_id', '=', 'incidentes.id')
 				->select('nombre_incidente', DB::raw('count(station_id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull('transitos.deleted_at')
 				->groupBy('nombre_incidente')
 				->havingRaw('count(station_id) >= ?',[1])
 				->get();
+
+
+			/**************************************
+        	*
+        	*	Salud
+        	*
+        	*
+        	***************************************/
 
 			$mensualesSalud= Salud::select(DB::raw("Month(fecha) as Mes,count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(\DB::raw("Month(fecha)"))->get();
 
 			$Saludxestacion = DB::table('saluds')
 				->select('station_id', DB::raw('count(station_id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull('saluds.deleted_at')
 				->groupBy('station_id')
 				->havingRaw('count(station_id) >= ?',[1])
 				->get();
@@ -109,14 +154,25 @@ class ConsultasController extends Controller
 			$Saludxincidente = DB::table('saluds')
 				->join('incidentes', 'saluds.incidente_id', '=', 'incidentes.id')
 				->select('nombre_incidente', DB::raw('count(station_id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull('saluds.deleted_at')
 				->groupBy('nombre_incidente')
 				->havingRaw('count(station_id) >= ?',[1])
 				->get();
+
+			/**************************************
+        	*
+        	*	Fuego
+        	*
+        	*
+        	***************************************/
 
 			$mensualesFuego= Incendio::select(DB::raw("Month(fecha) as Mes,count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(DB::raw("Month(fecha)"))->get();
 
 			$Fuegoxestacion = DB::table('incendios')
 				->select('station_id', DB::raw('count(station_id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull('incendios.deleted_at')
 				->groupBy('station_id')
 				->havingRaw('count(station_id) >= ?',[1])
 				->get();
@@ -124,6 +180,8 @@ class ConsultasController extends Controller
 			$Fuegoxincidente = DB::table('incendios')
 				->join('incidentes', 'incendios.incidente_id', '=', 'incidentes.id')
 				->select('nombre_incidente', DB::raw('count(station_id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull('incendios.deleted_at')
 				->groupBy('nombre_incidente')
 				->havingRaw('count(station_id) >= ?',[1])
 				->get();
@@ -131,14 +189,25 @@ class ConsultasController extends Controller
 			$Incendiosxparroquia = DB::table('incendios')
 				->join('parroquias', 'incendios.parroquia_id', '=', 'parroquias.id')
 				->select('parroquias.nombre', DB::raw('count(incendios.id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull('incendios.deleted_at')
 				->groupBy('parroquias.nombre')
 				->havingRaw('count(incendios.id) >= ?',[1])
 				->get();
 
+			/**************************************
+        	*
+        	*	Fuga
+        	*
+        	*
+        	***************************************/
+			
 			$mensualesGas= Fuga::select(DB::raw("Month(fecha) as Mes,count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(DB::raw("Month(fecha)"))->get();
 
 			$Gasxestacion = DB::table('fugas')
 				->select('station_id', DB::raw('count(station_id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull('fugas.deleted_at')
 				->groupBy('station_id')
 				->havingRaw('count(station_id) >= ?',[1])
 				->get();
@@ -146,14 +215,25 @@ class ConsultasController extends Controller
 			$Gasxincidente = DB::table('fugas')
 				->join('incidentes', 'fugas.incidente_id', '=', 'incidentes.id')
 				->select('nombre_incidente', DB::raw('count(station_id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull('fugas.deleted_at')
 				->groupBy('nombre_incidente')
 				->havingRaw('count(station_id) >= ?',[1])
 				->get();
 
+			/**************************************
+        	*
+        	*	Derrame
+        	*
+        	*
+        	***************************************/
+			
 			$mensualesDerrames= Derrame::select(DB::raw("Month(fecha) as Mes,count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(DB::raw("Month(fecha)"))->get();
 
 			$Derramexestacion = DB::table('derrames')
 				->select('station_id', DB::raw('count(station_id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull('derrames.deleted_at')
 				->groupBy('station_id')
 				->havingRaw('count(station_id) >= ?',[1])
 				->get();
@@ -161,6 +241,8 @@ class ConsultasController extends Controller
 			$Derramexincidente = DB::table('derrames')
 				->join('incidentes', 'derrames.incidente_id', '=', 'incidentes.id')
 				->select('nombre_incidente', DB::raw('count(station_id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull('derrames.deleted_at')
 				->groupBy('nombre_incidente')
 				->havingRaw('count(station_id) >= ?',[1])
 				->get();

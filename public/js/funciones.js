@@ -18,6 +18,11 @@ $(document).ready(function(){
 		$("#bt_add").click(function () {
 			agregar();
 		});
+
+		$("#bt_addpaciente").click(function () {
+			agregarpaciente();
+		});
+
 		$("#horactual0").click(function () {
 			hractual(this);
 		});
@@ -63,6 +68,7 @@ $(document).ready(function(){
 	           $("#detalle_emergencia").removeClass('error');
 	        }
 	    });
+	    $("#Enviar").hide();
 });
 		
 total=0;
@@ -70,7 +76,7 @@ var cont=0;
 var jqkm_salida=0;
 var jqkm_llegada=0;
 subtotal=[];
-$("#Enviar").hide();
+
 function agregar() {
 	// body...
 	jqkm_salida=$("#pkm_salida").val();
@@ -79,6 +85,10 @@ function agregar() {
 	jqvehiculo_id=$("#pvehiculo_id option.selected").text();
 	if(jqkm_salida!="" && jqkm_salida>=0 && jqkm_llegada>=0 && jqkm_llegada!=""  && jqvehiculo!="")
 	{
+		if((jqkm_salida==0)||(jqkm_salida==null))
+			jqkm_salida=0;
+		if((jqkm_llegada==0)||(jqkm_llegada==null))
+			jqkm_llegada=0;
 		total = total + subtotal[cont];
 		var fila = '<tr class = "selected" id="fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminar('+cont+')" type="button">X</button></td><td><input type="hidden" name="vehiculo_id[]" value="'+jqvehiculo+'">'+jqvehiculo+'</td><td><input type="number"  name="km_salida[]" value="'+jqkm_salida+'"></td><td><input type="number" name="km_llegada[]" value="'+jqkm_llegada+'"></td></tr>';
 		cont++;
@@ -172,5 +182,108 @@ function hractual(e) {
 		$('#hora_en_base').attr('value', hora);
 	else
 		$('#hora_fichaecu911').attr('value', hora);
+}
+
+/*{{-- Script para almacenar pacientes atendidos --}}*/
+
+var contpac=0;
+var jqnombres="";
+var jqedad=0;
+var jqgenero="";
+var jqpresio1=0;
+var jqpresion2=0;
+var jqtemp=0;
+var jqglas=0;
+var jqhoja=0;
+var jqsatura=0;
+var jqcsalud="";
+var jqcie="";
+var jqfrcardiaca=0;
+var jqfrrespiratoria=0;
+var jqglicemia=0
+subtotal=[];
+//$("#Enviar").hide();
+
+function agregarpaciente() {
+				// body...
+	jqnombres=$("#pnombres").val();
+	jqedad=$("#pedad").val();
+	jqgenero=$("#pgenero").val();
+	jqpresio1=$("#ppresionsis").val();
+	jqpresio2=$("#ppresiondias").val();
+	jqtemp=$("#ptemperatura").val();
+	jqglas=$("#pglasgow").val();
+	jqhoja=$("#phoja").val();
+	jqsatura=$("#psaturacion").val();
+	jqcsalud=$("#pcasasalud ").val();
+	jqcie=$("#pcie10").val();
+	jqfrcardiaca =$("#Frecuencia_Cardiaca ").val();
+	jqfrrespiratoria = $("#Frecuencia_Respiratoria ").val();
+	jqglicemia = $("#Glicemia").val();
+	indice1 = document.getElementById("pcie10").selectedIndex;
+	console.log(jqcie);
+	indice = document.getElementById("pgenero").selectedIndex;
+	if((jqnombres!="")&& (jqedad != null) && (jqgenero != null ) && (indice !=0 )&&(jqcsalud!=null))
+	//if((jqnombres!="") && (jqedad!="") && (jqgenero !="") && (jqpresio1!="") && (jqpresio2!="") && (jqtemp!="")&&(jqglas!="")&&(jqsatura!="")&&(jqhoja!="")&&(jqcsalud!="")&&(jqcie!=""))
+		{
+			if((jqpresio1==0)||(jqpresio1==null))
+				jqpresio1=0;
+			if((jqpresio2==0)||(jqpresio2==null))
+				jqpresio2=0;
+			if((jqtemp==0)||(jqtemp==null))
+				jqtemp=0;
+			if((jqglas==0)||(jqglas==null))
+				jqglas=0;
+			if((jqsatura==0)||(jqsatura==null))
+				jqsatura=0;
+			if((jqfrcardiaca==0)||(jqfrcardiaca==null))
+				jqfrcardiaca=0;
+			if((jqfrrespiratoria==0)||(jqfrrespiratoria==null))
+				jqfrrespiratoria=0;
+			if((jqglicemia==0)||(jqglicemia==null))
+				jqglicemia=0;
+			if(indice1==0)
+				jqcie=0;
+			var filapaciente = '<tr class ="selected" id="filapaciente'+contpac+'"><td><button type="button" class="btn btn-warning" onclick="eliminar2('+contpac+')" type="button">X</button></td><td><input type="hidden" name="frpaciente[]" value="'+jqnombres+'">'+jqnombres+'</td><td><input type="hidden" readonly="true" name="fredad[]" value="'+jqedad+'">'+jqedad+'</td><td><input type="hidden" readonly="true" name="frgenero[]" value="'+jqgenero+'">'+jqgenero+'</td><td><input type="hidden" readonly="true" name="frpresion1[]" value="'+jqpresio1+'">'+jqpresio1+'</td><td><input type="hidden" readonly="true" name="frpresion2[]" value="'+jqpresio2+'">'+jqpresio2+'</td><td><input type="hidden" readonly="true" name="frtemperatura[]" value="'+jqtemp+'">'+jqtemp+'</td><td><input type="hidden" readonly="true" name="frglasglow[]" value="'+jqglas+'">'+jqglas+'</td><td><input type="hidden" readonly="true" name="frsaturacion[]" value="'+jqsatura+'">'+jqsatura+'</td><td><input type="hidden" readonly="true" name="frcardiaca[]" value="'+jqfrcardiaca+'">'+jqfrcardiaca+'</td><td><input type="hidden" readonly="true" name="frrespiratoria[]" value="'+jqfrrespiratoria+'">'+jqfrrespiratoria+'</td><td><input type="hidden" readonly="true" name="frglicemia[]" value="'+jqglicemia+'">'+jqglicemia+'</td><td><input type="hidden" readonly="true" name="frhoja[]" value="'+jqhoja+'">'+jqhoja+'</td><td><input type="hidden" readonly="true" name="frcasasalud[]" value="'+jqcsalud+'">'+jqcsalud+'</td><td><input type="hidden" readonly="true" name="frcie10[]" value="'+jqcie+'">'+jqcie+'</td></tr>';
+			contpac++;
+			limpiarpaciente();
+			evaluarpaciente();
+			$('#detallespaciente').append(filapaciente);
+	}else{
+		alert("Error al ingresar el detalle de paciente,Llene los campos requeridos!!");
+	}
+}
+
+function limpiarpaciente(){
+	$("#pnombres").val("");
+	$("#pedad").val("");
+	$("#pgenero").val("");
+	$("#ppresionsis").val("");
+	$("#ppresiondias").val("");
+	$("#ptemperatura").val("");
+	$("#pglasgow").val("");
+	$("#psaturacion").val("");
+	$("#pcasasalud").val("");
+	$("#pcie10").val("");
+	$("#phoja").val("");
+	$("#Frecuencia_Cardiaca ").val("");
+	$("#Frecuencia_Respiratoria ").val("");
+	$("#Glicemia").val("");
+}
+
+function evaluarpaciente(){
+	if(jqnombres!=""){
+		$("#divguardar").show();
+		$("#Enviar").show();
+	}
+	else{
+		$("#divguardar").hide();
+	}
+}
+
+function eliminar2(index){
+	//total = total - subtotal[index];
+	$("#filapaciente"+index).remove();
+	evaluar();
 }
 	

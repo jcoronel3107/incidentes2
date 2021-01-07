@@ -9,6 +9,7 @@
 
 
 		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Registro Información de Eventos Salud</h2>
+
 		<ul class="nav justify-content-end">
 		  <li class="nav-item">
 		  	<a class="btn btn-outline-info"  data-toggle="tooltip" title="Whatsapp" role="button" onclick="notificacionWhatsapp();"><i class="icon-comments-alt icon-2x"></i></a>
@@ -34,7 +35,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Hora Ficha ECU911</span>
 							</div>
-							<input type="time" required="" id="hora_fichaecu911" name="hora_fichaecu911"  class="form-control" placeholder="hh:mm:ss" value="{{old('hora_fichaecu911')}}">
+							<input type="text" required="" id="hora_fichaecu911" name="hora_fichaecu911"  class="form-control" placeholder="hh:mm:ss" value="{{old('hora_fichaecu911')}}">
 							<div class="input-group-append">
 								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual0" id="horactual0"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 							</div>
@@ -71,7 +72,7 @@
 								</select>
 							</div>
 						</div>
-						<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+						<div class="col-lg-3 col-sm-6 col-md-6 col-xs-6">
 								<div class="form-group  input-group">
 									<div class="input-group-prepend">
 										<span class="input-group-text" >Km.Salida</span>
@@ -79,7 +80,7 @@
 									<input type="number" class="form-control" value="{{old('ikm_salida')}}"  name="ikm_salida" id="pkm_salida" placeholder="Digite Valor">
 								</div>
 						</div>
-						<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+						<div class="col-lg-3 col-sm-6 col-md-6 col-xs-6">
 							<div class="form-group  input-group">
 									<div class="input-group-prepend">
 									<span class="input-group-text" id="inputDetalle">Km.Llegada</span>
@@ -120,7 +121,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Informacion Inicial</span>
 							</div>
-							<textarea class="form-control" maxlength="1000" id="pinformacion_inicial" name="informacion_inicial"  aria-label="With textarea" required="" >{{old('informacion_inicial')}}</textarea>
+							<textarea class="form-control" maxlength="1000" onkeyup="mayus(this);" id="pinformacion_inicial" name="informacion_inicial"  aria-label="With textarea" required="" >{{old('informacion_inicial')}}</textarea>
 						</div>
 					</div>
 				</div>
@@ -132,7 +133,7 @@
 						<span class="input-group-text">Incidente</span>
 					</div>
 					<select required="" class="form-control" name="incidente_id" id="incidente_id">
-						<option selected="">{{old('incidente_id')}}</option>
+						<option >Seleccione...</option>
 						@foreach($incidentes as $incidente)
 							<option value="{{$incidente->id}}">{{$incidente->nombre_incidente}}</option>
 						@endforeach
@@ -156,9 +157,9 @@
 						<span class="input-group-text">Estacion</span>
 					</div>
 					<select required="" name="station_id" class="form-control">
-						<option selected>{{old('station_id')}}</option>
+						<option value="Seleccione..." selected="" >Seleccione...</option>
 						@foreach($estaciones as $estacion)
-						<option value="$estacion->id">{{$estacion->nombre}}</option>
+						<option value="{{$estacion->id}}">{{$estacion->nombre}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -168,7 +169,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Dirección</span>
 					</div>
-					<textarea class="form-control" id="pdireccion" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea" required=""></textarea>
+					<textarea class="form-control" id="pdireccion" onkeypress="mayus(this)" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea" required=""></textarea>
 					<input type="button" value="Encode" onclick="codeAddress()">
 				</div>
 				<div class="form-group input-group input-group-prepend col-md-4">
@@ -176,9 +177,9 @@
 						<span class="input-group-text">Parroquia</span>
 					</div>
 					<select required="" name="parroquia_id" class="form-control">
-						<option selected>{{old('parroquia_id')}}</option>
+						<option value="Seleccione..." selected>Selecciones...</option>
 						@foreach($parroquias as $parroquia)
-							<option>{{$parroquia->nombre}}</option>
+							<option value="{{$parroquia->id}}">{{$parroquia->nombre}}</option>
 						@endforeach
 					</select>
 					<a href="{{asset('files/MapaCuenca.pdf')}}" target="_blank" role="button" data-toggle="tooltip" title="Mapa" class="btn btn-outline-info" ><i class="icon-file icon-2x"></i></a>
@@ -198,9 +199,9 @@
 						<span class="input-group-text">C.I.</span>
 					</div>
 					<select class="form-control" name="jefeguardia_id" required="">
-						<option selected>{{old('jefeguardia_id')}}</option>
+						<option >{{old('jefeguardia_id')}}</option>
 						@foreach($users as $user)
-						<option>{{$user->name}}</option>
+						<option value="{{$user->id}}">{{$user->name}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -209,9 +210,9 @@
 						<span class="input-group-text">Bombero</span>
 					</div>
 					<select class="form-control" name="bombero_id" required="">
-						<option selected>{{old('bombero_id')}}</option>
+						<option value="{{$user->id}}" selected>{{old('bombero_id')}}</option>
 						@foreach($users as $user)
-						<option>{{$user->name}}</option>
+						<option value="{{$user->id}}">{{$user->name}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -220,9 +221,9 @@
 						<span class="input-group-text">Conductor</span>
 					</div>
 					<select class="form-control" name="conductor_id" required="">
-						<option selected>{{old('conductor_id')}}</option>
+						<option >{{old('conductor_id')}}</option>
 						@foreach($maquinistas as $maquinista)
-						<option>{{$maquinista->name}}</option>
+						<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -232,7 +233,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Salida A Emergencia</span>
 					</div>
-					<input type="time" class="form-control" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" value="" placeholder="hh:mm:ss" required="">
+					<input type="text" class="form-control" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" value="" placeholder="hh:mm" required="">
 					<div class="input-group-append">
 								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual" id="horactual"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 					</div>
@@ -241,7 +242,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Llegada A Emergencia</span>
 					</div>
-					<input type="time" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm:ss"  value="">
+					<input type="text" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm" required=""  value="">
 					<div class="input-group-append">
 								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual1" id="horactual1"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 					</div>
@@ -250,9 +251,9 @@
 			<div class="form-row">
 				<div class="form-group  input-group col-md-6">
 					<div class="input-group-prepend">
-						<span class="input-group-text" id="inputDetalle">Hora Fin Emergencia</span>
+						<span class="input-group-text" id="inputDetalle">Hora Arribo C.Salud</span>
 					</div>
-					<input type="time" class="form-control" name="hora_fin_emergencia" id="hora_fin_emergencia" placeholder="hh:mm:ss" value="">
+					<input type="text" class="form-control" name="hora_fin_emergencia" id="hora_fin_emergencia" placeholder="hh:mm" value="">
 					<div class="input-group-append">
 								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual2" id="horactual2"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 					</div>
@@ -261,7 +262,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora En Base</span>
 					</div>
-					<input type="time" class="form-control" name="hora_en_base" id="hora_en_base" placeholder="hh:mm:ss" value="">
+					<input type="text" class="form-control" name="hora_en_base" id="hora_en_base" placeholder="hh:mm:ss" value="">
 					<div class="input-group-append">
 								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual3" id="horactual3"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 					</div>
@@ -273,7 +274,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Detalle Emergencia</span>
 					</div>
-					<textarea class="form-control" maxlength="1000" id="detalle_emergencia" name="detalle_emergencia" placeholder="Digite a detalle lo ocurrido en Emergencia" aria-label="With textarea" >{{old('detalle_emergencia')}}</textarea>
+					<textarea class="form-control" onkeyup="mayus(this);" maxlength="1000" id="detalle_emergencia" name="detalle_emergencia" placeholder="Digite a detalle lo ocurrido en Emergencia" aria-label="With textarea" >{{old('detalle_emergencia')}}</textarea>
 				</div>
 			</div><!--Detalle Emergencia-->
 
@@ -283,16 +284,27 @@
 			<div class="card">
 				<div class="card-header text-white bg-primary">Usuarios Atendidos</div>
 				<div class="card-body">
-					<div class="row">
-						<div class="col-lg-8 col-sm-12 col-md-12 col-xs-12">
+					
+						<div class="row">
+							<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
+								<div class="form-group  input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text" ># Hoja Prehosp</span>
+									</div>
+									<input type="number" class="form-control" value="{{old('hoja')}}" name="hoja" id="phoja" placeholder="Digite Valor">
+								</div>
+							</div>
+							<div class="col-lg-8 col-sm-12 col-md-12 col-xs-12">
 							<div class="form-group  input-group">
 									<div class="input-group-prepend">
 									<span class="input-group-text" id="inputDetalle">Nombres y Apellidos</span>
 									</div>
-									<input type="text" class="form-control" id="pnombres"  name="nombres" value="{{old('nombres')}}" placeholder="Digite Nombre Completo">
+									<input onkeyup="mayus(this);" type="text" class="form-control" id="pnombres"  name="nombres" value="{{old('nombres')}}" placeholder="Digite Nombre Completo">
 								</div>
+							</div>
 						</div>
-						<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
+						<div class="row">
+							<div class="col-lg-6 col-sm-12 col-md-6 col-xs-12">
 							<div class="form-group input-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text">Edad</span>
@@ -300,24 +312,65 @@
 								<input type="number" class="form-control" name="edad" id="pedad"  placeholder="Digite Valor" min="0" max="100">
 							</div>
 						</div>
-						<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
+						<div class="col-lg-6 col-sm-12 col-md-6 col-xs-12">
 							<div class="form-group  input-group">
 								<div class="input-group-prepend">
 										<span class="input-group-text" >Genero</span>
 								</div>
-								<select class="form-control selectpicker"  name="genero" id="pgenero" data-live-search="true">
+								<select class="form-control selectpicker" name="genero" id="pgenero" data-live-search="true">
 										<option selected>Elija...</option>
 										<option>Femenino</option>
 										<option>Masculino</option>
 								</select>
 							</div>
 						</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-6 col-sm-12 col-md-12 col-xs-12">
+								<div class="form-group  input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text" >Casa Salud</span>
+									</div>
+
+									<select class="form-control selectpicker" name="casasalud" id="pcasasalud" data-live-search="true" >
+										<option selected>Elija...</option>
+										<option>Hosp.Vicente.Corral</option>
+										<option>Hosp.Jose.Carrasco</option>
+										<option>Hosp.Mariano.Estrella</option>
+										<option>Hosp.Carlos.Elizalde</option>
+										<option>Hosp.Snta.Ana</option>
+										<option>Hosp.Santa.Ines</option>
+										<option>Hosp.Sinai</option>
+										<option>Hosp.Del.Rio</option>
+										<option>Hosp.Univ.Catolico</option>
+										<option>Hosp.Militar</option>
+										<option>Hosp.Del Niño y Familia</option>
+										<option>Hosp.Materno Infantil</option>
+										<option>Clinica Santa Ana</option>
+										<option>Clinica Praxel</option>
+										<option>Clinica Latino-Americana</option>
+										<option>Clinica Paucarbamba</option>
+										<option>Clinica La Paz</option>
+										<option>Clínica Cisneros</option>
+										<option>Clínica Humanitaria</option>
+										<option>Clínica Albán</option>
+										<option>Medimagen</option>
+										<option>No Amerita Traslado</option>
+										<option>Rehusa Traslado</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					
+					<hr>
+					<div class="row">
+						
 						<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
 								<div class="form-group  input-group">
 									<div class="input-group-prepend">
 										<span class="input-group-text" >Presión sistólica</span>
 									</div>
-									<input type="number" class="form-control" value="{{old('presionsis')}}"  name="presionsis" id="ppresionsis" max="500" min="50" placeholder="Digite Valor">
+									<input type="number" class="form-control" value="{{old('presionsis')}}"  name="presionsis" id="ppresionsis" max="500" min="0" placeholder="Digite Valor">
 								</div>
 						</div>
 						<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
@@ -325,7 +378,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text" >Presión diastólica</span>
 									</div>
-									<input type="number" class="form-control" value="{{old('ppresiondias')}}"  name="presiondias" id="ppresiondias" min="50" max="500" placeholder="Digite Valor">
+									<input type="number" class="form-control" value="{{old('ppresiondias')}}"  name="presiondias" id="ppresiondias" min="0" max="500" placeholder="Digite Valor">
 								</div>
 						</div>
 						<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
@@ -333,7 +386,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text" >Temperatura</span>
 									</div>
-									<input type="number" class="form-control" value="{{old('temperatura')}}"  name="temperatura" id="ptemperatura" min="30" max="50" step=0.1 placeholder="Digite Valor">
+									<input type="number" class="form-control" value="{{old('temperatura')}}"  name="temperatura" id="ptemperatura" min="0" max="50" step=0.1 placeholder="Digite Valor">
 								</div>
 						</div>
 						<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
@@ -341,7 +394,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text" >Glasgow</span>
 									</div>
-									<input type="number" class="form-control" value="{{old('glasgow')}}"  name="glasgow" id="pglasgow" min="1" max="15" placeholder="Digite Valor">
+									<input type="number" class="form-control" value="{{old('glasgow')}}"  name="glasgow" id="pglasgow" min="0" max="15" placeholder="Digite Valor">
 								</div>
 						</div>
 						<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
@@ -355,36 +408,29 @@
 						<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
 								<div class="form-group  input-group">
 									<div class="input-group-prepend">
-										<span class="input-group-text" ># Hoja Prehosp</span>
+										<span class="input-group-text" >Frecuencia_Cardiaca</span>
 									</div>
-									<input type="number" class="form-control" value="{{old('hoja')}}"  name="hoja" id="phoja" placeholder="Digite Valor">
+									<input type="number" class="form-control" value="{{old('Frecuencia_Cardiaca')}}"  name="Frecuencia_Cardiaca" id="Frecuencia_Cardiaca" placeholder="Digite Valor">
 								</div>
 						</div>
-
 						<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
 								<div class="form-group  input-group">
 									<div class="input-group-prepend">
-										<span class="input-group-text" >Casa Salud</span>
+										<span class="input-group-text" >Frecuencia_Respiratoria</span>
 									</div>
-
-									<select class="form-control selectpicker" name="casasalud" id="pcasasalud" data-live-search="true" >
-										<option selected>Elija...</option>
-										<option>Hosp.Vicente.Corral</option>
-										<option>Hosp.Jose.Carrasco</option>
-										<option>Hosp.Mariano.Estrella</option>
-										<option>Hosp.Carlos.Elizalde</option>
-										<option>Hosp.Santa.Ines</option>
-										<option>Hosp.Sinai</option>
-										<option>Hosp.Del.Rio</option>
-										<option>Hosp.Univ.Catolico</option>
-										<option>Hosp.Militar</option>
-										<option>Hosp.Snta.Ana</option>
-										<option>Clínica</option>
-										<option>No Amerita Traslado</option>
-										<option>Rehusa Traslado</option>
-									</select>
+									<input type="number" class="form-control" value="{{old('Frecuencia_Respiratoria')}}"  name="Frecuencia_Respiratoria" id="Frecuencia_Respiratoria" placeholder="Digite Valor">
 								</div>
 						</div>
+						<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
+								<div class="form-group  input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text" >Glicemia</span>
+									</div>
+									<input type="number" class="form-control" value="{{old('Glicemia')}}"  name="Glicemia" id="Glicemia" placeholder="Digite Valor">
+								</div>
+						</div>
+
+						
 						<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
 							<div class="form-group  input-group">
 									<div class="input-gro4up-prepend">
@@ -392,9 +438,9 @@
 									</div>
 
 									<select class="form-control selectpicker" name="cie10" id="pcie10" data-live-search="true" >
-										<option selected>Elija...</option>
+										<option >Elija...</option>
 										@foreach($cies as $cie)
-										<option value="{{$cie->padres}}">{{$cie->padre}}</option>
+										<option value="{{$cie->padre}}">{{$cie->padre}}</option>
 										@endforeach
 									</select>
 								</div>
@@ -417,11 +463,17 @@
 									<th>Temperatura</th>
 									<th>Glasgow</th>
 									<th>Saturación</th>
+									<th>Frecuencia Cardiaca</th>
+									<th>Frecuencia Respiratoria</th>
+									<th>Glicemia</th>
 									<th>#Hoja Prehosp</th>
 									<th>Casa Salud</th>
 									<th>Cie10</th>
 								</thead>
 								<tfoot></tfoot>
+									<th></th>
+									<th></th>
+									<th></th>
 									<th></th>
 									<th></th>
 									<th></th>

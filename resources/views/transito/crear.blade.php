@@ -117,7 +117,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Informacion Inicial</span>
 							</div>
-							<textarea class="form-control" required="" maxlength="1000" id="informacion_inicial" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial')}}</textarea>
+							<textarea onkeyup="mayus(this);" class="form-control" required="" maxlength="1000" id="informacion_inicial" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial')}}</textarea>
 
 						</div>
 					</div>
@@ -271,7 +271,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Detalle Emergencia</span>
 					</div>
-					<textarea class="form-control" required="" maxlength="1000" placeholder="Digite a detalle lo ocurrido en Emergencia" id="detalle_emergencia" name="detalle_emergencia" aria-label="With textarea">{{old('detalle_emergencia')}}</textarea>
+					<textarea onkeyup="mayus(this);" class="form-control" required="" maxlength="1000" placeholder="Digite a detalle lo ocurrido en Emergencia" id="detalle_emergencia" name="detalle_emergencia" aria-label="With textarea">{{old('detalle_emergencia')}}</textarea>
 					
 				</div>
 			</div><!--Detalle Emergencia-->
@@ -281,7 +281,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Ciud. Afectado</span>
 					</div>
-					<input type="text" class="form-control" required="" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado')}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia">
+					<input onkeyup="mayus(this);" type="text" class="form-control" required="" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado')}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia">
 				</div>
 			</div>{{--Usuario Afectado--}}
 			<div class="form-row">
@@ -289,7 +289,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDaños">Daños Estimados</span>
 					</div>
-					<textarea class="form-control" required="" maxlength="1000" placeholder="Detalle los daños producidos por  el incidente" id="danos_estimados" name="danos_estimados" aria-label="With textarea">{{old('danos_estimados')}}</textarea>
+					<textarea onkeyup="mayus(this);" class="form-control" required="" maxlength="1000" placeholder="Detalle los daños producidos por  el incidente" id="danos_estimados" name="danos_estimados" aria-label="With textarea">{{old('danos_estimados')}}</textarea>
 					
 				</div>
 			</div>{{-- Danos Estimados --}}

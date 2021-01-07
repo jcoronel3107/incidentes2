@@ -130,7 +130,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Informacion Inicial</span>
 							</div>
-							<textarea class="form-control Text-uppercase" maxlength="1000" id="pinformacion_inicial" name="informacion_inicial"  aria-label="With textarea" required="" ></textarea>
+							<textarea onkeyup="mayus(this);" class="form-control Text-uppercase" maxlength="1000" id="pinformacion_inicial" name="informacion_inicial"  aria-label="With textarea" required="" ></textarea>
 						</div>
 					</div>
 					<p class="text-sm-left" id="pcounter">0</p>
@@ -179,7 +179,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Dirección</span>
 					</div>
-					<textarea class="form-control" id="pdireccion" name="address" maxlength="1000" placeholder="Ubicacion del Evento" aria-label="With textarea" required=""></textarea>
+					<textarea onkeyup="mayus(this);" class="form-control" id="pdireccion" name="address" maxlength="1000" placeholder="Ubicacion del Evento" aria-label="With textarea" required=""></textarea>
 					<button data-toggle="tooltip" title="Geolocaliza" value="Encode" onclick="codeAddress()"><i class="icon-globe"></i></button>
 				</div>
 				<div class="form-group input-group input-group-prepend col-md-3">
@@ -284,7 +284,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Detalle Emergencia</span>
 					</div>
-					<textarea class="form-control Text-uppercase" maxlength="1000" id="detalle_emergencia" name="detalle_emergencia"  aria-label="With textarea" required="" >{{old('detalle_emergencia')}}</textarea>
+					<textarea onkeyup="mayus(this);" class="form-control Text-uppercase" maxlength="1000" id="detalle_emergencia" name="detalle_emergencia"  aria-label="With textarea" required="" >{{old('detalle_emergencia')}}</textarea>
 
 				</div>
 			</div><!--Detalle Emergencia-->
@@ -294,7 +294,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Ciud. Afectado</span>
 					</div>
-					<input type="text" maxlength="83" class="form-control" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado')}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia" required="">
+					<input onkeyup="mayus(this);" type="text" maxlength="83" class="form-control" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado')}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia" required="">
 				</div>
 			</div>{{--Usuario Afectado--}}
 			<div class="form-row">
@@ -302,7 +302,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDaños">Daños Estimados</span>
 					</div>
-					<textarea class="form-control Text-uppercase" maxlength="1000" id="danos_estimados" name="danos_estimados"  aria-label="With textarea" required="" >{{old('danos_estimados')}}</textarea>
+					<textarea onkeyup="mayus(this);" class="form-control Text-uppercase" maxlength="1000" id="danos_estimados" name="danos_estimados"  aria-label="With textarea" required="" >{{old('danos_estimados')}}</textarea>
 
 				</div>
 			</div>{{-- Danos Estimados --}}

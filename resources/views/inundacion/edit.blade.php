@@ -54,7 +54,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Información Inicial</span>
 							</div>
-							<textarea class="form-control" maxlength="1000" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$inundacion->informacion_inicial)}}</textarea>
+							<textarea onkeyup="mayus(this);" class="form-control" maxlength="1000" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$inundacion->informacion_inicial)}}</textarea>
 						</div>
 					</div>
 				</div>
@@ -193,7 +193,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Detalle Emergencia</span>
 						</div>
-						<textarea class="form-control"name="detalle_emergencia" id="detalle_emergencia" maxlength="1000"  aria-label="With textarea" placeholder="Digite a detalle lo ocurrido en Emergencia">{{old('detalle_emergencia',$inundacion->detalle_emergencia)}}</textarea>
+						<textarea onkeyup="mayus(this);" class="form-control" name="detalle_emergencia" id="detalle_emergencia" maxlength="1000"  aria-label="With textarea" placeholder="Digite a detalle lo ocurrido en Emergencia">{{old('detalle_emergencia',$inundacion->detalle_emergencia)}}</textarea>
 					</div>
 				</div>
 			</div>{{--Detalle Emergencia--}}
@@ -203,7 +203,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Ciud. Afectado</span>
 					</div>
-					<input type="text" class="form-control" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado',$inundacion->usuario_afectado)}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia">
+					<input onkeyup="mayus(this);" type="text" class="form-control" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado',$inundacion->usuario_afectado)}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia">
 				</div>
 				</div>
 			</div>{{--Usuario Afectado --}}
@@ -212,7 +212,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDaños">Daños Estimados</span>
 					</div>
-					<textarea  class="form-control" maxlength="1000" name="danos_estimados" id="danos_estimados">{{old('danos_estimados',$inundacion->danos_estimados)}}</textarea>
+					<textarea onkeyup="mayus(this);" class="form-control" maxlength="1000" name="danos_estimados" id="danos_estimados">{{old('danos_estimados',$inundacion->danos_estimados)}}</textarea>
 				</div>
 			</div>{{-- Daños Estimados --}}
 			
