@@ -187,12 +187,12 @@ class RescateController extends Controller
     function edit($id) {
         //
         if ( Auth::check() ) {
-            $conductor_id = DB::table('users')
+            /*$conductor_id = DB::table('users')
             ->where('id', $id)
             ->value('name');
             $bombero_id = DB::table('users')
             ->where('id', $id)
-            ->value('name');
+            ->value('name');*/
             $rescate = Rescate::findOrFail( $id );
             $vehiculos = Vehiculo::all();
             $bomberos=User::where('cargo','bombero')

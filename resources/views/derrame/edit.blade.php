@@ -212,6 +212,71 @@
 					<input type="text" class="form-control" name="danos_estimados" id="danos_estimados" value="{{old('danos_estimados',$derrame->danos_estimados)}}" placeholder="Detalle los daños producidos por  el incidente">
 				</div>
 			</div>{{-- Daños Estimados --}}
+
+			{{--Vehiculos asisten emergencia --}}
+			<hr>
+			<div class="card">
+				<div class="card-header text-white bg-primary">Vehiculos en la Emergencia</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
+							<div class="form-group input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Vehìculo</span>
+								</div>
+								<select class="form-control selectpicker" name="vehiculo_id" id="pvehiculo_id" data-live-search="true">
+								<option selected>Elija...</option>
+								@foreach($vehiculos as $vehiculo)
+								<option>{{$vehiculo->codigodis}}</option>
+								@endforeach
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+								<div class="form-group  input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text" >Km.Salida</span>
+									</div>
+									<input type="number" class="form-control" value="{{old('ikm_salida')}}"  name="ikm_salida" id="pkm_salida" placeholder="Digite Valor">
+								</div>
+						</div>
+						<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+							<div class="form-group  input-group">
+									<div class="input-group-prepend">
+									<span class="input-group-text" id="inputDetalle">Km.Llegada</span>
+									</div>
+									<input type="number" class="form-control" id="pkm_llegada" name="ikm_llegada" value="{{old('ikm_llegada')}}" placeholder="Digite Valor">
+								</div>
+						</div>
+						<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2">
+							<button type="button" id="bt_add" class="btn btn-primary">Agregar</button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+							<table id="detalles" class="table table-striped table bordered table condensed table-hover">
+								<thead style="background-color: #A9D0F5 ">
+									<th>Opciones</th>
+									<th>Vehiculo</th>
+									<th>Km.Salida</th>
+									<th>Km.Llegada</th>
+								</thead>
+								<tfoot></tfoot>
+									@foreach($derrame->vehiculos as $vehiculo)
+									<tr class = "selected" id="fila{{count($derrame->vehiculos)}}">
+									<td ><button type="button" class="btn btn-warning" onclick="eliminar1('{{count($derrame->vehiculos)}}')" type="button">X</button></td>
+									<td><input type="hidden" name="vehiculo_id[]" value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</td>
+									<td><input type="number"  name="km_salida[]" value="{{$vehiculo->pivot->km_salida}}">{{$vehiculo->pivot->km_salida}}</td>
+									<td><input type="number"  name="km_llegada[]" value="{{$vehiculo->pivot->km_llegada}}">{{$vehiculo->pivot->km_llegada}}</td>
+								</tr>
+								<tbody></tbody>
+									@endforeach
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr>
 			<div class="form-group py-3 " id="divguardar">
 				<input type="hidden" name="token" value="{{csrf_token()}}" >
 				<ul class="nav justify-content-end">
@@ -250,16 +315,114 @@
 				  </div>
 				</div>
 		</form>
-		@if(count($errors)>0)
+		@push ('scripts')
+			<!-- Script para almacenar vehiculos asisten-->
+			<script>
+				$(document).ready(function(){
+					$("#bt_add").click(function () {
+						agregar();
+					});
+					$("#bt_addpaciente").click(function () {
+						agregarpaciente();
+					});
+
+					var max_chars = 1000;
+					$('#max').html(max_chars);
+
+				    $("#pinformacion_inicial").keyup(function() {
+				        var chars = $("#pinformacion_inicial").val().length;
+				        var diff = max_chars - chars;
+				        var leyenda = "Caracteres Permitidos 1000 - Digitados: ";
+				        var res = leyenda.concat(chars);
+				        $("#pcounter").html(res);
+				        if(chars > 1000){
+				           $("#pinformacion_inicial").addClass('error');
+				           $("#pinformacion_inicial").addClass('error');
+				          }else{
+				            $("#pinformacion_inicial").removeClass('error');
+				            $("#pinformacion_inicial").removeClass('error');
+				          }
+				      });
+				    $("#detalle_emergencia").keyup(function() {
+				        var chars = $("#detalle_emergencia").val().length;
+				        var diff = max_chars - chars;
+				        var leyenda = "Caracteres Permitidos 1000 - Digitados: ";
+				        var res = leyenda.concat(chars);
+				        $("#pcounter1").html(res);
+				        if(chars > 1000){
+				           $("#detalle_emergencia").addClass('error');
+				           $("#detalle_emergencia").addClass('error');
+				          }else{
+				            $("#detalle_emergencia").removeClass('error');
+				            $("#detalle_emergencia").removeClass('error');
+				          }
+				      });
+
+				});
+
+				//total=0;
+				var cont=0;
+				var jqkm_salida=0;
+				var jqkm_llegada=0;
+				subtotal=[];
+				$("#Enviar").hide();
+
+			
+				function agregar() {
+				// body...
+					jqkm_salida=$("#pkm_salida").val();
+					jqkm_llegada=$("#pkm_llegada").val();
+					jqvehiculo=$("#pvehiculo_id").val();
+					jqvehiculo_id=$("#pvehiculo_id option.selected").text();
+					if(jqkm_salida!="" && jqkm_salida>=0 && jqkm_llegada!="" && jqkm_llegada>=0 && jqvehiculo!="")
+					{
+						//total = total + subtotal[cont];
+						var fila = '<tr class = "selected" id="fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminar1('+cont+')" type="button">X</button></td><td><input type="hidden" name="vehiculo_id[]" value="'+jqvehiculo+'">'+jqvehiculo+'</td><td><input type="number"  name="km_salida[]" value="'+jqkm_salida+'"></td><td><input type="number"  name="km_llegada[]" value="'+jqkm_llegada+'"></td></tr>';
+						cont++;
+						limpiar();
+						evaluar();
+						$('#detalles').append(fila);
+
+					}else{
+						alert("Error al ingresar el detalle de vehiculos,revise los datos!!!");
+					}
+
+				}
+
+				function limpiar(){
+					$("#pkm_salida").val("");
+					$("#pkm_llegada").val("");
+				}
+				function evaluar(){
+					
+						$("#divguardar").show();
+						$("#Enviar").show();
+				}
+
+				function eliminar1(index){
+					//total = total - subtotal[index];
+					$("#fila"+index).remove();
+					evaluar();
+				}
+
+				function mayus( e ) {
+					e.value = e.value.toUpperCase();
+				}
+
+				
+			</script>
+		@endpush
+		
+	@endsection
+
+	@section( "piepagina" )
+	@if(count($errors)>0)
 		 	@foreach($errors->all() as $error)
 		 		<div class="alert alert-danger" role="alert">
 		 			{{$error}}
 		 		</div>
-			@endforeach @endif
-
-	@endsection
-
-	@section( "piepagina" )
+			@endforeach
+	@endif
 
 
 	@endsection

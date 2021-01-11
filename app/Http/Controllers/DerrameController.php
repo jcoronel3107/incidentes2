@@ -182,12 +182,7 @@ class DerrameController extends Controller
     public function edit($id)
     {
         if ( Auth::check() ) {
-            $conductor_id = DB::table('users')
-            ->where('id', $id)
-            ->value('name');
-            $bombero_id = DB::table('users')
-            ->where('id', $id)
-            ->value('name');
+            
             $derrame = Derrame::findOrFail( $id );
             $vehiculos = Vehiculo::all();
             $bomberos=User::where('cargo','bombero')
@@ -252,6 +247,21 @@ class DerrameController extends Controller
 
             $maqui = User::findOrFail($request->conductor_id);
             $maqui->derrames()->attach($id);
+
+            $cont=0;
+            $nombrevehiculo = $request->get('vehiculo_id');
+            $kmsalidavehiculo = $request->get('km_salida');
+            $kmllegadavehiculo = $request->get('km_llegada');
+            $derrame->vehiculos()->detach();
+            while ($cont < count($nombrevehiculo)) {
+                $carro = Vehiculo::findOrFail($nombrevehiculo[$cont]);
+                $carro->derrames()->attach(
+                  $id , [
+                    'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
+                $cont=$cont+1;
+          }
+
+
             Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
             return redirect( "/derrame" );
         } else {

@@ -214,12 +214,7 @@ class SaludController extends Controller
     public function edit($id)
     {
         if ( Auth::check() ) {
-            $conductor_id = DB::table('users')
-            ->where('id', $id)
-            ->value('name');
-            $bombero_id = DB::table('users')
-            ->where('id', $id)
-            ->value('name');
+            
             $salud = Salud::findOrFail( $id );
             $vehiculos = Vehiculo::all();
             $bomberos=User::where('cargo','bombero')

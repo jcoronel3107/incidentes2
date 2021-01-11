@@ -195,7 +195,9 @@
 					<input onkeyup="mayus(this);" type="text" class="form-control" name="detalle_emergencia" id="detalle_emergencia" value="{{old('detalle_emergencia',$salud->detalle_emergencia)}}" placeholder="Digite a detalle lo ocurrido en Emergencia">
 				</div>
 			</div><!--Detalle Emergencia-->
+			
 			{{--Vehiculos asisten emergencia --}}
+			<hr>
 			<div class="card">
 				<div class="card-header text-white bg-primary">Vehiculos en la Emergencia</div>
 				<div class="card-body">
@@ -257,6 +259,7 @@
 					</div>
 				</div>
 			</div>
+			<hr>
 			<div class="form-group col-md-12">
 				<button type="submit" name="Enviar" value="Enviar" class="btn btn-success">Actualizar</button>
 				<a class="btn btn btn-primary" role="button"

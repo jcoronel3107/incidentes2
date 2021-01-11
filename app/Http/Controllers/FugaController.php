@@ -188,12 +188,7 @@ class FugaController extends Controller
     public function edit($id)
     {
         if ( Auth::check() ) {
-            $conductor_id = DB::table('users')
-            ->where('id', $id)
-            ->value('name');
-            $bombero_id = DB::table('users')
-            ->where('id', $id)
-            ->value('name');
+            
             $fuga = Fuga::findOrFail( $id );
             $vehiculos = Vehiculo::all();
             $bomberos=User::where('cargo','bombero')
@@ -262,6 +257,19 @@ class FugaController extends Controller
 
            $maqui = User::findOrFail($request->conductor_id);
            $maqui->fugas()->attach($id);
+
+           $cont=0;
+            $nombrevehiculo = $request->get('vehiculo_id');
+            $kmsalidavehiculo = $request->get('km_salida');
+            $kmllegadavehiculo = $request->get('km_llegada');
+            $fuga->vehiculos()->detach();
+            while ($cont < count($nombrevehiculo)) {
+                $carro = Vehiculo::findOrFail($nombrevehiculo[$cont]);
+                $carro->fugas()->attach(
+                  $id , [
+                    'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
+                $cont=$cont+1;
+           }
            Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
            return redirect( "/fuga" );
         } else {

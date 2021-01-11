@@ -57,9 +57,9 @@
 						<span class="input-group-text">Incidente</span>
 					</div>
 					<select class="form-control" name="incidente_id" id="incidente_id">
-						<option selected>{{old('incidente_id',$fuga->incidente->nombre_incidente)}}</option>
+						<option value="{{$fuga->incidente->id}}" selected>{{old('incidente_id',$fuga->incidente->nombre_incidente)}}</option>
 						@foreach($incidentes as $incidente)
-							<option>{{$incidente->nombre_incidente}}</option>
+							<option value="{{$incidente->id}}">{{$incidente->nombre_incidente}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -69,11 +69,11 @@
 						<span class="input-group-text">Escenario</span>
 					</div>
 					<select class="form-control" name="tipo_escena">
-						<option selected>{{old('tipo_escena',$fuga->tipo_escena)}}</option>
-						<option>Tipo 1</option>
-						<option>Tipo 2</option>
-						<option>Tipo 3</option>
-						<option>Tipo 4</option>
+						<option value="{{$fuga->tipo_escena}}" selected>{{old('tipo_escena',$fuga->tipo_escena)}}</option>
+						<option value="Tipo 1">Tipo 1</option>
+						<option value="Tipo 2">Tipo 2</option>
+						<option value="Tipo 3">Tipo 3</option>
+						<option value="Tipo 4">Tipo 4</option>
 					</select>
 				</div>
 				<div class="form-group input-group col-md-4">
@@ -81,9 +81,9 @@
 						<span class="input-group-text">Estacion</span>
 					</div>
 					<select name="station_id" class="form-control">
-						<option selected>{{old('station_id',$fuga->station->nombre)}}</option>
+						<option value="{{$fuga->station->id}}" selected>{{old('station_id',$fuga->station->nombre)}}</option>
 						@foreach($estaciones as $estacion)
-						<option>{{$estacion->nombre}}</option>
+						<option value="{{$estacion->id}}">{{$estacion->nombre}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -101,9 +101,9 @@
 						<span class="input-group-text">Parroquia</span>
 					</div>
 					<select name="parroquia_id" class="form-control">
-						<option selected>{{old('parroquia_id',$fuga->parroquia->nombre)}}</option>
+						<option value="{{$fuga->parroquia->id}}" selected>{{old('parroquia_id',$fuga->parroquia->nombre)}}</option>
 						@foreach($parroquias as $parroquia)
-							<option>{{$parroquia->nombre}}</option>
+							<option value="{{$parroquia->id}}">{{$parroquia->nombre}}</option>
 						@endforeach
 					</select>
 					<a href="{{asset('files/MapaCuenca.pdf')}}" target="_blank" role="button" data-toggle="tooltip" title="Mapa" class="btn btn-outline-info" ><i class="icon-file icon-2x"></i></a>
@@ -194,10 +194,10 @@
 						<span class="input-group-text" id="inputtipo_cilindro">Tipo_Cilindro</span>
 					</div>
 					<select class="form-control" id="tipo_cilindro" name="tipo_cilindro" required="">
-						<option selected>Seleccione...</option>
-						<option>Domestico 15Kg</option>
-						<option>Comercial 45Kg</option>
-						<option>Centralizado</option>
+						<option value="{{$fuga->tipo_cilindro}}" selected>{{old('tipo_cilindro',$fuga->tipo_cilindro)}}</option>
+						<option value="Domestico 15Kg">Domestico 15Kg</option>
+						<option value="Comercial 45Kg">Comercial 45Kg</option>
+						<option value="Centralizado">Centralizado</option>
 					</select>
 				</div>
 				<div class="form-group input-group col-md-4 col-sm-12">
@@ -205,11 +205,11 @@
 						<span class="input-group-text" id="inputcolor_cilindro">Color_Cilindro</span>
 					</div>
 					<select class="form-control" id="color_cilindro" name="color_cilindro" required="">
-						<option selected>Seleccione...</option>
-						<option>Amarillo</option>
-						<option>Azul</option>
-						<option>Blanco</option>
-						<option>Otros</option>
+						<option value="{{$fuga->color_cilindro}}" selected="">{{old('color_cilindro',$fuga->color_cilindro)}}</option>
+						<option value="Amarillo" >Amarillo</option>
+						<option value="Azul">Azul</option>
+						<option value="Blanco">Blanco</option>
+						<option value="Otros">Otros</option>
 					</select>
 				</div>
 				<div class="form-group input-group col-md-4 col-sm-12">
@@ -217,12 +217,12 @@
 						<span class="input-group-text" id="inputtipo_fallo">Tipo_Fallo</span>
 					</div>
 					<select class="form-control" id="tipo_fallo" name="tipo_fallo" required="">
-						<option selected>{{old('tipo_fallo',$fuga->tipo_fallo)}}</option>
-						<option>Manguera</option>
-						<option>Regulador</option>
-						<option>Pin/Vastago</option>
-						<option>Toroide</option>
-						<option>Otro</option>
+						<option value="{{$fuga->tipo_fallo}}" selected>{{old('tipo_fallo',$fuga->tipo_fallo)}}</option>
+						<option value="Manguera">Manguera</option>
+						<option value="Regulador">Regulador</option>
+						<option value="Pin/Vastago">Pin/Vastago</option>
+						<option value="Toroide">Toroide</option>
+						<option value="Otro">Otro</option>
 					</select>
 				</div>
 			</div>{{-- Fallos --}}
@@ -243,6 +243,70 @@
 				</div>
 			</div>
 
+			{{--Vehiculos asisten emergencia --}}
+			<hr>
+			<div class="card">
+				<div class="card-header text-white bg-primary">Vehiculos en la Emergencia</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
+							<div class="form-group input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Vehìculo</span>
+								</div>
+								<select class="form-control selectpicker" name="vehiculo_id" id="pvehiculo_id" data-live-search="true">
+								<option selected>Elija...</option>
+								@foreach($vehiculos as $vehiculo)
+								<option>{{$vehiculo->codigodis}}</option>
+								@endforeach
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+								<div class="form-group  input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text" >Km.Salida</span>
+									</div>
+									<input type="number" class="form-control" value="{{old('ikm_salida')}}"  name="ikm_salida" id="pkm_salida" placeholder="Digite Valor">
+								</div>
+						</div>
+						<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+							<div class="form-group  input-group">
+									<div class="input-group-prepend">
+									<span class="input-group-text" id="inputDetalle">Km.Llegada</span>
+									</div>
+									<input type="number" class="form-control" id="pkm_llegada" name="ikm_llegada" value="{{old('ikm_llegada')}}" placeholder="Digite Valor">
+								</div>
+						</div>
+						<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2">
+							<button type="button" id="bt_add" class="btn btn-primary">Agregar</button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+							<table id="detalles" class="table table-striped table bordered table condensed table-hover">
+								<thead style="background-color: #A9D0F5 ">
+									<th>Opciones</th>
+									<th>Vehiculo</th>
+									<th>Km.Salida</th>
+									<th>Km.Llegada</th>
+								</thead>
+								<tfoot></tfoot>
+									@foreach($fuga->vehiculos as $vehiculo)
+									<tr class = "selected" id="fila{{count($fuga->vehiculos)}}">
+									<td ><button type="button" class="btn btn-warning" onclick="eliminar1('{{count($fuga->vehiculos)}}')" type="button">X</button></td>
+									<td><input type="hidden" name="vehiculo_id[]" value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</td>
+									<td><input type="number"  name="km_salida[]" value="{{$vehiculo->pivot->km_salida}}">{{$vehiculo->pivot->km_salida}}</td>
+									<td><input type="number"  name="km_llegada[]" value="{{$vehiculo->pivot->km_llegada}}">{{$vehiculo->pivot->km_llegada}}</td>
+								</tr>
+								<tbody></tbody>
+									@endforeach
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr>
 
 			<div class="form-group">
 				<button type="submit" name="Enviar" value="Enviar" class="btn btn-success">Actualizar</button>
@@ -277,6 +341,106 @@
 			  </div>
 			</div>
 		</form>
+		@push ('scripts')
+			{{-- Script para almacenar vehiculos asisten --}}
+			<script>
+				$(document).ready(function(){
+					$("#bt_add").click(function () {
+						agregar();
+					});
+					$("#bt_addpaciente").click(function () {
+						agregarpaciente();
+					});
+
+					var max_chars = 1000;
+					$('#max').html(max_chars);
+
+				    $("#pinformacion_inicial").keyup(function() {
+				        var chars = $("#pinformacion_inicial").val().length;
+				        var diff = max_chars - chars;
+				        var leyenda = "Caracteres Permitidos 1000 - Digitados: ";
+				        var res = leyenda.concat(chars);
+				        $("#pcounter").html(res);
+				        if(chars > 1000){
+				           $("#pinformacion_inicial").addClass('error');
+				           $("#pinformacion_inicial").addClass('error');
+				          }else{
+				            $("#pinformacion_inicial").removeClass('error');
+				            $("#pinformacion_inicial").removeClass('error');
+				          }
+				      });
+				    $("#detalle_emergencia").keyup(function() {
+				        var chars = $("#detalle_emergencia").val().length;
+				        var diff = max_chars - chars;
+				        var leyenda = "Caracteres Permitidos 1000 - Digitados: ";
+				        var res = leyenda.concat(chars);
+				        $("#pcounter1").html(res);
+				        if(chars > 1000){
+				           $("#detalle_emergencia").addClass('error');
+				           $("#detalle_emergencia").addClass('error');
+				          }else{
+				            $("#detalle_emergencia").removeClass('error');
+				            $("#detalle_emergencia").removeClass('error');
+				          }
+				      });
+
+				});
+
+				//total=0;
+				var cont=0;
+				var jqkm_salida=0;
+				var jqkm_llegada=0;
+				subtotal=[];
+				$("#Enviar").hide();
+
+			
+				function agregar() {
+				// body...
+					jqkm_salida=$("#pkm_salida").val();
+					jqkm_llegada=$("#pkm_llegada").val();
+					jqvehiculo=$("#pvehiculo_id").val();
+					jqvehiculo_id=$("#pvehiculo_id option.selected").text();
+					if(jqkm_salida!="" && jqkm_salida>=0 && jqkm_llegada!="" && jqkm_llegada>=0 && jqvehiculo!="")
+					{
+						//total = total + subtotal[cont];
+						var fila = '<tr class = "selected" id="fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminar1('+cont+')" type="button">X</button></td><td><input type="hidden" name="vehiculo_id[]" value="'+jqvehiculo+'">'+jqvehiculo+'</td><td><input type="number"  name="km_salida[]" value="'+jqkm_salida+'"></td><td><input type="number"  name="km_llegada[]" value="'+jqkm_llegada+'"></td></tr>';
+						cont++;
+						limpiar();
+						evaluar();
+						$('#detalles').append(fila);
+
+					}else{
+						alert("Error al ingresar el detalle de vehiculos,revise los datos!!!");
+					}
+
+				}
+
+				function limpiar(){
+					$("#pkm_salida").val("");
+					$("#pkm_llegada").val("");
+				}
+				function evaluar(){
+					//if(jqkm_llegada>jqkm_salida && jqnombres!="" ){
+						$("#divguardar").show();
+						$("#Enviar").show();
+					//}
+					//else{
+					//	$("#divguardar").hide();
+					//}
+				}
+
+				function eliminar1(index){
+					//total = total - subtotal[index];
+					$("#fila"+index).remove();
+					evaluar();
+				}
+
+				function mayus( e ) {
+					e.value = e.value.toUpperCase();
+				}
+			</script>
+		@endpush
+
 	@endsection
 
 	@section( "piepagina" )
