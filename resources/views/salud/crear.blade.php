@@ -13,7 +13,7 @@
 		<ul class="nav justify-content-end">
 		  <li class="nav-item">
 		  	<a class="btn btn-outline-info"  data-toggle="tooltip" title="Whatsapp" role="button" onclick="notificacionWhatsapp();"><i class="icon-comments-alt icon-2x"></i></a>
-		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('salud.index')}}"><i class="icon-remove icon-2x"></i>
+		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('salud.index')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i>
 						</a>
 		  </li>
 		</ul>
@@ -35,7 +35,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Hora Ficha ECU911</span>
 							</div>
-							<input type="text" required="" id="hora_fichaecu911" name="hora_fichaecu911"  class="form-control" placeholder="hh:mm:ss" value="{{old('hora_fichaecu911')}}">
+							<input type="time" required="" id="hora_fichaecu911" name="hora_fichaecu911"  class="form-control" placeholder="hh:mm:ss" value="{{old('hora_fichaecu911')}}">
 							<div class="input-group-append">
 								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual0" id="horactual0"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 							</div>
@@ -48,7 +48,10 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Nro.Ficha ECU911</span>
 							</div>
-							<input type="text" required="" onkeyup="mayus(this);" name="ficha_ecu911" value="{{old('ficha_ecu911')}}" class="form-control">
+							<input type="text" required="" onkeyup="mayus(this);" name="ficha_ecu911" value="{{old('ficha_ecu911')}}" class="form-control @error('ficha_ecu911') is-invalid @enderror">
+							@error('ficha_ecu911')
+    							<div class="alert alert-danger">{{ $message }}</div>
+							@enderror
 						</div>
 					</div>
 				</div>
@@ -65,9 +68,9 @@
 									<span class="input-group-text">Vehìculo</span>
 								</div>
 								<select class="form-control selectpicker" name="vehiculo_id" id="pvehiculo_id" data-live-search="true">
-								<option selected>Elija...</option>
+								<option value="" selected>Elija...</option>
 								@foreach($vehiculos as $vehiculo)
-								<option>{{$vehiculo->codigodis}}</option>
+								<option >{{$vehiculo->codigodis}}</option>
 								@endforeach
 								</select>
 							</div>
@@ -119,9 +122,12 @@
 					<div class="form-group">
 						<div class="input-group date" id="datetimepicker3">
 							<div class="input-group-prepend">
-								<span class="input-group-text">Informacion Inicial</span>
+								<span class="input-group-text ">Informacion Inicial</span>
 							</div>
-							<textarea class="form-control" maxlength="1000" onkeyup="mayus(this);" id="pinformacion_inicial" name="informacion_inicial"  aria-label="With textarea" required="" >{{old('informacion_inicial')}}</textarea>
+							<textarea class="form-control @error('informacion_inicial') is-invalid @enderror" maxlength="1000" onkeyup="mayus(this);" id="pinformacion_inicial" name="informacion_inicial"  aria-label="With textarea" required="" >{{old('informacion_inicial')}}</textarea>
+							@error('informacion_inicial')
+    							<div class="alert alert-danger">{{ $message }}</div>
+							@enderror
 						</div>
 					</div>
 				</div>
@@ -132,25 +138,31 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Incidente</span>
 					</div>
-					<select required="" class="form-control" name="incidente_id" id="incidente_id">
-						<option >Seleccione...</option>
+					<select required="" class="form-control @error('informacion_inicial') is-invalid @enderror" name="incidente_id" id="incidente_id">
+						<option value="" >Seleccione...</option>
 						@foreach($incidentes as $incidente)
 							<option value="{{$incidente->id}}">{{$incidente->nombre_incidente}}</option>
 						@endforeach
 					</select>
+					@error('incidente_id')
+							<div class="alert alert-danger">{{ $message }}</div>
+					@enderror
 				</div>
 
 				<div class="form-group input-group col-md-3">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Escenario</span>
 					</div>
-					<select required="" class="form-control" name="tipo_escena">
+					<select required="" class="form-control @error('informacion_inicial') is-invalid @enderror" name="tipo_escena">
 						
 						<option selected="" value="Tipo 1">Tipo 1</option>
 						<option value="Tipo 2">Tipo 2</option>
 						<option value="Tipo 3">Tipo 3</option>
 						<option value="Tipo 4">Tipo 4</option>
 					</select>
+					@error('tipo_escena')
+							<div class="alert alert-danger">{{ $message }}</div>
+					@enderror
 				</div>
 				<div class="form-group input-group col-md-4">
 					<div class="input-group-prepend">
@@ -177,7 +189,7 @@
 						<span class="input-group-text">Parroquia</span>
 					</div>
 					<select required="" name="parroquia_id" class="form-control">
-						<option value="Seleccione..." selected>Selecciones...</option>
+						<option value="" selected>Selecciones...</option>
 						@foreach($parroquias as $parroquia)
 							<option value="{{$parroquia->id}}">{{$parroquia->nombre}}</option>
 						@endforeach
@@ -188,7 +200,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputAddress">Geoposicion</span>
 					</div>
-					<textarea class="form-control" id="pgeoposicion" placeholder="Formato:. -2.56985, -79.23658" name="geoposicion" aria-label="With textarea" ></textarea>
+					<textarea class="form-control" id="pgeoposicion" placeholder="Formato:. -2.56985, -79.23658" name="geoposicion" aria-label="With textarea" required="" ></textarea>
 				</div>
 			</div><!--Div Ubicacion Evento-->
 			<div onload="initMap()" id="map" style="width: 100%; height: 280px;"></div>
@@ -210,7 +222,7 @@
 						<span class="input-group-text">Bombero</span>
 					</div>
 					<select class="form-control" name="bombero_id" required="">
-						<option value="{{$user->id}}" selected>{{old('bombero_id')}}</option>
+						<option >{{old('bombero_id')}}</option>
 						@foreach($users as $user)
 						<option value="{{$user->id}}">{{$user->name}}</option>
 						@endforeach
@@ -233,7 +245,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Salida A Emergencia</span>
 					</div>
-					<input type="text" class="form-control" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" value="" placeholder="hh:mm" required="">
+					<input type="time" class="form-control" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" value="" placeholder="hh:mm:ss" required="">
 					<div class="input-group-append">
 								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual" id="horactual"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 					</div>
@@ -242,7 +254,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Llegada A Emergencia</span>
 					</div>
-					<input type="text" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm" required=""  value="">
+					<input type="time" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm" required=""  value="">
 					<div class="input-group-append">
 								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual1" id="horactual1"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 					</div>
@@ -253,7 +265,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Arribo C.Salud</span>
 					</div>
-					<input type="text" class="form-control" name="hora_fin_emergencia" id="hora_fin_emergencia" placeholder="hh:mm" value="">
+					<input type="time" class="form-control" name="hora_fin_emergencia" id="hora_fin_emergencia" placeholder="hh:mm:ss" value="">
 					<div class="input-group-append">
 								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual2" id="horactual2"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 					</div>
@@ -262,7 +274,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora En Base</span>
 					</div>
-					<input type="text" class="form-control" name="hora_en_base" id="hora_en_base" placeholder="hh:mm:ss" value="">
+					<input type="time" class="form-control" name="hora_en_base" id="hora_en_base" placeholder="hh:mm:ss" value="">
 					<div class="input-group-append">
 								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual3" id="horactual3"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 					</div>
@@ -354,6 +366,7 @@
 										<option>Clínica Cisneros</option>
 										<option>Clínica Humanitaria</option>
 										<option>Clínica Albán</option>
+										<option>Clínica Fracturas</option>
 										<option>Medimagen</option>
 										<option>No Amerita Traslado</option>
 										<option>Rehusa Traslado</option>

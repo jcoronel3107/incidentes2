@@ -38,7 +38,7 @@ class InundacionController extends Controller
         if($request)
         {
           $query = trim($request->get('searchText'));
-          $inundaciones = Inundacion::where("fecha",'LIKE','%'.$query.'%')
+          $inundaciones = Inundacion::where("address",'LIKE','%'.$query.'%')
           ->OrderBy('fecha','desc')
           ->paginate(10);
 		      return view( "/inundacion.index", compact( "inundaciones","query" ) );
@@ -86,37 +86,17 @@ class InundacionController extends Controller
     {
   		if ( Auth::check() )
        {
-          //try
-          //{
-            //DB::begintransaction();
-
+          DB::begintransaction();
+          try
+          {
             /*$validated = $request->validated();*/
             $inundacion = new Inundacion;
-
-            $incidente_id = DB::table('incidentes')
-                  ->where('nombre_incidente', $request->incidente_id)
-                  ->value('id');
-            $estacion_id = DB::table('stations')
-                  ->where('nombre', $request->station_id)
-                  ->value('id');
-            $parroquia_id = DB::table('parroquias')
-                  ->where('nombre', $request->parroquia_id)
-                  ->value('id');
-            $jefeguardia_id= DB::table('users')
-                    ->where('name',$request->jefeguardia_id)
-                    ->value('id');
-            $conductor_id = DB::table('users')
-                ->where('name',$request->conductor_id)
-                ->value('id');
-            $bombero_id= DB::table('users')
-                ->where('name',$request->bombero_id)
-                ->value('id');
-        		$inundacion->incidente_id = $incidente_id;
+        		$inundacion->incidente_id = $request->incidente_id;
         		$inundacion->tipo_escena = $request->tipo_escena;
-        		$inundacion->station_id = $estacion_id;
+        		$inundacion->station_id = $request->station_id;
         		$inundacion->fecha = $request->fecha;
         		$inundacion->address = $request->address;
-        		$inundacion->parroquia_id = $parroquia_id;
+        		$inundacion->parroquia_id = $request->parroquia_id;
         		$inundacion->geoposicion = $request->geoposicion;
         		$inundacion->ficha_ecu911 = $request->ficha_ecu911;
         		$inundacion->hora_fichaecu911 = $request->hora_fichaecu911;
@@ -134,11 +114,11 @@ class InundacionController extends Controller
             $id = DB::table('inundacions')
                 ->select(DB::raw('max(id) as id'))
                 ->first();
-            $maqui = User::findOrFail($conductor_id);
+            $maqui = User::findOrFail($request->conductor_id);
             $maqui->inundacions()->attach($id);
-            $jefe = User::findOrFail($jefeguardia_id);
+            $jefe = User::findOrFail($request->jefeguardia_id);
             $jefe->inundacions()->attach($id);
-            $bomb = User::findOrFail($bombero_id);
+            $bomb = User::findOrFail($request->bombero_id);
             $bomb->inundacions()->attach($id);
             //para almacenar kilimetrajes por vehiculos asistentes al evento
             $cont=0;
@@ -157,11 +137,12 @@ class InundacionController extends Controller
               }
               Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
               return redirect( "/inundacion" );
-          //}
-          //catch(\Exception $e)
-          //{
-          //    DB::rollback();
-          //}
+          }
+          catch(\Exception $e)
+          {
+              DB::rollback();
+              dd($e);
+          }
   		} else {
   			return view( "/auth.login" );
   		}
@@ -225,14 +206,14 @@ class InundacionController extends Controller
         //
         if ( Auth::check() ) {
 
-           $jefeguardia_id = DB::table('users')->where('name', $request->jefeguardia_id)->value('id');
-           $incidente_id = DB::table('incidentes')->where('nombre_incidente', $request->incidente_id)->value('id');
-           $station_id = DB::table('stations')->where('nombre', $request->station_id)->value('id');
-           $inundacion = Inundacion::findOrFail( $id );
-           $inundacion->update([
-                                'incidente_id' => $incidente_id,
+          DB::begintransaction();
+          try
+          { 
+            $inundacion = Inundacion::findOrFail( $id );
+            $inundacion->update([
+                                'incidente_id' => $request->incidente_id,
                                 'tipo_escena' => $request->tipo_escena,
-                                'station_id' => $station_id,
+                                'station_id' => $request->station_id,
                                 'fecha' => $request->fecha,
                                 'address' => $request->address,
                                 'parroquia_id' => $inundacion->parroquia->id,
@@ -249,19 +230,25 @@ class InundacionController extends Controller
                                 'danos_estimados' => $request->danos_estimados,
                                 'usr_editor' => auth()->user()->name]);
                                 
-           $inundacion->users()->detach();
+            $inundacion->users()->detach();
           
 
-           $jefeguardia = User::findOrFail($request->jefeguardia_id);
-           $jefeguardia->inundacions()->attach($id);
+            $jefeguardia = User::findOrFail($request->jefeguardia_id);
+            $jefeguardia->inundacions()->attach($id);
            
-           $bombero = User::findOrFail($request->bombero_id);
-           $bombero->inundacions()->attach($id);
+            $bombero = User::findOrFail($request->bombero_id);
+            $bombero->inundacions()->attach($id);
 
-           $maqui = User::findOrFail($request->conductor_id);
-           $maqui->inundacions()->attach($id);
-          Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
-          return redirect( "/inundacion" );
+            $maqui = User::findOrFail($request->conductor_id);
+            $maqui->inundacions()->attach($id);
+            Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
+            return redirect( "/inundacion" );
+          }
+          catch(\Exception $e)
+          {
+              DB::rollback();
+              dd($e);
+          }
         } else {
             return view( "/auth.login" );
         }

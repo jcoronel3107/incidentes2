@@ -7,6 +7,13 @@
 
 	@section( "cuerpo" )
 		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Editar Información de Eventos 10-42</h2>
+		<ul class="nav justify-content-end">
+		  <li class="nav-item">
+		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('transito.index')}}"><i class="fa fa-arrow-left icon-2x" aria-hidden="true"></i>
+			</a>
+		  </li>
+		</ul>
+		<hr style="border:2px;">
 		<form method="post" action="/transito/{{$transito->id}}">
 			@csrf @method('PATCH')
 			<div class="form-row">
@@ -56,9 +63,9 @@
 						<span class="input-group-text">Incidente</span>
 					</div>
 					<select class="form-control" name="incidente_id" id="incidente_id">
-						<option selected>{{old('incidente_id',$transito->incidente->nombre_incidente)}}</option>
+						<option value="{{$transito->incidente->id}}" selected>{{old('incidente_id',$transito->incidente->nombre_incidente)}}</option>
 						@foreach($incidentes as $incidente)
-							<option>{{$incidente->nombre_incidente}}</option>
+							<option value="{{$incidente->id}}">{{$incidente->nombre_incidente}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -69,10 +76,10 @@
 					</div>
 					<select class="form-control" name="tipo_escena">
 						<option selected>{{old('tipo_escena',$transito->tipo_escena)}}</option>
-						<option>Tipo 1</option>
-						<option>Tipo 2</option>
-						<option>Tipo 3</option>
-						<option>Tipo 4</option>
+						<option value="Tipo 1">Tipo 1</option>
+						<option value="Tipo 2">Tipo 2</option>
+						<option value="Tipo 3">Tipo 3</option>
+						<option value="Tipo 4">Tipo 4</option>
 					</select>
 				</div>
 				<div class="form-group input-group col-md-4">
@@ -80,9 +87,9 @@
 						<span class="input-group-text">Estacion</span>
 					</div>
 					<select name="station_id" class="form-control">
-						<option selected>{{old('estacion_id',$transito->station->nombre)}}</option>
+						<option value="{{$transito->station->id}}" selected>{{old('estacion_id',$transito->station->nombre)}}</option>
 						@foreach($estaciones as $estacion)
-						<option>{{$estacion->nombre}}</option>
+							<option value="{{$estacion->id}}">{{$estacion->nombre}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -100,9 +107,9 @@
 						<span class="input-group-text">Parroquia</span>
 					</div>
 					<select name="parroquia_id" class="form-control">
-						<option selected>{{old('parroquia_id',$transito->parroquia->nombre)}}</option>
+						<option value="{{$transito->parroquia->id}}" selected>{{old('parroquia_id',$transito->parroquia->nombre)}}</option>
 						@foreach($parroquias as $parroquia)
-							<option>{{$parroquia->nombre}}</option>
+							<option value="{{$parroquia->id}}">{{$parroquia->nombre}}</option>
 						@endforeach
 					</select>
 					<a href="{{asset('files/MapaCuenca.pdf')}}" target="_blank" role="button" data-toggle="tooltip" title="Mapa" class="btn btn-outline-info" ><i class="icon-file icon-2x"></i></a>
@@ -124,7 +131,7 @@
 					<select class="form-control" name="jefeguardia_id">
 						<option value="{{$transito->users[2]->id}}" selected="{{$transito->users[2]->id}}">{{old('jefeguardia_id',$transito->users[2]->name)}}</option>
 						@foreach($bomberos as $bombero)
-						<option value="{{$bombero->id}}">{{$bombero->name}}</option>
+							<option value="{{$bombero->id}}">{{$bombero->name}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -135,7 +142,7 @@
 					<select class="form-control" name="bombero_id">
 						<option value="{{$transito->users[1]->id}}" selected="{{$transito->users[1]->id}}">{{$transito->users[1]->name}}</option>
 						@foreach($bomberos as $bombero)
-						<option value="{{$bombero->id}}">{{$bombero->name}}</option>
+							<option value="{{$bombero->id}}">{{$bombero->name}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -146,7 +153,7 @@
 					<select class="form-control" name="conductor_id">
 						<option value="{{$transito->users[0]->id}}" selected="{{$transito->users[0]->id}}">{{$transito->users[0]->name}}</option>
 						@foreach($maquinistas as $maquinista)
-						<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>
+							<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -217,7 +224,7 @@
 								<select class="form-control selectpicker" name="vehiculo_id" id="pvehiculo_id" data-live-search="true">
 								<option selected>Elija...</option>
 								@foreach($vehiculos as $vehiculo)
-								<option>{{$vehiculo->codigodis}}</option>
+								<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>
 								@endforeach
 								</select>
 							</div>
@@ -279,7 +286,7 @@
 			{{csrf_field()}}
 			<input type="hidden" name="_method" value="DELETE">
 
-			<button type="button" class="btn btn-primary btn-danger" data-toggle="modal" data-target="#exampleModal">Eliminar Registro</button>
+			<button type="button" title="Eliminar" class="btn btn-primary btn-danger" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
 			<!-- Modal -->
 			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  <div class="modal-dialog">
@@ -310,9 +317,11 @@
 				var jqkm_salida=0;
 				var jqkm_llegada=0;
 				subtotal=[];
-				$("#Enviar").hide();
+				
 
 				$(document).ready(function(){
+					$("#divguardar").show();
+					$("#Enviar").show();
 					$("#bt_add").click(function () {
 						agregar();
 					});

@@ -40,7 +40,7 @@ class TransitoController extends Controller
         if($request)
         {
           $query = trim($request->get('searchText'));
-          $transitos = Transito::where("fecha",'LIKE','%'.$query.'%')
+          $transitos = Transito::where("direccion",'LIKE','%'.$query.'%')
           ->OrderBy('fecha','asc')
           ->paginate(10);
               return view( "/transito.index", compact( "transitos","query" ) );
@@ -88,59 +88,40 @@ class TransitoController extends Controller
     {
         if ( Auth::check() )
        {
-          //try
-          //{
-            //DB::begintransaction();
-          /*$validated = $request->validated();*/
-          $transito = new Transito;
-          $incidente_id = DB::table('incidentes')
-              ->where('nombre_incidente', $request->incidente_id)
-              ->value('id');
-          $estacion_id = DB::table('stations')
-              ->where('nombre', $request->station_id)
-              ->value('id');
-          $parroquia_id = DB::table('parroquias')
-              ->where('nombre', $request->parroquia_id)
-              ->value('id');
-          $jefeguardia_id= DB::table('users')
-                ->where('name',$request->jefeguardia_id)
-                ->value('id');
-          $conductor_id = DB::table('users')
-            ->where('name',$request->conductor_id)
-            ->value('id');
-          $bombero_id= DB::table('users')
-            ->where('name',$request->bombero_id)
-            ->value('id');
-                $transito->incidente_id = $incidente_id;
-                $transito->tipo_escena = $request->tipo_escena;
-                $transito->station_id = $estacion_id;
-                $transito->fecha = $request->fecha;
-                $transito->direccion = $request->direccion;
-                $transito->parroquia_id = $parroquia_id;
-                $transito->geoposicion = $request->geoposicion;
-                $transito->ficha_ecu911 = $request->ficha_ecu911;
-                $transito->hora_fichaecu911 = $request->hora_fichaecu911;
-                $transito->hora_salida_a_emergencia = $request->hora_salida_a_emergencia;
-                $transito->hora_llegada_a_emergencia = $request->hora_llegada_a_emergencia;
-                $transito->hora_fin_emergencia = $request->hora_fin_emergencia;
-                $transito->hora_en_base = $request->hora_en_base;
-                $transito->informacion_inicial = $request->informacion_inicial;
-                $transito->detalle_emergencia = $request->detalle_emergencia;
-                $transito->usuario_afectado = $request->usuario_afectado;
-                $transito->danos_estimados = $request->danos_estimados;
-                $transito->usr_creador = auth()->user()->name;
-                $transito->save();
-          $id = DB::table('transitos')
-            ->select(DB::raw('max(id) as id'))
-            ->first();
-          $maqui = User::findOrFail($conductor_id);
-          $maqui->transitos()->attach($id);
-          $jefe = User::findOrFail($jefeguardia_id);
-          $jefe->transitos()->attach($id);
-          $bomb = User::findOrFail($bombero_id);
-          $bomb->transitos()->attach($id);
+          DB::begintransaction();
+          try
+          {
+            $transito = new Transito;
+            $transito->incidente_id = $request->incidente_id;
+            $transito->tipo_escena = $request->tipo_escena;
+            $transito->station_id = $request->station_id;
+            $transito->fecha = $request->fecha;
+            $transito->direccion = $request->direccion;
+            $transito->parroquia_id = $request->parroquia_id;
+            $transito->geoposicion = $request->geoposicion;
+            $transito->ficha_ecu911 = $request->ficha_ecu911;
+            $transito->hora_fichaecu911 = $request->hora_fichaecu911;
+            $transito->hora_salida_a_emergencia = $request->hora_salida_a_emergencia;
+            $transito->hora_llegada_a_emergencia = $request->hora_llegada_a_emergencia;
+            $transito->hora_fin_emergencia = $request->hora_fin_emergencia;
+            $transito->hora_en_base = $request->hora_en_base;
+            $transito->informacion_inicial = $request->informacion_inicial;
+            $transito->detalle_emergencia = $request->detalle_emergencia;
+            $transito->usuario_afectado = $request->usuario_afectado;
+            $transito->danos_estimados = $request->danos_estimados;
+            $transito->usr_creador = auth()->user()->name;
+            $transito->save();
+            $id = DB::table('transitos')
+              ->select(DB::raw('max(id) as id'))
+              ->first();
+            $maqui = User::findOrFail($request->conductor_id);
+            $maqui->transitos()->attach($id);
+            $jefe = User::findOrFail($request->jefeguardia_id);
+            $jefe->transitos()->attach($id);
+            $bomb = User::findOrFail($request->bombero_id);
+            $bomb->transitos()->attach($id);
 
-          //para almacenar kilimetrajes por vehiculos asistentes al evento
+            //para almacenar kilimetrajes por vehiculos asistentes al evento
             $cont=0;
             $nombrevehiculo = $request->get('vehiculo_id');
             $kmsalidavehiculo = $request->get('km_salida');
@@ -154,14 +135,15 @@ class TransitoController extends Controller
                   $id , [
                     'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
                 $cont=$cont+1;
-              }
-          Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
-          return redirect( "/transito" );
-          //}
-          //catch(\Exception $e)
-          //{
-          //    DB::rollback();
-          //}
+            }
+            Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
+            return redirect( "/transito" );
+          }
+          catch(\Exception $e)
+          {
+              DB::rollback();
+              dd($e);
+          }
         } else {
             return view( "/auth.login" );
         }
@@ -224,19 +206,17 @@ class TransitoController extends Controller
     public function update(Request $request, $id)
     {
         if ( Auth::check() ) {
-
-                $jefeguardia_id = DB::table('users')->where('name', $request->jefeguardia_id)->value('id');
-                $incidente_id = DB::table('incidentes')->where('nombre_incidente', $request->incidente_id)->value('id');
-                $station_id = DB::table('stations')->where('nombre', $request->station_id)->value('id');
-                $parroquia_id = DB::table('parroquias')->where('nombre', $request->parroquia_id)->value('id');
+          DB::begintransaction();
+          try
+          {
                 $transito = Transito::findOrFail( $id );
                 $transito->update([
-                                'incidente_id' => $incidente_id,
+                                'incidente_id' => $request->incidente_id,
                                 'tipo_escena' => $request->tipo_escena,
-                                'station_id' => $station_id,
+                                'station_id' => $request->station_id,
                                 'fecha' => $request->fecha,
                                 'direccion' => $request->direccion,
-                                'parroquia_id' => $parroquia_id,
+                                'parroquia_id' => $request->parroquia_id,
                                 'geoposicion' => $request->geoposicion,
                                 'ficha_ecu911' => $request->ficha_ecu911,
                                 'hora_fichaecu911' => $request->hora_fichaecu911,
@@ -258,8 +238,14 @@ class TransitoController extends Controller
 
                 $maqui = User::findOrFail($request->conductor_id);
                 $maqui->transitos()->attach($id);
-            Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
-            return redirect( "/transito" );
+                Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
+                return redirect( "/transito" );
+          }
+          catch(\Exception $e)
+          {
+              DB::rollback();
+              dd($e);
+          }
         } else {
             return view( "/auth.login" );
         }

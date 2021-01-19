@@ -122,9 +122,9 @@
 			</div>
 
 			<div class="form-group">
-				<button type="submit" name="Enviar" value="Enviar" class="btn btn-success">Registrar</button>
-				<a class="btn btn btn-primary" role="button"
-					href="{{ route('servicio.index')}}">Cancelar
+				<button type="submit" title="Actualizar" name="Enviar" value="Enviar" class="btn btn-success"><i class="fa fa-check-square fa-2x" aria-hidden="true"></i></button>
+				<a class="btn btn btn-primary" title="Cancel" role="button"
+					href="{{ route('servicio.index')}}"><i class="fa fa-ban fa-2x" aria-hidden="true"></i>
 				</a>
 				
 			</div>
@@ -146,7 +146,7 @@
 			{{csrf_field()}}
 			<input type="hidden" name="_method" value="DELETE">
 
-			<button type="button" class="btn btn-primary btn-danger" data-toggle="modal" data-target="#exampleModal">Eliminar Registro</button>
+			<button type="button" class="btn btn-primary btn-danger" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
 			<!-- Modal -->
 			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  <div class="modal-dialog">

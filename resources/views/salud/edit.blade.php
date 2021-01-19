@@ -9,7 +9,7 @@
 		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Editar Información de Eventos Salud</h2>
 		<ul class="nav justify-content-end">
 		  <li class="nav-item">
-		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('salud.index')}}"><i class="icon-remove icon-2x"></i>
+		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('salud.index')}}"><i class="fa fa-arrow-left icon-2x" aria-hidden="true"></i>
 			</a>
 		  </li>
 		</ul>
@@ -21,7 +21,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Fecha</span>
 					</div>
-					<input type="text" name="fecha" class="form-control" placeholder="AA-MM-DD" value="{{old('fecha',$salud->fecha)}}">
+					<input required="" type="text" name="fecha" class="form-control" placeholder="AA-MM-DD" value="{{old('fecha',$salud->fecha)}}">
 				</div>
 			</div><!--Div Fecha-->
 			<div class="form-row ">
@@ -41,7 +41,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Nro.Ficha ECU911</span>
 							</div>
-							<input onkeyup="mayus(this);" type="text" name="ficha_ecu911" value="{{old('ficha_ecu911',$salud->ficha_ecu911)}}" class="form-control">
+							<input required="" onkeyup="mayus(this);" type="text" name="ficha_ecu911" value="{{old('ficha_ecu911',$salud->ficha_ecu911)}}" class="form-control">
 						</div>
 					</div>
 				</div>
@@ -51,7 +51,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Informacion Inicial</span>
 							</div>
-							<textarea onkeyup="mayus(this);" class="form-control" maxlength="1000" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$salud->informacion_inicial)}}</textarea>
+							<textarea required="" onkeyup="mayus(this);" class="form-control" maxlength="1000" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$salud->informacion_inicial)}}</textarea>
 
 						</div>
 					</div>
@@ -62,8 +62,8 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Incidente</span>
 					</div>
-					<select class="form-control" name="incidente_id" id="incidente_id">
-						<option value="{{$salud->incidente_id}}" >{{old('incidente_id',$salud->incidente->nombre_incidente)}}</option>
+					<select required="" class="form-control" name="incidente_id" id="incidente_id">
+						<option  value="{{$salud->incidente_id}}" >{{old('incidente_id',$salud->incidente->nombre_incidente)}}</option>
 						@foreach($incidentes as $incidente)
 							<option value="{{$incidente->id}}">{{$incidente->nombre_incidente}}</option>
 						@endforeach
@@ -74,7 +74,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Escenario</span>
 					</div>
-					<select class="form-control" name="tipo_escena">
+					<select required=""  class="form-control" name="tipo_escena">
 						<option value="{{$salud->tipo_escena}}" >{{old('tipo_escena',$salud->tipo_escena)}}</option>
 						<option value="Tipo 1">Tipo 1</option>
 						<option value="Tipo 2">Tipo 2</option>
@@ -86,7 +86,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Estacion</span>
 					</div>
-					<select name="station_id" class="form-control">
+					<select required="" name="station_id" class="form-control">
 						<option value="{{$salud->station_id}}" >{{old('station_id',$salud->station->nombre)}}</option>
 						@foreach($estaciones as $estacion)
 						<option value="{{$estacion->id}}">{{$estacion->nombre}}</option>
@@ -99,14 +99,14 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Dirección</span>
 					</div>
-					<textarea class="form-control" id="pdireccion" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$salud->direccion)}}</textarea>
+					<textarea required="" class="form-control" id="pdireccion" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$salud->direccion)}}</textarea>
 					<input type="button" value="Encode" onclick="codeAddress()">
 				</div>
 				<div class="form-group input-group input-group-prepend col-md-4">
 					<div>
 						<span class="input-group-text">Parroquia</span>
 					</div>
-					<select name="parroquia_id" class="form-control">
+					<select required="" name="parroquia_id" class="form-control">
 						<option value="{{$salud->parroquia_id}}" selected="">{{old('parroquia_id',$salud->parroquia->nombre)}}</option>
 						@foreach($parroquias as $parroquia)
 							<option value="{{$parroquia->id}}">{{$parroquia->nombre}}</option>
@@ -118,7 +118,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputAddress">Geoposicion</span>
 					</div>
-					<textarea class="form-control" id="pgeoposicion" name="geoposicion" aria-label="With textarea">{{old('geoposicion',$salud->geoposicion)}}</textarea>
+					<textarea required="" class="form-control" id="pgeoposicion" name="geoposicion" aria-label="With textarea">{{old('geoposicion',$salud->geoposicion)}}</textarea>
 				</div>
 			</div><!--Div Ubicacion Evento-->
 			<div onload="initMap()" id="map" style="width: 100%; height: 280px;"></div>
@@ -129,8 +129,14 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Jefe Guardia</span>
 					</div>
-					<select class="form-control" name="jefeguardia_id">
-						<option value="{{$salud->users[2]->id}}" selected="{{$salud->users[2]->id}}">{{old('jefeguardia_id',$salud->users[2]->name)}}</option>
+					<select required="" class="form-control" name="jefeguardia_id">
+						@if($salud->users->isNotEmpty()){
+							<option value="{{$salud->users[2]->id}}" selected="{{$salud->users[2]->id}}">{{old('jefeguardia_id',$salud->users[2]->name)}}</option>
+						
+						@else{
+							<option value="">{{old('jefeguardia_id')}}</option>
+						}@endif
+
 						@foreach($bomberos as $bombero)
 						<option value="{{$bombero->id}}">{{$bombero->name}}</option>
 						@endforeach
@@ -140,8 +146,13 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Bombero</span>
 					</div>
-					<select class="form-control" name="bombero_id">
-						<option value="{{$salud->users[1]->id}}" selected="{{$salud->users[1]->id}}">{{old('bombero_id',$salud->users[1]->name)}}</option>
+					<select required="" class="form-control" name="bombero_id">
+						@if($salud->users->isNotEmpty()){
+							<option value="{{$salud->users[1]->id}}" selected="{{$salud->users[1]->id}}">{{old('bombero_id',$salud->users[1]->name)}}</option>
+						
+						@else{
+							<option value="">{{old('bombero_id')}}</option>
+						}@endif
 						@foreach($bomberos as $bombero)
 						<option value="{{$bombero->id}}">{{$bombero->name}}</option>
 						@endforeach
@@ -151,8 +162,14 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Conductor</span>
 					</div>
-					<select class="form-control" name="conductor_id">
-						<option value="{{$salud->users[0]->id}}" selected="{{$salud->users[0]->id}}">{{old('conductor_id',$salud->users[0]->name)}}</option>
+					<select required="" class="form-control" name="conductor_id">
+						@if($salud->users->isNotEmpty()){
+							<option value="{{$salud->users[0]->id}}" selected="{{$salud->users[0]->id}}">{{old('conductor_id',$salud->users[0]->name)}}</option>
+						
+						@else{
+							<option value="">{{old('conductor_id')}}</option>
+						}@endif
+						
 						@foreach($maquinistas as $maquinista)
 						<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>
 						@endforeach
@@ -164,13 +181,13 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Salida A Emergencia</span>
 					</div>
-					<input type="text" class="form-control" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" value="{{old('hora_salida_a_emergencia',$salud->hora_salida_a_emergencia)}}" placeholder="hh:mm:ss">
+					<input required="" type="text" class="form-control" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" value="{{old('hora_salida_a_emergencia',$salud->hora_salida_a_emergencia)}}" placeholder="hh:mm:ss">
 				</div>
 				<div class="form-group  input-group col-md-4">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Llegada A Emergencia</span>
 					</div>
-					<input type="text" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm:ss" value="{{old('hora_llegada_a_emergencia',$salud->hora_llegada_a_emergencia)}}">
+					<input required="" type="text" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm:ss" value="{{old('hora_llegada_a_emergencia',$salud->hora_llegada_a_emergencia)}}">
 				</div><!--Div Horas Evento-->
 			</div>
 			<div class="form-row">
@@ -183,7 +200,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora En Base</span>
 					</div>
-					<input type="text" class="form-control" name="hora_en_base" id="hora_en_base" placeholder="hh:mm:ss" value="{{old('hora_en_base',$salud->hora_en_base)}}">
+					<input required="" type="text" class="form-control" name="hora_en_base" id="hora_en_base" placeholder="hh:mm:ss" value="{{old('hora_en_base',$salud->hora_en_base)}}">
 				</div>
 			</div><!--Div Horas Evento-->
 
@@ -192,7 +209,8 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Detalle Emergencia</span>
 					</div>
-					<input onkeyup="mayus(this);" type="text" class="form-control" name="detalle_emergencia" id="detalle_emergencia" value="{{old('detalle_emergencia',$salud->detalle_emergencia)}}" placeholder="Digite a detalle lo ocurrido en Emergencia">
+					
+					<textarea required="" onkeyup="mayus(this);" class="form-control" id="detalle_emergencia" name="detalle_emergencia" placeholder="Digite a detalle lo ocurrido en Emergencia" aria-label="With textarea">{{old('detalle_emergencia',$salud->detalle_emergencia)}}</textarea>
 				</div>
 			</div><!--Detalle Emergencia-->
 			
@@ -210,7 +228,7 @@
 								<select class="form-control selectpicker" name="vehiculo_id" id="pvehiculo_id" data-live-search="true">
 								<option selected>Elija...</option>
 								@foreach($vehiculos as $vehiculo)
-								<option>{{$vehiculo->codigodis}}</option>
+								<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>
 								@endforeach
 								</select>
 							</div>
@@ -271,7 +289,7 @@
 			{{csrf_field()}}
 			<input type="hidden" name="_method" value="DELETE">
 
-			<button type="button" class="btn btn-primary btn-danger" data-toggle="modal" data-target="#exampleModal">Eliminar Registro</button>
+			<button type="button" title="Eliminar" class="btn btn-primary btn-danger" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
 			<!-- Modal -->
 			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  <div class="modal-dialog">
@@ -297,6 +315,9 @@
 			{{-- Script para almacenar vehiculos asisten --}}
 			<script>
 				$(document).ready(function(){
+					
+					$("#divguardar").show();
+					$("#Enviar").show();
 					$("#bt_add").click(function () {
 						agregar();
 					});
@@ -337,17 +358,13 @@
 				      });
 
 				});
-
-				//total=0;
 				var cont=0;
 				var jqkm_salida=0;
 				var jqkm_llegada=0;
 				subtotal=[];
-				$("#Enviar").hide();
-
-			
+				
 				function agregar() {
-				// body...
+				
 					jqkm_salida=$("#pkm_salida").val();
 					jqkm_llegada=$("#pkm_llegada").val();
 					jqvehiculo=$("#pvehiculo_id").val();
@@ -372,13 +389,10 @@
 					$("#pkm_llegada").val("");
 				}
 				function evaluar(){
-					//if(jqkm_llegada>jqkm_salida && jqnombres!="" ){
+					
 						$("#divguardar").show();
 						$("#Enviar").show();
-					//}
-					//else{
-					//	$("#divguardar").hide();
-					//}
+					
 				}
 
 				function eliminar1(index){

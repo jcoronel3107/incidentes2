@@ -39,10 +39,12 @@ class SaludController extends Controller
        if($request)
         {
           $query = trim($request->get('searchText'));
-          $saluds = Salud::where("fecha",'LIKE','%'.$query.'%')
+          $saluds = Salud::where("direccion",'LIKE','%'.$query.'%')
           ->OrderBy('fecha','desc')
           ->paginate(10);
-              return view( "/salud.index", compact( "saluds","query" ) );
+              
+
+          return view( "/salud.index", compact( "saluds","query" ) );
         }
     }
 
@@ -88,14 +90,13 @@ class SaludController extends Controller
     {
         if ( Auth::check() )
        {
-          //try
-          //{
-            //DB::begintransaction();
+          DB::begintransaction();
+          try
+          {
+            
             /*$validated = $request->validated();*/
             $salud = new Salud;
             $paciente = new Paciente;
-
-            
             $salud->incidente_id = $request->incidente_id;
             $salud->tipo_escena = $request->tipo_escena;
             $salud->station_id = $request->station_id;
@@ -112,7 +113,6 @@ class SaludController extends Controller
             $salud->informacion_inicial = $request->informacion_inicial;
             $salud->detalle_emergencia = $request->detalle_emergencia;
             $salud->usr_creador = auth()->user()->name;
-            //dd($request);
             $salud->save();
             //para almacenar Bomberos asistentes al evento
             $id = DB::table('saluds')
@@ -183,11 +183,12 @@ class SaludController extends Controller
               }
               Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
               return redirect( "/salud" );
-          //}
-          //catch(\Exception $e)
-          //{
-          //    DB::rollback();
-          //}
+          }
+          catch(\Exception $e)
+          {
+              DB::rollback();
+              //dd($e);
+          }
         } else {
             return view( "/auth.login" );
         }
@@ -216,10 +217,19 @@ class SaludController extends Controller
         if ( Auth::check() ) {
             
             $salud = Salud::findOrFail( $id );
+           
+
             $vehiculos = Vehiculo::all();
-            $bomberos=User::where('cargo','bombero')
+            $bomberos = DB::table('users')->where([
+              ['cargo','=','Bombero'],
+            ])
+            ->orWhere('cargo','=','Paramedico')
             ->orderBy("name",'asc')
             ->get();
+
+           /* $bomberos=User::where('cargo','bombero')
+            ->orderBy("name",'asc')
+            ->get();*/
             $maquinistas=User::where('cargo','maquinista')
             ->orderBy("name",'asc')
             ->get();
@@ -245,9 +255,11 @@ class SaludController extends Controller
     public function update(SaveSaludRequest $request, $id)
     {
         if ( Auth::check() ) {
-          
-           $salud = Salud::findOrFail( $id );
-           $salud->update([
+          DB::begintransaction();
+          try
+          {
+            $salud = Salud::findOrFail( $id );
+            $salud->update([
                                 'incidente_id' => $request->incidente_id,
                                 'tipo_escena' => $request->tipo_escena,
                                 'station_id' => $request->station_id,
@@ -266,38 +278,39 @@ class SaludController extends Controller
                                 'usuario_afectado' => $request->usuario_afectado,
                                 'danos_estimados' => $request->danos_estimados,
                                 'usr_editor' => auth()->user()->name ]);
-          $salud->users()->detach();
+            $salud->users()->detach();
           
 
-          $jefeguardia = User::findOrFail($request->jefeguardia_id);
-          $jefeguardia->saluds()->attach($id);
+            $jefeguardia = User::findOrFail($request->jefeguardia_id);
+            $jefeguardia->saluds()->attach($id);
           
-          $bombero = User::findOrFail($request->bombero_id);
-          $bombero->saluds()->attach($id);
+            $bombero = User::findOrFail($request->bombero_id);
+            $bombero->saluds()->attach($id);
           
-          $maqui = User::findOrFail($request->conductor_id);
-          $maqui->saluds()->attach($id);
+            $maqui = User::findOrFail($request->conductor_id);
+            $maqui->saluds()->attach($id);
           
-          $cont=0;
-          $nombrevehiculo = $request->get('vehiculo_id');
-          $kmsalidavehiculo = $request->get('km_salida');
-          $kmllegadavehiculo = $request->get('km_llegada');
-          $salud->vehiculos()->detach();
-          while ($cont < count($nombrevehiculo)) {
-                //dd($id)  ;
-                /*$vehiculo_id = DB::table('vehiculos')
-                  ->where('codigodis',$nombrevehiculo[$cont])
-                  ->value('id');
-                  dd($vehiculo_id);*/
+            $cont=0;
+            $nombrevehiculo = $request->get('vehiculo_id');
+            $kmsalidavehiculo = $request->get('km_salida');
+            $kmllegadavehiculo = $request->get('km_llegada');
+            $salud->vehiculos()->detach();
+            while ($cont < count($nombrevehiculo)) {
+                
                 $carro = Vehiculo::findOrFail($nombrevehiculo[$cont]);
                 $carro->saluds()->attach(
                   $id , [
                     'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
                 $cont=$cont+1;
+            }
+            Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
+            return redirect( "/salud" );
           }
-
-          Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
-          return redirect( "/salud" );
+          catch(\Exception $e)
+          {
+              DB::rollback();
+              //dd($e);
+          }
         } else {
             return view( "/auth.login" );
         }

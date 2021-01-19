@@ -37,7 +37,7 @@ class DerrameController extends Controller
         if($request)
         {
           $query = trim($request->get('searchText'));
-          $derrames = Derrame::where("fecha",'LIKE','%'.$query.'%')
+          $derrames = Derrame::where("address",'LIKE','%'.$query.'%')
           ->OrderBy('fecha','desc')
           ->paginate(10);
               return view( "/derrame.index", compact( "derrames","query" ) );
@@ -82,35 +82,19 @@ class DerrameController extends Controller
     {
         if ( Auth::check() )
        {
-          //try
-          //{
-            //DB::begintransaction();
+          DB::begintransaction();
+          try
+          {
+            
             $validated = $request->validated();
             $derrame = new Derrame;
-            $incidente_id = DB::table('incidentes')
-                  ->where('nombre_incidente', $request->incidente_id)
-                  ->value('id');
-            $estacion_id = DB::table('stations')
-                  ->where('nombre', $request->station_id)
-                  ->value('id');
-            $parroquia_id = DB::table('parroquias')
-                  ->where('nombre', $request->parroquia_id)
-                  ->value('id');
-            $jefeguardia_id= DB::table('users')
-                    ->where('name',$request->jefeguardia_id)
-                    ->value('id');
-            $conductor_id = DB::table('users')
-                ->where('name',$request->conductor_id)
-                ->value('id');
-            $bombero_id= DB::table('users')
-                ->where('name',$request->bombero_id)
-                ->value('id');
-                $derrame->incidente_id = $incidente_id;
+            
+                $derrame->incidente_id = $request->incidente_id;
                 $derrame->tipo_escena = $request->tipo_escena;
-                $derrame->station_id = $estacion_id;
+                $derrame->station_id = $request->station_id;
                 $derrame->fecha = $request->fecha;
                 $derrame->address = $request->address;
-                $derrame->parroquia_id = $parroquia_id;
+                $derrame->parroquia_id = $request->parroquia_id;
                 $derrame->geoposicion = $request->geoposicion;
                 $derrame->ficha_ecu911 = $request->ficha_ecu911;
                 $derrame->hora_fichaecu911 = $request->hora_fichaecu911;
@@ -125,15 +109,15 @@ class DerrameController extends Controller
                 $derrame->usr_creador = auth()->user()->name;
                 $derrame->save();
 
-            $id = DB::table('derrames')
-                ->select(DB::raw('max(id) as id'))
-                ->first();
-            $maqui = User::findOrFail($conductor_id);
-            $maqui->derrames()->attach($id);
-            $jefe = User::findOrFail($jefeguardia_id);
-            $jefe->derrames()->attach($id);
-            $bomb = User::findOrFail($bombero_id);
-            $bomb->derrames()->attach($id);
+                $id = DB::table('derrames')
+                  ->select(DB::raw('max(id) as id'))
+                  ->first();
+                $maqui = User::findOrFail($request->conductor_id);
+                $maqui->derrames()->attach($id);
+                $jefe = User::findOrFail($request->jefeguardia_id);
+                $jefe->derrames()->attach($id);
+                $bomb = User::findOrFail($request->bombero_id);
+                $bomb->derrames()->attach($id);
             //para almacenar kilimetrajes por vehiculos asistentes al evento
             $cont=0;
             $nombrevehiculo = $request->get('vehiculo_id');
@@ -143,6 +127,7 @@ class DerrameController extends Controller
                 $vehiculo_id = DB::table('vehiculos')
                   ->where('codigodis',$nombrevehiculo[$cont])
                   ->value('id');
+                  dd($vehiculo_id);
                 $carro = Vehiculo::findOrFail($vehiculo_id);
                 $carro->derrames()->attach(
                   $id , [
@@ -151,11 +136,12 @@ class DerrameController extends Controller
               }
               Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
               return redirect( "/derrame" );
-          //}
-          //catch(\Exception $e)
-          //{
-          //    DB::rollback();
-          //}
+          }
+          catch(\Exception $e)
+          {
+              DB::rollback();
+              dd($e);
+          }
         } else {
             return view( "/auth.login" );
         }
@@ -214,15 +200,14 @@ class DerrameController extends Controller
     public function update(SaveDerrameRequest $request , $id)
     {
        if ( Auth::check() ) {
-
-           $jefeguardia_id = DB::table('users')->where('name', $request->jefeguardia_id)->value('id');
-           $incidente_id = DB::table('incidentes')->where('nombre_incidente', $request->incidente_id)->value('id');
-           $station_id = DB::table('stations')->where('nombre', $request->station_id)->value('id');
-           $derrame = Derrame::findOrFail( $id );
-           $derrame->update([
-                                'incidente_id' => $incidente_id,
+          DB::begintransaction();
+          try
+          { 
+            $derrame = Derrame::findOrFail( $id );
+            $derrame->update([
+                                'incidente_id' => $request->incidente_id,
                                 'tipo_escena' => $request->tipo_escena,
-                                'station_id' => $station_id,
+                                'station_id' => $request->station_id,
                                 'fecha' => $request->fecha,
                                 'address' => $request->address,
                                 'parroquia_id' => $derrame->parroquia->id,
@@ -259,11 +244,15 @@ class DerrameController extends Controller
                   $id , [
                     'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
                 $cont=$cont+1;
-          }
-
-
+            }
             Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
             return redirect( "/derrame" );
+          }
+          catch(\Exception $e)
+          {
+              DB::rollback();
+              dd($e);
+          }
         } else {
             return view( "/auth.login" );
         }

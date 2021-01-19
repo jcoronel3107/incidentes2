@@ -181,33 +181,58 @@ Route::get('/mail', function () {
 Route::get('/prueba', function () {
 
 
-	$mensualesInundacion= Inundacion::select(DB::raw("Month(fecha) as Mes,count(*) as count, 'inundacion'"))->whereYear('fecha',date('Y'))->groupBy(\DB::raw("Month(fecha)"))->get();
+	$mensualesInundacion= Inundacion::select(DB::raw("Month(fecha) as Mes, 'inundacion' ,count(*) as count"))
+		->whereYear('fecha',date('Y'))
+		->groupBy('Mes')
+		->get();
 	
-	$mensualesRescate= Rescate::select(DB::raw("Month(fecha) as Mes,count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(\DB::raw("Month(fecha)"))->get();
+	$mensualesRescate= Rescate::select(DB::raw("Month(fecha) as Mes, 'Rescate',count(*) as count"))
+		->whereYear('fecha',date('Y'))
+		->groupBy('Mes')
+		->get();
 	
-	$mensualesTransito= Transito::select(DB::raw("Month(fecha) as Mes,count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(\DB::raw("Month(fecha)"))->get();
-	$mensualesSalud= Salud::select(DB::raw("Month(fecha) as Mes,count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(\DB::raw("Month(fecha)"))->get();
-	$mensualesFuego= Incendio::select(DB::raw("Month(fecha) as Mes,count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(DB::raw("Month(fecha)"))->get();
-	$mensualesGas= Fuga::select(DB::raw("Month(fecha) as Mes,count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(DB::raw("Month(fecha)"))->get();
-	$mensualesDerrames= Derrame::select(DB::raw("Month(fecha) as Mes,count(*) as count,'derrame'"))->whereYear('fecha',date('Y'))->groupBy(DB::raw("Month(fecha)"))->get();
+	$mensualesTransito= Transito::select(DB::raw("Month(fecha) as Mes, 'Transito',count(*) as count"))
+		->whereYear('fecha',date('Y'))
+		->groupBy(\DB::raw("Month(fecha)"))
+		->get();
+	$mensualesSalud= Salud::select(DB::raw("Month(fecha) as Mes, 
+		'Salud',count(*) as count"))
+		->whereYear('fecha',date('Y'))
+		->groupBy(\DB::raw("Month(fecha)"))
+		->get();
+	$mensualesFuego= Incendio::select(DB::raw("Month(fecha) as Mes, 'Incendio',count(*) as count"))	
+		->whereYear('fecha',date('Y'))
+		->groupBy(DB::raw("Month(fecha)"))
+		->get();
+	$mensualesGas= Fuga::select(DB::raw("Month(fecha) as Mes, 
+		'Fuga',count(*) as count"))	
+		->whereYear('fecha',date('Y'))
+		->groupBy(DB::raw("Month(fecha)"))
+		->get();
+	$mensualesDerrames= Derrame::select(DB::raw("Month(fecha) as Mes, 'Derrame',count(*) as count"))
+		->whereYear('fecha',date('Y'))
+		->groupBy(DB::raw("Month(fecha)"))
+		->get();
 	$EventosMensuales = $mensualesInundacion->merge($mensualesRescate);
-	//$EventosMensuales = $EventosMensuales->merge($mensualesTransito);
-	//$EventosMensuales = $EventosMensuales->merge($mensualesSalud);
-	//$EventosMensuales = $EventosMensuales->merge($mensualesFuego);
-	//$EventosMensuales = $EventosMensuales->merge($mensualesGas);
-	//$EventosMensuales = $EventosMensuales->merge($mensualesDerrames);
-
-	return $mensualesInundacion;
+	$EventosMensuales = $EventosMensuales->merge($mensualesTransito);
+	$EventosMensuales = $EventosMensuales->merge($mensualesSalud);
+	/*$EventosMensuales = $EventosMensuales->merge($mensualesFuego);
+	$EventosMensuales = $EventosMensuales->merge($mensualesGas);
+	$EventosMensuales = $EventosMensuales->merge($mensualesDerrames);*/
+		//dd($mensualesRescate);
+	return $mensualesRescate;
 });
 
 Route::get('/prueba2',function()
 	{
-		$Saludxestacion = DB::table('saluds')
-				->select('station_id', DB::raw('count(station_id) salidas'))
-				->whereYear('fecha', '=', date('Y'))
-				->groupBy('station_id')
-				->havingRaw('count(station_id) >= ?',[1])
-				->get();
-			return $Saludxestacion;
+		$Inundacionxestacion = DB::table('saluds')
+                ->select( DB::raw('count(station_id) salidas'))
+                ->where('station_id','=','5')
+                ->whereYear('fecha', '=', date('Y'))
+                ->whereNull('saluds.deleted_at')
+                ->groupBy('station_id')
+                ->havingRaw('count(station_id) >= ?',[1])
+                ->get();
+			return $Inundacionxestacion;
 	});
 

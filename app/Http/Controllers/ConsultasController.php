@@ -51,7 +51,11 @@ class ConsultasController extends Controller
         	*
         	***************************************/
 
-        	$mensualesInundacion= Inundacion::select(DB::raw("Month(fecha) as Mes,count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(\DB::raw("Month(fecha)"))->get();
+        	$mensualesInundacion= Inundacion::select(DB::raw("Month(fecha) as Mes,count(*) as count,'inundacion'"))
+        		->whereYear('fecha',date('Y'))
+        		->whereNull('inundacions.deleted_at')
+        		->groupBy(\DB::raw("Month(fecha)"))
+        		->get();
 
 			$Inundacionxestacion = DB::table('inundacions')
 				->select('station_id', DB::raw('count(station_id) salidas'))
@@ -86,7 +90,11 @@ class ConsultasController extends Controller
         	*
         	***************************************/
 
-			$mensualesRescate= Rescate::select(DB::raw("Month(fecha) as Mes,count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(\DB::raw("Month(fecha)"))->get();
+			$mensualesRescate= Rescate::select(DB::raw("Month(fecha) as Mes,count(*) as count"))
+				->whereYear('fecha',date('Y'))
+				->whereNull('rescates.deleted_at')
+				->groupBy(\DB::raw("Month(fecha)"))
+				->get();
 
 			$Rescatexestacion = DB::table('rescates')
 				->select('station_id', DB::raw('count(station_id) salidas'))
@@ -114,7 +122,11 @@ class ConsultasController extends Controller
         	*
         	***************************************/
 
-			$mensualesTransito= Transito::select(DB::raw("Month(fecha) as Mes,count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(\DB::raw("Month(fecha)"))->get();
+			$mensualesTransito= Transito::select(DB::raw("Month(fecha) as Mes,count(*) as count"))
+				->whereYear('fecha',date('Y'))
+				->whereNull('transitos.deleted_at')	
+				->groupBy(\DB::raw("Month(fecha)"))	
+				->get();
 			
 			$Transitoxestacion = DB::table('transitos')
 				->select('station_id', DB::raw('count(station_id) salidas'))
@@ -141,7 +153,11 @@ class ConsultasController extends Controller
         	*
         	***************************************/
 
-			$mensualesSalud= Salud::select(DB::raw("Month(fecha) as Mes,count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(\DB::raw("Month(fecha)"))->get();
+			$mensualesSalud= Salud::select(DB::raw("Month(fecha) as Mes,count(*) as count"))
+				->whereYear('fecha',date('Y'))	
+				->whereNull('saluds.deleted_at')
+				->groupBy(\DB::raw("Month(fecha)"))	
+				->get();
 
 			$Saludxestacion = DB::table('saluds')
 				->select('station_id', DB::raw('count(station_id) salidas'))
@@ -167,7 +183,11 @@ class ConsultasController extends Controller
         	*
         	***************************************/
 
-			$mensualesFuego= Incendio::select(DB::raw("Month(fecha) as Mes,count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(DB::raw("Month(fecha)"))->get();
+			$mensualesFuego= Incendio::select(DB::raw("Month(fecha) as Mes,count(*) as count"))
+				->whereYear('fecha',date('Y'))	
+				->whereNull('incendios.deleted_at')
+				->groupBy(DB::raw("Month(fecha)"))	
+				->get();
 
 			$Fuegoxestacion = DB::table('incendios')
 				->select('station_id', DB::raw('count(station_id) salidas'))
@@ -202,7 +222,11 @@ class ConsultasController extends Controller
         	*
         	***************************************/
 			
-			$mensualesGas= Fuga::select(DB::raw("Month(fecha) as Mes,count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(DB::raw("Month(fecha)"))->get();
+			$mensualesGas= Fuga::select(DB::raw("Month(fecha) as Mes,count(*) as count"))
+				->whereYear('fecha',date('Y'))
+				->whereNull('fugas.deleted_at')
+				->groupBy(DB::raw("Month(fecha)"))
+				->get();
 
 			$Gasxestacion = DB::table('fugas')
 				->select('station_id', DB::raw('count(station_id) salidas'))
@@ -228,7 +252,11 @@ class ConsultasController extends Controller
         	*
         	***************************************/
 			
-			$mensualesDerrames= Derrame::select(DB::raw("Month(fecha) as Mes,count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(DB::raw("Month(fecha)"))->get();
+			$mensualesDerrames= Derrame::select(DB::raw("Month(fecha) as Mes,count(*) as count"))
+				->whereYear('fecha',date('Y'))
+				->whereNull('derrames.deleted_at')
+				->groupBy(DB::raw("Month(fecha)"))
+				->get();
 
 			$Derramexestacion = DB::table('derrames')
 				->select('station_id', DB::raw('count(station_id) salidas'))

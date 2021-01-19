@@ -7,7 +7,13 @@
 
 	@section( "cuerpo" )
 		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Editar Información de Clave_14</h2>
-
+		<ul class="nav justify-content-end">
+		  <li class="nav-item">
+		    <a class="btn btn-outline-info"  data-toggle="tooltip" title="Regresar" role="button" href="{{ route('clave.index')}}"><i class="fa fa-arrow-left fa-2x"  aria-hidden="true"></i>
+						</a>
+		  </li>
+		</ul>
+		<hr style="border:2px;">
 
 		<form method="post" action="/clave/{{$claves->id}}">
 			@csrf @method('PATCH')
@@ -17,9 +23,9 @@
 						<span class="input-group-text">Estaciòn Servicio</span>
 					</div>
 					<select class="form-control" name="gasolinera_id">
-						<option selected>{{old('gasolinera_id',$claves->gasolinera->razonsocial)}}</option>
+						<option value="{{$claves->gasolinera->id}}" selected>{{old('gasolinera_id',$claves->gasolinera->razonsocial)}}</option>
 						@foreach($gasolineras as $gasolinera)
-						<option>{{$gasolinera->razonsocial}}</option>
+						<option value="{{$gasolinera->id}}">{{$gasolinera->razonsocial}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -30,7 +36,7 @@
 						<span class="input-group-text">Vehìculo</span>
 					</div>
 					<select class="form-control" name="vehiculo_id">
-						<option value="{{$claves->vehiculo->codigodis}}" selected>{{old('vehiculo_id',$claves->vehiculo->codigodis)}}</option>
+						<option value="{{$claves->vehiculo->id}}" selected>{{old('vehiculo_id',$claves->vehiculo->codigodis)}}</option>
 						@foreach($vehiculos as $vehiculo)
 						<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>
 						@endforeach
@@ -86,10 +92,10 @@
 						<span class="input-group-text">Combustible</span>
 					</div>
 					<select class="form-control" name="combustible">
-						<option selected>{{$claves->combustible}}</option>
-						<option>Diesel</option>
-						<option>Eco</option>
-						<option>Super</option>
+						<option value="{{$claves->combustible}}" selected>{{$claves->combustible}}</option>
+						<option value="Diesel">Diesel</option>
+						<option value="Eco">Eco</option>
+						<option value="Super">Super</option>
 					</select>
 				</div>
 			</div>
@@ -100,9 +106,9 @@
 						<span class="input-group-text">Conductor</span>
 					</div>
 					<select class="form-control" name="user_id">
-						<option selected>{{$claves->user->name}}</option>
+						<option value="{{$claves->user->id}}" selected>{{$claves->user->name}}</option>
 						@foreach($usuarios as $user)
-						<option>{{$user->name}}</option>
+						<option value="{{$user->id}}">{{$user->name}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -117,11 +123,10 @@
 			</div>
 
 			<div class="form-group">
-				<button type="submit" name="Enviar" value="Enviar" class="btn btn-success">Actualizar</button>
+				<button type="submit" title="Actualizar" name="Enviar" value="Enviar" class="btn btn-success"><i class="fa fa-check-square fa-2x" aria-hidden="true"></i></button>
 
-				<a class="btn btn btn-primary" role="button"
-					href="{{ route('clave.index')}}">Cancelar
-				</a>
+				<a class="btn btn btn-primary" title="Cancel" role="button"
+					href="{{ route('clave.index')}}"><i class="fa fa-ban fa-2x" aria-hidden="true"></i></a>
 			</div>
 
 		</form>
@@ -130,7 +135,7 @@
 			{{csrf_field()}}
 			<input type="hidden" name="_method" value="DELETE">
 
-			<button type="button" class="btn btn-primary btn-danger" data-toggle="modal" data-target="#exampleModal">Eliminar Registro</button>
+			<button type="button" title="Eliminar" class="btn btn-primary btn-danger" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
 			<!-- Modal -->
 			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  <div class="modal-dialog">

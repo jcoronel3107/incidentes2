@@ -25,15 +25,23 @@ class SaveSaludRequest extends FormRequest
     {
         return
             [
+                'incidente_id'=>'required',
                 'tipo_escena'=>'required',
                 'station_id'=>'required',
                 'fecha'=>'required',
                 'direccion'=>'required',
+                'geoposicion'=>'required',
                 'parroquia_id'=>'required',
                 'ficha_ecu911'=>'required',
                 'hora_fichaecu911'=>'required',
                 'hora_salida_a_emergencia'=>'required',
-                'informacion_inicial'=>'required|max:1000'
+                'hora_llegada_a_emergencia'=>'required',
+                'informacion_inicial'=>'required|max:1000',
+                'vehiculo_id'=>'required',
+                'jefeguardia_id'=>'required',
+                'bombero_id'=>'required',
+                'conductor_id'=>'required'
+                
             ];
     }
 }

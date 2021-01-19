@@ -1,4 +1,4 @@
-@extends( "layouts.plantilla" )
+	@extends( "layouts.plantilla" )
 
 	@section( "cabeza" )
 
@@ -46,13 +46,20 @@
     	<div  class="row">
 
                             <div class="col-xl-3 col-lg-3 col-md-4 sm-6">
-                                <div class="card mb-4">
-
-                                    <a class="collapse-item" target="_blank" href="/inundacion/create"><h5 class="card-header text-white bg-primary" ><i class="fas fa-fw fa-shower"></i>{!! trans('messages.flood') !!}</h5></a>
-
-                                    <div class="card-body">
-                                    	<a class="collapse-item" target="_blank" href="/inundacion"><p class="card-text text-black"> <h1>{{$mensualesInundacion}}</h1>{!! trans('messages.Current Month Events') !!}</p></a>
+                                <div class="card">
+                                	<div class="card-header text-white bg-primary">
+                                    		<a><h5 title="Crea {!! trans('messages.flood') !!}" class=" text-white bg-primary" ><i class="fas fa-fw fa-shower"></i>{!! trans('messages.flood') !!}</h5></a>
+                                    		 
+									</div>
+									<div class="card-body">
+                                    	@can('create evento')
+                                    	<a title="{!! trans('messages.New') !!}" class="btn btn-primary text-center" target="_blank" href="/inundacion/create"><i class="fa fa-plus" aria-hidden="true"></i></a> 
+                                    	@endcan
+                                    	<a title="{!! trans('messages.Index') !!}" class="btn btn-primary text-center" target="_blank" href="/inundacion"><i class="fa fa-list-ol" aria-hidden="true"></i></a>                       
+                                    	<h1 class="text-center">-</h1>
+                                    	<a target="_blank"><p class="card-text text-center text-black"> {!! trans('messages.Current Month Events') !!}</p></a>
                                     </div>
+                                	
                                 </div>
                             </div>
                             <div  class="col-xl-6 col-md-6" id="clockdate">
@@ -67,60 +74,114 @@
 	  							</div>
 							</div>
                             <div class="col-xl-3 col-lg-3 col-md-4 sm-6">
-                                <div class="card mb-4">
-                                    <a class="collapse-item" target="_blank" href="/rescate/create"><h5 class="card-header text-white bg-secondary"><i class="fas fa-fw fa-life-ring"></i>{!! trans('messages.rescue') !!}</h5></a>
-                                    
-                                    <div class="card-body">
-                                        <a class="collapse-item" target="_blank" href="/rescate"><p class="card-text text-black"> <h1>{{$mensualesInundacion}}</h1> {!! trans('messages.Current Month Events') !!}</p></a>
-                                    	
+                                <div class="card">
+                                	<div class="card-header text-white bg-secondary">
+                                    		<a><h5 title="Crea {!! trans('messages.rescue') !!}" class=" text-white bg-secondary" ><i class="fas fa-fw fa-life-ring"></i>{!! trans('messages.rescue') !!}</h5></a>
+                                    		 
+									</div>
+									<div class="card-body">
+                                    	@can('create evento')
+                                    		<a title="{!! trans('messages.New') !!}" class="btn btn-primary text-center" target="_blank" href="/rescate/create"><i class="fa fa-plus" aria-hidden="true"></i></a> 
+                                    	@endcan
+                                    	<a title="{!! trans('messages.Index') !!}" class="btn btn-primary text-center" target="_blank" href="/rescate"><i class="fa fa-list-ol" aria-hidden="true"></i></a>                       
+                                    	<h1 class="text-center">-</h1>
+                                    	<a target="_blank"><p class="card-text text-center text-black"> {!! trans('messages.Current Month Events') !!}</p></a>
                                     </div>
+                                	
                                 </div>
+
                             </div>
                              <div class="col-xl-3 col-lg-3 col-md-4 sm-6">
-                                <div class="card mb-4">
-                                    <a class="collapse-item" target="_blank" href="/derrame/create"><h5 class="card-header text-white bg-secondary"><i class="fas fa-fw fa-life-ring"></i>{!! trans('messages.Hazmat') !!}</h5></a>
-
-                                    <div class="card-body">
-                                    	<a class="collapse-item" target="_blank" href="/derrame"><p class="card-text text-black"><h1>{{$mensualesInundacion}}</h1> {!! trans('messages.Current Month Events') !!}</p></a>
-
+                                <div class="card">
+                                	<div class="card-header text-white bg-secondary">
+                                    		<a><h5 title="Crea {!! trans('messages.rescue') !!}" class=" text-white bg-secondary" ><i class="fas fa-fw fa-life-ring"></i>{!! trans('messages.Hazmat') !!}</h5></a>
+                                    		 
+									</div>
+									<div class="card-body">
+                                    	@can('create evento')
+                                    	<a title="{!! trans('messages.New') !!}" class="btn btn-primary text-center" target="_blank" href="/derrame/create"><i class="fa fa-plus" aria-hidden="true"></i></a> 
+                                    	@endcan
+                                    	<a title="{!! trans('messages.Index') !!}" class="btn btn-primary text-center" target="_blank" href="/derrame"><i class="fa fa-list-ol" aria-hidden="true"></i></a>                       
+                                    	<h1 class="text-center">-</h1>
+                                    	<a target="_blank"><p class="card-text text-center text-black"> {!! trans('messages.Current Month Events') !!}</p></a>
                                     </div>
-                                </div>
+
+                            	</div>
                             </div>
                             <div class="col-xl-3 col-lg-3 col-md-4 sm-6">
-                                <div class="card mb-4">
-                                    <a class="collapse-item" target="_blank" href="/transito/create"><h5 class="card-header text-white bg-success"><i class="fas fa-fw fa-wrench"></i> {!! trans('messages.transit') !!}</h5></a>
-
-                                    <div class="card-body">
-                                    	<a class="collapse-item" target="_blank" href="/transito"><p class="card-text text-black"><h1>{{$mensualesInundacion}}</h1> {!! trans('messages.Current Month Events') !!}</p></a>
+                                <div class="card">
+                                	<div class="card-header text-white bg-success">
+                                    		<a><h5 title="Crea {!! trans('messages.rescue') !!}" class=" text-white bg-success" ><i class="fas fa-fw fa-wrench"></i>{!! trans('messages.transit') !!}</h5></a>
+                                    		 
+									</div>
+									<div class="card-body">
+                                    	@can('create evento')
+                                    	<a title="{!! trans('messages.New') !!}" class="btn btn-primary text-center" target="_blank" href="/transito/create"><i class="fa fa-plus" aria-hidden="true"></i></a> 
+                                    	@endcan
+                                    	<a title="{!! trans('messages.Index') !!}" class="btn btn-primary text-center" target="_blank" href="/transito"><i class="fa fa-list-ol" aria-hidden="true"></i></a>                       
+                                    	<h1 class="text-center">-</h1>
+                                    	<a target="_blank"><p class="card-text text-center text-black"> {!! trans('messages.Current Month Events') !!}</p></a>
                                     </div>
-                                </div>
+
+                            	</div>
+
                             </div>
                             <div class="col-xl-3 col-lg-3 col-md-4 sm-6">
-                                <div class="card mb-4">
-                                    <a class="collapse-item" target="_blank" href="/salud/create"><h5 class="card-header text-white bg-warning"><i class="fas fa-fw fa-heartbeat"></i> {!! trans('messages.Health') !!}</h5></a>
-
-                                    <div class="card-body">
-                                    	<a class="collapse-item" target="_blank" href="/salud"><p class="card-text text-black"><h1>{{$mensualesInundacion}}</h1> {!! trans('messages.Current Month Events') !!}</p></a>
+                                <div class="card">
+                                	<div class="card-header text-white bg-warning">
+                                    		<a><h5 title="Crea {!! trans('messages.rescue') !!}" class=" text-white bg-warning" ><i class="fas fa-fw fa-heartbeat"></i>{!! trans('messages.Health') !!}</h5></a>
+                                    		 
+									</div>
+									<div class="card-body">
+                                    	@can('create evento')
+                                    	<a title="{!! trans('messages.New') !!}" class="btn btn-primary text-center" target="_blank" href="/salud/create"><i class="fa fa-plus" aria-hidden="true"></i></a> 
+                                    	@endcan
+                                    	<a title="{!! trans('messages.Index') !!}" class="btn btn-primary text-center" target="_blank" href="/salud"><i class="fa fa-list-ol" aria-hidden="true"></i></a>                       
+                                    	<h1 class="text-center">-</h1>
+                                    	<a target="_blank"><p class="card-text text-center text-black"> {!! trans('messages.Current Month Events') !!}</p></a>
                                     </div>
-                                </div>
+
+                            	</div>
+
+                                
                             </div>
                             <div class="col-xl-3 col-lg-3 col-md-4 sm-6">
-                                <div class="card mb-4">
-                                    <a class="collapse-item" target="_blank" href="/fuego/create"><h5 class="card-header text-white bg-danger"><i class="fas fa-fw fa-fire"></i>{!! trans('messages.fire') !!}</h5></a>
-
-                                    <div class="card-body">
-                                    	<a class="collapse-item" target="_blank" href="/fuego"><p class="card-text text-black"><h1>{{$mensualesInundacion}}</h1> {!! trans('messages.Current Month Events') !!}</p></a>
+                                <div class="card">
+                                	<div class="card-header text-white bg-danger">
+                                    		<a><h5 title="Crea {!! trans('messages.rescue') !!}" class=" text-white bg-danger" ><i class="fas fa-fw fa-fire"></i>{!! trans('messages.fire') !!}</h5></a>
+                                    		 
+									</div>
+									<div class="card-body">
+                                    	@can('create evento')
+                                    	<a title="{!! trans('messages.New') !!}" class="btn btn-primary text-center" target="_blank" href="/fuego/create"><i class="fa fa-plus" aria-hidden="true"></i></a> 
+                                    	@endcan
+                                    	<a title="{!! trans('messages.Index') !!}" class="btn btn-primary text-center" target="_blank" href="/fuego"><i class="fa fa-list-ol" aria-hidden="true"></i></a>                       
+                                    	<h1 class="text-center">-</h1>
+                                    	<a target="_blank"><p class="card-text text-center text-black"> {!! trans('messages.Current Month Events') !!}</p></a>
                                     </div>
-                                </div>
+
+                            	</div>
+
+
                             </div>
                             <div class="col-xl-3 col-lg-3 col-md-4 sm-6">
-                                <div class="card mb-4">
-                                    <a class="collapse-item" target="_blank" href="/fuga/create"><h5 class="card-header text-white bg-info"><i class="fas fa-fw fa-fire-extinguisher"></i> {!! trans('messages.leak') !!}</h5></a>
-
-                                    <div class="card-body">
-                                    	<a class="collapse-item" target="_blank" href="/fuga"><p class="card-text text-black"><h1>{{$mensualesInundacion}}</h1> {!! trans('messages.Current Month Events') !!}</p></a>
+                                <div class="card">
+                                	<div class="card-header text-white bg-info">
+                                    		<a><h5 title="Crea {!! trans('messages.rescue') !!}" class=" text-white bg-info" ><i class="fas fa-fw fa-fire-extinguisher"></i>{!! trans('messages.leak') !!}</h5></a>
+                                    		 
+									</div>
+									<div class="card-body">
+                                    	@can('create evento')
+                                    	<a title="{!! trans('messages.New') !!}" class="btn btn-primary text-center" target="_blank" href="/fuga/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                                    	@endcan 
+                                    	<a title="{!! trans('messages.Index') !!}" class="btn btn-primary text-center" target="_blank" href="/fuga"><i class="fa fa-list-ol" aria-hidden="true"></i></a>                       
+                                    	<h1 class="text-center">-</h1>
+                                    	<a target="_blank"><p class="card-text text-center text-black"> {!! trans('messages.Current Month Events') !!}</p></a>
                                     </div>
-                                </div>
+
+                            	</div>
+
+
                             </div>
                             
         </div>

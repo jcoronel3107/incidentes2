@@ -29,7 +29,7 @@
         <div id="collapse1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">{!! trans('messages.Choices') !!}:</h6>
-            <a class="collapse-item" target="_blank" href="/eventoE1/">{!! trans('messages.New') !!}</a>
+            <a class="collapse-item" target="_blank" href="/eventoE1/">{!! trans('messages.Incident') !!}</a>
             
           </div>
         </div>
@@ -44,7 +44,7 @@
         <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">{!! trans('messages.Choices') !!}:</h6>
-            <a class="collapse-item" target="_blank" href="/eventoE2/">{!! trans('messages.New') !!}</a>
+            <a class="collapse-item" target="_blank" href="/eventoE2/">{!! trans('messages.Incident') !!}</a>
           </div>
         </div>
       </li>
@@ -58,7 +58,7 @@
         <div id="collapse3" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-            <a class="collapse-item" target="_blank" href="/eventoE3/">{!! trans('messages.New') !!}</a>
+            <a class="collapse-item" target="_blank" href="/eventoE3/">{!! trans('messages.Incident') !!}</a>
            
           </div>
         </div>
@@ -72,7 +72,7 @@
         <div id="collapse4" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-            <a class="collapse-item" target="_blank" href="/eventoE4">{!! trans('messages.New') !!}</a>
+            <a class="collapse-item" target="_blank" href="/eventoE4">{!! trans('messages.Incident') !!}</a>
           
           </div>
         </div>
@@ -86,7 +86,7 @@
         <div id="collapse5" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-            <a class="collapse-item" target="_blank" href="/eventoE5/">{!! trans('messages.New') !!}</a>
+            <a class="collapse-item" target="_blank" href="/eventoE5/">{!! trans('messages.Incident') !!}</a>
            
           </div>
         </div>
@@ -100,7 +100,7 @@
         <div id="collapseFuego" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-            <a class="collapse-item" target="_blank" href="/eventoE6/">{!! trans('messages.New') !!}</a>
+            <a class="collapse-item" target="_blank" href="/eventoE6/">{!! trans('messages.Incident') !!}</a>
             
           </div>
         </div>
@@ -114,7 +114,7 @@
         <div id="collapse7" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-            <a class="collapse-item" target="_blank" href="/eventoE7/">{!! trans('messages.New') !!}</a>
+            <a class="collapse-item" target="_blank" href="/eventoE7/">{!! trans('messages.Incident') !!}</a>
            
           </div>
         </div>
@@ -128,7 +128,7 @@
         <div id="collapse8" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-            <a class="collapse-item" target="_blank" href="/eventoE8/">{!! trans('messages.New') !!}</a>
+            <a class="collapse-item" target="_blank" href="/eventoE8/">{!! trans('messages.Incident') !!}</a>
            
           </div>
         </div>
@@ -142,7 +142,7 @@
         <div id="collapse9" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-            <a class="collapse-item" target="_blank" href="/eventoE9/">{!! trans('messages.New') !!}</a>
+            <a class="collapse-item" target="_blank" href="/eventoE9/">{!! trans('messages.Incident') !!}</a>
             
           </div>
         </div>

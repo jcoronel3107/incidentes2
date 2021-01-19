@@ -45,7 +45,7 @@ return [
     'Check Services Information'=>'Consultar Información de Servicios',
     'Service Commission Information Registry'=>'Registro de Información de Comisiones Servicio',
     'Edit Service Commission Information'=>'Edita Información de Comisiones Servicio',
-    'Incident'=>'Incidente',
+    'Incident'=>'Incidentes',
     'Station'=>'Estación',
     'Date'=>'Fecha',
     'Address'=>'Dirección',

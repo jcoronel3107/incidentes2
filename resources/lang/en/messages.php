@@ -43,7 +43,7 @@ return [
     'Check Services Commission Information'=>'Check Services Commission Information',
     'Edit Service Commission Information'=>'Edit Service Commission Information',
     'Service Commission Information Registry'=>'Service Commission Information Registry',
-    'Incident'=>'Incident',
+    'Incident'=>'Incidents',
     'Station'=>'Station',
     'Date'=>'Date',
     'Address'=>'Address',

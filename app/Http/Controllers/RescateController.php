@@ -38,7 +38,7 @@ class RescateController extends Controller
         if($request)
         {
           $query = trim($request->get('searchText'));
-          $rescates = Rescate::where("fecha",'LIKE','%'.$query.'%')
+          $rescates = Rescate::where("direccion",'LIKE','%'.$query.'%')
           ->OrderBy('fecha','asc')
           ->paginate(10);
 		      return view( "/rescate.index", compact( "rescates","query" ) );
@@ -86,80 +86,64 @@ class RescateController extends Controller
     {
   		if ( Auth::check() )
        {
-          //try
-          //{
-            //DB::begintransaction();
-          $validated = $request->validated();
-          $rescate = new Rescate;
-          $incidente_id = DB::table('incidentes')
-              ->where('nombre_incidente', $request->incidente_id)
-              ->value('id');
-          $estacion_id = DB::table('stations')
-              ->where('nombre', $request->station_id)
-              ->value('id');
-          $parroquia_id = DB::table('parroquias')
-              ->where('nombre', $request->parroquia_id)
-              ->value('id');
-          $jefeguardia_id= DB::table('users')
-                ->where('name',$request->jefeguardia_id)
-                ->value('id');
-          $conductor_id = DB::table('users')
-            ->where('name',$request->conductor_id)
-            ->value('id');
-          $bombero_id= DB::table('users')
-            ->where('name',$request->bombero_id)
-            ->value('id');
-    			$rescate->incidente_id = $incidente_id;
-    			$rescate->tipo_escena = $request->tipo_escena;
-    			$rescate->station_id = $estacion_id;
-    			$rescate->fecha = $request->fecha;
-    			$rescate->direccion = $request->direccion;
-    			$rescate->parroquia_id = $parroquia_id;
-    			$rescate->geoposicion = $request->geoposicion;
-    			$rescate->ficha_ecu911 = $request->ficha_ecu911;
-    			$rescate->hora_fichaecu911 = $request->hora_fichaecu911;
-    			$rescate->hora_salida_a_emergencia = $request->hora_salida_a_emergencia;
-    			$rescate->hora_llegada_a_emergencia = $request->hora_llegada_a_emergencia;
-    			$rescate->hora_fin_emergencia = $request->hora_fin_emergencia;
-    			$rescate->hora_en_base = $request->hora_en_base;
-    			$rescate->informacion_inicial = $request->informacion_inicial;
-    			$rescate->detalle_emergencia = $request->detalle_emergencia;
-    			$rescate->usuario_afectado = $request->usuario_afectado;
-    			$rescate->danos_estimados = $request->danos_estimados;
-    			$rescate->usr_creador = auth()->user()->name;
-    			$rescate->save();
-          $id = DB::table('rescates')
-            ->select(DB::raw('max(id) as id'))
-            ->first();
-          $maqui = User::findOrFail($conductor_id);
-          $maqui->rescates()->attach($id);
-          $jefe = User::findOrFail($jefeguardia_id);
-          $jefe->rescates()->attach($id);
-          $bomb = User::findOrFail($bombero_id);
-          $bomb->rescates()->attach($id);
+          DB::begintransaction();
+          try
+          {
+          
+              $validated = $request->validated();
+              $rescate = new Rescate;
+    	        $rescate->incidente_id = $request->incidente_id;
+              $rescate->tipo_escena = $request->tipo_escena;
+    			    $rescate->station_id = $request->station_id;
+      			  $rescate->fecha = $request->fecha;
+    			    $rescate->direccion = $request->direccion;
+    			    $rescate->parroquia_id = $request->parroquia_id;
+    			    $rescate->geoposicion = $request->geoposicion;
+    			    $rescate->ficha_ecu911 = $request->ficha_ecu911;
+    			    $rescate->hora_fichaecu911 = $request->hora_fichaecu911;
+              $rescate->hora_salida_a_emergencia = $request->hora_salida_a_emergencia;
+    			    $rescate->hora_llegada_a_emergencia = $request->hora_llegada_a_emergencia;
+    			    $rescate->hora_fin_emergencia = $request->hora_fin_emergencia;
+    			    $rescate->hora_en_base = $request->hora_en_base;
+    			    $rescate->informacion_inicial = $request->informacion_inicial;
+    			    $rescate->detalle_emergencia = $request->detalle_emergencia;
+    			    $rescate->usuario_afectado = $request->usuario_afectado;
+    			    $rescate->danos_estimados = $request->danos_estimados;
+    			    $rescate->usr_creador = auth()->user()->name;
+    			    $rescate->save();
+              $id = DB::table('rescates')
+                ->select(DB::raw('max(id) as id'))
+                ->first();
+              $maqui = User::findOrFail($request->conductor_id);
+              $maqui->rescates()->attach($id);
+              $jefe = User::findOrFail($request->jefeguardia_id);
+              $jefe->rescates()->attach($id);
+              $bomb = User::findOrFail($request->bombero_id);
+              $bomb->rescates()->attach($id);
 
-          //para almacenar kilimetrajes por vehiculos asistentes al evento
-            $cont=0;
-            $nombrevehiculo = $request->get('vehiculo_id');
-            $kmsalidavehiculo = $request->get('km_salida');
-            $kmllegadavehiculo = $request->get('km_llegada');
-            while ($cont < count($nombrevehiculo)) {
-                $vehiculo_id = DB::table('vehiculos')
-                  ->where('codigodis',$nombrevehiculo[$cont])
-                  ->value('id');
-                $carro = vehiculo::findOrFail($vehiculo_id);
-                $carro->rescates()->attach(
-                  $id , [
-                    'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
-                $cont=$cont+1;
+              //para almacenar kilimetrajes por vehiculos asistentes al evento
+              $cont=0;
+              $nombrevehiculo = $request->get('vehiculo_id');
+              $kmsalidavehiculo = $request->get('km_salida');
+              $kmllegadavehiculo = $request->get('km_llegada');
+              while ($cont < count($nombrevehiculo)) {
+                  $vehiculo_id = DB::table('vehiculos')
+                    ->where('codigodis',$nombrevehiculo[$cont])
+                    ->value('id');
+                  $carro = vehiculo::findOrFail($vehiculo_id);
+                  $carro->rescates()->attach(
+                    $id , [
+                      'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
+                  $cont=$cont+1;
               }
-          Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
-          return redirect( "/rescate" );
-          //}
-          //catch(\Exception $e)
-          //{
-          //    DB::rollback();
-          //}
+              Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
+              return redirect( "/rescate" );
+          }
+          catch(\Exception $e)
+          {
+              DB::rollback();
+              dd($e);
+          }
   		} else {
   			return view( "/auth.login" );
   		}
@@ -185,17 +169,15 @@ class RescateController extends Controller
      * @return \Illuminate\Http\Response
      */
     function edit($id) {
-        //
-        if ( Auth::check() ) {
-            /*$conductor_id = DB::table('users')
-            ->where('id', $id)
-            ->value('name');
-            $bombero_id = DB::table('users')
-            ->where('id', $id)
-            ->value('name');*/
+        if ( Auth::check() )
+       {
             $rescate = Rescate::findOrFail( $id );
-            $vehiculos = Vehiculo::all();
-            $bomberos=User::where('cargo','bombero')
+            $vehiculos = Vehiculo::orderBy('codigodis','DESC')->get();
+            
+            $bomberos = DB::table('users')->where([
+              ['cargo','=','Bombero'],
+            ])
+            ->orWhere('cargo','=','Paramedico')
             ->orderBy("name",'asc')
             ->get();
             $maquinistas=User::where('cargo','maquinista')
@@ -208,6 +190,7 @@ class RescateController extends Controller
             $parroquias = Parroquia::all();
 
             return view( "rescate.edit", compact("rescate","vehiculos","bomberos","maquinistas","incidentes","estaciones","parroquias"));
+          
         } else {
             return view( "/auth.login" );
         }
@@ -223,18 +206,17 @@ class RescateController extends Controller
         //
         if ( Auth::check() ) {
 
-            $jefeguardia_id = DB::table('users')->where('name', $request->jefeguardia_id)->value('id');
-            $incidente_id = DB::table('incidentes')->where('nombre_incidente', $request->incidente_id)->value('id');
-            $station_id = DB::table('stations')->where('nombre', $request->station_id)->value('id');
-            $parroquia_id = DB::table('parroquias')->where('nombre', $request->parroquia_id)->value('id');
+          DB::begintransaction();
+          try
+          {
             $rescate = Rescate::findOrFail( $id );
             $rescate->update([
-                                'incidente_id' => $incidente_id,
+                                'incidente_id' => $request->incidente_id,
                                 'tipo_escena' => $request->tipo_escena,
-                                'station_id' => $station_id,
+                                'station_id' => $request->station_id,
                                 'fecha' => $request->fecha,
                                 'direccion' => $request->direccion,
-                                'parroquia_id' => $parroquia_id,
+                                'parroquia_id' => $request->parroquia_id,
                                 'geoposicion' => $request->geoposicion,
                                 'ficha_ecu911' => $request->ficha_ecu911,
                                 'hora_fichaecu911' => $request->hora_fichaecu911,
@@ -258,6 +240,12 @@ class RescateController extends Controller
             $maqui->rescates()->attach($id);
             Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
             return redirect( "/rescate" );
+          }
+          catch(\Exception $e)
+          {
+              DB::rollback();
+              dd($e);
+          }
         } else {
             return view( "/auth.login" );
         }

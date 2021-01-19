@@ -9,7 +9,7 @@
 		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Editar Información de Eventos 10-20</h2>
 		<ul class="nav justify-content-end">
 		  <li class="nav-item">
-		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('inundacion.index')}}"><i class="icon-remove icon-2x"></i>
+		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('inundacion.index')}}"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i>
 						</a>
 		  </li>
 		</ul>
@@ -65,9 +65,9 @@
 						<span class="input-group-text">Incidente</span>
 					</div>
 					<select class="form-control" name="incidente_id" id="incidente_id">
-						<option selected>{{old('incidente_id',$inundacion->incidente->nombre_incidente)}}</option>
+						<option value="{{$inundacion->incidente->id}}" selected>{{old('incidente_id',$inundacion->incidente->nombre_incidente)}}</option>
 						@foreach($incidentes as $incidente)
-							<option>{{$incidente->nombre_incidente}}</option>
+							<option value="{{$incidente->id}}">{{$incidente->nombre_incidente}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -78,10 +78,10 @@
 					</div>
 					<select class="form-control" name="tipo_escena">
 						<option selected>{{old('tipo_escena',$inundacion->tipo_escena)}}</option>
-						<option>Tipo 1</option>
-						<option>Tipo 2</option>
-						<option>Tipo 3</option>
-						<option>Tipo 4</option>
+						<option value="Tipo 1">Tipo 1</option>
+						<option value="Tipo 2">Tipo 2</option>
+						<option value="Tipo 3">Tipo 3</option>
+						<option value="Tipo 4">Tipo 4</option>
 					</select>
 				</div>
 				<div class="form-group input-group col-md-4">
@@ -89,9 +89,9 @@
 						<span class="input-group-text">Estacion</span>
 					</div>
 					<select name="station_id" class="form-control">
-						<option selected>{{old('estacion_id',$inundacion->station->nombre)}}</option>
+						<option value="{{$inundacion->station->id}}" selected>{{old('estacion_id',$inundacion->station->nombre)}}</option>
 						@foreach($estaciones as $estacion)
-						<option>{{$estacion->nombre}}</option>
+						<option value="{{$estacion->id}}">{{$estacion->nombre}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -230,7 +230,7 @@
 								<select class="form-control selectpicker" name="vehiculo_id" id="pvehiculo_id" data-live-search="true">
 								<option selected>Elija...</option>
 								@foreach($vehiculos as $vehiculo)
-								<option>{{$vehiculo->codigodis}}</option>
+								<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>
 								@endforeach
 								</select>
 							</div>
@@ -299,7 +299,7 @@
 				{{csrf_field()}}
 				<input type="hidden" name="_method" value="DELETE">
 
-				<button type="button" data-toggle="tooltip" title="Eliminar" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal"><i class="icon-remove icon-2x"></i></button>
+				<button type="button" data-toggle="tooltip" title="Eliminar" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
 				<!-- Modal -->
 				<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				  <div class="modal-dialog">
@@ -325,6 +325,8 @@
 			<!-- Script para almacenar vehiculos asisten-->
 			<script>
 				$(document).ready(function(){
+					$("#divguardar").show();
+					$("#Enviar").show();
 					$("#bt_add").click(function () {
 						agregar();
 					});
@@ -371,7 +373,7 @@
 				var jqkm_salida=0;
 				var jqkm_llegada=0;
 				subtotal=[];
-				$("#Enviar").hide();
+				
 
 			
 				function agregar() {

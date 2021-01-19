@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\ Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class MenuController extends Controller
 {
@@ -97,6 +98,33 @@ class MenuController extends Controller
     public function evento()
     {
         $now = Carbon::now();
+        $SaludEst1 = DB::table('saluds')
+                ->select( DB::raw('count(station_id) salidas'))
+                ->where('station_id','=','1')
+                ->whereYear('fecha', '=', date('Y'))
+                ->whereNull('saluds.deleted_at')
+                ->groupBy('station_id')
+                ->havingRaw('count(station_id) >= ?',[1])
+                ->get();
+
+        $FuegoEst1 = DB::table('incendios')
+                ->select( DB::raw('count(station_id) salidas'))
+                ->where('station_id','=','1')
+                ->whereYear('fecha', '=', date('Y'))
+                ->whereNull('incendios.deleted_at')
+                ->groupBy('station_id')
+                ->havingRaw('count(station_id) >= ?',[1])
+                ->get();
+
+        $HazmatEst1 = DB::table('incendios')
+                ->select( DB::raw('count(station_id) salidas'))
+                ->where('station_id','=','1')
+                ->whereYear('fecha', '=', date('Y'))
+                ->whereNull('incendios.deleted_at')
+                ->groupBy('station_id')
+                ->havingRaw('count(station_id) >= ?',[1])
+                ->get();
+           
         $mensualesInundacion="";
         $station = trans('messages.Station1');
         return view("evento", compact( "mensualesInundacion","station","now") );

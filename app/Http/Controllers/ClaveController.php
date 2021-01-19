@@ -55,7 +55,7 @@ class ClaveController extends Controller {
 	function create() {
 		//
 		$gasolineras = Gasolinera::all();
-		$vehiculos = Vehiculo::all();
+		$vehiculos = Vehiculo::orderBy('codigodis','asc')->get();
 		$users = DB::table('users')->where([
           ['cargo','=','Bombero'],
         ])
@@ -83,15 +83,7 @@ class ClaveController extends Controller {
 	function store( SaveClaveRequest $request ) {
 		if ( Auth::check() ) {
 			$validated = $request->validated();
-			$idgasolinera = DB::table('gasolineras')
-			->where('razonsocial', $request->gasolinera_id)
-			->value('id');
-			$userid = DB::table('users')
-			->where('name', $request->user_id)
-			->value('id');
-			$idvehiculo = DB::table('vehiculos')
-			->where('codigodis', $request->vehiculo_id)
-			->value('id');
+			
 			$clave = new Clave;
 			$clave->km_salida = $request->km_salida;
 			$clave->km_gasolinera = $request->km_gasolinera;
@@ -99,9 +91,9 @@ class ClaveController extends Controller {
 			$clave->dolares = $request->dolares;
 			$clave->galones = $request->galones;
 			$clave->combustible = $request->combustible;
-			$clave->gasolinera_id = $idgasolinera;
-			$clave->user_id = $userid;
-			$clave->vehiculo_id = $idvehiculo;
+			$clave->gasolinera_id = $request->gasolinera_id;
+			$clave->user_id = $request->user_id;
+			$clave->vehiculo_id = $request->vehiculo_id;;
 			$clave->Orden = $request->Orden;
 			$clave->save();
 			
@@ -138,7 +130,7 @@ class ClaveController extends Controller {
 		//
 		if ( Auth::check() ) {
 			$gasolineras = Gasolinera::all();
-			$vehiculos = Vehiculo::all();
+			$vehiculos = Vehiculo::orderBy('codigodis','asc')->get();
 			$usuarios = DB::table('users')->where([
           ['cargo','=','Bombero'],
         ])
@@ -165,10 +157,9 @@ class ClaveController extends Controller {
 	function update( SaveClaveRequest $request , $id ) {
 		//
 		if ( Auth::check() ) {
-				$idgasolinera = DB::table('gasolineras')->where('razonsocial', $request->gasolinera_id)->value('id');
-				$userid = DB::table('users')->where('name', $request->user_id)->value('id');
-				echo ($userid);
-				$idvehiculo = DB::table('vehiculos')->where('codigodis', $request->vehiculo_id)->value('id');
+			DB::begintransaction();
+          	try
+          	{	
 				$clave = Clave::findOrFail( $id );
 				$clave->update([
 								'km_salida' => $request->km_salida,
@@ -177,13 +168,19 @@ class ClaveController extends Controller {
 								'dolares' => $request->dolares,
 								'galones' => $request->galones,
 								'combustible' => $request->combustible,
-								'gasolinera_id' => $idgasolinera,
-								'user_id' => $userid,
-								'vehiculo_id' => $idvehiculo,
+								'gasolinera_id' => $request->gasolinera_id,
+								'user_id' => $request->user_id,
+								'vehiculo_id' => $request->vehiculo_id,
 								'Orden'	=> $request->Orden]);
-			//	return $request->km_salida;
-			Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
-			return redirect( "/clave" );
+			
+				Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
+				return redirect( "/clave" );
+			}
+          	catch(\Exception $e)
+          	{
+              DB::rollback();
+              dd($e);
+          	}
 		} else {
 			return view( "/auth.login" );
 		}

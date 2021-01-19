@@ -9,7 +9,7 @@
 		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Editar Información de Eventos Incendio</h2>
 		<ul class="nav justify-content-end">
 		  <li class="nav-item">
-		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('fuego.index')}}"><i class="icon-remove icon-2x"></i>
+		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('fuego.index')}}"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i>
 						</a>
 		  </li>
 		</ul>
@@ -21,7 +21,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Fecha</span>
 					</div>
-					<input type="text" name="fecha" class="form-control" placeholder="AA-MM-DD" value="{{old('fecha',$incendio->fecha)}}">
+					<input required="" type="text" name="fecha" class="form-control" placeholder="AA-MM-DD" value="{{old('fecha',$incendio->fecha)}}">
 				</div>
 			</div><!--Div Fecha-->
 			<div class="form-row ">
@@ -31,7 +31,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Hora Ficha ECU911</span>
 							</div>
-							<input type="text" name="hora_fichaecu911"  class="form-control" placeholder="hh:mm:ss" value="{{old('hora_fichaecu911',$incendio->hora_fichaecu911)}}">
+							<input required="" type="text" name="hora_fichaecu911"  class="form-control" placeholder="hh:mm:ss" value="{{old('hora_fichaecu911',$incendio->hora_fichaecu911)}}">
 						</div>
 					</div>
 				</div>
@@ -41,7 +41,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Nro.Ficha ECU911</span>
 							</div>
-							<input type="text" onkeyup="mayus(this);" name="ficha_ecu911" value="{{old('ficha_ecu911',$incendio->ficha_ecu911)}}" class="form-control">
+							<input required="" type="text" onkeyup="mayus(this);" name="ficha_ecu911" value="{{old('ficha_ecu911',$incendio->ficha_ecu911)}}" class="form-control">
 						</div>
 					</div>
 				</div>
@@ -51,7 +51,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Informacion Inicial</span>
 							</div>
-							<textarea onkeyup="mayus(this);" class="form-control" maxlength="1000" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$incendio->informacion_inicial)}}</textarea>
+							<textarea required="" onkeyup="mayus(this);" class="form-control" maxlength="1000" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$incendio->informacion_inicial)}}</textarea>
 
 						</div>
 					</div>
@@ -62,10 +62,10 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Incidente</span>
 					</div>
-					<select class="form-control" name="incidente_id" id="incidente_id">
-						<option selected>{{old('incidente_id',$incendio->incidente->nombre_incidente)}}</option>
+					<select required="" class="form-control" name="incidente_id" id="incidente_id">
+						<option value="{{$incendio->incidente->id}}" selected>{{old('incidente_id',$incendio->incidente->nombre_incidente)}}</option>
 						@foreach($incidentes as $incidente)
-							<option>{{$incidente->nombre_incidente}}</option>
+							<option value="{{$incidente->id}}">{{$incidente->nombre_incidente}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -74,22 +74,22 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Escenario</span>
 					</div>
-					<select class="form-control" name="tipo_escena">
-						<option selected>{{old('tipo_escena',$incendio->tipo_escena)}}</option>
-						<option>Tipo 1</option>
-						<option>Tipo 2</option>
-						<option>Tipo 3</option>
-						<option>Tipo 4</option>
+					<select required="" class="form-control" name="tipo_escena">
+						<option value="{{$incendio->tipo_escena}}" selected>{{old('tipo_escena',$incendio->tipo_escena)}}</option>
+						<option value="Tipo 1">Tipo 1</option>
+						<option value="Tipo 2">Tipo 2</option>
+						<option value="Tipo 3">Tipo 3</option>
+						<option value="Tipo 4">Tipo 4</option>
 					</select>
 				</div>
 				<div class="form-group input-group col-md-4">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Estacion</span>
 					</div>
-					<select name="station_id" class="form-control">
-						<option selected>{{old('station_id',$incendio->station->nombre)}}</option>
+					<select required="" name="station_id" class="form-control">
+						<option value="{{$incendio->station->id}}" selected>{{old('station_id',$incendio->station->nombre)}}</option>
 						@foreach($estaciones as $estacion)
-						<option>{{$estacion->nombre}}</option>
+							<option value="{{$estacion->id}}">{{$estacion->nombre}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -99,17 +99,17 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Dirección</span>
 					</div>
-					<textarea class="form-control" id="pdireccion" maxlength="1000" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$incendio->direccion)}}</textarea>
+					<textarea required="" class="form-control" id="pdireccion" maxlength="1000" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$incendio->direccion)}}</textarea>
 					<input type="button" value="Encode" onclick="codeAddress()">
 				</div>
 				<div class="form-group input-group input-group-prepend col-md-4">
 					<div >
 						<span class="input-group-text">Parroquia</span>
 					</div>
-					<select name="parroquia_id" class="form-control">
-						<option selected>{{old('parroquia_id',$incendio->parroquia->nombre)}}</option>
+					<select required="" name="parroquia_id" class="form-control">
+						<option value="{{$incendio->parroquia->id}}" selected>{{old('parroquia_id',$incendio->parroquia->nombre)}}</option>
 						@foreach($parroquias as $parroquia)
-							<option>{{$parroquia->nombre}}</option>
+							<option value="{{$parroquia->id}}">{{$parroquia->nombre}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -117,7 +117,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputAddress">Geoposicion</span>
 					</div>
-					<textarea class="form-control" id="pgeoposicion" name="geoposicion" aria-label="With textarea">{{old('geoposicion',$incendio->geoposicion)}}</textarea>
+					<textarea required="" class="form-control" id="pgeoposicion" name="geoposicion" aria-label="With textarea">{{old('geoposicion',$incendio->geoposicion)}}</textarea>
 				</div>
 			</div><!--Div Ubicacion Evento-->
 			<div onload="initMap()" id="map" style="width: 100%; height: 280px;"></div>
@@ -127,8 +127,12 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Jefe Guardia</span>
 					</div>
-					<select class="form-control" name="jefeguardia_id">
-						<option value="{{$incendio->users[2]->id}}" selected="{{$incendio->users[2]->id}}">{{$incendio->users[2]->name}}</option>
+					<select required="" class="form-control" name="jefeguardia_id">
+						@if((count($incendio->users) <3)&&($incendio->users->isNotEmpty())){
+							<option value="{{$incendio->users[2]->id}}" selected="{{$incendio->users[2]->id}}">{{$incendio->users[2]->name}}</option>
+						@else{
+							<option value="">{{old('jefeguardia_id')}}</option>
+						}@endif
 						@foreach($bomberos as $bombero)
 						<option value="{{$bombero->id}}">{{$bombero->name}}</option>
 						@endforeach
@@ -138,8 +142,12 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Bombero</span>
 					</div>
-					<select class="form-control" name="bombero_id">
-						<option value="{{$incendio->users[1]->id}}" selected="{{$incendio->users[1]->id}}" >{{$incendio->users[1]->name}}</option>
+					<select required="" class="form-control" name="bombero_id">
+						@if((count($incendio->users) <2)&&($incendio->users->isNotEmpty())){
+							<option value="{{$incendio->users[1]->id}}" selected="{{$incendio->users[1]->id}}" >{{$incendio->users[1]->name}}</option>
+						@else{
+							<option value="">{{old('bombero_id')}}</option>
+						}@endif
 						@foreach($bomberos as $bombero)
 						<option value="{{$bombero->id}}">{{$bombero->name}}</option>
 						@endforeach
@@ -149,8 +157,12 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Conductor</span>
 					</div>
-					<select class="form-control" name="conductor_id">
-						<option value="{{$incendio->users[0]->id}}" selected="{{$incendio->users[0]->id}}">{{$incendio->users[0]->name}}</option>
+					<select required="" class="form-control" name="conductor_id">
+						@if((count($incendio->users) <1)&&($incendio->users->isNotEmpty())){
+							<option value="{{$incendio->users[0]->id}}" selected="{{$incendio->users[0]->id}}">{{$incendio->users[0]->name}}</option>
+						@else{
+							<option value="">{{old('conductor_id')}}</option>
+						}@endif
 						@foreach($maquinistas as $maquinista)
 							<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>
 						@endforeach
@@ -162,13 +174,13 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Salida A Emergencia</span>
 					</div>
-					<input type="text" class="form-control" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" value="{{old('hora_salida_a_emergencia',$incendio->hora_salida_a_emergencia)}}" placeholder="hh:mm:ss">
+					<input required="" type="text" class="form-control" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" value="{{old('hora_salida_a_emergencia',$incendio->hora_salida_a_emergencia)}}" placeholder="hh:mm:ss">
 				</div>
 				<div class="form-group  input-group col-md-4">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Llegada A Emergencia</span>
 					</div>
-					<input type="text" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm:ss" value="{{old('hora_llegada_a_emergencia',$incendio->hora_llegada_a_emergencia)}}">
+					<input required="" type="text" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm:ss" value="{{old('hora_llegada_a_emergencia',$incendio->hora_llegada_a_emergencia)}}">
 				</div>
 			</div><!--Div Horas Evento-->
 			<div class="form-row">
@@ -176,12 +188,12 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Fin Emergencia</span>
 					</div>
-					<input type="text" class="form-control" name="hora_fin_emergencia" id="hora_fin_emergencia" placeholder="hh:mm:ss" value="{{old('hora_fin_emergencia',$incendio->hora_fin_emergencia)}}"></div>
+					<input required="" type="text" class="form-control" name="hora_fin_emergencia" id="hora_fin_emergencia" placeholder="hh:mm:ss" value="{{old('hora_fin_emergencia',$incendio->hora_fin_emergencia)}}"></div>
 				<div class="form-group  input-group col-md-6">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora En Base</span>
 					</div>
-					<input type="text" class="form-control" name="hora_en_base" id="hora_en_base" placeholder="hh:mm:ss" value="{{old('hora_en_base',$incendio->hora_en_base)}}">
+					<input required="" type="text" class="form-control" name="hora_en_base" id="hora_en_base" placeholder="hh:mm:ss" value="{{old('hora_en_base',$incendio->hora_en_base)}}">
 				</div>
 			</div><!--Div Horas Evento-->
 			<!--Detalle Emergencia-->
@@ -190,7 +202,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Detalle Emergencia</span>
 					</div>
-					<input onkeyup="mayus(this);" type="text" class="form-control" name="detalle_emergencia" id="detalle_emergencia" value="{{old('detalle_emergencia',$incendio->detalle_emergencia)}}" placeholder="Digite a detalle lo ocurrido en Emergencia">
+					<input required="" onkeyup="mayus(this);" type="text" class="form-control" name="detalle_emergencia" id="detalle_emergencia" value="{{old('detalle_emergencia',$incendio->detalle_emergencia)}}" placeholder="Digite a detalle lo ocurrido en Emergencia">
 				</div>
 			</div>
 			<!--Usuario Afectado-->
@@ -199,7 +211,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Ciud. Afectado</span>
 					</div>
-					<input onkeyup="mayus(this);" type="text" class="form-control" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado',$incendio->usuario_afectado)}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia">
+					<input required="" onkeyup="mayus(this);" type="text" class="form-control" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado',$incendio->usuario_afectado)}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia">
 				</div>
 			</div>
 			<div class="form-row">
@@ -207,7 +219,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDaños">Daños Estimados</span>
 					</div>
-					<input onkeyup="mayus(this);" type="text" class="form-control" name="danos_estimados" id="danos_estimados" value="{{old('danos_estimados',$incendio->danos_estimados)}}" placeholder="Detalle los daños producidos por  el incidente">
+					<input required="" onkeyup="mayus(this);" type="text" class="form-control" name="danos_estimados" id="danos_estimados" value="{{old('danos_estimados',$incendio->danos_estimados)}}" placeholder="Detalle los daños producidos por  el incidente">
 				</div>
 			</div>
 
@@ -291,7 +303,7 @@
 			{{csrf_field()}}
 			<input type="hidden" name="_method" value="DELETE">
 
-			<button type="button" class="btn btn-outline-danger" data-toggle="modal" title="Eliminar" data-target="#exampleModal"><i class="icon-remove icon-2x"></i></button>
+			<button type="button" class="btn btn-outline-danger" data-toggle="modal" title="Eliminar" data-target="#exampleModal"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
 			<!-- Modal -->
 			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  <div class="modal-dialog">
@@ -317,6 +329,8 @@
 			<!-- Script para almacenar vehiculos asisten-->
 			<script>
 				$(document).ready(function(){
+					$("#divguardar").show();
+					$("#Enviar").show();
 					$("#bt_add").click(function () {
 						agregar();
 					});
@@ -363,7 +377,7 @@
 				var jqkm_salida=0;
 				var jqkm_llegada=0;
 				subtotal=[];
-				$("#Enviar").hide();
+				/*$("#Enviar").hide();*/
 
 			
 				function agregar() {

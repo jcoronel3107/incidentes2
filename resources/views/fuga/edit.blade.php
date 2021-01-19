@@ -7,7 +7,13 @@
 
 	@section( "cuerpo" )
 		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Editar Información de Eventos Fugas</h2>
-
+		<ul class="nav justify-content-end">
+		  <li class="nav-item">
+		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('fuga.index')}}"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i>
+			</a>
+		  </li>
+		</ul>
+		<hr style="border:2px;">
 		<form method="post" action="/fuga/{{$fuga->id}}">
 			@csrf @method('PATCH')
 			<div class="form-row">
@@ -15,7 +21,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Fecha</span>
 					</div>
-					<input type="text" name="fecha" class="form-control" placeholder="AA-MM-DD" value="{{old('fecha',$fuga->fecha)}}">
+					<input required="" type="text" name="fecha" class="form-control" placeholder="AA-MM-DD" value="{{old('fecha',$fuga->fecha)}}">
 				</div>
 			</div><!--Div Fecha-->
 			<div class="form-row ">
@@ -25,7 +31,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Hora Ficha ECU911</span>
 							</div>
-							<input type="text" name="hora_fichaecu911"  class="form-control" placeholder="hh:mm:ss" value="{{old('hora_fichaecu911',$fuga->hora_fichaecu911)}}">
+							<input required="" type="text" name="hora_fichaecu911"  class="form-control" placeholder="hh:mm:ss" value="{{old('hora_fichaecu911',$fuga->hora_fichaecu911)}}">
 						</div>
 					</div>
 				</div>
@@ -35,7 +41,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Nro.Ficha ECU911</span>
 							</div>
-							<input type="text" onkeyup="mayus(this);" name="ficha_ecu911" value="{{old('ficha_ecu911',$fuga->ficha_ecu911)}}" class="form-control">
+							<input required="" type="text" onkeyup="mayus(this);" name="ficha_ecu911" value="{{old('ficha_ecu911',$fuga->ficha_ecu911)}}" class="form-control">
 						</div>
 					</div>
 				</div>
@@ -45,7 +51,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Informacion Inicial</span>
 							</div>
-							<textarea class="form-control" maxlength="1000" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$fuga->informacion_inicial)}}</textarea>
+							<textarea required="" class="form-control" maxlength="1000" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$fuga->informacion_inicial)}}</textarea>
 
 						</div>
 					</div>
@@ -56,7 +62,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Incidente</span>
 					</div>
-					<select class="form-control" name="incidente_id" id="incidente_id">
+					<select required="" class="form-control" name="incidente_id" id="incidente_id">
 						<option value="{{$fuga->incidente->id}}" selected>{{old('incidente_id',$fuga->incidente->nombre_incidente)}}</option>
 						@foreach($incidentes as $incidente)
 							<option value="{{$incidente->id}}">{{$incidente->nombre_incidente}}</option>
@@ -68,7 +74,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Escenario</span>
 					</div>
-					<select class="form-control" name="tipo_escena">
+					<select required="" class="form-control" name="tipo_escena">
 						<option value="{{$fuga->tipo_escena}}" selected>{{old('tipo_escena',$fuga->tipo_escena)}}</option>
 						<option value="Tipo 1">Tipo 1</option>
 						<option value="Tipo 2">Tipo 2</option>
@@ -80,7 +86,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Estacion</span>
 					</div>
-					<select name="station_id" class="form-control">
+					<select required="" name="station_id" class="form-control">
 						<option value="{{$fuga->station->id}}" selected>{{old('station_id',$fuga->station->nombre)}}</option>
 						@foreach($estaciones as $estacion)
 						<option value="{{$estacion->id}}">{{$estacion->nombre}}</option>
@@ -93,7 +99,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Dirección</span>
 					</div>
-					<textarea class="form-control" id="pdireccion" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$fuga->direccion)}}</textarea>
+					<textarea required="" class="form-control" id="pdireccion" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$fuga->direccion)}}</textarea>
 					<input type="button" value="Encode" onclick="codeAddress()">
 				</div>
 				<div class="form-group input-group input-group-prepend col-md-4">
@@ -319,7 +325,7 @@
 			{{csrf_field()}}
 			<input type="hidden" name="_method" value="DELETE">
 
-			<button type="button" class="btn btn-primary btn-danger" data-toggle="modal" data-target="#exampleModal">Eliminar Registro</button>
+			<button type="button" title="Eliminar" class="btn btn-primary btn-danger" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
 			<!-- Modal -->
 			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  <div class="modal-dialog">

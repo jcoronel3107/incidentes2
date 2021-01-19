@@ -8,7 +8,7 @@
 	@section( "cuerpo" )
 
 		
-		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Registro Información de Eventos Derrame</h2>
+		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Registro Información de Eventos Rescate</h2>
 		<ul class="nav justify-content-end">
 		  <li class="nav-item">
 
@@ -64,9 +64,9 @@
 									<span class="input-group-text">Vehìculo</span>
 								</div>
 								<select class="form-control selectpicker" name="vehiculo_id" id="pvehiculo_id" data-live-search="true" required="">
-								<option selected>Elija...</option>
+								<option value="" selected>Elija...</option>
 								@foreach($vehiculos as $vehiculo)
-								<option>{{$vehiculo->codigodis}}</option>
+								<option >{{$vehiculo->codigodis}}</option>
 								@endforeach
 								</select>
 							</div>
@@ -106,7 +106,6 @@
 									<th></th>
 									<th></th>
 								<tbody></tbody>
-
 							</table>
 						</div>
 					</div>
@@ -133,9 +132,9 @@
 						<span class="input-group-text">Incidente</span>
 					</div>
 					<select class="form-control" required="" name="incidente_id" id="incidente_id">
-						<option selected="">{{old('incidente_id')}}</option>
+						<option value="" selected="">{{old('incidente_id')}}</option>
 						@foreach($incidentes as $incidente)
-							<option>{{$incidente->nombre_incidente}}</option>
+							<option value="{{$incidente->id}}">{{$incidente->nombre_incidente}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -145,11 +144,11 @@
 						<span class="input-group-text">Escenario</span>
 					</div>
 					<select class="form-control" name="tipo_escena" required="">
-						<option selected>{{old('tipo_escena')}}</option>
-						<option>Tipo 1</option>
-						<option>Tipo 2</option>
-						<option>Tipo 3</option>
-						<option>Tipo 4</option>
+						<option value="" selected>{{old('tipo_escena')}}</option>
+						<option value="Tipo 1">Tipo 1</option>
+						<option value="Tipo 2">Tipo 2</option>
+						<option value="Tipo 3">Tipo 3</option>
+						<option value="Tipo 4">Tipo 4</option>
 					</select>
 				</div>
 				<div class="form-group input-group col-md-4">
@@ -157,9 +156,9 @@
 						<span class="input-group-text">Estacion</span>
 					</div>
 					<select name="station_id" required="" class="form-control">
-						<option selected>{{old('station_id')}}</option>
+						<option value="" selected>{{old('station_id')}}</option>
 						@foreach($estaciones as $estacion)
-						<option>{{$estacion->nombre}}</option>
+						<option value="{{$estacion->id}}">{{$estacion->nombre}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -177,9 +176,9 @@
 						<span class="input-group-text">Parroquia</span>
 					</div>
 					<select name="parroquia_id" required="" class="form-control">
-						<option selected>{{old('parroquia_id')}}</option>
+						<option value="" selected>{{old('parroquia_id')}}</option>
 						@foreach($parroquias as $parroquia)
-							<option>{{$parroquia->nombre}}</option>
+							<option value="{{$parroquia->id}}">{{$parroquia->nombre}}</option>
 						@endforeach
 					</select>
 					<a href="{{asset('files/MapaCuenca.pdf')}}" target="_blank" role="button" data-toggle="tooltip" title="Mapa" class="btn btn-outline-info" ><i class="icon-file icon-2x"></i></a>
@@ -200,9 +199,9 @@
 						<span class="input-group-text">Jefe Guardia</span>
 					</div>
 					<select required="" class="form-control" name="jefeguardia_id">
-						<option selected>{{old('jefeguardia_id')}}</option>
+						<option value="" selected>{{old('jefeguardia_id')}}</option>
 						@foreach($bomberos as $user)
-						<option>{{$user->name}}</option>
+						<option value="{{$user->id}}">{{$user->name}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -211,9 +210,9 @@
 						<span class="input-group-text">Bombero</span>
 					</div>
 					<select required="" class="form-control" name="bombero_id">
-						<option selected>{{old('bombero_id')}}</option>
+						<option value="" selected>{{old('bombero_id')}}</option>
 						@foreach($bomberos as $user)
-						<option>{{$user->name}}</option>
+						<option value="{{$user->id}}">{{$user->name}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -222,9 +221,9 @@
 						<span class="input-group-text">Conductor</span>
 					</div>
 					<select required="" class="form-control" name="conductor_id">
-						<option selected>{{old('conductor_id')}}</option>
+						<option value="" selected>{{old('conductor_id')}}</option>
 						@foreach($maquinistas as $maquinista)
-						<option>{{$maquinista->name}}</option>
+						<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>
 						@endforeach
 					</select>
 				</div>

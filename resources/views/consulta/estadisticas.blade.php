@@ -82,6 +82,7 @@
 				        <tbody>
 				           @foreach ($EventosMensuales as $registro)
 				            <tr>
+				            	
 				                <td class="table-light">{{($registro->Mes)}}</td>
 				                <td class="table-light">{{$registro->count}}</td>
 				            </tr>
@@ -667,7 +668,10 @@
 		    series: [{
         		type: 'areaspline',
         		name: 'Inundacion',
-		        data: [3, 2, 1, 0, 4,10,8, 5, 12, 31]
+		        data: {
+		        table: 'datatable0.2',
+		        name:'Incidentes',
+		    },
 	    	}, {
     		    type: 'areaspline',
         		name: 'Rescate',

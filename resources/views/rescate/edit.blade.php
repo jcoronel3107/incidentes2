@@ -7,7 +7,13 @@
 
 	@section( "cuerpo" )
 		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Edita Información de Eventos 10-33</h2>
-
+		<ul class="nav justify-content-end">
+		  <li class="nav-item">
+		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('rescate.index')}}"><i class="fa fa-arrow-left icon-2x" aria-hidden="true"></i>
+						</a>
+		  </li>
+		</ul>
+		<hr style="border:2px;">
 		<form method="post" action="/rescate/{{$rescate->id}}">
 			@csrf @method('PATCH')
 			<div class="form-row">
@@ -283,7 +289,7 @@
 			{{csrf_field()}}
 			<input type="hidden" name="_method" value="DELETE">
 
-			<button type="button" class="btn btn-primary btn-danger" data-toggle="modal" data-target="#exampleModal">Eliminar Registro</button>
+			<button type="button" title="Eliminar" class="btn btn-primary btn-danger" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
 			<!-- Modal -->
 			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  <div class="modal-dialog">
@@ -314,7 +320,8 @@
 				var jqkm_salida=0;
 				var jqkm_llegada=0;
 				subtotal=[];
-				$("#Enviar").hide();
+				$("#divguardar").show();
+				$("#Enviar").show();
 
 				$(document).ready(function(){
 					$("#bt_add").click(function () {

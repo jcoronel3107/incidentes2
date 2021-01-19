@@ -37,7 +37,7 @@ class FugaController extends Controller
         if($request)
         {
           $query = trim($request->get('searchText'));
-          $fugas = Fuga::where("fecha",'LIKE','%'.$query.'%')
+          $fugas = Fuga::where("direccion",'LIKE','%'.$query.'%')
           ->OrderBy('fecha','asc')
           ->paginate(10);
               return view( "/fuga.index", compact( "fugas","query" ) );
@@ -85,35 +85,19 @@ class FugaController extends Controller
     {
         if ( Auth::check() )
        {
-          //try
-          //{
-            //DB::begintransaction();
+          DB::begintransaction();
+          try
+          {
+            
             $validated = $request->validated();
             $fuga = new Fuga;
-            $incidente_id = DB::table('incidentes')
-                  ->where('nombre_incidente', $request->incidente_id)
-                  ->value('id');
-            $estacion_id = DB::table('stations')
-                  ->where('nombre', $request->station_id)
-                  ->value('id');
-            $parroquia_id = DB::table('parroquias')
-                  ->where('nombre', $request->parroquia_id)
-                  ->value('id');
-            $jefeguardia_id= DB::table('users')
-                    ->where('name',$request->jefeguardia_id)
-                    ->value('id');
-            $conductor_id = DB::table('users')
-                ->where('name',$request->conductor_id)
-                ->value('id');
-            $bombero_id= DB::table('users')
-                ->where('name',$request->bombero_id)
-                ->value('id');
-                $fuga->incidente_id = $incidente_id;
+            
+                $fuga->incidente_id = $request->incidente_id;
                 $fuga->tipo_escena = $request->tipo_escena;
-                $fuga->station_id = $estacion_id;
+                $fuga->station_id = $request->station_id;
                 $fuga->fecha = $request->fecha;
                 $fuga->direccion = $request->direccion;
-                $fuga->parroquia_id = $parroquia_id;
+                $fuga->parroquia_id = $request->parroquia_id;
                 $fuga->geoposicion = $request->geoposicion;
                 $fuga->ficha_ecu911 = $request->ficha_ecu911;
                 $fuga->hora_fichaecu911 = $request->hora_fichaecu911;
@@ -134,11 +118,11 @@ class FugaController extends Controller
             $id = DB::table('fugas')
                 ->select(DB::raw('max(id) as id'))
                 ->first();
-            $maqui = User::findOrFail($conductor_id);
+            $maqui = User::findOrFail($request->conductor_id);
             $maqui->fugas()->attach($id);
-            $jefe = User::findOrFail($jefeguardia_id);
+            $jefe = User::findOrFail($request->jefeguardia_id);
             $jefe->fugas()->attach($id);
-            $bomb = User::findOrFail($bombero_id);
+            $bomb = User::findOrFail($request->bombero_id);
             $bomb->fugas()->attach($id);
             //para almacenar kilimetrajes por vehiculos asistentes al evento
             $cont=0;
@@ -157,11 +141,12 @@ class FugaController extends Controller
               }
               Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
               return redirect( "/fuga" );
-          //}
-          //catch(\Exception $e)
-          //{
-          //    DB::rollback();
-          //}
+          }
+          catch(\Exception $e)
+          {
+              DB::rollback();
+              //dd($e);
+          }
         } else {
             return view( "/auth.login" );
         }
@@ -218,16 +203,16 @@ class FugaController extends Controller
      */
     public function update(SaveFugaRequest $request , $id)
     {
-        if ( Auth::check() ) {
-
-           $jefeguardia_id = DB::table('users')->where('name', $request->jefeguardia_id)->value('id');
-           $incidente_id = DB::table('incidentes')->where('nombre_incidente', $request->incidente_id)->value('id');
-           $station_id = DB::table('stations')->where('nombre', $request->station_id)->value('id');
+        if ( Auth::check() ) 
+        {
+          DB::begintransaction();
+          try
+          {
            $fuga = Fuga::findOrFail( $id );
            $fuga->update([
-                                'incidente_id' => $incidente_id,
+                                'incidente_id' => $request->incidente_id,
                                 'tipo_escena' => $request->tipo_escena,
-                                'station_id' => $station_id,
+                                'station_id' => $request->station_id,
                                 'fecha' => $request->fecha,
                                 'direccion' => $request->direccion,
                                 'parroquia_id' => $fuga->parroquia->id,
@@ -272,6 +257,12 @@ class FugaController extends Controller
            }
            Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
            return redirect( "/fuga" );
+          }
+          catch(\Exception $e)
+          {
+              DB::rollback();
+              //dd($e);
+          }
         } else {
             return view( "/auth.login" );
         }
