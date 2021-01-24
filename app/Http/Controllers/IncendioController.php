@@ -38,7 +38,7 @@ class IncendioController extends Controller
             $query = trim($request->get('searchText'));
             $incendios = Incendio::where("direccion",'LIKE','%'.$query.'%')
               ->OrderBy('fecha','desc')
-              ->paginate(10);
+              ->paginate(15);
             return view( "/fuego.index", compact( "incendios","query" ) );
         }
     }

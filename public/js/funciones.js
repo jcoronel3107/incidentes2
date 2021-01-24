@@ -119,7 +119,10 @@ function limpiar(){
 	$("#pkm_llegada").val("");
 }
 function evaluar(){
-	//if(jqkm_llegada>jqkm_salida){
+	if(jqkm_llegada>=jqkm_salida){
+		$("#divguardar").show();
+		$("#Enviar").show();
+	}
 	
 	if(document.title=="Derrame"){
 		jqtitle = jqvehiculo +" - Derrame - BCBVC";

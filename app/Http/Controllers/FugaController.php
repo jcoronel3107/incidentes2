@@ -38,8 +38,8 @@ class FugaController extends Controller
         {
           $query = trim($request->get('searchText'));
           $fugas = Fuga::where("direccion",'LIKE','%'.$query.'%')
-          ->OrderBy('fecha','asc')
-          ->paginate(10);
+          ->OrderBy('fecha','desc')
+          ->paginate(15);
               return view( "/fuga.index", compact( "fugas","query" ) );
         }
     }

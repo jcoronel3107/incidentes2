@@ -64,7 +64,7 @@
 								<select class="form-control selectpicker" name="vehiculo_id" id="pvehiculo_id" data-live-search="true">
 								<option value="" selected>Elija...</option>
 								@foreach($vehiculos as $vehiculo)
-								<option value="{{$vehiculo->id}}" >{{$vehiculo->codigodis}}</option>
+								<option>{{$vehiculo->codigodis}}</option>
 								@endforeach
 								</select>
 							</div>
@@ -200,7 +200,7 @@
 					<select class="form-control" name="jefeguardia_id">
 						<option selected>{{old('jefeguardia_id')}}</option>
 						@foreach($users as $user)
-						<option>{{$user->name}}</option>
+						<option value="{{$user->id}}">{{$user->name}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -211,7 +211,7 @@
 					<select class="form-control" name="bombero_id">
 						<option selected>{{old('bombero_id')}}</option>
 						@foreach($users as $user)
-						<option>{{$user->name}}</option>
+						<option value="{{$user->id}}">{{$user->name}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -222,7 +222,7 @@
 					<select class="form-control" name="conductor_id">
 						<option selected>{{old('conductor_id')}}</option>
 						@foreach($maquinistas as $maquinista)
-						<option>{{$maquinista->name}}</option>
+						<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>
 						@endforeach
 					</select>
 				</div>

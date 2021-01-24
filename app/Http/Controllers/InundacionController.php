@@ -40,7 +40,7 @@ class InundacionController extends Controller
           $query = trim($request->get('searchText'));
           $inundaciones = Inundacion::where("address",'LIKE','%'.$query.'%')
           ->OrderBy('fecha','desc')
-          ->paginate(10);
+          ->paginate(15);
 		      return view( "/inundacion.index", compact( "inundaciones","query" ) );
         }
     }

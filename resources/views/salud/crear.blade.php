@@ -245,7 +245,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Salida A Emergencia</span>
 					</div>
-					<input type="time" class="form-control" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" value="" placeholder="hh:mm:ss" required="">
+					<input type="time" class="form-control" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" value="{{old('hora_salida_a_emergencia')}}" placeholder="hh:mm:ss" required="">
 					<div class="input-group-append">
 								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual" id="horactual"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 					</div>
@@ -254,7 +254,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Llegada A Emergencia</span>
 					</div>
-					<input type="time" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm" required=""  value="">
+					<input type="time" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm:ss" required=""  value="{{old('hora_llegada_a_emergencia')}}">
 					<div class="input-group-append">
 								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual1" id="horactual1"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 					</div>
@@ -265,7 +265,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Arribo C.Salud</span>
 					</div>
-					<input type="time" class="form-control" name="hora_fin_emergencia" id="hora_fin_emergencia" placeholder="hh:mm:ss" value="">
+					<input type="time" class="form-control" name="hora_fin_emergencia" id="hora_fin_emergencia" placeholder="hh:mm:ss" value="{{old('hora_fin_emergencia')}}">
 					<div class="input-group-append">
 								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual2" id="horactual2"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 					</div>
@@ -346,28 +346,29 @@
 
 									<select class="form-control selectpicker" name="casasalud" id="pcasasalud" data-live-search="true" >
 										<option selected>Elija...</option>
-										<option>Hosp.Vicente.Corral</option>
+										<option>Clínica Albán</option>
+										<option>Clínica Cisneros</option>
+										<option>Clínica Fracturas</option>
+										<option>Clínica Humanitaria</option>
+										<option>Clinica La Paz</option>
+										<option>Clinica Latino-Americana</option>
+										<option>Clinica Paucarbamba</option>
+										<option>Clinica Praxel</option>
+										<option>Clinica Santa Ana</option>
+										<option>Hosp.Del Niño y Familia</option>
+										<option>Hosp.Del.Rio</option>
 										<option>Hosp.Jose.Carrasco</option>
 										<option>Hosp.Mariano.Estrella</option>
+										<option>Hosp.Materno Infantil</option>
 										<option>Hosp.Carlos.Elizalde</option>
+										<option>Hosp.Militar</option>
 										<option>Hosp.Snta.Ana</option>
 										<option>Hosp.Santa.Ines</option>
 										<option>Hosp.Sinai</option>
-										<option>Hosp.Del.Rio</option>
 										<option>Hosp.Univ.Catolico</option>
-										<option>Hosp.Militar</option>
-										<option>Hosp.Del Niño y Familia</option>
-										<option>Hosp.Materno Infantil</option>
-										<option>Clinica Santa Ana</option>
-										<option>Clinica Praxel</option>
-										<option>Clinica Latino-Americana</option>
-										<option>Clinica Paucarbamba</option>
-										<option>Clinica La Paz</option>
-										<option>Clínica Cisneros</option>
-										<option>Clínica Humanitaria</option>
-										<option>Clínica Albán</option>
-										<option>Clínica Fracturas</option>
+										<option>Hosp.Vicente.Corral</option>
 										<option>Medimagen</option>
+										<option>Solca</option>
 										<option>No Amerita Traslado</option>
 										<option>Rehusa Traslado</option>
 									</select>

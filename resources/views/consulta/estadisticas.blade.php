@@ -65,13 +65,13 @@
 		<div class="row">
   			<div class="col-xl-8 col-lg-8">
 
-				<div class="py-2 " id="container0.2"></div>
+				<!-- <div class="py-2 " id="container0.2"></div> -->
 
 			</div>
 
 			<div class="col-xl-4 col-lg-4">
 
-				<div class="py-2 " id="table0.2">
+				<!-- <div class="py-2 " id="table0.2">
 					<table class="table table-sm" id="datatable0.2">
 				        <thead>
 				            <tr>
@@ -89,7 +89,7 @@
  							@endforeach
 				        </tbody>
 				    </table>
-				</div>
+				</div> -->
 
 			</div>
 		</div>

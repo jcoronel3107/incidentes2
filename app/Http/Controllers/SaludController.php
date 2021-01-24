@@ -41,7 +41,7 @@ class SaludController extends Controller
           $query = trim($request->get('searchText'));
           $saluds = Salud::where("direccion",'LIKE','%'.$query.'%')
           ->OrderBy('fecha','desc')
-          ->paginate(10);
+          ->paginate(15);
               
 
           return view( "/salud.index", compact( "saluds","query" ) );

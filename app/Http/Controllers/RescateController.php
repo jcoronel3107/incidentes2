@@ -39,8 +39,8 @@ class RescateController extends Controller
         {
           $query = trim($request->get('searchText'));
           $rescates = Rescate::where("direccion",'LIKE','%'.$query.'%')
-          ->OrderBy('fecha','asc')
-          ->paginate(10);
+          ->OrderBy('fecha','desc')
+          ->paginate(15);
 		      return view( "/rescate.index", compact( "rescates","query" ) );
         }
     }

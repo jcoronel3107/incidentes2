@@ -39,7 +39,7 @@ class DerrameController extends Controller
           $query = trim($request->get('searchText'));
           $derrames = Derrame::where("address",'LIKE','%'.$query.'%')
           ->OrderBy('fecha','desc')
-          ->paginate(10);
+          ->paginate(15);
               return view( "/derrame.index", compact( "derrames","query" ) );
         }
     }

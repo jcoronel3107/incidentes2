@@ -211,7 +211,16 @@ class ClaveController extends Controller {
 
 
             $claves= Clave::select(DB::raw("Month(created_at) as Mes,count(id) as count"))->whereYear('created_at',date('Y'))->groupBy(DB::raw("Month(created_at)"))->get();
-            return view("/clave.grafic",compact("claves"));
+            $clavesxgasolinera = DB::table('claves')
+				->join('gasolineras', 'claves.gasolinera_id', '=', 'gasolineras.id')
+                ->select('gasolinera_id','gasolineras.razonsocial', DB::raw('count(gasolinera_id) Nro_Cargas'))
+                ->whereYear('claves.created_at', '=', date('Y'))
+                ->whereNull('claves.deleted_at')
+                ->groupBy('claves.gasolinera_id')
+                ->havingRaw('count(claves.gasolinera_id) >= ?',[1])
+                ->get();
+			
+            return view("/clave.grafic",compact("claves","clavesxgasolinera"));
     }
 
     public function export()

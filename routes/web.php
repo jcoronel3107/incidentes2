@@ -225,8 +225,7 @@ Route::get('/prueba', function () {
 
 Route::get('/prueba2',function()
 	{
-		$Inundacionxestacion = DB::table('saluds')
-                ->select( DB::raw('count(station_id) salidas'))
+		$Inundacionxestacion = Claves::select( DB::raw('count(station_id) salidas'))
                 ->where('station_id','=','5')
                 ->whereYear('fecha', '=', date('Y'))
                 ->whereNull('saluds.deleted_at')
@@ -236,3 +235,15 @@ Route::get('/prueba2',function()
 			return $Inundacionxestacion;
 	});
 
+Route::get('/prueba3',function()
+	{
+		$Inundacionxestacion = DB::table('claves')
+				->join('gasolineras', 'claves.gasolinera_id', '=', 'gasolineras.id')
+                ->select('gasolinera_id','gasolineras.razonsocial', DB::raw('count(gasolinera_id) Nro_Cargas'))
+                ->whereYear('claves.created_at', '=', date('Y'))
+                ->whereNull('claves.deleted_at')
+                ->groupBy('claves.gasolinera_id')
+                ->havingRaw('count(claves.gasolinera_id) >= ?',[1])
+                ->get();
+			return $Inundacionxestacion;
+	});
