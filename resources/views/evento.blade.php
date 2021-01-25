@@ -55,7 +55,7 @@
                                     	<a title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/inundacion/create"><i class="fa fa-plus" aria-hidden="true"></i></a> 
                                     	@endcan
                                     	<a title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/inundacion"><i class="fa fa-list-ol" aria-hidden="true"></i></a>                       
-                                    	<h1 class="text-center">-</h1>
+                                    	<h1 class="text-center">{{"$InundacionEst"}}</h1>
                                     	<a target="_blank"><p class="card-text text-center text-black"> {!! trans('messages.Current Month Events') !!}</p></a>
                                     </div>
                                 	
@@ -83,7 +83,7 @@
                                     		<a title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/rescate/create"><i class="fa fa-plus" aria-hidden="true"></i></a> 
                                     	@endcan
                                     	<a title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/rescate"><i class="fa fa-list-ol" aria-hidden="true"></i></a>                       
-                                    	<h1 class="text-center">-</h1>
+                                    	<h1 class="text-center">{{$RescateEst}}</h1>
                                     	<a target="_blank"><p class="card-text text-center text-black"> {!! trans('messages.Current Month Events') !!}</p></a>
                                     </div>
                                 	
@@ -101,7 +101,7 @@
                                     	<a title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/derrame/create"><i class="fa fa-plus" aria-hidden="true"></i></a> 
                                     	@endcan
                                     	<a title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/derrame"><i class="fa fa-list-ol" aria-hidden="true"></i></a>                       
-                                    	<h1 class="text-center">-</h1>
+                                    	<h1 class="text-center">{{$HazmatEst}}</h1>
                                     	<a target="_blank"><p class="card-text text-center text-black"> {!! trans('messages.Current Month Events') !!}</p></a>
                                     </div>
 
@@ -118,7 +118,7 @@
                                     	<a title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/transito/create"><i class="fa fa-plus" aria-hidden="true"></i></a> 
                                     	@endcan
                                     	<a title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/transito"><i class="fa fa-list-ol" aria-hidden="true"></i></a>                       
-                                    	<h1 class="text-center">-</h1>
+                                    	<h1 class="text-center">{{$TransitoEst}}</h1>
                                     	<a target="_blank"><p class="card-text text-center text-black"> {!! trans('messages.Current Month Events') !!}</p></a>
                                     </div>
 
@@ -136,7 +136,7 @@
                                     	<a title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/salud/create"><i class="fa fa-plus" aria-hidden="true"></i></a> 
                                     	@endcan
                                     	<a title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/salud"><i class="fa fa-list-ol" aria-hidden="true"></i></a>                       
-                                    	<h1 class="text-center">-</h1>
+                                    	<h1 class="text-center">{{$SaludEst}}</h1>
                                     	<a target="_blank"><p class="card-text text-center text-black"> {!! trans('messages.Current Month Events') !!}</p></a>
                                     </div>
 
@@ -155,7 +155,7 @@
                                     	<a title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/fuego/create"><i class="fa fa-plus" aria-hidden="true"></i></a> 
                                     	@endcan
                                     	<a title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/fuego"><i class="fa fa-list-ol" aria-hidden="true"></i></a>                       
-                                    	<h1 class="text-center">-</h1>
+                                    	<h1 class="text-center">{{$FuegoEst}}</h1>
                                     	<a target="_blank"><p class="card-text text-center text-black"> {!! trans('messages.Current Month Events') !!}</p></a>
                                     </div>
 
@@ -174,7 +174,7 @@
                                     	<a title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/fuga/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
                                     	@endcan 
                                     	<a title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/fuga"><i class="fa fa-list-ol" aria-hidden="true"></i></a>                       
-                                    	<h1 class="text-center">-</h1>
+                                    	<h1 class="text-center">{{$FugaEst}}</h1>
                                     	<a target="_blank"><p class="card-text text-center text-black"> {!! trans('messages.Current Month Events') !!}</p></a>
                                     </div>
 

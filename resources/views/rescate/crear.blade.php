@@ -14,7 +14,7 @@
 
 		    <a class="btn btn-outline-info"  data-toggle="tooltip" title="Whatsapp" role="button" onclick="notificacionWhatsapp();"><i class="icon-comments-alt icon-2x"></i></a>
 
-			<a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('rescate.index')}}"><i class="icon-remove icon-2x"></i></a>	
+			<a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('rescate.index')}}"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></a>	
 		  </li>
 		</ul>
 		<form method="post" action="/rescate">
