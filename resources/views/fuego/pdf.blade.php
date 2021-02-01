@@ -16,7 +16,7 @@
 <img src="images/encabezado.png" alt="encabezadopdf" width="500" height="90">
 <div class="container">
 
-		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Consultar Información de Evento 10-33</h2>
+		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Consultar Información de Evento 10-70</h2>
 
 		    	<h3>Registro Nro.{{$incendio->id}}</h3>
 					<span class="bg-gray font-weight-bold">Cod_Incidente:</span>

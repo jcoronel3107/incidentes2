@@ -22,14 +22,14 @@
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" target="_blank" aria-controls="collapseTwo">
           <i class="fa fa-star-half" aria-hidden="true"></i>
           <span>{!! trans('messages.Station1') !!}</span>
         </a>
         <div id="collapse1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">{!! trans('messages.Choices') !!}:</h6>
-            <a class="collapse-item" target="_blank" href="/eventoE1/">{!! trans('messages.Incident') !!}</a>
+            <a class="collapse-item" target="_blank"  href="/eventoE1/">{!! trans('messages.Incident') !!}</a>
             
           </div>
         </div>
@@ -44,7 +44,7 @@
         <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">{!! trans('messages.Choices') !!}:</h6>
-            <a class="collapse-item" target="_blank" href="/eventoE2/">{!! trans('messages.Incident') !!}</a>
+            <a class="collapse-item" target="_blank"  href="/eventoE2/">{!! trans('messages.Incident') !!}</a>
           </div>
         </div>
       </li>
@@ -128,7 +128,7 @@
         <div id="collapse8" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-            <a class="collapse-item" target="_blank" href="/eventoE8/">{!! trans('messages.Incident') !!}</a>
+            <a class="collapse-item" target="_blank"  href="/eventoE8/">{!! trans('messages.Incident') !!}</a>
            
           </div>
         </div>

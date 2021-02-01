@@ -33,7 +33,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Hora Ficha ECU911</span>
 							</div>
-							<input type="time" required="" name="hora_fichaecu911" id="hora_fichaecu911" class="form-control" placeholder="hh:mm:ss" value="">
+							<input type="time" required="" name="hora_fichaecu911" id="hora_fichaecu911" class="form-control" placeholder="hh:mm:ss" >
 							<div class="input-group-append">
 								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual0" id="horactual0"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 							</div>
