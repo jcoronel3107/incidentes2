@@ -36,8 +36,6 @@ class TransitosExport implements FromCollection, WithHeadings,ShouldAutoSize
             'Detalle_emergencia',
             'Usuario_afectado',
             'Danos_estimados',
-            'Jefeguardia_id',
-            'Nombre_Jefeguardia',
         ];
     }
 
@@ -69,6 +67,8 @@ class TransitosExport implements FromCollection, WithHeadings,ShouldAutoSize
         	'transitos.detalle_emergencia',
         	'transitos.usuario_afectado',
         	'transitos.danos_estimados')
+        ->whereYear('fecha', '=', date('Y'))
+        ->whereNull('transitos.deleted_at')
         ->get();
     }
 }

@@ -41,7 +41,7 @@ class TransitoController extends Controller
         {
           $query = trim($request->get('searchText'));
           $transitos = Transito::where("direccion",'LIKE','%'.$query.'%')
-          ->OrderBy('fecha','asc')
+          ->OrderBy('fecha','desc')
           ->paginate(15);
               return view( "/transito.index", compact( "transitos","query" ) );
         }
@@ -238,6 +238,19 @@ class TransitoController extends Controller
 
                 $maqui = User::findOrFail($request->conductor_id);
                 $maqui->transitos()->attach($id);
+                $cont=0;
+                $nombrevehiculo = $request->get('vehiculo_id');
+                $kmsalidavehiculo = $request->get('km_salida');
+                $kmllegadavehiculo = $request->get('km_llegada');
+                $transito->vehiculos()->detach();
+                 while ($cont < count($nombrevehiculo)) {
+                
+                $carro = Vehiculo::findOrFail($nombrevehiculo[$cont]);
+                $carro->transitos()->attach(
+                  $id , [
+                    'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
+                $cont=$cont+1;
+                }
                 Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
                 return redirect( "/transito" );
           }

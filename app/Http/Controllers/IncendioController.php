@@ -176,8 +176,11 @@ class IncendioController extends Controller
             ->where('id', $id)
             ->value('name');
             $incendio = Incendio::findOrFail( $id );
-            $vehiculos = Vehiculo::all();
-            $bomberos=User::where('cargo','bombero')
+            $vehiculos = Vehiculo::orderBy('codigodis','DESC')->get();
+            $bomberos = DB::table('users')->where([
+              ['cargo','=','Bombero'],
+            ])
+            ->orWhere('cargo','=','Paramedico')
             ->orderBy("name",'asc')
             ->get();
             $maquinistas=User::where('cargo','maquinista')

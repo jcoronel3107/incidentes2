@@ -7,49 +7,71 @@ $(document).ready(function(){
 	var month = dtToday.getMonth() + 1;     // getMonth() is zero-based
 	var day = dtToday.getDate();
 	var year = dtToday.getFullYear();
+	//console.log(e);
 	
-		if(month < 10)
+	var h1 = dtToday.getHours();
+	if (h1 >= 0 && h1 < 10) {
+		h1 = "0" + h1;
+	}
+	var min = dtToday.getMinutes();
+	if (min >= 0 && min < 10) {
+		min = "0" + min;
+	}
+	var sec = dtToday.getSeconds();
+	if (sec >= 0 && sec < 10) {
+		sec = "0" + sec;
+	}
+	var hora = h1 + ':' + min + ':' + sec;
+	$('#hora_salida_a_emergencia').attr('value', hora);
+
+	$('#hora_llegada_a_emergencia').attr('value', hora);
+
+	$('#hora_fin_emergencia').attr('value', hora);
+
+	$('#hora_en_base').attr('value', hora);
+
+	$('#hora_fichaecu911').attr('value', hora);
+	if(month < 10)
     		month = '0' + month.toString();
-		if(day < 10)
+	if(day < 10)
 		    day = '0' + day.toString();					
 		
-		var maxDate = year + '-' + month + '-' + day;
-		$('#fecha').attr('min', maxDate);
-		$('#fecha').attr('value', maxDate);
+	var maxDate = year + '-' + month + '-' + day;
+	$('#fecha').attr('min', maxDate);
+	$('#fecha').attr('value', maxDate);
+	
+	$("#bt_add").click(function () {
+		agregar();
+	});
+	$("#bt_addpaciente").click(function () {
+		agregarpaciente();
+	});
 
-		$("#bt_add").click(function () {
-			agregar();
-		});
-
-		$("#bt_addpaciente").click(function () {
-			agregarpaciente();
-		});
-
-		$("#horactual0").click(function () {
-			hractual(this);
-		});
-		$("#horactual").click(function () {
-			hractual(this);
-		});
-		$("#horactual1").click(function () {
-			hractual(this);
-		});
-		$("#horactual2").click(function () {
-			hractual(this);
-		});
-		$("#horactual3").click(function () {
-			hractual(this);
-		});
-		var max_chars = 1000;
-		$('#max').html(max_chars);
-	    
-	    $("#pinformacion_inicial").keyup(function() {
+	$("#horactual0").click(function () {
+		hractual(this);
+	});
+	$("#horactual").click(function () {
+		hractual(this);
+	});
+	$("#horactual1").click(function () {
+		hractual(this);
+	});
+	$("#horactual2").click(function () {
+		hractual(this);
+	});
+	$("#horactual3").click(function () {
+		hractual(this);
+	});
+	var max_chars = 2000;
+	$('#max').html(max_chars);
+    
+    $("#pinformacion_inicial").keyup(function() {
 	        var chars = $("#pinformacion_inicial").val().length;
 	        var diff = max_chars - chars;
-	        var leyenda = "Caracteres Permitidos 1000 - Digitados: ";
+	        var leyenda = "Caracteres Permitidos 2000 - Digitados: ";
 	        var res = leyenda.concat(chars);
 	        $("#pcounter").html(res);
-	        if(chars > 1000){
+	        if(chars > 2000){
 	           $("#pinformacion_inicial").addClass('error');
 	           $("#pinformacion_inicial").addClass('error');
 	        }else{
@@ -61,10 +83,10 @@ $(document).ready(function(){
 	    $("#detalle_emergencia").keyup(function() {
 	        var chars = $("#detalle_emergencia").val().length;
 	        var diff = max_chars - chars;
-	        var leyenda = "Caracteres Permitidos 1000 - Digitados: ";
+	        var leyenda = "Caracteres Permitidos 2000 - Digitados: ";
 	        var res = leyenda.concat(chars);
 	        $("#pcounter1").html(res);
-	        if(chars > 1000){
+	        if(chars > 2000){
 	           $("#detalle_emergencia").addClass('error');
 	           $("#detalle_emergencia").addClass('error');
 	        }else{
@@ -83,6 +105,8 @@ var jqkm_llegada=0;
 var jqvehiculo_id="";
 var jqvehiculo="";
 subtotal=[];
+
+
 
 function agregar() {
 	// body...
@@ -159,6 +183,7 @@ function evaluar(){
 		//console.log(jqtitle);
 		document.title =jqtitle;
 	}
+	
 }
 
 function eliminar(index){
@@ -199,6 +224,8 @@ function hractual(e) {
 	else
 		$('#hora_fichaecu911').attr('value', hora);
 }
+
+
 
 /*{{-- Script para almacenar pacientes atendidos --}}*/
 

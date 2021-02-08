@@ -118,7 +118,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Informacion Inicial</span>
 							</div>
-							<textarea onkeyup="mayus(this);" class="form-control" name="informacion_inicial" maxlength="1000" id="pinformacion_inicial" aria-label="With textarea" required="" >{{old('informacion_inicial')}}</textarea>
+							<textarea onkeyup="mayus(this);" class="form-control" name="informacion_inicial" maxlength="2000" id="pinformacion_inicial" aria-label="With textarea" required="" >{{old('informacion_inicial')}}</textarea>
 						</div>
 					</div>
 				</div>
@@ -167,7 +167,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Dirección</span>
 					</div>
-					<textarea class="form-control"  name="direccion" maxlength="1000" id="pdireccion" placeholder="Ubicacion del Evento" aria-label="With textarea" required="">{{old('direccion')}}</textarea>
+					<textarea class="form-control"  name="direccion" maxlength="2000" id="pdireccion" placeholder="Ubicacion del Evento" aria-label="With textarea" required="">{{old('direccion')}}</textarea>
 					<input type="button" value="Encode" onclick="codeAddress()">
 				</div>
 				<div class="form-group input-group col-md-4 col-sm-12">
@@ -273,7 +273,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Detalle Emergencia</span>
 					</div>
-					<textarea onkeyup="mayus(this);" class="form-control"  name="detalle_emergencia" maxlength="1000" id="detalle_emergencia" placeholder="Digite a detalle lo ocurrido en Emergencia" aria-label="With textarea" required="">{{old('detalle_emergencia')}}</textarea>
+					<textarea onkeyup="mayus(this);" class="form-control"  name="detalle_emergencia" maxlength="2000" id="detalle_emergencia" placeholder="Digite a detalle lo ocurrido en Emergencia" aria-label="With textarea" required="">{{old('detalle_emergencia')}}</textarea>
 					
 				</div>
 			</div><!--Detalle Emergencia-->
@@ -329,7 +329,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDaños">Daños Estimados</span>
 					</div>
-					<input onkeyup="mayus(this);" type="text" class="form-control" name="danos_estimados" maxlength="1000" id="danos_estimados" value="{{old('danos_estimados')}}" placeholder="Detalle los daños producidos por  el incidente" required="">
+					<input onkeyup="mayus(this);" type="text" class="form-control" name="danos_estimados" maxlength="2000" id="danos_estimados" value="{{old('danos_estimados')}}" placeholder="Detalle los daños producidos por  el incidente" required="">
 				</div>
 			</div>{{-- Danos Estimados --}}
 			

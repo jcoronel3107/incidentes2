@@ -51,7 +51,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Informacion Inicial</span>
 							</div>
-							<textarea required="" onkeyup="mayus(this);" class="form-control" maxlength="1000" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$salud->informacion_inicial)}}</textarea>
+							<textarea required="" onkeyup="mayus(this);" class="form-control" maxlength="2000" id="pinformacion_inicial" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$salud->informacion_inicial)}}</textarea>
 
 						</div>
 					</div>
@@ -130,13 +130,11 @@
 						<span class="input-group-text">Jefe Guardia</span>
 					</div>
 					<select required="" class="form-control" name="jefeguardia_id">
-						@if($salud->users->isNotEmpty()){
+						@if ((count($salud->users) === 3) && ($salud->users->isNotEmpty()))
 							<option value="{{$salud->users[2]->id}}" selected="{{$salud->users[2]->id}}">{{old('jefeguardia_id',$salud->users[2]->name)}}</option>
-						
-						@else{
+						@else
 							<option value="">{{old('jefeguardia_id')}}</option>
-						}@endif
-
+						@endif
 						@foreach($bomberos as $bombero)
 						<option value="{{$bombero->id}}">{{$bombero->name}}</option>
 						@endforeach
@@ -147,12 +145,11 @@
 						<span class="input-group-text">Bombero</span>
 					</div>
 					<select required="" class="form-control" name="bombero_id">
-						@if($salud->users->isNotEmpty()){
+						@if ((count($salud->users) === 3) && ($salud->users->isNotEmpty()))
 							<option value="{{$salud->users[1]->id}}" selected="{{$salud->users[1]->id}}">{{old('bombero_id',$salud->users[1]->name)}}</option>
-						
-						@else{
+						@else
 							<option value="">{{old('bombero_id')}}</option>
-						}@endif
+						@endif
 						@foreach($bomberos as $bombero)
 						<option value="{{$bombero->id}}">{{$bombero->name}}</option>
 						@endforeach
@@ -163,12 +160,12 @@
 						<span class="input-group-text">Conductor</span>
 					</div>
 					<select required="" class="form-control" name="conductor_id">
-						@if($salud->users->isNotEmpty()){
+						@if ((count($salud->users) === 3) && ($salud->users->isNotEmpty()))
 							<option value="{{$salud->users[0]->id}}" selected="{{$salud->users[0]->id}}">{{old('conductor_id',$salud->users[0]->name)}}</option>
 						
-						@else{
+						@else
 							<option value="">{{old('conductor_id')}}</option>
-						}@endif
+						@endif
 						
 						@foreach($maquinistas as $maquinista)
 						<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>
@@ -325,16 +322,16 @@
 						agregarpaciente();
 					});
 
-					var max_chars = 1000;
+					var max_chars = 2000;
 					$('#max').html(max_chars);
 
 				    $("#pinformacion_inicial").keyup(function() {
 				        var chars = $("#pinformacion_inicial").val().length;
 				        var diff = max_chars - chars;
-				        var leyenda = "Caracteres Permitidos 1000 - Digitados: ";
+				        var leyenda = "Caracteres Permitidos 2000 - Digitados: ";
 				        var res = leyenda.concat(chars);
 				        $("#pcounter").html(res);
-				        if(chars > 1000){
+				        if(chars > 2000){
 				           $("#pinformacion_inicial").addClass('error');
 				           $("#pinformacion_inicial").addClass('error');
 				          }else{
@@ -345,10 +342,10 @@
 				    $("#detalle_emergencia").keyup(function() {
 				        var chars = $("#detalle_emergencia").val().length;
 				        var diff = max_chars - chars;
-				        var leyenda = "Caracteres Permitidos 1000 - Digitados: ";
+				        var leyenda = "Caracteres Permitidos 2000 - Digitados: ";
 				        var res = leyenda.concat(chars);
 				        $("#pcounter1").html(res);
-				        if(chars > 1000){
+				        if(chars > 2000){
 				           $("#detalle_emergencia").addClass('error');
 				           $("#detalle_emergencia").addClass('error');
 				          }else{

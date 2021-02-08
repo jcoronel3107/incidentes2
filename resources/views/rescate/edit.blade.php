@@ -51,7 +51,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Información Inicial</span>
 							</div>
-							<textarea onkeyup="mayus(this);" class="form-control" maxlength="1000" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$rescate->informacion_inicial)}}</textarea>
+							<textarea onkeyup="mayus(this);" class="form-control" maxlength="2000" name="informacion_inicial" id="pinformacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$rescate->informacion_inicial)}}</textarea>
 						</div>
 					</div>
 				</div>
@@ -190,7 +190,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Detalle Emergencia</span>
 						</div>
-						<textarea onkeyup="mayus(this);" class="form-control" maxlength="1000" name="detalle_emergencia" id="detalle_emergencia"  aria-label="With textarea" placeholder="Digite a detalle lo ocurrido en Emergencia">{{old('detalle_emergencia',$rescate->detalle_emergencia)}}</textarea>
+						<textarea onkeyup="mayus(this);" class="form-control" maxlength="2000" name="detalle_emergencia" id="detalle_emergencia"  aria-label="With textarea" placeholder="Digite a detalle lo ocurrido en Emergencia">{{old('detalle_emergencia',$rescate->detalle_emergencia)}}</textarea>
 					</div>
 				</div>
 			</div>{{--Detalle Emergencia--}}
@@ -215,7 +215,7 @@
 
 			<hr>
 			<div class="card">
-				<div class="card-header">Vehiculos en la Emergencia</div>
+				<div class="card-header text-white bg-primary">Vehiculos en la Emergencia</div>
 				<div class="card-body">
 					<div class="row">
 						<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
@@ -226,7 +226,7 @@
 								<select class="form-control selectpicker" name="vehiculo_id" id="pvehiculo_id" data-live-search="true" required="">
 								<option selected>Elija...</option>
 								@foreach($vehiculos as $vehiculo)
-								<option>{{$vehiculo->codigodis}}</option>
+									<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>
 								@endforeach
 								</select>
 							</div>
@@ -236,7 +236,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text" >Km.Salida</span>
 									</div>
-									<input type="number" class="form-control"  name="km_salida" id="pkm_salida" placeholder="Digite Valor">
+									<input type="number" class="form-control" value="{{old('ikm_salida')}}"  name="ikm_salida" id="pkm_salida" placeholder="Digite Valor">
 								</div>
 						</div>
 						<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
@@ -244,7 +244,7 @@
 									<div class="input-group-prepend">
 									<span class="input-group-text" id="inputDetalle">Km.Llegada</span>
 									</div>
-									<input type="number" class="form-control" id="pkm_llegada" name="km_llegada" placeholder="Digite Valor" required="">
+									<input type="number" class="form-control" id="pkm_llegada" name="ikm_llegada" value="{{old('ikm_llegada')}}" placeholder="Digite Valor">
 								</div>
 						</div>
 						<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2">
@@ -329,16 +329,16 @@
 					});
 					
 
-					var max_chars = 1000;
+					var max_chars = 2000;
 					$('#max').html(max_chars);
 
 				    $("#pinformacion_inicial").keyup(function() {
 				        var chars = $("#pinformacion_inicial").val().length;
 				        var diff = max_chars - chars;
-				        var leyenda = "Caracteres Permitidos 1000 - Digitados: ";
+				        var leyenda = "Caracteres Permitidos 2000 - Digitados: ";
 				        var res = leyenda.concat(chars);
 				        $("#pcounter").html(res);
-				        if(chars > 1000){
+				        if(chars > 2000){
 				           $("#pinformacion_inicial").addClass('error');
 				           $("#pinformacion_inicial").addClass('error');
 				          }else{
@@ -349,10 +349,10 @@
 				    $("#detalle_emergencia").keyup(function() {
 				        var chars = $("#detalle_emergencia").val().length;
 				        var diff = max_chars - chars;
-				        var leyenda = "Caracteres Permitidos 1000 - Digitados: ";
+				        var leyenda = "Caracteres Permitidos 2000 - Digitados: ";
 				        var res = leyenda.concat(chars);
 				        $("#pcounter1").html(res);
-				        if(chars > 1000){
+				        if(chars > 2000){
 				           $("#detalle_emergencia").addClass('error');
 				           $("#detalle_emergencia").addClass('error');
 				          }else{
@@ -386,9 +386,7 @@
 					$("#pkm_salida").val("");
 					$("#pkm_llegada").val("");
 				}
-
 				function evaluar(){
-					
 						$("#divguardar").show();
 						$("#Enviar").show();
 					

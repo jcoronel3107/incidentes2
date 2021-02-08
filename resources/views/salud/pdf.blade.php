@@ -8,118 +8,64 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-    <title>Reporte Inundacion - BCBVC</title>
+    <title>Reporte Salud - BCBVC</title>
 
 </head>
 
 <body>
 	<img src="images/encabezado.png" alt="encabezadopdf" width="500" height="90">
-	<div class="container-fluid">
-
-		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Consultar Información de Evento 10-20</h2>
-		<div class="card">
-			<div class="card-header ">
-		    	<div class="col-6"><h3>Registro Nro.{{$inundacion->id}}</h3>			    </div>
-			</div>
-  			<div class="card-body">
-    		<div class="row p-3 border-left-primary">
-				<div class="col-2">
+	<div class="container">
+		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Consultar Información de Evento Salud (10-38)</h2>
+		<p align="right" class="text-info text">Cuenca, 8 de Febrero del 2021</p>
+		    	<h3>Registro Nro.{{$salud->id}}</h3>
 					<span class="bg-gray font-weight-bold">Cod_Incidente:</span>
-					<p class="text-info">{{$inundacion->incidente->nombre_incidente}}</p>
-				</div>
-				<div class="col-2">
+					<p class="text-info">{{$salud->incidente->nombre_incidente}}</p>
 					<span class="bg-gray font-weight-bold">Tipo_Escena:</span>
-					<p class=" text-info">{{$inundacion->tipo_escena}}</p>
-				</div>
-				<div class="col-2">
+					<p class=" text-info">{{$salud->tipo_escena}}</p>
 					<span class="bg-gray font-weight-bold">Cod_Estacion:</span>
-					<p class=" text-info">{{$inundacion->station_id}}</p>
-				</div>
-				<div class="col-2">
+					<p class=" text-info">{{$salud->station_id}}</p>
+			<hr>
 					<span class="bg-gray font-weight-bold">Fecha:</span>
-					<p class="text-info">{{$inundacion->fecha}}</p>
-				</div>
-				<div class="col-2">
+					<p class="text-info">{{$salud->fecha}}</p>
 					<span class="bg-gray font-weight-bold">Ficha_Ecu911:</span>
-					<p class="text-info">{{$inundacion->ficha_ecu911}}</p>
-				</div>
-				<div class="col-2">
+					<p class="text-info">{{$salud->ficha_ecu911}}</p>
 					<span class="bg-gray font-weight-bold">Hora_FichaEcu911:</span>
-					<p class="text-info">{{$inundacion->hora_fichaecu911}}</p>
-				</div>
-			</div>
+					<p class="text-info">{{$salud->hora_fichaecu911}}</p>
 			<hr>
-			<div class="row p-3 border-left-secondary">
-				<div class="col-4">
 					<span class="bg-gray font-weight-bold">Dirección:</span>
-					 <p class="text-info">{{$inundacion->address}}</p>
-
-				</div>
-				<div class="col-4">
+					 <p class="text-info">{{$salud->direccion}}</p>
 					<span class="bg-gray font-weight-bold">Parroquia: </span>
-					<p class="text-info">{{$inundacion->parroquia->nombre}}</p>
-				</div>
-				<div class="col-4">
-					<span class="bg-gray font-weight-bold">Geoposición:</span>
-					<p class="text-info"></p>
-				</div>
-			</div>
+					<p class="text-info">{{$salud->parroquia->nombre}}</p>
+					<span class="bg-gray font-weight-bold">Georeferencia:</span>
+					 <p class="text-info">{{$salud->geoposicion}}</p><br/>
 			<hr>
-			<div class="row p-3 border-left-primary">
-				<div class="col-3">
 					<span class="bg-gray font-weight-bold">Hora Salida a Emergencia:</span>
-					<p class="text-info">{{$inundacion->hora_salida_a_emergencia}}</p>
-				</div>
-				<div class="col-3">
+					<p class="text-info">{{$salud->hora_salida_a_emergencia}}</p><br/>
 					<span class="bg-gray font-weight-bold">Hora Llegada A Emergencia:</span>
-					<p class="text-info">{{$inundacion->hora_llegada_a_emergencia}}</p>
-				</div>
-				<div class="col-3">
+					<p class="text-info">{{$salud->hora_llegada_a_emergencia}}</p><br/>
+			<hr>
 					<span class="bg-gray font-weight-bold">Hora Fin Emergencia:</span>
-					<p class="text-info">{{$inundacion->hora_fin_emergencia}}</p>
-				</div>
-				<div class="col-3">
+					<p class="text-info">{{$salud->hora_fin_emergencia}}</p>
 					<span class="bg-gray font-weight-bold">Hora En Base:</span>
-					<p class="text-info">{{$inundacion->hora_en_base}}</p>
-				</div>
-			</div>
-			<div class="row p-3 border-left-primary">
-				<div class="col-6">
+					<p class="text-info">{{$salud->hora_en_base}}</p>
 					<span class="bg-gray font-weight-bold">Informacion Inicial:</span>
-					<p class="text-info text-wrap text-break">{{$inundacion->informacion_inicial}}</p>
-				</div>
-				<div class="col-6">
+					<p class="text-info text-wrap text-break">{{$salud->informacion_inicial}}</p>
 					<span class="bg-gray font-weight-bold">Detalle Emergencia:</span>
-					<p class="text-info text-wrap text-break">{{$inundacion->detalle_emergencia}}</p>
-				</div>
-			</div>
+					<p class="text-info text-wrap text-break">{{$salud->detalle_emergencia}}</p>
+
 			<hr>
-			<div class="row p-3 border-left-secondary">
-				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Usuario Afectado:</span>
-					<p class="text-info">{{$inundacion->usuario_afectado}}</p>
-				</div>
-				<div class="col-6">
+					<p class="text-info">{{$salud->usuario_afectado}}</p>
 					<span class="bg-gray font-weight-bold"> Danos Estimados:</span>
-					<p class="text-info text-wrap text-break">{{$inundacion->danos_estimados}}</p>
-				</div>
-			</div>
+					<p class="text-info text-wrap text-break">{{$salud->danos_estimados}}</p>
 			<hr>
-			<div class="row p-3 border-left-primary">
-				<div class="col-4">
 					<span class="bg-gray font-weight-bold"> Usuario Elabora:</span>
-					<p class="text-info">{{$inundacion->usr_creador}}</p>
-				</div>
-				<div class="col-4">
+					<p class="text-info">{{$salud->usr_creador}}</p>
 					<span class="bg-gray font-weight-bold"> Usuario Edición:</span>
-					<p class="text-info">{{$inundacion->usr_editor}}</p>
-				</div>
-				<div class="col-4">
+					<p class="text-info">{{$salud->usr_editor}}</p>
 					<span class="bg-gray font-weight-bold"> Fechas Edición:</span>
-					<p class="text-info">{{$inundacion->updated_at}}</p>
-				</div>
-			</div>
-			<hr>
+					<p class="text-info">{{$salud->updated_at}}</p>
+			<hr><br/><br/>
 			<div class="row p-3 border-left-secondary">
 				<div class="col-sm-12 col-md-12 col-lg-12">
 					<p class="text-center"><h4>Personal Asiste</h4></p>
@@ -132,7 +78,7 @@
 					    	</tr>
 					  	</thead>
 					  	<tbody>
-					  		@foreach($inundacion->users as $user)
+					  		@foreach($salud->users as $user)
 				 	   		<tr>
 				  	   			<th scope="row">{{$user->id}}</th>
 				  	    		<td>{{$user->name}}</td>
@@ -159,7 +105,7 @@
 				    		</tr>
 				  		</thead>
 				  		<tbody>
-				  			@foreach($inundacion->vehiculos as $vehiculo)
+				  			@foreach($salud->vehiculos as $vehiculo)
 				    		<tr>
 				      			<th scope="row">{{$vehiculo->id}}</th>
 				      			<td>{{$vehiculo->codigodis}}</td>
@@ -173,6 +119,13 @@
 					</table>
 				</div>
 			</div>
+			<hr>
+			<div>
+				<div class="col-sm-12 col-md-12 col-lg-12">
+					<p class="text-center"><h4>Firmas</h4></p><br><br>
+					<p class="text-info">{{$salud->usr_creador}}</p>
+					<span class="bg-gray font-weight-bold"> Usuario Elaborador</span>
+				</div>
 			</div>
 		</div>
 	</div>

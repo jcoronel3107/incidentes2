@@ -37,8 +37,7 @@ class InundacionsExport implements FromCollection, WithHeadings,ShouldAutoSize
             'Detalle_emergencia',
             'Usuario_afectado',
             'Danos_estimados',
-            'Jefeguardia_id',
-            'Nombre_Jefeguardia',
+            
         ];
     }
 
@@ -46,7 +45,6 @@ class InundacionsExport implements FromCollection, WithHeadings,ShouldAutoSize
     {
         return DB::table('inundacions')
         ->join('incidentes','incidentes.id','=','inundacions.incidente_id')
-
         ->join('stations','stations.id','=','inundacions.station_id')
         ->join('parroquias','parroquias.id','=','inundacions.parroquia_id')
         ->select(
@@ -70,6 +68,8 @@ class InundacionsExport implements FromCollection, WithHeadings,ShouldAutoSize
         	'inundacions.detalle_emergencia',
         	'inundacions.usuario_afectado',
         	'inundacions.danos_estimados')
+        ->whereYear('fecha', '=', date('Y'))
+        ->whereNull('inundacions.deleted_at')
         ->get();
     }
 }

@@ -17,7 +17,7 @@
 	<div class="container">
 
 		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Consultar Información de Evento Fuga</h2>
-
+		<p align="right" class="text-info text">Cuenca, 8 de Febrero del 2021</p>
 		    	<h3>Registro Nro.{{$fuga->id}}</h3>
 					<span class="bg-gray font-weight-bold">Cod_Incidente:</span>
 					<p class="text-info">{{$fuga->incidente->nombre_incidente}}</p>
@@ -121,7 +121,14 @@
 					</table>
 				</div>
 			</div>
-
+			<hr>
+			<div>
+				<div class="col-sm-12 col-md-12 col-lg-12">
+					<p class="text-center"><h4>Firmas</h4></p><br><br>
+					<p class="text-info">{{$fuga->usr_creador}}</p>
+					<span class="bg-gray font-weight-bold"> Usuario Elaborador</span>
+				</div>
+			</div>
 		</div>
 	</div>
 

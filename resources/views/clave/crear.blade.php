@@ -2,7 +2,7 @@
 
 	@section( "cabeza" )
 
-	<title>Clave - Crear - BCBVC</title>
+	<title>Clave</title>
 	@endsection
 
 	@section( "cuerpo" )
@@ -31,7 +31,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Vehìculo</span>
 					</div>
-					<select required="" class="form-control selectpicker" name="vehiculo_id" data-live-search="true">
+					<select required="" class="form-control selectpicker"  name="vehiculo_id" data-live-search="true">
 						<option value="" >Seleccione...</option>
 						@foreach($vehiculos as $vehiculo)
 						<option value="{{$vehiculo->id}}" >{{$vehiculo->codigodis}}</option>
@@ -44,19 +44,19 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Km. Salida del Vehìculo</span>
 					</div>
-					<input required="" type="number" name="km_salida" placeholder="Km. Salida" class="form-control">
+					<input required="" type="number" id="km_salida" name="km_salida" placeholder="Km. Salida" class="form-control">
 				</div>
 				<div class="form-group input-group  col-md-4">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Km. en Gasolinera</span>
 					</div>
-					<input required="" type="number"  name="km_gasolinera" class="form-control" placeholder="Km. en Gasolinera">
+					<input required="" type="number" id="km_gasolinera" onfocusout="validar()" name="km_gasolinera" class="form-control" placeholder="Km. en Gasolinera">
 				</div>
 				<div class="form-group input-group col-md-4">
 					<div class="input-group-prepend">
-						<span class="input-group-text" id="kmllegada">Km. Llegada Vehìculo</span>
+						<span class="input-group-text" >Km. Llegada Vehìculo</span>
 					</div>
-					<input required="" type="number"  name="km_llegada" class="form-control" id="kmllegada" placeholder="Km. Retorno">
+					<input required="" type="number" name="km_llegada" class="form-control" id="km_llegada" placeholder="Km. Retorno">
 				</div>
 			</div>
 			<div class="form-row">
@@ -126,6 +126,13 @@
 			{{$error}}
 		</div>
 		@endforeach @endif
+		@push ('scripts')
+			
+			
+			<script src="/js/clave.js"></script>
+			<script src="/js/funciones.js"></script>
+			
 
+		@endpush
 
 @endsection @section( "piepagina" ) @endsection

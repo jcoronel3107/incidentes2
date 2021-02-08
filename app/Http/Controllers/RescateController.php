@@ -238,6 +238,20 @@ class RescateController extends Controller
 
             $maqui = User::findOrFail($request->conductor_id);
             $maqui->rescates()->attach($id);
+            
+            $cont=0;
+            $nombrevehiculo = $request->get('vehiculo_id');
+            $kmsalidavehiculo = $request->get('km_salida');
+            $kmllegadavehiculo = $request->get('km_llegada');
+           
+            $rescate->vehiculos()->detach();
+            while ($cont < count($nombrevehiculo)) {
+                $carro = Vehiculo::findOrFail($nombrevehiculo[$cont]);
+                $carro->rescates()->attach(
+                $id , [
+                    'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
+                $cont=$cont+1;
+            }
             Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
             return redirect( "/rescate" );
           }

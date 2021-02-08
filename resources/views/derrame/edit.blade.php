@@ -51,7 +51,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Información Inicial</span>
 							</div>
-							<textarea required="" onkeyup="mayus(this);" class="form-control" maxlength="1000" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$derrame->informacion_inicial)}}</textarea>
+							<textarea required="" id="pinformacion_inicial" onkeyup="mayus(this);" class="form-control" maxlength="2000" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$derrame->informacion_inicial)}}</textarea>
 						</div>
 					</div>
 				</div>
@@ -98,7 +98,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Dirección</span>
 					</div>
-					<textarea required="" onkeyup="mayus(this);" class="form-control" id="pdireccion" maxlength="1000" name="address" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$derrame->address)}}</textarea>
+					<textarea required="" onkeyup="mayus(this);" class="form-control" id="pdireccion" maxlength="2000" name="address" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$derrame->address)}}</textarea>
 					<input type="button" value="Encode" onclick="codeAddress()">
 				</div>
 				<div class="form-group input-group input-group-prepend col-md-4">
@@ -202,7 +202,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Detalle Emergencia</span>
 						</div>
-						<textarea required="" onkeyup="mayus(this);" class="form-control"name="detalle_emergencia" id="detalle_emergencia" maxlength="1000"  aria-label="With textarea" placeholder="Digite a detalle lo ocurrido en Emergencia">{{old('detalle_emergencia',$derrame->detalle_emergencia)}}</textarea>
+						<textarea required="" onkeyup="mayus(this);" class="form-control"name="detalle_emergencia" id="detalle_emergencia" maxlength="2000"  aria-label="With textarea" placeholder="Digite a detalle lo ocurrido en Emergencia">{{old('detalle_emergencia',$derrame->detalle_emergencia)}}</textarea>
 					</div>
 				</div>
 			</div>{{--Detalle Emergencia--}}
@@ -338,16 +338,16 @@
 						agregarpaciente();
 					});
 
-					var max_chars = 1000;
+					var max_chars = 2000;
 					$('#max').html(max_chars);
 
 				    $("#pinformacion_inicial").keyup(function() {
 				        var chars = $("#pinformacion_inicial").val().length;
 				        var diff = max_chars - chars;
-				        var leyenda = "Caracteres Permitidos 1000 - Digitados: ";
+				        var leyenda = "Caracteres Permitidos 2000 - Digitados: ";
 				        var res = leyenda.concat(chars);
 				        $("#pcounter").html(res);
-				        if(chars > 1000){
+				        if(chars > 2000){
 				           $("#pinformacion_inicial").addClass('error');
 				           $("#pinformacion_inicial").addClass('error');
 				          }else{
@@ -358,10 +358,10 @@
 				    $("#detalle_emergencia").keyup(function() {
 				        var chars = $("#detalle_emergencia").val().length;
 				        var diff = max_chars - chars;
-				        var leyenda = "Caracteres Permitidos 1000 - Digitados: ";
+				        var leyenda = "Caracteres Permitidos 2000 - Digitados: ";
 				        var res = leyenda.concat(chars);
 				        $("#pcounter1").html(res);
-				        if(chars > 1000){
+				        if(chars > 2000){
 				           $("#detalle_emergencia").addClass('error');
 				           $("#detalle_emergencia").addClass('error');
 				          }else{

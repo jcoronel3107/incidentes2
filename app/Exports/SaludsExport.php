@@ -35,8 +35,7 @@ class SaludsExport implements FromCollection, WithHeadings,ShouldAutoSize
             'Hora_en_base',
             'Informacion_inicial',
             'Detalle_emergencia',
-            'Jefeguardia_id',
-            'Nombre_Jefeguardia',
+            
         ];
     }
 
@@ -44,7 +43,6 @@ class SaludsExport implements FromCollection, WithHeadings,ShouldAutoSize
     {
         return DB::table('saluds')
         ->join('incidentes','incidentes.id','=','saluds.incidente_id')
-
         ->join('stations','stations.id','=','saluds.station_id')
         ->join('parroquias','parroquias.id','=','saluds.parroquia_id')
         ->select(
@@ -66,6 +64,8 @@ class SaludsExport implements FromCollection, WithHeadings,ShouldAutoSize
         	'saluds.hora_en_base',
         	'saluds.informacion_inicial',
         	'saluds.detalle_emergencia')
+        ->whereYear('fecha', '=', date('Y'))
+        ->whereNull('saluds.deleted_at')
         ->get();
     }
 }

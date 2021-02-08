@@ -124,7 +124,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text ">Informacion Inicial</span>
 							</div>
-							<textarea class="form-control @error('informacion_inicial') is-invalid @enderror" maxlength="1000" onkeyup="mayus(this);" id="pinformacion_inicial" name="informacion_inicial"  aria-label="With textarea" required="" >{{old('informacion_inicial')}}</textarea>
+							<textarea class="form-control @error('informacion_inicial') is-invalid @enderror" maxlength="2000" onkeyup="mayus(this);" id="pinformacion_inicial" name="informacion_inicial"  aria-label="With textarea" required="" >{{old('informacion_inicial')}}</textarea>
 							@error('informacion_inicial')
     							<div class="alert alert-danger">{{ $message }}</div>
 							@enderror
@@ -286,7 +286,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Detalle Emergencia</span>
 					</div>
-					<textarea class="form-control" onkeyup="mayus(this);" maxlength="1000" id="detalle_emergencia" name="detalle_emergencia" placeholder="Digite a detalle lo ocurrido en Emergencia" aria-label="With textarea" >{{old('detalle_emergencia')}}</textarea>
+					<textarea class="form-control" onkeyup="mayus(this);" maxlength="2000" id="detalle_emergencia" name="detalle_emergencia" placeholder="Digite a detalle lo ocurrido en Emergencia" aria-label="With textarea" >{{old('detalle_emergencia')}}</textarea>
 				</div>
 			</div><!--Detalle Emergencia-->
 

@@ -6,7 +6,7 @@
 	@endsection
 
 	@section( "cuerpo" )
-	<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Consultar Información de Evento 10-42</h2>
+	<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Consultar Información de Evento 10-38</h2>
 		<div class="card">
 			<div class="card-header ">
 			    <div class="row">
@@ -136,17 +136,16 @@
 				    <tr>
 				      <th scope="col">#</th>
 				      <th scope="col">cie_id</th>
-				      <th scope="col">paciente</th>
-				      <th scope="col">edad</th>
-				      <th scope="col">genero</th>
-
-				      <th scope="col">presion1</th>
-				      <th scope="col">presion2</th>
-				      <th scope="col">temperatura</th>
-				      <th scope="col">glasglow</th>
-				      <th scope="col">saturacion</th>
-				      <th scope="col">hoja prehospitalaria</th>
-				      <th scope="col">casasalud</th>
+				      <th scope="col">Paciente</th>
+				      <th scope="col">Edad</th>
+				      <th scope="col">Genero</th>
+				      <th scope="col">Presion1</th>
+				      <th scope="col">Presion2</th>
+				      <th scope="col">Temper</th>
+				      <th scope="col">Glasglow</th>
+				      <th scope="col">Satur</th>
+				      <th scope="col">Hoja Prehosp</th>
+				      <th scope="col">CasaSalud</th>
 				    </tr>
 				  </thead>
 				  <tbody>

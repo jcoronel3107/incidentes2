@@ -61,4 +61,6 @@ class Rescate extends Model
 			->withPivot('km_salida','km_llegada');
 
 		}
+
+		
 }

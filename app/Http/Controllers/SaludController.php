@@ -227,9 +227,6 @@ class SaludController extends Controller
             ->orderBy("name",'asc')
             ->get();
 
-           /* $bomberos=User::where('cargo','bombero')
-            ->orderBy("name",'asc')
-            ->get();*/
             $maquinistas=User::where('cargo','maquinista')
             ->orderBy("name",'asc')
             ->get();
@@ -238,7 +235,7 @@ class SaludController extends Controller
             ->get();
             $estaciones = Station::all();
             $parroquias = Parroquia::all();
-
+            //dd($salud->users[1]->id);
             return view( "salud.edit", compact("salud","vehiculos","bomberos","maquinistas","incidentes","estaciones","parroquias"));
         } else {
             return view( "/auth.login" );

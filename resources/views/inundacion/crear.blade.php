@@ -125,7 +125,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Informacion Inicial</span>
 							</div>
-							<textarea onkeyup="mayus(this);" class="form-control Text-uppercase" id="pinformacion_inicial" name="informacion_inicial"  aria-label="With textarea" maxlength="1000"  required="" ></textarea>
+							<textarea onkeyup="mayus(this);" class="form-control Text-uppercase" id="pinformacion_inicial" name="informacion_inicial"  aria-label="With textarea" maxlength="2000"  required="" ></textarea>
 						</div>
 					</div>
 					<p class="text-sm-left" id="pcounter">0</p>
@@ -173,7 +173,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Dirección</span>
 					</div>
-					<textarea class="form-control Text-uppercase" id="pdireccion" name="address" placeholder="Ubicacion del Evento" aria-label="With textarea" maxlength="1000"  required=""></textarea>
+					<textarea class="form-control Text-uppercase" id="pdireccion" name="address" placeholder="Ubicacion del Evento" aria-label="With textarea" maxlength="2000"  required=""></textarea>
 					<input type="button" value="Encode" onclick="codeAddress()">
 				</div>
 				<div class="form-group input-group input-group-prepend col-md-4">
@@ -279,7 +279,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Detalle Emergencia</span>
 					</div>
-					<textarea onkeyup="mayus(this);" class="form-control Text-uppercase" id="detalle_emergencia" name="detalle_emergencia"  aria-label="With textarea" maxlength="1000" required="" >{{old('detalle_emergencia')}}</textarea>
+					<textarea onkeyup="mayus(this);" class="form-control Text-uppercase" id="detalle_emergencia" name="detalle_emergencia"  aria-label="With textarea" maxlength="2000" required="" >{{old('detalle_emergencia')}}</textarea>
 
 				</div>
 			</div><!--Detalle Emergencia-->
@@ -296,7 +296,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDaños">Daños Estimados</span>
 					</div>
-					<textarea onkeyup="mayus(this);" class="form-control Text-uppercase" id="danos_estimados" name="danos_estimados"  aria-label="With textarea" maxlength="1000" required="" >{{old('danos_estimados')}}</textarea>
+					<textarea onkeyup="mayus(this);" class="form-control Text-uppercase" id="danos_estimados" name="danos_estimados"  aria-label="With textarea" maxlength="2000" required="" >{{old('danos_estimados')}}</textarea>
 
 				</div>
 			</div>{{-- Danos Estimados --}}

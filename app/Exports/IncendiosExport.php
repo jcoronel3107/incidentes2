@@ -37,8 +37,7 @@ class IncendiosExport implements FromCollection, WithHeadings,ShouldAutoSize
             'Detalle_emergencia',
             'Usuario_afectado',
             'Danos_estimados',
-            'Jefeguardia_id',
-            'Nombre_Jefeguardia',
+            
         ];
     }
 
@@ -46,7 +45,6 @@ class IncendiosExport implements FromCollection, WithHeadings,ShouldAutoSize
     {
         return DB::table('incendios')
         ->join('incidentes','incidentes.id','=','incendios.incidente_id')
-
         ->join('stations','stations.id','=','incendios.station_id')
         ->join('parroquias','parroquias.id','=','incendios.parroquia_id')
         ->select(
@@ -70,6 +68,8 @@ class IncendiosExport implements FromCollection, WithHeadings,ShouldAutoSize
             'incendios.detalle_emergencia',
             'incendios.usuario_afectado',
             'incendios.danos_estimados')
+        ->whereYear('fecha', '=', date('Y'))
+        ->whereNull('incendios.deleted_at')
         ->get();
     }
 }

@@ -36,8 +36,7 @@ class RescatesExport implements FromCollection, WithHeadings,ShouldAutoSize
             'Detalle_emergencia',
             'Usuario_afectado',
             'Danos_estimados',
-            'Jefeguardia_id',
-            'Nombre_Jefeguardia',
+            
         ];
     }
 
@@ -69,6 +68,8 @@ class RescatesExport implements FromCollection, WithHeadings,ShouldAutoSize
         	'rescates.detalle_emergencia',
         	'rescates.usuario_afectado',
         	'rescates.danos_estimados')
+        ->whereYear('fecha', '=', date('Y'))
+        ->whereNull('rescates.deleted_at')
         ->get();
     }
 }

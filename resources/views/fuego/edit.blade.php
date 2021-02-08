@@ -51,7 +51,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Informacion Inicial</span>
 							</div>
-							<textarea required="" onkeyup="mayus(this);" class="form-control" maxlength="1000" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$incendio->informacion_inicial)}}</textarea>
+							<textarea required="" id="pinformacion_inicial" onkeyup="mayus(this);" class="form-control" maxlength="2000" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial',$incendio->informacion_inicial)}}</textarea>
 
 						</div>
 					</div>
@@ -99,7 +99,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Dirección</span>
 					</div>
-					<textarea required="" class="form-control" id="pdireccion" maxlength="1000" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$incendio->direccion)}}</textarea>
+					<textarea required="" class="form-control" id="pdireccion" maxlength="2000" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$incendio->direccion)}}</textarea>
 					<input type="button" value="Encode" onclick="codeAddress()">
 				</div>
 				<div class="form-group input-group input-group-prepend col-md-4">
@@ -128,7 +128,7 @@
 						<span class="input-group-text">Jefe Guardia</span>
 					</div>
 					<select required="" class="form-control" name="jefeguardia_id">
-						@if((count($incendio->users) <3)&&($incendio->users->isNotEmpty())){
+						@if((count($incendio->users) === 3)&&($incendio->users->isNotEmpty())){
 							<option value="{{$incendio->users[2]->id}}" selected="{{$incendio->users[2]->id}}">{{$incendio->users[2]->name}}</option>
 						@else{
 							<option value="">{{old('jefeguardia_id')}}</option>
@@ -143,7 +143,7 @@
 						<span class="input-group-text">Bombero</span>
 					</div>
 					<select required="" class="form-control" name="bombero_id">
-						@if((count($incendio->users) <2)&&($incendio->users->isNotEmpty())){
+						@if((count($incendio->users) === 3)&&($incendio->users->isNotEmpty())){
 							<option value="{{$incendio->users[1]->id}}" selected="{{$incendio->users[1]->id}}" >{{$incendio->users[1]->name}}</option>
 						@else{
 							<option value="">{{old('bombero_id')}}</option>
@@ -158,7 +158,7 @@
 						<span class="input-group-text">Conductor</span>
 					</div>
 					<select required="" class="form-control" name="conductor_id">
-						@if((count($incendio->users) <1)&&($incendio->users->isNotEmpty())){
+						@if((count($incendio->users) === 3 )&&($incendio->users->isNotEmpty())){
 							<option value="{{$incendio->users[0]->id}}" selected="{{$incendio->users[0]->id}}">{{$incendio->users[0]->name}}</option>
 						@else{
 							<option value="">{{old('conductor_id')}}</option>
@@ -237,7 +237,7 @@
 								<select class="form-control selectpicker" name="vehiculo_id" id="pvehiculo_id" data-live-search="true">
 								<option selected>Elija...</option>
 								@foreach($vehiculos as $vehiculo)
-								<option>{{$vehiculo->codigodis}}</option>
+									<option>{{$vehiculo->codigodis}}</option>
 								@endforeach
 								</select>
 							</div>
@@ -274,10 +274,10 @@
 								<tfoot></tfoot>
 									@foreach($incendio->vehiculos as $vehiculo)
 									<tr class = "selected" id="fila{{count($incendio->vehiculos)}}">
-									<td ><button type="button" class="btn btn-warning" onclick="eliminar1('{{count($incendio->vehiculos)}}')" type="button">X</button></td>
-									<td><input type="hidden" name="vehiculo_id[]" value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</td>
-									<td><input type="number"  name="km_salida[]" value="{{$vehiculo->pivot->km_salida}}">{{$vehiculo->pivot->km_salida}}</td>
-									<td><input type="number"  name="km_llegada[]" value="{{$vehiculo->pivot->km_llegada}}">{{$vehiculo->pivot->km_llegada}}</td>
+										<td ><button type="button" class="btn btn-warning" onclick="eliminar1('{{count($incendio->vehiculos)}}')" type="button">X</button></td>
+										<td><input type="hidden" name="vehiculo_id[]" value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</td>
+										<td><input type="number"  name="km_salida[]" value="{{$vehiculo->pivot->km_salida}}">{{$vehiculo->pivot->km_salida}}</td>
+										<td><input type="number"  name="km_llegada[]" value="{{$vehiculo->pivot->km_llegada}}">{{$vehiculo->pivot->km_llegada}}</td>
 								</tr>
 								<tbody></tbody>
 									@endforeach
@@ -338,16 +338,16 @@
 						agregarpaciente();
 					});
 
-					var max_chars = 1000;
+					var max_chars = 2000;
 					$('#max').html(max_chars);
 
 				    $("#pinformacion_inicial").keyup(function() {
 				        var chars = $("#pinformacion_inicial").val().length;
 				        var diff = max_chars - chars;
-				        var leyenda = "Caracteres Permitidos 1000 - Digitados: ";
+				        var leyenda = "Caracteres Permitidos 2000 - Digitados: ";
 				        var res = leyenda.concat(chars);
 				        $("#pcounter").html(res);
-				        if(chars > 1000){
+				        if(chars > 2000){
 				           $("#pinformacion_inicial").addClass('error');
 				           $("#pinformacion_inicial").addClass('error');
 				          }else{
@@ -358,10 +358,10 @@
 				    $("#detalle_emergencia").keyup(function() {
 				        var chars = $("#detalle_emergencia").val().length;
 				        var diff = max_chars - chars;
-				        var leyenda = "Caracteres Permitidos 1000 - Digitados: ";
+				        var leyenda = "Caracteres Permitidos 2000 - Digitados: ";
 				        var res = leyenda.concat(chars);
 				        $("#pcounter1").html(res);
-				        if(chars > 1000){
+				        if(chars > 2000){
 				           $("#detalle_emergencia").addClass('error');
 				           $("#detalle_emergencia").addClass('error');
 				          }else{
@@ -381,7 +381,6 @@
 
 			
 				function agregar() {
-				// body...
 					jqkm_salida=$("#pkm_salida").val();
 					jqkm_llegada=$("#pkm_llegada").val();
 					jqvehiculo=$("#pvehiculo_id").val();
@@ -398,7 +397,6 @@
 					}else{
 						alert("Error al ingresar el detalle de vehiculos,revise los datos!!!");
 					}
-
 				}
 
 				function limpiar(){
@@ -406,13 +404,9 @@
 					$("#pkm_llegada").val("");
 				}
 				function evaluar(){
-					//if(jqkm_llegada>jqkm_salida && jqnombres!="" ){
 						$("#divguardar").show();
 						$("#Enviar").show();
-					//}
-					//else{
-					//	$("#divguardar").hide();
-					//}
+					
 				}
 
 				function eliminar1(index){

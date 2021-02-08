@@ -31,7 +31,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Hora Ficha ECU911</span>
 							</div>
-							<input type="time" id="hora_fichaecu911" name="hora_fichaecu911" required=""  class="form-control" placeholder="hh:mm:ss" value="">
+							<input type="time" id="hora_fichaecu911" name="hora_fichaecu911" required=""  class="form-control" placeholder="hh:mm:ss">
 							<div class="input-group-append">
 								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual0" id="horactual0"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 							</div>
@@ -117,7 +117,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Informacion Inicial</span>
 							</div>
-							<textarea onkeyup="mayus(this);" class="form-control" required="" maxlength="1000" id="informacion_inicial" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial')}}</textarea>
+							<textarea  class="form-control" required="" maxlength="2000" id="pinformacion_inicial" name="informacion_inicial"  aria-label="With textarea" >{{old('informacion_inicial')}}</textarea>
 
 						</div>
 					</div>
@@ -196,7 +196,7 @@
 						<span class="input-group-text">Jefe Guardia</span>
 					</div>
 					<select class="form-control" required="" name="jefeguardia_id">
-						<option value="" selected>{{old('jefeguardia_id')}}</option>
+						<option selected>{{old('jefeguardia_id')}}</option>
 						@foreach($bomberos as $user)
 						<option value="{{$user->id}}">{{$user->name}}</option>
 						@endforeach
@@ -207,7 +207,7 @@
 						<span class="input-group-text">Bombero</span>
 					</div>
 					<select class="form-control" required="" name="bombero_id">
-						<option value="" selected>{{old('bombero_id')}}</option>
+						<option selected>{{old('bombero_id')}}</option>
 						@foreach($bomberos as $user)
 						<option value="{{$user->id}}">{{$user->name}}</option>
 						@endforeach
@@ -218,7 +218,7 @@
 						<span class="input-group-text">Conductor</span>
 					</div>
 					<select class="form-control" required="" name="conductor_id">
-						<option value="" selected>{{old('conductor_id')}}</option>
+						<option selected>{{old('conductor_id')}}</option>
 						@foreach($maquinistas as $maquinista)
 						<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>
 						@endforeach
@@ -230,7 +230,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Salida A Emergencia</span>
 					</div>
-					<input type="text" class="form-control" required="" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" value="" placeholder="hh:mm">
+					<input type="time" class="form-control" required="" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" placeholder="hh:mm:ss">
 					<div class="input-group-append">
 								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual" id="horactual"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 							</div>
@@ -239,7 +239,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Llegada A Emergencia</span>
 					</div>
-					<input type="text" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm" value="">
+					<input type="time" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm:ss" >
 					<div class="input-group-append">
 								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual1" id="horactual1"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 							</div>
@@ -250,7 +250,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Fin Emergencia</span>
 					</div>
-					<input type="time" class="form-control" name="hora_fin_emergencia" id="hora_fin_emergencia" placeholder="hh:mm" value="">
+					<input type="time" class="form-control" name="hora_fin_emergencia" id="hora_fin_emergencia" placeholder="hh:mm:ss" >
 					<div class="input-group-append">
 								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual2" id="horactual2"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 							</div>
@@ -259,7 +259,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora En Base</span>
 					</div>
-					<input type="time" class="form-control"  name="hora_en_base" id="hora_en_base" placeholder="hh:mm" value="">
+					<input type="time" class="form-control"  name="hora_en_base" id="hora_en_base" placeholder="hh:mm:ss" >
 					<div class="input-group-append">
 								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual3" id="horactual3"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 							</div>
@@ -271,7 +271,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Detalle Emergencia</span>
 					</div>
-					<textarea onkeyup="mayus(this);" class="form-control" required="" maxlength="1000" placeholder="Digite a detalle lo ocurrido en Emergencia" id="detalle_emergencia" name="detalle_emergencia" aria-label="With textarea">{{old('detalle_emergencia')}}</textarea>
+					<textarea  class="form-control" required="" maxlength="2000" placeholder="Digite a detalle lo ocurrido en Emergencia" id="detalle_emergencia" name="detalle_emergencia" aria-label="With textarea">{{old('detalle_emergencia')}}</textarea>
 					
 				</div>
 			</div><!--Detalle Emergencia-->
@@ -289,7 +289,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDaños">Daños Estimados</span>
 					</div>
-					<textarea onkeyup="mayus(this);" class="form-control" required="" maxlength="1000" placeholder="Detalle los daños producidos por  el incidente" id="danos_estimados" name="danos_estimados" aria-label="With textarea">{{old('danos_estimados')}}</textarea>
+					<textarea  class="form-control" required="" maxlength="2000" placeholder="Detalle los daños producidos por  el incidente" id="danos_estimados" name="danos_estimados" aria-label="With textarea">{{old('danos_estimados')}}</textarea>
 					
 				</div>
 			</div>{{-- Danos Estimados --}}

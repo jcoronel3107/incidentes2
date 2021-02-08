@@ -36,8 +36,8 @@ class SaveRescateRequest extends FormRequest
                 'hora_llegada_a_emergencia'=>'required',
                 'hora_fin_emergencia'=>'required',
                 'hora_en_base'=>'required',
-                'informacion_inicial'=>'required|max:1000',
-                'detalle_emergencia'=>'required|max:1000',
+                'informacion_inicial'=>'required|max:2000',
+                'detalle_emergencia'=>'required|max:2000',
                 'usuario_afectado'=>'required',
                 'danos_estimados'=>'required'
             ];
