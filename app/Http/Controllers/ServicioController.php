@@ -14,6 +14,7 @@ use App\ Http\ Requests\ SaveServicioRequest;
 use Illuminate\ Support\ Facades\ Auth;
 use Illuminate\Support\Facades\DB;
 use App\Exports\ ClavesExport;
+use Illuminate\ Support\Carbon;
 use PDF;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -198,8 +199,10 @@ class ServicioController extends Controller
     }
 
     public function downloadPDF($id) {
+        $date = Carbon::now();
+        $date = $date->format('l jS \\of F Y ');
         $servicio = Servicio::find($id);
-        $pdf = PDF::loadView('servicio.pdf', compact('servicio'));
+        $pdf = PDF::loadView('servicio.pdf', compact('servicio','date'));
 
         return $pdf->download('servicio.pdf');
     }

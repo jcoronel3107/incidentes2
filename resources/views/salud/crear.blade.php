@@ -348,6 +348,7 @@
 										<option selected>Elija...</option>
 										<option>Clínica Albán</option>
 										<option>Clínica Cisneros</option>
+										<option>Clínica España</option>
 										<option>Clínica Fracturas</option>
 										<option>Clínica Humanitaria</option>
 										<option>Clinica La Paz</option>
