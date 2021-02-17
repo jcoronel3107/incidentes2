@@ -288,7 +288,7 @@ class InundacionController extends Controller
 
     public function grafica()
     {
-        $inundaciones= Inundacion::select(\DB::raw("count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(\DB::raw("Month(fecha)"))->pluck('count');
+        $inundaciones= Inundacion::select(DB::raw("count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(DB::raw("Month(fecha)"))->pluck('count');
             return view("/inundacion.grafic",compact("inundaciones"));
     }
 

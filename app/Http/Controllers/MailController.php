@@ -12,6 +12,7 @@ use App\Station;
 use App\User;
 use App\Fuga;
 use App\Incendio;
+use App\Transito;
 use App\Salud;
 use App\Parroquia;
 use App\Vehiculo;

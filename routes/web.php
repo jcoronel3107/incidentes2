@@ -19,6 +19,7 @@ use GuzzleHttp\Client;
 use Spatie\Geocoder\Facades\Geocoder as GeocoderFacade;
 use Spatie\Geocoder\Geocoder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 /*
 
@@ -108,6 +109,7 @@ Route::get('incendios/export',   	'IncendioController@export');
 Route::get('fugas/export',   		'FugaController@export');
 Route::get('saluds/export',   		'SaludController@export');
 Route::get('derrames/export',   	'DerrameController@export');
+Route::get('servicios/export',   	'ServicioController@export');
 
 //Rutas Creacion de Raporte Grafico
 Route::get('vehiculos/grafic/',		'VehiculoController@grafica');
@@ -196,12 +198,12 @@ Route::get('/prueba', function () {
 	
 	$mensualesTransito= Transito::select(DB::raw("Month(fecha) as Mes, 'Transito',count(*) as count"))
 		->whereYear('fecha',date('Y'))
-		->groupBy(\DB::raw("Month(fecha)"))
+		->groupBy(DB::raw("Month(fecha)"))
 		->get();
 	$mensualesSalud= Salud::select(DB::raw("Month(fecha) as Mes, 
 		'Salud',count(*) as count"))
 		->whereYear('fecha',date('Y'))
-		->groupBy(\DB::raw("Month(fecha)"))
+		->groupBy(DB::raw("Month(fecha)"))
 		->get();
 	$mensualesFuego= Incendio::select(DB::raw("Month(fecha) as Mes, 'Incendio',count(*) as count"))	
 		->whereYear('fecha',date('Y'))
@@ -226,17 +228,6 @@ Route::get('/prueba', function () {
 	return $mensualesRescate;
 });
 
-Route::get('/prueba2',function()
-	{
-		$Inundacionxestacion = Claves::select( DB::raw('count(station_id) salidas'))
-                ->where('station_id','=','5')
-                ->whereYear('fecha', '=', date('Y'))
-                ->whereNull('saluds.deleted_at')
-                ->groupBy('station_id')
-                ->havingRaw('count(station_id) >= ?',[1])
-                ->get();
-			return $Inundacionxestacion;
-	});
 
 Route::get('/prueba3',function()
 	{

@@ -346,7 +346,7 @@ class SaludController extends Controller
 
     public function grafica()
     {
-        $saluds= Salud::select(\DB::raw("count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(\DB::raw("Month(fecha)"))->pluck('count');
+        $saluds= Salud::select(DB::raw("count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(DB::raw("Month(fecha)"))->pluck('count');
             return view("/salud.grafic",compact("saluds"));
     }
 

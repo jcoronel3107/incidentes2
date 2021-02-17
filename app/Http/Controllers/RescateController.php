@@ -291,7 +291,7 @@ class RescateController extends Controller
 
     public function grafica()
     {
-        $rescates= Rescate::select(\DB::raw("count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(\DB::raw("Month(fecha)"))->pluck('count');
+        $rescates= Rescate::select(DB::raw("count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(DB::raw("Month(fecha)"))->pluck('count');
             return view("/rescate.grafic",compact("rescates"));
     }
 

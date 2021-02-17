@@ -301,7 +301,7 @@ class FugaController extends Controller
 
     public function grafica()
     {
-        $fugas= Fuga::select(\DB::raw("count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(\DB::raw("Month(fecha)"))->pluck('count');
+        $fugas= Fuga::select(DB::raw("count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(DB::raw("Month(fecha)"))->pluck('count');
             return view("/fuga.grafic",compact("fugas"));
     }
 

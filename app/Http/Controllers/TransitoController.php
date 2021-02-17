@@ -289,7 +289,7 @@ class TransitoController extends Controller
 
     public function grafica()
     {
-        $transitos= Transito::select(\DB::raw("count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(\DB::raw("Month(fecha)"))->pluck('count');
+        $transitos= Transito::select(DB::raw("count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(DB::raw("Month(fecha)"))->pluck('count');
             return view("/transito.grafic",compact("transitos"));
     }
 

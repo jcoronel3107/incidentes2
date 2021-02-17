@@ -302,7 +302,7 @@ class IncendioController extends Controller
 
     public function grafica()
     {
-        $incendios= Incendio::select(\DB::raw("count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(\DB::raw("Month(fecha)"))->pluck('count');
+        $incendios= Incendio::select(DB::raw("count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(DB::raw("Month(fecha)"))->pluck('count');
             return view("/fuego.grafic",compact("incendios"));
     }
 

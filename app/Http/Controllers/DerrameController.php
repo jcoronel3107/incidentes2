@@ -291,7 +291,7 @@ class DerrameController extends Controller
 
     public function grafica()
     {
-        $derrames= Derrame::select(\DB::raw("count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(\DB::raw("Month(fecha)"))->pluck('count');
+        $derrames= Derrame::select(DB::raw("count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(DB::raw("Month(fecha)"))->pluck('count');
             return view("/derrame.grafic",compact("derrames"));
     }
 

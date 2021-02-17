@@ -13,7 +13,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\SaveServicioRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\Exports\ClavesExport;
+use App\Exports\ServiciosExport;
 use Illuminate\Support\Carbon;
 use PDF;
 use Spatie\Activitylog\Traits\LogsActivity;
