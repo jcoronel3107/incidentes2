@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\ Http\ Request;
-use Illuminate\ Support\ Facades\Session;
-use App\ Gasolinera;
-use App\ Http\ Requests\ CreateGasolineraRequest;
-use Illuminate\ Support\ Facades\ Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use App\Gasolinera;
+use App\Http\Requests\CreateGasolineraRequest;
+use Illuminate\Support\Facades\Auth;
 
 class GasolineraController extends Controller
 {

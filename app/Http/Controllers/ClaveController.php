@@ -1,19 +1,19 @@
 <?php
 
-namespace App\ Http\ Controllers;
+namespace App\Http\Controllers;
 
-use Illuminate\ Http\ Request;
-use App\ Clave;
-use App\ Incidente;
-use App\ Gasolinera;
-use App\ Vehiculo;
-use App\ User;
-use Illuminate\ Support\ Facades\Session;
-use Maatwebsite\ Excel\ Facades\ Excel;
-use App\ Http\ Requests\ SaveClaveRequest;
-use Illuminate\ Support\ Facades\ Auth;
+use Illuminate\Http\Request;
+use App\Clave;
+use App\Incidente;
+use App\Gasolinera;
+use App\Vehiculo;
+use App\User;
+use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\SaveClaveRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\Exports\ ClavesExport;
+use App\Exports\ClavesExport;
 use PDF;
 use Spatie\Activitylog\Traits\LogsActivity;
 

@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\ Servicio;
-use App\ Incidente;
-use App\ Gasolinera;
-use App\ Vehiculo;
-use App\ User;
-use Illuminate\ Support\ Facades\Session;
-use Maatwebsite\ Excel\ Facades\ Excel;
-use App\ Http\ Requests\ SaveServicioRequest;
-use Illuminate\ Support\ Facades\ Auth;
+use App\Servicio;
+use App\Incidente;
+use App\Gasolinera;
+use App\Vehiculo;
+use App\User;
+use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\SaveServicioRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\Exports\ ClavesExport;
-use Illuminate\ Support\Carbon;
+use App\Exports\ClavesExport;
+use Illuminate\Support\Carbon;
 use PDF;
 use Spatie\Activitylog\Traits\LogsActivity;
 

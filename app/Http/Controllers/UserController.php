@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\ Http\ Request;
-use App\ User;
-use Maatwebsite\ Excel\ Facades\ Excel;
-use Illuminate\ Support\ Facades\ Auth;
-use Illuminate\ Support\Carbon;
+use Illuminate\Http\Request;
+use App\User;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use Illuminate\ Support\ Facades\Session;
-use App\Imports\ UsersImport;
+use Illuminate\Support\Facades\Session;
+use App\Imports\UsersImport;
 use PDF;
 use Illuminate\Support\Facades\Storage;
+
 
 
 
@@ -40,4 +41,6 @@ class UserController extends Controller
     {
       return view("/user.import");
     }
+
+   
 }

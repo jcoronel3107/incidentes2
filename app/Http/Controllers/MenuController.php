@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\ Support\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Clave;
-use App\ Inundacion;
-use App\ Incendio;
-use App\ Transito;
-use App\ Salud;
-use App\ Rescate;
-use App\ Fuga;
+use App\Inundacion;
+use App\Incendio;
+use App\Transito;
+use App\Salud;
+use App\Rescate;
+use App\Fuga;
 use App\Derrame;
 use App\Servicio;
 

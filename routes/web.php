@@ -18,6 +18,7 @@ use App\Mail\ReportSentInundacions;
 use GuzzleHttp\Client;
 use Spatie\Geocoder\Facades\Geocoder as GeocoderFacade;
 use Spatie\Geocoder\Geocoder;
+use Illuminate\Support\Facades\Auth;
 
 /*
 
@@ -33,7 +34,6 @@ use Spatie\Geocoder\Geocoder;
 */
 Route::get('/',                  	'PagesController@index');
 Auth::routes();
-
 Route::get('lang/{lang}', 			'LanguageController@swap')->name('lang.swap');
 Route::resource('clave',         	'ClaveController');
 Route::resource('incidente',     	'IncidenteController');
@@ -52,6 +52,9 @@ Route::resource('servicio',    	 	'ServicioController');
 Route::resource('consulta',      	'ConsultasController');
 
 Route::get('/activitylog',			'ConsultasController@activitylog');
+Route::get('/consultaentrefechas',	'ConsultasController@consultaentrefechas');
+Route::get('/busquedaentrefechas',	'ConsultasController@busquedaentrefechas');
+
 Route::get('/download/{file}', 		'DownloadsController@download');
 
 

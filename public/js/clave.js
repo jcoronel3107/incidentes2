@@ -1,35 +1,50 @@
 /*
  Funciones Generales
 */
-var jqvehiculo_id="";
-var jqvehiculo="";
-
-function validar() {
-            var km_salida = $('#km_salida').val();
-            var km_gasolinera = $('#km_gasolinera').val();
-            if (km_salida >  km_gasolinera ) {
-                console.log("Error en KMs Carga Combustible")
-                document.getElementById("km_gasolinera").style.backgroundColor = "red";
-                return false;
-            } else {
-                console.log('correcto')
-                document.getElementById("km_gasolinera").style.backgroundColor = "";
-                return true;
-            }
-        }
-
-
-function evaluar(){
-	if(document.title=="Clave"){
-		jqvehiculo=$("#pvehiculo_id").val();
-		jqtitle = jqvehiculo +" - Clave - BCBVC";
-		console.log(jqtitle);
-		document.title =jqtitle;
-	}
-}
 
 $(document).ready(function(){
-	$("#vehiculo_id").onChange(function () {
-			evaluar();
-		});
-}
+ $("select[name=vehiculo_id]").change(function(){
+    
+             document.title =$('select[name=vehiculo_id] option:selected').text()+" - Clave14";
+            
+        });
+validar();
+validar2();
+});
+
+
+
+
+function validar() {
+    
+    var km_salida = $('#km_salida').val();
+    var km_gasolinera = $('#km_gasolinera').val();
+    if (km_salida >  km_gasolinera ) {
+        console.log("Error en KMs Carga Combustible")
+        document.getElementById("km_gasolinera").style.borderColor = "red";
+        document.getElementById("km_gasolinera").title = "Error en KM, tiene que ser mayor a KM_Salida";
+        document.getElementById("km_gasolinera").min=km_salida;
+    } else {
+        console.log('correcto')
+        document.getElementById("km_gasolinera").style.borderColor = "";
+        document.getElementById("km_gasolinera").title = "";
+    }
+};
+
+function validar2() {
+            var km_gasolinera = $('#km_gasolinera').val();
+            var km_llegada = $('#km_llegada').val();
+            if (km_gasolinera >  km_llegada ) {
+                console.log("Error en KMs Carga Combustible")
+                document.getElementById("km_llegada").style.borderColor = "red";
+                document.getElementById("km_llegada").title = "Error en KM, tiene que ser mayor a km_gasolinera";
+                document.getElementById("km_llegada").min=km_gasolinera;
+            } else {
+                console.log('correcto')
+                document.getElementById("km_llegada").style.borderColor = "";
+                 document.getElementById("km_llegada").title = "";
+                
+            }
+};
+
+

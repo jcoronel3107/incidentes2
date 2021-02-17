@@ -6,133 +6,132 @@
 	@endsection
 
 	@section( "cuerpo" )
-		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Registro Información de Clave_14</h2>
+	<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Registro Información de Clave_14</h2>
 
-		<form method="post" action="/clave">
+	<form method="post" action="/clave">
 
-			<div class="form-row">
-				{{csrf_field()}}
-				<div class="form-group input-group  col-md-8">
-					<div class="input-group-prepend">
-						<span class="input-group-text">Estaciòn Servicio</span>
-					</div>
-					<select required="" class="form-control selectpicker" name="gasolinera_id" data-live-search="true">
-						<option value="" >Seleccione...</option>
-						@foreach($gasolineras as $gasolinera)
-						<option value="{{$gasolinera->id}}">{{$gasolinera->razonsocial}}</option>
-						@endforeach
-					</select>
+		<div class="form-row">
+			{{csrf_field()}}
+			<div class="form-group input-group  col-md-8">
+				<div class="input-group-prepend">
+					<span class="input-group-text">Estaciòn Servicio</span>
 				</div>
-
-
-			</div>
-			<div class="form-row">
-				<div class="form-group input-group  col-md-8">
-					<div class="input-group-prepend">
-						<span class="input-group-text">Vehìculo</span>
-					</div>
-					<select required="" class="form-control selectpicker"  name="vehiculo_id" data-live-search="true">
-						<option value="" >Seleccione...</option>
-						@foreach($vehiculos as $vehiculo)
-						<option value="{{$vehiculo->id}}" >{{$vehiculo->codigodis}}</option>
-						@endforeach
-					</select>
-				</div>
-			</div>
-			<div class="form-row">
-				<div class="form-group input-group  col-md-4">
-					<div class="input-group-prepend">
-						<span class="input-group-text">Km. Salida del Vehìculo</span>
-					</div>
-					<input required="" type="number" id="km_salida" name="km_salida" placeholder="Km. Salida" class="form-control">
-				</div>
-				<div class="form-group input-group  col-md-4">
-					<div class="input-group-prepend">
-						<span class="input-group-text">Km. en Gasolinera</span>
-					</div>
-					<input required="" type="number" id="km_gasolinera" onfocusout="validar()" name="km_gasolinera" class="form-control" placeholder="Km. en Gasolinera">
-				</div>
-				<div class="form-group input-group col-md-4">
-					<div class="input-group-prepend">
-						<span class="input-group-text" >Km. Llegada Vehìculo</span>
-					</div>
-					<input required="" type="number" name="km_llegada" class="form-control" id="km_llegada" placeholder="Km. Retorno">
-				</div>
-			</div>
-			<div class="form-row">
-
-
-
-
-			</div>
-			<div class="form-row">
-				<div class="form-group  input-group col-md-4">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="inputDolares">Dòlares</span>
-					</div>
-					<input required="" type="number" step=".01" required="" name="dolares" class="form-control" id="dolares" placeholder="Valor $ de Carga combustible">
-				</div>
-				<div class="form-group input-group  col-md-4">
-					<div class="input-group-prepend">
-						<span class="input-group-text">Galones</span>
-					</div>
-					<input required="" type="number" step=".01" name="galones" class="form-control" id="galones" placeholder="Galones de Carga combustible">
-				</div>
-				<div class="form-group input-group col-md-4">
-					<div class="input-group-prepend">
-						<span class="input-group-text">Combustible</span>
-					</div>
-					<select required="" class="form-control" name="combustible">
-						<option value="" selected>Choose...</option>
-						<option value="Diesel">Diesel</option>
-						<option value="Eco">Eco</option>
-						<option value="Super">Super</option>
-					</select>
-				</div>
-			</div>
-			<div class="form-row">
-
-				<div class="form-group input-group col-md-8">
-					<div class="input-group-prepend">
-						<span class="input-group-text">Conductor</span>
-					</div>
-					<select required="" class="form-control" name="user_id">
-						<option value="" >Seleccione...</option>
-						@foreach($users as $user)
-						<option value="{{$user->id}}">{{$user->name}}</option>
-						@endforeach
-					</select>
-				</div>
-				<div class="form-group input-group  col-md-4">
-					<div class="input-group-prepend">
-						<span class="input-group-text">Orden</span>
-					</div>
-					<input required="" type="number" min="0" name="Orden" class="form-control" id="Orden" placeholder="#Orden Fisica">
-				</div>
-
+				<select required="" class="form-control selectpicker" name="gasolinera_id" data-live-search="true">
+					<option value="">Seleccione...</option>
+					@foreach($gasolineras as $gasolinera)
+					<option value="{{$gasolinera->id}}">{{$gasolinera->razonsocial}}</option>
+					@endforeach
+				</select>
 			</div>
 
-			<div class="form-group">
-				<button type="submit" name="Enviar" value="Enviar" class="btn btn-success">Registrar</button>
-				<a class="btn btn btn-primary" role="button"
-					href="{{ route('clave.index')}}">Cancelar
-				</a>
-				<button type="reset" name="Borrar" value="Borrar" class="btn btn-danger">Borrar Formulario</button>
-			</div>
-		</form>
 
-		@if(count($errors)>0) @foreach($errors->all() as $error)
-		<div class="alert alert-danger" role="alert">
-			{{$error}}
 		</div>
-		@endforeach @endif
-		@push ('scripts')
-			
-			
-			<script src="/js/clave.js"></script>
-			<script src="/js/funciones.js"></script>
-			
+		<div class="form-row">
+			<div class="form-group input-group  col-md-8">
+				<div class="input-group-prepend">
+					<span class="input-group-text">Vehìculo</span>
+				</div>
+				<select required="" class="form-control selectpicker" name="vehiculo_id" data-live-search="true">
+					<option value="">Seleccione...</option>
+					@foreach($vehiculos as $vehiculo)
+					<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>
+					@endforeach
+				</select>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group input-group  col-md-4">
+				<div class="input-group-prepend">
+					<span class="input-group-text">Km. Salida del Vehìculo</span>
+				</div>
+				<input required="" type="number" id="km_salida" name="km_salida" placeholder="Km. Salida" class="form-control">
+			</div>
+			<div class="form-group input-group  col-md-4">
+				<div class="input-group-prepend">
+					<span class="input-group-text">Km. en Gasolinera</span>
+				</div>
+				<input required="" type="number" id="km_gasolinera" onfocusout="validar()" name="km_gasolinera" class="form-control" placeholder="Km. en Gasolinera">
+			</div>
+			<div class="form-group input-group col-md-4">
+				<div class="input-group-prepend">
+					<span class="input-group-text">Km. Llegada Vehìculo</span>
+				</div>
+				<input required="" type="number" name="km_llegada" onfocusout="validar2()" class="form-control" id="km_llegada" placeholder="Km. Retorno">
+			</div>
+		</div>
+		<div class="form-row">
 
-		@endpush
 
-@endsection @section( "piepagina" ) @endsection
+
+
+		</div>
+		<div class="form-row">
+			<div class="form-group  input-group col-md-4">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="inputDolares">Dòlares</span>
+				</div>
+				<input required="" type="number" step=".01" required="" name="dolares" class="form-control" id="dolares" placeholder="Valor $ de Carga combustible">
+			</div>
+			<div class="form-group input-group  col-md-4">
+				<div class="input-group-prepend">
+					<span class="input-group-text">Galones</span>
+				</div>
+				<input required="" type="number" step=".01" name="galones" class="form-control" id="galones" placeholder="Galones de Carga combustible">
+			</div>
+			<div class="form-group input-group col-md-4">
+				<div class="input-group-prepend">
+					<span class="input-group-text">Combustible</span>
+				</div>
+				<select required="" class="form-control" name="combustible">
+					<option value="" selected>Choose...</option>
+					<option value="Diesel">Diesel</option>
+					<option value="Eco">Eco</option>
+					<option value="Super">Super</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-row">
+
+			<div class="form-group input-group col-md-8">
+				<div class="input-group-prepend">
+					<span class="input-group-text">Conductor</span>
+				</div>
+				<select required="" class="form-control" name="user_id">
+					<option value="">Seleccione...</option>
+					@foreach($users as $user)
+					<option value="{{$user->id}}">{{$user->name}}</option>
+					@endforeach
+				</select>
+			</div>
+			<div class="form-group input-group  col-md-4">
+				<div class="input-group-prepend">
+					<span class="input-group-text">Orden</span>
+				</div>
+				<input required="" type="number" min="0" name="Orden" class="form-control" id="Orden" placeholder="#Orden Fisica">
+			</div>
+
+		</div>
+
+		<div class="form-group">
+			<button type="submit" name="Enviar" value="Enviar" class="btn btn-success">Registrar</button>
+			<a class="btn btn btn-primary" role="button" href="{{ route('clave.index')}}">Cancelar
+			</a>
+			<button type="reset" name="Borrar" value="Borrar" class="btn btn-danger">Borrar Formulario</button>
+		</div>
+	</form>
+
+	@if(count($errors)>0) @foreach($errors->all() as $error)
+	<div class="alert alert-danger" role="alert">
+		{{$error}}
+	</div>
+	@endforeach @endif
+	@push ('scripts')
+
+
+	<script src="/js/clave.js"></script>
+
+
+
+	@endpush
+
+	@endsection @section( "piepagina" ) @endsection

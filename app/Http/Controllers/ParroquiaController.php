@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\ Parroquia;
-use App\ Http\ Requests\ CreateParroquiaRequest;
-use Illuminate\ Support\ Facades\ Auth;
-use Illuminate\ Support\ Facades\ Session;
-use App\Exports\ ParroquiasExport;
-use Maatwebsite\ Excel\ Facades\ Excel;
+use App\Parroquia;
+use App\Http\Requests\CreateParroquiaRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use App\Exports\ParroquiasExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ParroquiaController extends Controller
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\ Http\ Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Inundacion;
@@ -16,9 +16,9 @@ use App\Salud;
 use App\Parroquia;
 use App\Vehiculo;
 use App\Servicio;
-use Illuminate\Support\Facades\ Mail;
-use Illuminate\ Support\ Facades\ Auth;
-use Illuminate\ Support\ Facades\Session;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use App\Mail\ReportSentInundacions;
 use App\Mail\ReportSentRescate;
 use App\Mail\ReportSentTransito;

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\ Station;
-use App\ Http\ Requests\ CreateStationRequest;
-use Illuminate\ Support\ Facades\ Auth;
-use Illuminate\ Support\ Facades\ Session;
-use App\Exports\ StationsEsport;
-use Maatwebsite\ Excel\ Facades\ Excel;
+use App\Station;
+use App\Http\Requests\CreateStationRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use App\Exports\StationsEsport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class StationController extends Controller

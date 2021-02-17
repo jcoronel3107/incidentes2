@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\ Http\ Request;
-use App\ Incendio;
-use App\ Incidente;
-use App\ Station;
-use App\ User;
-use App\ Parroquia;
-use App\ Vehiculo;
-use App\ Http\ Requests\ SaveIncendioRequest;
-use Maatwebsite\ Excel\ Facades\ Excel;
-use Illuminate\ Support\ Facades\ Auth;
-use Illuminate\ Support\Carbon;
+use Illuminate\Http\Request;
+use App\Incendio;
+use App\Incidente;
+use App\Station;
+use App\User;
+use App\Parroquia;
+use App\Vehiculo;
+use App\Http\Requests\SaveIncendioRequest;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use Illuminate\ Support\ Facades\Session;
-use App\Exports\ IncendiosExport;
-use App\Imports\ IncendiosImport;
+use Illuminate\Support\Facades\Session;
+use App\Exports\IncendiosExport;
+use App\Imports\IncendiosImport;
 use PDF;
 use Illuminate\Support\Facades\Storage;
 
@@ -312,8 +312,10 @@ class IncendioController extends Controller
     }
 
     public function downloadPDF($id) {
+        $date = Carbon::now();
+        $date = $date->format('l jS \\of F Y ');
         $incendio = Incendio::find($id);
-        $pdf = PDF::loadView('fuego.pdf', compact('incendio'));
+        $pdf = PDF::loadView('fuego.pdf', compact('incendio','date'));
 
         return $pdf->download('incendio.pdf');
     }
@@ -326,55 +328,35 @@ class IncendioController extends Controller
    public function upload(Request $request)
     {
 
-       
-       $file201 = $request->file('fileSCI-201');
-       $file202 = $request->file('fileSCI-202');
-       $file206 = $request->file('fileSCI-206');
 
-
-       //obtenemos el nombre del archivo
-
-       $nombre = "201.".$file201->getClientOriginalExtension();;
-       $nombre1 = "202.".$file202->getClientOriginalExtension();
-       $nombre2 = "206A.".$file206->getClientOriginalExtension();
-       
-       
-       $validation = $request->validate([
-        'fileSCI-201' => 'required|file|mimes:pdf|max:1048'
-        // for multiple file uploads
-        // 'photo.*' => 'required|file|image|mimes:jpeg,png,gif,webp|max:2048'
-        ]);
-        
-       //indicamos que queremos guardar un nuevo archivo en el disco local
-      
-        $file      = $validation['fileSCI-201']; // get the validated file
-        $path      = $file->storeAs('1070/'.$request->id, $nombre);
-        //dd($path);
+        //obtenemos el nombre del archivo
+        $file201 = $request->file('fileSCI-201');
+        $nombre = "201." . $file201->getClientOriginalExtension();
         $validation = $request->validate([
-        'fileSCI-202' => 'required|file|mimes:pdf|max:1048'
-        // for multiple file uploads
-        // 'photo.*' => 'required|file|image|mimes:jpeg,png,gif,webp|max:2048'
+            'fileSCI-201' => 'required|file|mimes:pdf|max:2048'
         ]);
-        
-       //indicamos que queremos guardar un nuevo archivo en el disco local
-       //dd($validation);
-        $file      = $validation['fileSCI-202']; // get the validated file
-        $path1      = $file->storeAs('1070/'.$request->id, $nombre1);
-        //dd($path);
-        $validation = $request->validate([
-        'fileSCI-206' => 'required|file|mimes:pdf|max:1048'
-        // for multiple file uploads
-        // 'photo.*' => 'required|file|image|mimes:jpeg,png,gif,webp|max:2048'
-        ]);
-        
-       //indicamos que queremos guardar un nuevo archivo en el disco local
-       //dd($validation);
-        $file      = $validation['fileSCI-206']; // get the validated file
-        $path2      = $file->storeAs('1070/'.$request->id, $nombre2);
-        //dd($path);
-        
+        $file      = $validation['fileSCI-201']; // get the validated file        
+        $path      = $file->storeAs('1070/' . $request->id, $nombre);
         $exists = Storage::disk('local')->exists($path);
+
+        //obtenemos el nombre del archivo
+        $file207 = $request->file('fileSCI-207');
+        $nombre1 = "207." . $file207->getClientOriginalExtension();
+        $validation = $request->validate([
+            'fileSCI-207' => 'required|file|mimes:pdf|max:2048'
+        ]);
+        $file      = $validation['fileSCI-207']; // get the validated file
+        $path1      = $file->storeAs('1070/' . $request->id, $nombre1);
         $exists1 = Storage::disk('local')->exists($path1);
+
+        //obtenemos el nombre del archivo
+        $file211 = $request->file('fileSCI-211');
+        $nombre2 = "211." . $file211->getClientOriginalExtension();
+        $validation = $request->validate([
+            'fileSCI-211' => 'required|file|mimes:pdf|max:2048'
+        ]);
+        $file      = $validation['fileSCI-211']; // get the validated file        
+        $path2      = $file->storeAs('1070/' . $request->id, $nombre2);
         $exists2 = Storage::disk('local')->exists($path2);
         if ($exists&&$exists1&&$exists2) {
           Session::flash('Carga_Correcta',"Formularios Subidos con Exito!!!");

@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\ Vehiculo;
-use App\ Http\ Requests\ CreateVehiculoRequest;
-use Maatwebsite\ Excel\ Facades\ Excel;
-use Illuminate\ Support\ Facades\ Auth;
-use Illuminate\ Support\ Facades\Session;
+use App\Vehiculo;
+use App\Http\Requests\CreateVehiculoRequest;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
-use App\Exports\ VehiculosExport;
-use App\Imports\ VehiculosImport;
+use App\Exports\VehiculosExport;
+use App\Imports\VehiculosImport;
 use PDF;
 
 class VehiculoController extends Controller

@@ -12,6 +12,7 @@ use App\ Salud;
 use App\ Incendio;
 use App\ Fuga;
 use App\ Derrame;
+use App\Incidente;
 use PDF;
 use Spatie\Activitylog\Models\Activity;
 
@@ -293,6 +294,25 @@ class ConsultasController extends Controller
         }
     }
 
+	public function consultaentrefechas()
+	{
+		$incidentes = Incidente::all();
+		return view("/consulta/consulta",compact('incidentes'));
+		
+	}
+
+	public function busquedaentrefechas(Request $request)
+	{
+		$busquedaentrefechas = DB::table('$request->eventos	')
+		->join('incidentes', 'inundacions.incidente_id', '=', 'incidentes.id')
+		->select('nombre_incidente', DB::raw('count(station_id) salidas'))
+		->whereYear('fecha', '=', date('Y'))
+		->whereNull('inundacions.deleted_at')
+		->groupBy('nombre_incidente')
+		->havingRaw('count(station_id) >= ?', [1])
+			->get();
+
+	}
 
 
 

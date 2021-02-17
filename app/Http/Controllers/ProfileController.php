@@ -30,8 +30,8 @@ class ProfileController extends Controller
 
     public function index()
     {
-
-        return view('/perfil.profile');
+        $all_roles_in_database = Role::all();
+        return view('/perfil.profile',compact('all_roles_in_database'));
     }
 
     /**
@@ -166,5 +166,12 @@ class ProfileController extends Controller
         activity()->log('Contraseña actualizada');
 
         return redirect()->route('profile.index')->with("status", 'Contraseña actualizada');
-    }// /pass
+    } // /pass
+
+    public function ConsultaPermisosxUsuario($id)
+    {
+      $user = \Auth::user();
+      $permissionNames = $user->getPermissionNames();
+      return $permissionNames;
+    }
 }

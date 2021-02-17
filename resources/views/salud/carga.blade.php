@@ -56,7 +56,7 @@
 										<div class="input-group-prepend">
 											<span class="input-group-text">Subir Archivo</span>
 										</div>
-										<input type="file" required="" name="fileSCI-202">
+										<input type="file" required="" name="fileSCI-207">
 									</div>
 									<div class="form-group input-group col-lg-3 col-md-12 col-sm-12">
 										<div class="input-group-apend">
@@ -79,7 +79,7 @@
 										<div class="input-group-prepend">
 											<span class="input-group-text">Subir Archivo</span>
 										</div>
-										<input type="file" required="" name="fileSCI-206">
+										<input type="file" required="" name="fileSCI-211">
 									</div>
 									<div class="form-group input-group col-lg-3 col-md-12 col-sm-12">
 										<div class="input-group-apend">

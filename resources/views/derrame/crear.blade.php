@@ -130,7 +130,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Informacion Inicial</span>
 							</div>
-							<textarea onkeyup="mayus(this);" class="form-control Text-uppercase" maxlength="2000" id="pinformacion_inicial" name="informacion_inicial"  aria-label="With textarea" required="" ></textarea>
+							<textarea class="form-control Text-uppercase" maxlength="2000" id="pinformacion_inicial" name="informacion_inicial"  aria-label="With textarea" required="" ></textarea>
 						</div>
 					</div>
 					<p class="text-sm-left" id="pcounter">0</p>
