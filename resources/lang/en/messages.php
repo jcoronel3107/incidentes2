@@ -76,4 +76,5 @@ return [
     'Station9'=>'Station 9',
     'New'=>'New',
     'Edit'=>'Edit',
+    'Search between dates' => 'Search between dates',
 ];

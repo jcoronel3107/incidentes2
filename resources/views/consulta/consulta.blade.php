@@ -29,7 +29,6 @@
                             <option value="saluds">Salúd</option>
                             <option value="transitos">Tránsito</option>
                         </select>
-
                     </div>
                 </div>
             </div>
@@ -38,7 +37,7 @@
                 <div class="col-sm-9">
                     <div class=" col-xl-8 col-lg-8">
 
-                        <input type="date" required="" id="fechaD" name="fechaD" class="form-control">
+                        <input type="date" required="" id="fechaD" name="fechaD" min="2021-01-01" class="form-control">
                     </div>
 
 
@@ -67,10 +66,11 @@
             </div>
         </form>
     </div>
+    <div id='resultado' class="col-xl-8 col-lg-8""></div>
 </div>
 
 
 
 
 @endsection
-@section( "piepagina" ) @endsection
+@section( " piepagina" ) @endsection

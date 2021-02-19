@@ -4,19 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\ Inundacion;
-use App\ Clave;
-use App\ Rescate;
-use App\ Transito;
-use App\ Salud;
-use App\ Incendio;
-use App\ Fuga;
-use App\ Derrame;
+use App\Inundacion;
+use App\Clave;
+use App\Rescate;
+use App\Transito;
+use App\Salud;
+use App\Incendio;
+use App\Fuga;
+use App\Derrame;
 use App\Incidente;
 use PDF;
 use Spatie\Activitylog\Models\Activity;
 
-use Illuminate\ Support\Carbon;
+use Illuminate\Support\Carbon;
 
 class ConsultasController extends Controller
 {
@@ -303,15 +303,20 @@ class ConsultasController extends Controller
 
 	public function busquedaentrefechas(Request $request)
 	{
-		$busquedaentrefechas = DB::table('$request->eventos	')
-		->join('incidentes', 'inundacions.incidente_id', '=', 'incidentes.id')
+		$tabla= $request->eventos;
+		$fechaD = $request->fechaD;
+		$fechaH = $request->fechaH;
+		$busquedaentrefechas = DB::table($tabla)
+		->join('incidentes', $tabla.'.incidente_id', '=', 'incidentes.id')
 		->select('nombre_incidente', DB::raw('count(station_id) salidas'))
 		->whereYear('fecha', '=', date('Y'))
-		->whereNull('inundacions.deleted_at')
+		->whereNull($tabla .'.deleted_at')
+		->whereBetween('fecha', array($fechaD, $fechaH))
 		->groupBy('nombre_incidente')
 		->havingRaw('count(station_id) >= ?', [1])
-			->get();
-
+		->get();
+		//dd($busquedaentrefechas);
+		return view("/consulta/entrefechas", compact('busquedaentrefechas','fechaD','fechaH'));
 	}
 
 

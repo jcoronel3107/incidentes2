@@ -208,8 +208,6 @@ class ClaveController extends Controller {
 
 	public function grafica()
     {
-
-
             $claves= Clave::select(DB::raw("Month(created_at) as Mes,count(id) as count"))->whereYear('created_at',date('Y'))->groupBy(DB::raw("Month(created_at)"))->get();
             $clavesxgasolinera = DB::table('claves')
 				->join('gasolineras', 'claves.gasolinera_id', '=', 'gasolineras.id')
@@ -219,7 +217,6 @@ class ClaveController extends Controller {
                 ->groupBy('claves.gasolinera_id')
                 ->havingRaw('count(claves.gasolinera_id) >= ?',[1])
                 ->get();
-			
             return view("/clave.grafic",compact("claves","clavesxgasolinera"));
     }
 

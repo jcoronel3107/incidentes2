@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -86,7 +87,7 @@ class ProfileController extends Controller
      */
     public function update(Request $request)
     {
-        $user = \Auth::user();
+        $user = Auth::user();
 
         $validaciones = [
             'name' => ['required', 'string', 'max:255', 'unique:users,name,'.$user->id],
@@ -120,7 +121,7 @@ class ProfileController extends Controller
 
     public function update_avatar(Request $request){
         
-        $user = \Auth::user();
+        $user = Auth::user();
         $fileavatar = $request->file('avatar');
         
         $nombre = $user->id.'_avatar'.time().'.'.request()->avatar->getClientOriginalExtension();
@@ -146,7 +147,7 @@ class ProfileController extends Controller
             'required',
             'string',
             function ($attribute, $value, $fail) {
-              if( ! Hash::check( $value, \Auth::user()->password) ){ $fail('Contraseña actual incorrecta'); }
+              if( ! Hash::check( $value, Auth::user()->password) ){ $fail('Contraseña actual incorrecta'); }
             },
           ],
           'nuevo' => ['required', 'string', 'min:8', 'confirmed'],
@@ -157,7 +158,7 @@ class ProfileController extends Controller
            return redirect(route('profile.update', ['#pass']))->withErrors($validator)->withInput();
          }
 
-        $user = \Auth::user();
+        $user = Auth::user();
         $user->password = bcrypt($request->input('nuevo'));
 
         activity()->disableLogging();

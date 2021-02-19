@@ -77,4 +77,5 @@ return [
     'Station9'=>'Estación 9',
     'New'=>'Nuevo',
     'Edit'=>'Edición',
+    'Search between dates'=> 'Busqueda entre fechas'
 ];
