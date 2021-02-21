@@ -24,7 +24,7 @@
             </div>
 
             <div class="col-xl-4 col-lg-4">
-                <p> Busqueda entre Fechas</p>
+                <p class="text-info"> Busqueda entre Fechas</p>
                 <div class="py-2 " id="table0.1">
                     <table class="table table-sm" id="datatable0.1">
                         <thead>
@@ -46,6 +46,74 @@
 
             </div>
         </div>
+        <div>
+            <div class="row">
+                <div class="col-xl-8 col-lg-8">
+
+                    <p style="text-align: center;" class="text-info" id="fch1">Fecha Desde: {{$fechaD}} &nbsp;&nbsp; Fecha Hasta: {{$fechaH}}</p>
+                    <div class="py-2 " id="container0.2"></div>
+
+                </div>
+
+                <div class="col-xl-4 col-lg-4">
+                    <p class="text-info">Asistencia por Estaciones</p>
+                    <div class="py-2 " id="table0.2">
+                        <table class="table table-sm" id="datatable0.2">
+                            <thead>
+                                <tr>
+                                    <th class="table-dark">Estación</th>
+                                    <th class="table-dark">Asistencias</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($Busquedaentrefechas_Estaciones as $registro)
+                                <tr>
+                                    <td class="table-light">{{($registro->nombre)}}</td>
+                                    <td class="table-light">{{$registro->salidas}}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div>
+            <div class="row">
+                <div class="col-xl-8 col-lg-8">
+
+                    <p style="text-align: center;" class="text-info" id="fch1">Fecha Desde: {{$fechaD}} &nbsp;&nbsp; Fecha Hasta: {{$fechaH}}</p>
+                    <div class="py-2 " id="container0.3"></div>
+
+                </div>
+
+                <div class="col-xl-4 col-lg-4">
+                    <p class="text-info">Incidentes en Parroquias</p>
+                    <div class="py-2 " id="table0.3">
+                        <table class="table table-sm" id="datatable0.3">
+                            <thead>
+                                <tr>
+                                    <th class="table-dark">Parroquia</th>
+                                    <th class="table-dark">incidentes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($Busquedaentrefechas_Parroquias as $registro)
+                                <tr>
+                                    <td class="table-light">{{($registro->nombre)}}</td>
+                                    <td class="table-light">{{$registro->salidas}}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
 
     </div>
 
@@ -60,36 +128,94 @@
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 {{-- Pestaña General --}}
 <script>
-    var fecha1, fecha2;
-    fecha1 =
-        Highcharts.chart('container0', {
-            data: {
-                table: 'datatable0.1',
-                name: 'Incidentes',
-            },
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
+    Highcharts.chart('container0', {
+        data: {
+            table: 'datatable0.1',
+            name: 'Incidentes',
+        },
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Incidentes'
+        },
+        subtitle: {
+            text: 'Grafica'
+        },
+        yAxis: {
+            allowDecimals: false,
             title: {
-                text: 'Incidentes Entre Fechas'
-            },
-            subtitle: {
-                text: 'Grafica'
-            },
-            yAxis: {
-                allowDecimals: false,
-                title: {
-                    text: 'Units'
-                }
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
-
+                text: 'Units'
             }
-        });
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+
+        }
+    });
+</script>
+<script>
+    Highcharts.chart('container0.2', {
+        data: {
+            table: 'datatable0.2',
+            name: 'Incidentes',
+        },
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'bar'
+        },
+        title: {
+            text: 'Estaciones Asistencia'
+        },
+        subtitle: {
+            text: 'Grafica'
+        },
+        yAxis: {
+            allowDecimals: false,
+            title: {
+                text: 'Units'
+            }
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+
+        }
+    });
+</script>
+<script>
+    Highcharts.chart('container0.3', {
+        data: {
+            table: 'datatable0.3',
+            name: 'Incidentes',
+        },
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'column'
+        },
+        title: {
+            text: 'Incidentes en Parroquias'
+        },
+        subtitle: {
+            text: 'Grafica'
+        },
+        yAxis: {
+            allowDecimals: false,
+            title: {
+                text: 'Units'
+            }
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+
+        }
+    });
 </script>
 
 

@@ -15,6 +15,7 @@ use App\Derrame;
 use App\Incidente;
 use PDF;
 use Spatie\Activitylog\Models\Activity;
+use App\Exports\Evento_Entre_FechasExport;
 
 use Illuminate\Support\Carbon;
 
@@ -55,7 +56,7 @@ class ConsultasController extends Controller
         	$mensualesInundacion= Inundacion::select(DB::raw("Month(fecha) as Mes,count(*) as count,'inundacion'"))
         		->whereYear('fecha',date('Y'))
         		->whereNull('inundacions.deleted_at')
-        		->groupBy(\DB::raw("Month(fecha)"))
+        		->groupBy(DB::raw("Month(fecha)"))
         		->get();
 
 			$Inundacionxestacion = DB::table('inundacions')
@@ -94,7 +95,7 @@ class ConsultasController extends Controller
 			$mensualesRescate= Rescate::select(DB::raw("Month(fecha) as Mes,count(*) as count"))
 				->whereYear('fecha',date('Y'))
 				->whereNull('rescates.deleted_at')
-				->groupBy(\DB::raw("Month(fecha)"))
+				->groupBy(DB::raw("Month(fecha)"))
 				->get();
 
 			$Rescatexestacion = DB::table('rescates')
@@ -126,7 +127,7 @@ class ConsultasController extends Controller
 			$mensualesTransito= Transito::select(DB::raw("Month(fecha) as Mes,count(*) as count"))
 				->whereYear('fecha',date('Y'))
 				->whereNull('transitos.deleted_at')	
-				->groupBy(\DB::raw("Month(fecha)"))	
+				->groupBy(DB::raw("Month(fecha)"))	
 				->get();
 			
 			$Transitoxestacion = DB::table('transitos')
@@ -157,7 +158,7 @@ class ConsultasController extends Controller
 			$mensualesSalud= Salud::select(DB::raw("Month(fecha) as Mes,count(*) as count"))
 				->whereYear('fecha',date('Y'))	
 				->whereNull('saluds.deleted_at')
-				->groupBy(\DB::raw("Month(fecha)"))	
+				->groupBy(DB::raw("Month(fecha)"))	
 				->get();
 
 			$Saludxestacion = DB::table('saluds')
@@ -307,20 +308,60 @@ class ConsultasController extends Controller
 		$fechaD = $request->fechaD;
 		$fechaH = $request->fechaH;
 		$busquedaentrefechas = DB::table($tabla)
-		->join('incidentes', $tabla.'.incidente_id', '=', 'incidentes.id')
-		->select('nombre_incidente', DB::raw('count(station_id) salidas'))
+			->join('incidentes', $tabla.'.incidente_id', '=', 'incidentes.id')
+			->select('nombre_incidente', DB::raw('count(station_id) salidas'))
+			->whereYear('fecha', '=', date('Y'))
+			->whereNull($tabla .'.deleted_at')
+			->whereBetween('fecha', array($fechaD, $fechaH))
+			->groupBy('nombre_incidente')
+			->havingRaw('count(station_id) >= ?', [1])
+			->get();
+
+		$Busquedaentrefechas_Estaciones = DB::table($tabla)
+			->join('stations', $tabla . '.station_id', '=', 'stations.id')
+			->select('stations.nombre', DB::raw('count(station_id) salidas'))
+			->whereYear('fecha', '=', date('Y'))
+			->whereNull($tabla . '.deleted_at')
+			->whereBetween('fecha', array($fechaD, $fechaH))
+			->groupBy('station_id')
+			->havingRaw('count(station_id) >= ?', [1])
+			->get();
+
+		$Busquedaentrefechas_Parroquias = DB::table($tabla)
+			->join('parroquias',  $tabla . '.parroquia_id', '=', 'parroquias.id')
+			->select('parroquias.nombre', DB::raw('count(incendios.id) salidas'))
+			->whereYear('fecha', '=', date('Y'))
+			->whereNull($tabla . '.deleted_at')
+			->whereBetween('fecha', array($fechaD, $fechaH))
+			->groupBy('parroquias.nombre')
+			->havingRaw('count(incendios.id) >= ?', [1])
+			->get();
+
+		$downloadbusquedaentrefechas = DB::table($tabla)
+		->join('incidentes', $tabla . '.incidente_id', '=', 'incidentes.id')
+		/* ->select('nombre_incidente', DB::raw('count(station_id) salidas')) */
 		->whereYear('fecha', '=', date('Y'))
-		->whereNull($tabla .'.deleted_at')
+		->whereNull($tabla . '.deleted_at')
 		->whereBetween('fecha', array($fechaD, $fechaH))
 		->groupBy('nombre_incidente')
 		->havingRaw('count(station_id) >= ?', [1])
 		->get();
-		//dd($busquedaentrefechas);
-		return view("/consulta/entrefechas", compact('busquedaentrefechas','fechaD','fechaH'));
+
+		return view("/consulta/entrefechas", compact('Busquedaentrefechas_Parroquias','Busquedaentrefechas_Estaciones','busquedaentrefechas','fechaD','fechaH'));
 	}
 
-
-
+	private $reports = [
+		
+		'query' => Evento_Entre_FechasExport::class,
+	];
+	
+	public function __invoke(Request $request)
+	{
+		if (array_key_exists($request->report, $this->reports)) {
+			return new $this->reports[$request->report];
+		}
+		return response()->json(['error' => 'Report type not supported']);
+	}
 
 
 

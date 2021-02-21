@@ -171,7 +171,7 @@ class ProfileController extends Controller
 
     public function ConsultaPermisosxUsuario($id)
     {
-      $user = \Auth::user();
+      $user = Auth::user();
       $permissionNames = $user->getPermissionNames();
       return $permissionNames;
     }
