@@ -16,6 +16,7 @@ use App\Incidente;
 use PDF;
 use Spatie\Activitylog\Models\Activity;
 use App\Exports\Evento_Entre_FechasExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 use Illuminate\Support\Carbon;
 
@@ -329,39 +330,28 @@ class ConsultasController extends Controller
 
 		$Busquedaentrefechas_Parroquias = DB::table($tabla)
 			->join('parroquias',  $tabla . '.parroquia_id', '=', 'parroquias.id')
-			->select('parroquias.nombre', DB::raw('count(incendios.id) salidas'))
+			->select('parroquias.nombre', DB::raw('count('.$tabla.'.id) salidas'))
 			->whereYear('fecha', '=', date('Y'))
 			->whereNull($tabla . '.deleted_at')
 			->whereBetween('fecha', array($fechaD, $fechaH))
 			->groupBy('parroquias.nombre')
-			->havingRaw('count(incendios.id) >= ?', [1])
+			->havingRaw('count('.$tabla.'.id) >= ?', [1])
 			->get();
 
-		$downloadbusquedaentrefechas = DB::table($tabla)
-		->join('incidentes', $tabla . '.incidente_id', '=', 'incidentes.id')
-		/* ->select('nombre_incidente', DB::raw('count(station_id) salidas')) */
-		->whereYear('fecha', '=', date('Y'))
-		->whereNull($tabla . '.deleted_at')
-		->whereBetween('fecha', array($fechaD, $fechaH))
-		->groupBy('nombre_incidente')
-		->havingRaw('count(station_id) >= ?', [1])
-		->get();
-
-		return view("/consulta/entrefechas", compact('Busquedaentrefechas_Parroquias','Busquedaentrefechas_Estaciones','busquedaentrefechas','fechaD','fechaH'));
-	}
-
-	private $reports = [
 		
-		'query' => Evento_Entre_FechasExport::class,
-	];
-	
-	public function __invoke(Request $request)
-	{
-		if (array_key_exists($request->report, $this->reports)) {
-			return new $this->reports[$request->report];
-		}
-		return response()->json(['error' => 'Report type not supported']);
+
+		return view("/consulta/entrefechas", compact('tabla','Busquedaentrefechas_Parroquias','Busquedaentrefechas_Estaciones','busquedaentrefechas','fechaD','fechaH'));
 	}
+
+	public function export($tabla,$fechaD,$fechaH)
+	{
+		return Excel::download(new Evento_Entre_FechasExport($tabla,$fechaD,$fechaH), 'consulta_'.$tabla.'_'.$fechaD.'_a_'.$fechaH.'.xlsx');
+	}
+
+
+	
+	
+	
 
 
 

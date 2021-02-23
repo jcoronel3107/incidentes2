@@ -21,6 +21,7 @@
                 <div class="col-sm-9">
                     <div class=" col-xl-8 col-lg-8">
                         <select class="selectpicker form-control" data-live-search="true" id="eventos" name="eventos" required="">
+                            <option value="">Seleccione...</option>
                             <option value="derrames">Derrames</option>
                             <option value="fugas">Fugas</option>
                             <option value="incendios">Incendios</option>

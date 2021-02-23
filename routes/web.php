@@ -110,6 +110,7 @@ Route::get('fugas/export',   		'FugaController@export');
 Route::get('saluds/export',   		'SaludController@export');
 Route::get('derrames/export',   	'DerrameController@export');
 Route::get('servicios/export',   	'ServicioController@export');
+Route::get('estadisticas/export/{id},{f1},{f2}', 	'ConsultasController@export');
 
 //Rutas Creacion de Raporte Grafico
 Route::get('vehiculos/grafic/',		'VehiculoController@grafica');
@@ -231,13 +232,17 @@ Route::get('/prueba', function () {
 
 Route::get('/prueba3',function()
 	{
-		$Inundacionxestacion = DB::table('claves')
-				->join('gasolineras', 'claves.gasolinera_id', '=', 'gasolineras.id')
-                ->select('gasolinera_id','gasolineras.razonsocial', DB::raw('count(gasolinera_id) Nro_Cargas'))
-                ->whereYear('claves.created_at', '=', date('Y'))
-                ->whereNull('claves.deleted_at')
-                ->groupBy('claves.gasolinera_id')
-                ->havingRaw('count(claves.gasolinera_id) >= ?',[1])
-                ->get();
-			return $Inundacionxestacion;
+	$downloadbusquedaentrefechas =  DB::table('incendios')
+		->join('incidentes', 'incendios.incidente_id', '=', 'incidentes.id')
+		->join('stations', 'incendios.station_id', '=', 'stations.id')
+		->select('fecha','nombre_incidente', 'direccion', 'geoposicion', 'ficha_ecu911', 'nombre', 'informacion_inicial', 'detalle_emergencia',
+		 'usuario_afectado', 'danos_estimados', 'hora_fichaecu911', 'hora_salida_a_emergencia', 'hora_llegada_a_emergencia', 'hora_fin_emergencia', 'hora_en_base')
+		->whereYear('fecha', '=', date('Y'))
+		->whereNull('incendios.deleted_at')
+		->whereBetween('fecha', array('2021-01-01', '2021-01-31'))
+		
+		->get();
+
+	
+	return $downloadbusquedaentrefechas;
 	});

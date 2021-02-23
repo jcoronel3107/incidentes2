@@ -17,7 +17,7 @@
 	<img src="images/encabezado.png" alt="encabezadopdf" width="500" height="90">
 	<div class="container">
 
-		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Consultar Información de Evento Inundación (10-20)</h2>
+		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Consulta Información de Evento Inundación (10-20)</h2>
 		<p align="right" class="text-info text">Cuenca, {{$date}}</p>
 		<h3>Registro Nro.{{$inundacion->id}}</h3>
 		<span class="bg-gray font-weight-bold">Cod_Incidente:</span>
@@ -36,7 +36,7 @@
 		<p class="text-info">{{$inundacion->hora_fichaecu911}}</p>
 		<hr>
 		<span class="bg-gray font-weight-bold">Dirección:</span>
-		<p class="text-info">{{$inundacion->address}}</p>
+		<p class="text-info">{{$inundacion->direccion}}</p>
 		<span class="bg-gray font-weight-bold">Parroquia: </span>
 		<p class="text-info">{{$inundacion->parroquia->nombre}}</p>
 		<span class="bg-gray font-weight-bold">Georeferencia:</span>

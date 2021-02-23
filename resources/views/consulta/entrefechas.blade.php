@@ -19,11 +19,13 @@
             <div class="col-xl-8 col-lg-8">
 
                 <p style="text-align: center;" class="text-info" id="fch1">Fecha Desde: {{$fechaD}} &nbsp;&nbsp; Fecha Hasta: {{$fechaH}}</p>
+                <p style="text-transform: uppercase; text-align: center;" class="text-info" id="incidente">{{$tabla}}</p>
                 <div class="py-2 " id="container0"></div>
 
             </div>
 
             <div class="col-xl-4 col-lg-4">
+                <p style="text-transform: uppercase; text-align: center;" class="text-info" id="incidente">{{$tabla}}</p>
                 <p class="text-info"> Busqueda entre Fechas</p>
                 <div class="py-2 " id="table0.1">
                     <table class="table table-sm" id="datatable0.1">
@@ -42,6 +44,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <a class="btn btn-info " href="estadisticas/export/{{$tabla}},{{$fechaD}},{{$fechaH}}">Descarga Registros</a>
                 </div>
 
             </div>
@@ -182,7 +185,7 @@
             }
         },
         tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}#</b>',
 
         }
     });
@@ -197,7 +200,7 @@
             plotBackgroundColor: null,
             plotBorderWidth: null,
             plotShadow: false,
-            type: 'column'
+            type: 'pie'
         },
         title: {
             text: 'Incidentes en Parroquias'

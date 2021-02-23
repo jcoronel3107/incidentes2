@@ -22,7 +22,7 @@ class InundacionsImport extends DefaultValueBinder implements WithCustomValueBin
             'tipo_escena'                   =>$row[1],
             'station_id'                    =>$row[2],
             'fecha'                         =>$row[3],
-            'address'                     =>$row[4],
+            'direccion'                     =>$row[4],
             'parroquia_id'                  =>$row[5],
             'geoposicion'                   =>$row[6],
             'ficha_ecu911'                  =>$row[7],

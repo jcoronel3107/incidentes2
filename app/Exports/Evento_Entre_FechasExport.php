@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Incendio;
 
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -18,54 +19,69 @@ class Evento_Entre_FechasExport implements FromQuery, Responsable, WithHeadings,
     use Exportable;
     /** @var null */
     private $fileName = null;
-    public function __construct()
+    public function __construct(string $tabla, string $fechaD, string $fechaH)
     {
+        
+        $this->fechaD = $fechaD;
+        $this->fechaH = $fechaH;
+        $this->modelo = ucwords( substr($tabla, 0, -1));
+        $this->tabla =  $tabla;
         $this->setFileName();
+        return $this;
     }
 
     public function query()
     {
-        $downloadbusquedaentrefechas = DB::table($tabla)
-        ->join('incidentes', $tabla . '.incidente_id', '=', 'incidentes.id')
-        /* ->select('nombre_incidente', DB::raw('count(station_id) salidas')) */
+        $downloadbusquedaentrefechas =  DB::table($this->tabla)
+        ->join('incidentes', $this->tabla . '.incidente_id', '=', 'incidentes.id')
+        ->join('stations', $this->tabla .'.station_id', '=', 'stations.id')
+        ->select(
+            'fecha',
+            'nombre_incidente',
+            'direccion',
+            'geoposicion',
+            'ficha_ecu911',
+            'nombre',
+            'informacion_inicial',
+            'detalle_emergencia',
+            'usuario_afectado',
+            'danos_estimados',
+            'hora_fichaecu911',
+            'hora_salida_a_emergencia',
+            'hora_llegada_a_emergencia',
+            'hora_fin_emergencia',
+            'hora_en_base'
+        )
         ->whereYear('fecha', '=', date('Y'))
-        ->whereNull($tabla . '.deleted_at')
-        ->whereBetween('fecha', array($fechaD, $fechaH))
-        ->groupBy('nombre_incidente')
-        ->havingRaw('count(station_id) >= ?', [1])
-        ->get();
+        ->whereNull($this->tabla . '.deleted_at')
+        ->whereBetween('fecha', array($this->fechaD, $this->fechaH))
+        ->orderByDesc('fecha');
         return $downloadbusquedaentrefechas;
     }
 
     public function setFileName(): void
     {
-        $this->fileName = sprintf('users-export-%s.xlsx', now()->timestamp);
+        $this->fileName = sprintf('consulta-export-%s.xlsx', now()->timestamp);
     }
 
     public function headings(): array
     {
         return [
-            '#',
-            'Incidente_id',
-            'Nombre_incidente',
-            'Tipo_escena',
-            'Estation_id',
             'Fecha',
-            'address',
-            'Parroquia_id',
-            'Parroquia',
+            'Nombre_incidente',
+            'Direccion',
             'Geoposicion',
             'Ficha_ecu911',
-            'Hora_fichaecu911',
-            'Hora_salida_a_emergencia',
-            'Hora_llegada_a_emergencia',
-            'Hora_fin_emergencia',
-            'Hora_en_base',
+            'Estation',
             'Informacion_inicial',
             'Detalle_emergencia',
             'Usuario_afectado',
             'Danos_estimados',
-            
+            'Hora_fichaecu911',
+            'Hora_salida_a_emergencia',
+            'Hora_llegada_a_emergencia',
+            'Hora_fin_emergencia',
+            'Hora_en_base',   
         ];
     }
 

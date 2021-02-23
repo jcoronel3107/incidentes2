@@ -6,19 +6,20 @@
 	@endsection
 
 	@section( "cuerpo" )
-		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Consultar Información de Evento 10-20</h2>
-		<div class="card">
-			<div class="card-header ">
-			    <div class="row">
-		    	<div class="col-6"><h3>Registro Nro.{{$inundacion->id}}</h3>
-		    	</div>
-		    	<div class="col-6 text-right">
-		    		<a href="{{ route('inundacion.index')}}" class="btn btn-outline-primary ">Regresar</a>
-		    	</div>
-			    </div>
+	<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Consultar Información de Evento 10-20</h2>
+	<div class="card">
+		<div class="card-header ">
+			<div class="row">
+				<div class="col-6">
+					<h3>Registro Nro.{{$inundacion->id}}</h3>
+				</div>
+				<div class="col-6 text-right">
+					<a href="{{ route('inundacion.index')}}" class="btn btn-outline-primary ">Regresar</a>
+				</div>
 			</div>
-  			<div class="card-body">
-    		<div class="row p-3 border-left-primary">
+		</div>
+		<div class="card-body">
+			<div class="row p-3 border-left-primary">
 				<div class="col-2">
 					<span class="bg-gray font-weight-bold">Cod_Incidente:</span>
 					<p class="text-info">{{$inundacion->incidente->nombre_incidente}}</p>
@@ -48,7 +49,7 @@
 			<div class="row p-3 border-left-secondary">
 				<div class="col-4">
 					<span class="bg-gray font-weight-bold">Dirección:</span>
-					 <p class="text-info">{{$inundacion->address}}</p>
+					<p class="text-info">{{$inundacion->direccion}}</p>
 
 				</div>
 				<div class="col-4">
@@ -118,74 +119,80 @@
 			<hr>
 			<div class="row p-3 border-left-secondary">
 				<div class="col-sm-12 col-md-12 col-lg-12">
-					<p class="text-center"><h4>Personal Asiste</h4></p>
+					<p class="text-center">
+					<h4>Personal Asiste</h4>
+					</p>
 					<table class="table table-sm table-hover">
-					 	<thead>
-					    	<tr>
-					    		<th scope="col">#</th>
-					     		<th scope="col">Nombre</th>
-					     		<th scope="col">Cargo</th>
-					    	</tr>
-					  	</thead>
-					  	<tbody>
-					  		@foreach($inundacion->users as $user)
-				 	   		<tr>
-				  	   			<th scope="row">{{$user->id}}</th>
-				  	    		<td>{{$user->name}}</td>
-				  	    		<td>{{$user->cargo}}</td>
-				   			</tr>
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Nombre</th>
+								<th scope="col">Cargo</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach($inundacion->users as $user)
+							<tr>
+								<th scope="row">{{$user->id}}</th>
+								<td>{{$user->name}}</td>
+								<td>{{$user->cargo}}</td>
+							</tr>
 							@endforeach
-				  		</tbody>
+						</tbody>
 					</table>
 				</div>
 			</div>
 			<hr>
 			<div class="row p-3 border-left-primary">
 				<div class="col-sm-12 col-md-12 col-lg-12">
-					<p class="text-center"><h4>Vehiculos En Incidente</h4></p>
+					<p class="text-center">
+					<h4>Vehiculos En Incidente</h4>
+					</p>
 					<table class="table table-sm table-hover">
 						<thead>
-				    		<tr>
-				     			<th scope="col">#</th>
-				      			<th scope="col">Codigo</th>
-				      			<th scope="col">Placa</th>
-				      			<th scope="col">Marca</th>
-				      			<th scope="col">KM.Salida</th>
-				      			<th scope="col">KM.Llegada</th>
-				    		</tr>
-				  		</thead>
-				  		<tbody>
-				  			@foreach($inundacion->vehiculos as $vehiculo)
-				    		<tr>
-				      			<th scope="row">{{$vehiculo->id}}</th>
-				      			<td>{{$vehiculo->codigodis}}</td>
-				      			<td>{{$vehiculo->placa}}</td>
-				      			<td>{{$vehiculo->marca}}</td>
-				      			<td>{{$vehiculo->pivot->km_salida}}</td>
-				      			<td>{{$vehiculo->pivot->km_llegada}}</td>
-				    		</tr>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Codigo</th>
+								<th scope="col">Placa</th>
+								<th scope="col">Marca</th>
+								<th scope="col">KM.Salida</th>
+								<th scope="col">KM.Llegada</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach($inundacion->vehiculos as $vehiculo)
+							<tr>
+								<th scope="row">{{$vehiculo->id}}</th>
+								<td>{{$vehiculo->codigodis}}</td>
+								<td>{{$vehiculo->placa}}</td>
+								<td>{{$vehiculo->marca}}</td>
+								<td>{{$vehiculo->pivot->km_salida}}</td>
+								<td>{{$vehiculo->pivot->km_llegada}}</td>
+							</tr>
 							@endforeach
-				  		</tbody>
+						</tbody>
 					</table>
 				</div>
 			</div>
 			<hr>
 			<div class="row p-3 border-left-secondary">
 				<div class="col-sm-12 col-md-12 col-lg-12">
-					<p class="text-center"><h4>Formularios del Incidente</h4></p>
-						<li>	
+					<p class="text-center">
+					<h4>Formularios del Incidente</h4>
+					</p>
+					<li>
 						<a target="_blank" href="{{asset('storage/1020/'.$inundacion->id.'/201.pdf')}}">Formulario 201 - PDF</a>
-						</li>
-						<li><a target="_blank" href="{{asset('storage/1020/'.$inundacion->id.'/202.pdf')}}">Formulario 202 - PDF</a>
-						</li>
-						<li><a target="_blank" href="{{asset('storage/1020/'.$inundacion->id.'/206A.pdf')}}">Formulario 206A - PDF</a></li>
-						<!-- <iframe width="400" height="400" src="{{asset('storage/1020/'.$inundacion->id.'/206A.pdf')}}" frameborder="0"></iframe>	 -->
+					</li>
+					<li><a target="_blank" href="{{asset('storage/1020/'.$inundacion->id.'/202.pdf')}}">Formulario 202 - PDF</a>
+					</li>
+					<li><a target="_blank" href="{{asset('storage/1020/'.$inundacion->id.'/206A.pdf')}}">Formulario 206A - PDF</a></li>
+					<!-- <iframe width="400" height="400" src="{{asset('storage/1020/'.$inundacion->id.'/206A.pdf')}}" frameborder="0"></iframe>	 -->
 
 				</div>
 			</div>
-			</div>
 		</div>
+	</div>
 
 
 	@endsection
-@section( "piepagina" ) @endsection
+	@section( "piepagina" ) @endsection

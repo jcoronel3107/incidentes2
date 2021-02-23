@@ -38,7 +38,7 @@ class InundacionController extends Controller
         if($request)
         {
           $query = trim($request->get('searchText'));
-          $inundaciones = Inundacion::where("address",'LIKE','%'.$query.'%')
+          $inundaciones = Inundacion::where("direccion",'LIKE','%'.$query.'%')
           ->OrderBy('fecha','desc')
           ->paginate(15);
 		      return view( "/inundacion.index", compact( "inundaciones","query" ) );
@@ -95,7 +95,7 @@ class InundacionController extends Controller
         		$inundacion->tipo_escena = $request->tipo_escena;
         		$inundacion->station_id = $request->station_id;
         		$inundacion->fecha = $request->fecha;
-        		$inundacion->address = $request->address;
+        		$inundacion->address = $request->direccion;
         		$inundacion->parroquia_id = $request->parroquia_id;
         		$inundacion->geoposicion = $request->geoposicion;
         		$inundacion->ficha_ecu911 = $request->ficha_ecu911;
@@ -215,7 +215,7 @@ class InundacionController extends Controller
                                 'tipo_escena' => $request->tipo_escena,
                                 'station_id' => $request->station_id,
                                 'fecha' => $request->fecha,
-                                'address' => $request->address,
+                                'direccion' => $request->direccion,
                                 'parroquia_id' => $inundacion->parroquia->id,
                                 'geoposicion' => $request->geoposicion,
                                 'ficha_ecu911' => $request->ficha_ecu911,
