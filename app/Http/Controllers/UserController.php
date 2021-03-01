@@ -63,19 +63,19 @@ class UserController extends Controller
         $user = Auth::user();
         $all_roles_in_database = Role::all();
         $all_permissions_in_database = Permission::all();
+        $users = User::all();
         // Permissions inherited from the user's roles
         $PermissionsViaRoles=$user->getPermissionsViaRoles();
-        return view("/user.rol",compact('all_roles_in_database', 'all_permissions_in_database', 'PermissionsViaRoles'));
+        return view("/user.rol",compact('users','all_roles_in_database', 'all_permissions_in_database', 'PermissionsViaRoles'));
     }
 
-    public function CambiaRoldeUsuario(Request $request)
+    public function ConsultaRolUsuario($id)
     {
-        // dd($request->Roles);
-        $user = Auth::user();
-        $user->syncRoles([$request->Roles]);
-        Session::flash('Rol Asignado', "Asignación Rol con Exito!!!");
-        return redirect("/");
+        $user = User::find($id);
+        $roles = $user->getRoleNames()->tojson();
+        return ($roles);
     }
+   
 
     protected function getTokenfromRequest(Request $request)
     {
@@ -88,11 +88,27 @@ class UserController extends Controller
 
     public function PerrmisosxRol ($id)
     {
-        $user = Auth::user();
+        
         $rol = Role::findByName($id);
         $PermissionsViaRoles = $rol->permissions;
         return $PermissionsViaRoles;
     }
-    
-    
+
+    public function CambiaPermisosRol(Request $request)
+    {
+        $user = Auth::user();
+        $rol = Role::findByName($request->Roles);
+        $rol->syncPermissions([$request->permissions]);
+        Session::flash('Permisos Asignado', "Asignación Permisos con Exito!!!");
+        return redirect("/user");
+    }
+
+    public function CambiaRoldeUsuario(Request $request)
+    {
+        //$user = Auth::user();
+        $user = User::find($request->user);
+        $user->syncRoles([$request->Roles]);
+        Session::flash('Rol Asignado', "Asignación Rol con Exito!!!");
+        return redirect("/user");
+    }
 }

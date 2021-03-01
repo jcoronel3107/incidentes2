@@ -83,7 +83,15 @@
 
 	@if (session('Rol Asignado'))
 	<div class="alert alert-success alert-dismissible fade show" role="alert">
-		{{ session('status') }}
+		{{ session('Rol Asignado') }}
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span></button>
+	</div>
+	@endif
+
+	@if (session('Permisos Asignado'))
+	<div class="alert alert-success alert-dismissible fade show" role="alert">
+		{{ session('Permisos Asignado') }}
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			<span aria-hidden="true">&times;</span></button>
 	</div>

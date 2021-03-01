@@ -90,6 +90,7 @@ Route::post('saluds/import/',		'SaludController@importacion');
 Route::post('derrames/import/',		'DerrameController@importacion');
 Route::post('users/import/',		'UserController@importacion');
 Route::get('users/permisosxrol/{id}',	'UserController@PerrmisosxRol');
+Route::get('users/consultarol/{id}',	'UserController@ConsultaRolUsuario')->name('consultrol');
 
 Route::get('cie10/importar',		'CieController@importar');
 Route::get('vehiculos/importar',	'VehiculoController@importar');
@@ -102,7 +103,8 @@ Route::get('saluds/importar',		'SaludController@importar');
 Route::get('derrames/importar',		'derrameController@importar');
 Route::get('users/importar',		'UserController@importar');
 Route::get('users/roles',			'UserController@rol');
-Route::put('users/changerol',		'UserController@CambiaRoldeUsuario')->name('changerol');;
+Route::put('users/changerol',		'UserController@CambiaRoldeUsuario')->name('changerol');
+Route::put('users/cambiapermisosarol/',	'UserController@CambiaPermisosRol')->name('changepermissions');
 
 Route::get('incidentes/export/', 	'IncidenteController@export');
 Route::get('vehiculos/export/',    	'VehiculoController@export');

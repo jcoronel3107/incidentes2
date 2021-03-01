@@ -22,7 +22,7 @@
             <div id="permission" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-profile-tab">
               <h2>Cambiar Permisos a Rol</h2>
               <hr>
-              <form action="" method="post">
+              <form action="{{ route('changepermissions') }}" method="post">
                 @csrf
                 @method('PUT')
                 <div class="form-group row">
@@ -48,7 +48,7 @@
                   <div class="col-sm-9">
                     <select class="selectpicker form-control" data-live-search="true" size="15" id="permissions" name="permissions" required="" multiple>
                       @foreach($all_permissions_in_database as $permission)
-                      <option value="{{$permission->id}}">{{$permission->name}}</option>
+                      <option>{{$permission->name}}</option>
                       @endforeach
                     </select>
                     @error('permissions') <div class="invalid-feedback">{{ $message }}</div> @enderror
@@ -72,15 +72,18 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label text-sm-right">Usuario</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control @error('role') is-invalid @enderror" readonly="true" name="user" value="{{ old('user', Auth::user()->name) }}">
-
+                    <select class="selectpicker form-control" data-live-search="true" id="user" name="user" required="">
+                      @foreach($users as $user)
+                      <option value="{{$user->id}}">{{$user->name}}</option>
+                      @endforeach
+                    </select>
+                    @error('user') <div class="invalid-feedback">{{ $message }}</div> @enderror
                   </div><!-- /.col -->
                 </div><!-- /.form-group row -->
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label text-sm-right">Rol Actual</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control @error('role') is-invalid @enderror" readonly="true" name="rol" value="{{ old('role', Auth::user()->getRoleNames()) }}">
-                    @error('rol') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                  <div id='response2' class="col-sm-9">
+
                   </div><!-- /.col -->
                 </div><!-- /.form-group row -->
                 <div class="form-group row">
@@ -148,10 +151,26 @@
         //esta el la peticion get, la cual se divide en tres partes. ruta,variables y funcion
         var producto_select = ''
         for (var i = 0; i < data.length; i++)
-          producto_select += '<input value="' + data[i].name + '">';
+          producto_select += '<input readonly="true" value="' + data[i].name + '">';
         $("#response").html(producto_select);
       });
     });
+
+    $("#user").change(function() {
+      var user = $(this).val();
+      //console.log(user);
+      $.get('/users/consultarol/' + user, function(data) {
+        //esta el la peticion get, la cual se divide en tres partes. ruta,variables y funcion
+        var user_select = ''
+        for (var i = 0; i < data.length; i++) {
+          user_select = user_select + data[i];
+        }
+
+        $("#response2").html(user_select);
+      });
+    });
+
+
   });
 </script>
 @endpush('scripts')

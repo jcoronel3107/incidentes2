@@ -220,7 +220,7 @@
   @endcan
   <!-- Divider -->
 
-  @can('edit permissions')
+
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="true" aria-controls="collapseUsers">
       <i class="fas fa-fw fa-cogs"></i>
@@ -230,12 +230,13 @@
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
         <a class="collapse-item" href="/user">{!! trans('messages.Index') !!}</a>
+        @can('edit permissions')
         <a class="collapse-item" href="/users/roles"> {!! trans('messages.Permissions') !!}</a>
-        
+        @endcan
       </div>
     </div>
   </li>
-  @endcan
+
   <!-- Divider -->
   <hr class="sidebar-divider d-none d-md-block">
   <!-- Sidebar Toggler (Sidebar) -->

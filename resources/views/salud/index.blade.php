@@ -54,7 +54,8 @@
 					@endcan
 					<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Ver" href="{{route('salud.show',$salud->id)}}" role="button"><i class="icon-search"></i></a>
 					@can('send mail')
-					<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Enviar" href="{{action('MailController@SendMailsSalud', $salud->id)}}" role="button"><i class="icon-envelope"></i></a>
+					<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" data-target="#exampleModal" role="button"><i class="icon-envelope"></i></a>
+					<!-- <a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Enviar" href="{{action('MailController@SendMailsSalud', $salud->id)}}" role="button"><i class="icon-envelope"></i></a> -->
 					@endcan
 					@can('create pdf')
 					<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="PDF" href="{{action('SaludController@downloadPDF', $salud->id)}}" role="button"><i class="icon-file-text"></i></a>
@@ -62,6 +63,33 @@
 
 
 			</tr>
+			<!-- Modal -->
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<form method="get" action="{{action('MailController@SendMailsSalud', $salud->id  )}}" class="form-horizontal">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Destinatario</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1">@</span>
+									</div>
+									<input name="email" type="email" class="form-control" placeholder="example@bomberos.gob.ec" aria-label="Username" aria-describedby="basic-addon1">
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-primary">Enviar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
 			@endforeach
 
 		</tbody>
