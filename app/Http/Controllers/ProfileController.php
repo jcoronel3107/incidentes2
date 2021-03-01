@@ -31,8 +31,8 @@ class ProfileController extends Controller
 
     public function index()
     {
-        $all_roles_in_database = Role::all();
-        return view('/perfil.profile',compact('all_roles_in_database'));
+       
+        return view('/perfil.profile');
     }
 
     /**
@@ -175,4 +175,8 @@ class ProfileController extends Controller
       $permissionNames = $user->getPermissionNames();
       return $permissionNames;
     }
+
+  
+
+
 }

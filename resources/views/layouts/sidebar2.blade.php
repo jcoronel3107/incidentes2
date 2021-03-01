@@ -213,8 +213,25 @@
         <a class="collapse-item" href="/gasolinera">{!! trans('messages.Service Station') !!}</a>
         <a class="collapse-item" href="/parroquia">{!! trans('messages.Parishes') !!}</a>
         <a class="collapse-item" href="/vehiculo">{!! trans('messages.Vehicles') !!}</a>
-        <a class="collapse-item" href="/users/importar/">{!! trans('messages.Users') !!}</a>
         <a class="collapse-item" href="/cie10/importar">Cie10</a>
+      </div>
+    </div>
+  </li>
+  @endcan
+  <!-- Divider -->
+
+  @can('edit permissions')
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="true" aria-controls="collapseUsers">
+      <i class="fas fa-fw fa-cogs"></i>
+      <span>{!! trans('messages.Users')!!}</span>
+    </a>
+    <div id="collapseUsers" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
+        <a class="collapse-item" href="/user">{!! trans('messages.Index') !!}</a>
+        <a class="collapse-item" href="/users/roles"> {!! trans('messages.Permissions') !!}</a>
+        
       </div>
     </div>
   </li>

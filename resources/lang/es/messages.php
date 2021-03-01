@@ -35,6 +35,7 @@ return [
     'Consult Flood Information' => 'Consulta Información de Inundaciones',
     'Consult Hazmat Information' => 'Consulta Información de Hazmat',
     'Consult Rescue Information' => 'Consulta Información de Rescate',
+    'Consult User Information' => 'Consulta Información Usuario',
     'Consult Traffic Accident Information' => 'Consulta Información de Accidentes Tránsito',
     'Consult Fire Information' => 'Consulta Información de Incendios',
     'Consult Leak Information' => 'Consulta Información de Fuga',
@@ -77,5 +78,11 @@ return [
     'Station9'=>'Estación 9',
     'New'=>'Nuevo',
     'Edit'=>'Edición',
-    'Search between dates'=> 'Busqueda entre fechas'
+    'Search between dates'=> 'Busqueda entre fechas',
+    'Permissions' => 'Permisos',
+    'Rols' => 'Roles',
+    'name' => 'Nombre',
+    'avatar' => 'Avatar',
+    'position' => 'Cargo',
+    'status' => 'Estado',
 ];

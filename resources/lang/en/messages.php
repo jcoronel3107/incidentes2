@@ -34,6 +34,7 @@ return [
     'Consult Flood Information' => 'Consult Flood Information',
     'Consult Hazmat Information' => 'Consult Hazmat Information',
     'Consult Rescue Information' => 'Consult Rescue Information',
+    'Consult User Information' => 'Consult User Information',
     'Consult Traffic Accident Information' => 'Consult Traffic Accident Information',
     'Consult Fire Information' => 'Consult Fire Information',
     'Consult Leak Information' => 'Consult Leak Information',
@@ -77,4 +78,10 @@ return [
     'New'=>'New',
     'Edit'=>'Edit',
     'Search between dates' => 'Search between dates',
+    'Permissions' => 'Permissions',
+    'Rols' => 'Rols',
+    'name' => 'Name',
+    'avatar'=> 'Avatar',
+    'position'=>'Position',
+    'status'=>'Status',
 ];

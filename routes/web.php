@@ -34,6 +34,9 @@ use Illuminate\Support\Facades\DB;
 |
 */
 Route::get('/',                  	'PagesController@index');
+Route::get('/home',              'HomeController@index');
+
+Route::get('/admin',             'AdministradorController@index');
 Auth::routes();
 Route::get('lang/{lang}', 			'LanguageController@swap')->name('lang.swap');
 Route::resource('clave',         	'ClaveController');
@@ -51,6 +54,7 @@ Route::resource('salud',     	 	'SaludController');
 Route::resource('derrame',     	 	'DerrameController');
 Route::resource('servicio',    	 	'ServicioController');
 Route::resource('consulta',      	'ConsultasController');
+Route::resource('user',		      	'UserController');
 
 Route::get('/activitylog',			'ConsultasController@activitylog');
 Route::get('/consultaentrefechas',	'ConsultasController@consultaentrefechas');
@@ -85,6 +89,7 @@ Route::post('vehiculos/import/',	'VehiculoController@importacion');
 Route::post('saluds/import/',		'SaludController@importacion');
 Route::post('derrames/import/',		'DerrameController@importacion');
 Route::post('users/import/',		'UserController@importacion');
+Route::get('users/permisosxrol/{id}',	'UserController@PerrmisosxRol');
 
 Route::get('cie10/importar',		'CieController@importar');
 Route::get('vehiculos/importar',	'VehiculoController@importar');
@@ -96,6 +101,8 @@ Route::get('transitos/importar',	'TransitoController@importar');
 Route::get('saluds/importar',		'SaludController@importar');
 Route::get('derrames/importar',		'derrameController@importar');
 Route::get('users/importar',		'UserController@importar');
+Route::get('users/roles',			'UserController@rol');
+Route::put('users/changerol',		'UserController@CambiaRoldeUsuario')->name('changerol');;
 
 Route::get('incidentes/export/', 	'IncidenteController@export');
 Route::get('vehiculos/export/',    	'VehiculoController@export');
@@ -158,8 +165,7 @@ Route::get('/eventoE9/',				'MenuController@evento9');
 
 
 
-Route::get('/home',              'HomeController@index');
-Route::get('/admin',             'AdministradorController@index');
+
 /*Route::get('/admin/user/rols',['middleware'=>'rol',function(){
 	return "Middleware rol";
 }]);*/
@@ -183,7 +189,7 @@ Route::get('/mail', function () {
 
 });
 
-//Route::get('/prueba','ConsultaController@EventosxIncidente');
+
 Route::get('/prueba', function () {
 
 

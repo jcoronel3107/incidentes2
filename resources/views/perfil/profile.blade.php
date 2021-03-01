@@ -17,9 +17,7 @@
             <a class="nav-link  p-2 active" data-toggle="pill" href="#datos" role="tab" aria-controls="datos" aria-selected="true">Datos</a>
             <a class="nav-link  p-2" data-toggle="pill" href="#foto" role="tab" aria-controls="foto" aria-selected="false">Foto</a>
             <a class="nav-link  p-2" data-toggle="pill" href="#pass" role="tab" aria-controls="pass" aria-selected="false">Contraseña</a>
-            @can('edit permissions')
-            <a class="nav-link  p-2" data-toggle="pill" href="#permission" role="tab" aria-controls="pass" aria-selected="false">Permisos</a>
-            @endcan
+            <a class="nav-link  p-2" data-toggle="pill" href="#permission" role="tab" aria-controls="pass" aria-selected="false">Rol</a>
           </div>
         </div><!-- /.col -->
         <div class="col-sm-9">
@@ -121,7 +119,7 @@
             </div><!-- /#pass-tab -->
 
             <div id="permission" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-              <h2>Cambiar Permisos</h2>
+              <h2>Rol Asignado</h2>
               <hr>
               <form action="" method="POST">
                 @csrf
@@ -133,24 +131,9 @@
 
                   </div><!-- /.col -->
                 </div><!-- /.form-group row -->
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label text-sm-right">Roles</label>
-                  <div class="col-sm-9">
-                    <select class="selectpicker form-control" multiple data-live-search="true" id="Roles" name="Roles" required="" multiple>
-                      @foreach($all_roles_in_database as $rol)
-                      <option value="{{$rol->id}}">{{$rol->name}}</option>
-                      @endforeach
-                    </select>
-                    @error('nuevo') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                  </div><!-- /.col -->
-                </div><!-- /.form-group row -->
 
-                <hr>
-                <div class="form-group row">
-                  <div class="col-sm-4 mx-auto">
-                    <button type="submit" class="btn btn-outline-primary btn-block">Cambiar</button>
-                  </div><!-- /.col -->
-                </div><!-- /.form-group -->
+
+
               </form>
             </div><!-- /#pass-tab -->
 
