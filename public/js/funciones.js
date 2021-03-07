@@ -1,15 +1,37 @@
 /*
  Funciones Generales
 */
+window.addEventListener("load", cargaPagina);
+function cargaPagina() {
+    var btn = document.getElementById("horactual0").addEventListener("click", hractual);
+	var btn = document.getElementById("horactual").addEventListener("click", hractual);
+	var btn = document.getElementById("horactual1").addEventListener("click", hractual);
+	var btn = document.getElementById("horactual2").addEventListener("click", hractual);
+	var btn = document.getElementById("horactual3").addEventListener("click", hractual);
+}
+
 
 $(document).ready(function(){
 	var dtToday = new Date();
 	var month = dtToday.getMonth() + 1;     // getMonth() is zero-based
 	var day = dtToday.getDate();
 	var year = dtToday.getFullYear();
-	//console.log(e);
+
+	var max_chars = 2000;
+	$('#max').html(max_chars);
+
 	
-	var h1 = dtToday.getHours();
+	if(month < 10)
+    		month = '0' + month.toString();
+	if(day < 10)
+		    day = '0' + day.toString();	
+	
+	
+	var maxDate = year + '-' + month + '-' + day;
+	$('#fecha').attr('min', maxDate);
+	$('#fecha').attr('value', maxDate);
+	
+	/*  var h1 = dtToday.getHours();
 	if (h1 >= 0 && h1 < 10) {
 		h1 = "0" + h1;
 	}
@@ -31,14 +53,9 @@ $(document).ready(function(){
 	$('#hora_en_base').attr('value', hora);
 
 	$('#hora_fichaecu911').attr('value', hora);
-	if(month < 10)
-    		month = '0' + month.toString();
-	if(day < 10)
-		    day = '0' + day.toString();					
-		
-	var maxDate = year + '-' + month + '-' + day;
-	$('#fecha').attr('min', maxDate);
-	$('#fecha').attr('value', maxDate);
+					 */
+		 
+	
 	
 	$("#bt_add").click(function () {
 		agregar();
@@ -47,24 +64,29 @@ $(document).ready(function(){
 		agregarpaciente();
 	});
 
-	$("#horactual0").click(function () {
+	/* document.getElementById("horactual0").addEventListener("click", hractual); */
+
+	 /* $("#horactual0").click(function () {
 		hractual(this);
 	});
+ */
 	$("#horactual").click(function () {
 		hractual(this);
 	});
+
 	$("#horactual1").click(function () {
 		hractual(this);
 	});
+
 	$("#horactual2").click(function () {
 		hractual(this);
 	});
+
 	$("#horactual3").click(function () {
-		hractual(this);
+		hractual(this); 
 	});
-	var max_chars = 2000;
-	$('#max').html(max_chars);
-    
+
+
     $("#pinformacion_inicial").keyup(function() {
 	        var chars = $("#pinformacion_inicial").val().length;
 	        var diff = max_chars - chars;
@@ -80,7 +102,7 @@ $(document).ready(function(){
 	         }
 	    });
 	    
-	    $("#detalle_emergencia").keyup(function() {
+	$("#detalle_emergencia").keyup(function() {
 	        var chars = $("#detalle_emergencia").val().length;
 	        var diff = max_chars - chars;
 	        var leyenda = "Caracteres Permitidos 2000 - Digitados: ";
@@ -94,8 +116,8 @@ $(document).ready(function(){
 	           $("#detalle_emergencia").removeClass('error');
 	        }
 	    });
-	    $("#Enviar").hide();
-	    conservarinfo();
+	$("#Enviar").hide();
+	conservarinfo();
 });
 		
 total=0;
@@ -198,7 +220,7 @@ function mayus( e ) {
 }
 
 function hractual(e) {
-	//console.log(e);
+	
 	var hoy = new Date();
 	var h1 = hoy.getHours();
 	if(h1>=0 && h1<10) {
@@ -214,16 +236,90 @@ function hractual(e) {
 	}
 	var hora = h1  + ':' + min + ':' + sec;
 	if(e.name == "horactual")
-		$('#hora_salida_a_emergencia').attr('value', hora);
+		/* $('#hora_salida_a_emergencia').attr('value', hora); */
+		document.getElementById("hora_salida_a_emergencia").value=hora;
+	
 	else if (e.name == "horactual1")
-		$('#hora_llegada_a_emergencia').attr('value', hora);
+		document.getElementById("hora_llegada_a_emergencia").value=hora;
+		
+
 	else if (e.name == "horactual2")
-		$('#hora_fin_emergencia').attr('value', hora);
+		document.getElementById("hora_fin_emergencia").value=hora;
+		
+	
 	else if(e.name == "horactual3")
-		$('#hora_en_base').attr('value', hora);
+		document.getElementById("hora_en_base").value=hora;
+		
+	
 	else
-		$('#hora_fichaecu911').attr('value', hora);
+	document.getElementById("hora_fichaecu911").value=hora;
+	/* console.log(hora); */
 }
+
+function CheckTime(str)
+{
+hora=str.value
+if (hora=='')
+ {
+	 str.select() ;
+	 str.focus() ;
+	
+}
+if (hora.length>8) 
+{	
+	alert("Introdujo una cadena mayor a 8 caracteres");
+	str.select() ;
+	//coloco otra vez el foco 
+    str.focus() ;
+	
+}
+if (hora.length!=8) 
+{
+	alert("Introducir HH:MM:SS");
+	str.select() ;
+	//coloco otra vez el foco 
+    str.focus() ;
+	
+}
+a=hora.charAt(0) //<=2
+b=hora.charAt(1) //<4
+c=hora.charAt(2) //:
+d=hora.charAt(3) //<=5
+e=hora.charAt(5) //:
+f=hora.charAt(6) //<=5
+if ((a==2 && b>3) || (a>2)) 
+{
+	alert("El valor que introdujo en la Hora no corresponde, introduzca un digito entre 00 y 23");
+	str.select() ;
+	//coloco otra vez el foco 
+    str.focus() ;
+	
+}
+if (d>5)
+ {
+	 alert("El valor que introdujo en los minutos no corresponde, introduzca un digito entre 00 y 59");
+	 str.select() ;
+	 //coloco otra vez el foco 
+    str.focus() ;
+	 
+}
+if (f>5) 
+{
+	alert("El valor que introdujo en los segundos no corresponde");
+	str.select() ;
+	//coloco otra vez el foco 
+    str.focus() ;
+	
+}
+if (c!=':' || e!=':') 
+{
+	alert("Introduzca el caracter ':' para separar la hora, los minutos y los segundos");
+	str.select() ;
+	//coloco otra vez el foco 
+    str.focus() ;
+	
+} 
+} 
 
 
 

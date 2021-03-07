@@ -36,11 +36,16 @@ class DerrameController extends Controller
     {
         if($request)
         {
+          //dd($request);
           $query = trim($request->get('searchText'));
+          $estacion_id = trim($request->get('estacion_id'));
+         
           $derrames = Derrame::where("address",'LIKE','%'.$query.'%')
+          /* ->where("station_id","==", $estacion_id) */
           ->OrderBy('fecha','desc')
           ->paginate(15);
-              return view( "/derrame.index", compact( "derrames","query" ) );
+          
+              return view( "/derrame.index", compact( "derrames","query","estacion_id" ) );
         }
     }
 

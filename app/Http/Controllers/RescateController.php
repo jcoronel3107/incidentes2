@@ -37,11 +37,13 @@ class RescateController extends Controller
     {
         if($request)
         {
+          $estacion_id = trim($request->get('estacion_id'));
           $query = trim($request->get('searchText'));
           $rescates = Rescate::where("direccion",'LIKE','%'.$query.'%')
+          /* ->where("station_id", "==", $estacion_id) */
           ->OrderBy('fecha','desc')
           ->paginate(15);
-		      return view( "/rescate.index", compact( "rescates","query" ) );
+		      return view( "/rescate.index", compact( "rescates","query", "estacion_id"));
         }
     }
 
@@ -92,6 +94,7 @@ class RescateController extends Controller
           
               $validated = $request->validated();
               $rescate = new Rescate;
+              
     	        $rescate->incidente_id = $request->incidente_id;
               $rescate->tipo_escena = $request->tipo_escena;
     			    $rescate->station_id = $request->station_id;

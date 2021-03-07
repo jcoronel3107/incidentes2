@@ -41,7 +41,6 @@ class SaveSaludRequest extends FormRequest
                 'jefeguardia_id'=>'required',
                 'bombero_id'=>'required',
                 'conductor_id'=>'required'
-                
             ];
     }
 }

@@ -38,13 +38,15 @@ class SaludController extends Controller
     {
        if($request)
         {
+          $estacion_id = trim($request->get('estacion_id'));
           $query = trim($request->get('searchText'));
           $saluds = Salud::where("direccion",'LIKE','%'.$query.'%')
+          /* ->where("station_id", "==", $estacion_id) */
           ->OrderBy('fecha','desc')
           ->paginate(15);
               
 
-          return view( "/salud.index", compact( "saluds","query" ) );
+          return view( "/salud.index", compact( "saluds","query"));
         }
     }
 

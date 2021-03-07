@@ -40,10 +40,12 @@ class TransitoController extends Controller
         if($request)
         {
           $query = trim($request->get('searchText'));
+            $estacion_id = trim($request->get('estacion_id'));
           $transitos = Transito::where("direccion",'LIKE','%'.$query.'%')
+           /* ->where("station_id", "==", $estacion_id) */
           ->OrderBy('fecha','desc')
           ->paginate(15);
-              return view( "/transito.index", compact( "transitos","query" ) );
+              return view( "/transito.index", compact( "transitos","query"));
         }
     }
 

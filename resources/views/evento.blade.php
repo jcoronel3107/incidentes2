@@ -44,6 +44,7 @@
 
 	<div class="row">
 		<h1> <i class="fa fa-university" aria-hidden="true"></i> {{$station}}</h1>
+		<input type="text" hidden name="estacion_id" id="estacion_id" value="{{$estacion_id}}">
 	</div>
 	<div class="row">
 
@@ -53,24 +54,21 @@
 					<a>
 						<h5 title="Crea {!! trans('messages.flood') !!}" class=" text-white bg-primary"><i class="fas fa-fw fa-shower"></i>{!! trans('messages.flood') !!}</h5>
 					</a>
-
 				</div>
 				<div class="card-body">
 					@can('create evento')
-					<a title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/inundacion/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
+					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/inundacion/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
 					@endcan
-					<a title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/inundacion"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
+					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/inundacion"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
 					<h1 class="text-center">{{"$InundacionEst"}}</h1>
-					<a target="_blank">
+					<a rel="nofollow noopener noreferrer" target="_blank">
 						<p class="card-text text-center text-black"> {!! trans('messages.Current Month Events') !!}</p>
 					</a>
 				</div>
-
 			</div>
 		</div>
 		<div class="col-xl-6 col-md-6" id="clockdate">
 			<div class="card mb-4 ">
-
 				<div class="card-body">
 					<div class="clockdate-wrapper">
 						<div id="clock"></div>
@@ -79,7 +77,6 @@
 				</div>
 			</div>
 		</div>
-
 		<div class="col-xl-3 col-lg-3 col-md-4 sm-6">
 			<div class="card">
 				<div class="card-header text-white bg-secondary">
@@ -90,11 +87,11 @@
 				</div>
 				<div class="card-body">
 					@can('create evento')
-					<a title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/rescate/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
+					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/rescate/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
 					@endcan
-					<a title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/rescate"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
+					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/rescate"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
 					<h1 class="text-center">{{$RescateEst}}</h1>
-					<a target="_blank">
+					<a rel="nofollow noopener noreferrer" target="_blank">
 						<p class="card-text text-center text-black"> {!! trans('messages.Current Month Events') !!}</p>
 					</a>
 				</div>
@@ -112,11 +109,11 @@
 				</div>
 				<div class="card-body">
 					@can('create evento')
-					<a title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/derrame/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
+					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/derrame/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
 					@endcan
-					<a title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/derrame"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
+					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/derrame"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
 					<h1 class="text-center">{{$HazmatEst}}</h1>
-					<a target="_blank">
+					<a rel="nofollow noopener noreferrer" target="_blank">
 						<p class="card-text text-center text-black"> {!! trans('messages.Current Month Events') !!}</p>
 					</a>
 				</div>
@@ -124,7 +121,7 @@
 			</div>
 		</div>
 
-		
+
 
 		<div class="col-xl-3 col-lg-3 col-md-4 sm-6">
 			<div class="card">
@@ -136,11 +133,11 @@
 				</div>
 				<div class="card-body">
 					@can('create evento')
-					<a title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/transito/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
+					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/transito/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
 					@endcan
-					<a title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/transito"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
+					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/transito"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
 					<h1 class="text-center">{{$TransitoEst}}</h1>
-					<a target="_blank">
+					<a rel="nofollow noopener noreferrer" target="_blank">
 						<p class="card-text text-center text-black"> {!! trans('messages.Current Month Events') !!}</p>
 					</a>
 				</div>
@@ -158,11 +155,11 @@
 				</div>
 				<div class="card-body">
 					@can('create evento')
-					<a title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/salud/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
+					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/salud/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
 					@endcan
-					<a title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/salud"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
+					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/salud"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
 					<h1 class="text-center">{{$SaludEst}}</h1>
-					<a target="_blank">
+					<a rel="nofollow noopener noreferrer" target="_blank">
 						<p class="card-text text-center text-black"> {!! trans('messages.Current Month Events') !!}</p>
 					</a>
 				</div>
@@ -181,11 +178,11 @@
 				</div>
 				<div class="card-body">
 					@can('create evento')
-					<a title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/fuego/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
+					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/fuego/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
 					@endcan
-					<a title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/fuego"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
+					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/fuego"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
 					<h1 class="text-center">{{$FuegoEst}}</h1>
-					<a target="_blank">
+					<a rel="nofollow noopener noreferrer" target="_blank">
 						<p class="card-text text-center text-black"> {!! trans('messages.Current Month Events') !!}</p>
 					</a>
 				</div>
@@ -204,11 +201,11 @@
 				</div>
 				<div class="card-body">
 					@can('create evento')
-					<a title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/fuga/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
+					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/fuga/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
 					@endcan
-					<a title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/fuga"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
+					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/fuga"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
 					<h1 class="text-center">{{$FugaEst}}</h1>
-					<a target="_blank">
+					<a rel="nofollow noopener noreferrer" target="_blank">
 						<p class="card-text text-center text-black"> {!! trans('messages.Current Month Events') !!}</p>
 					</a>
 				</div>

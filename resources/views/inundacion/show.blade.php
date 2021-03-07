@@ -181,11 +181,11 @@
 					<h4>Formularios del Incidente</h4>
 					</p>
 					<li>
-						<a target="_blank" href="{{asset('storage/1020/'.$inundacion->id.'/201.pdf')}}">Formulario 201 - PDF</a>
+						<a rel="nofollow noopener noreferrer" target="_blank" href="{{asset('storage/1020/'.$inundacion->id.'/201.pdf')}}">Formulario 201 - PDF</a>
 					</li>
-					<li><a target="_blank" href="{{asset('storage/1020/'.$inundacion->id.'/202.pdf')}}">Formulario 202 - PDF</a>
+					<li><a rel="nofollow noopener noreferrer" target="_blank" href="{{asset('storage/1020/'.$inundacion->id.'/202.pdf')}}">Formulario 202 - PDF</a>
 					</li>
-					<li><a target="_blank" href="{{asset('storage/1020/'.$inundacion->id.'/206A.pdf')}}">Formulario 206A - PDF</a></li>
+					<li><a rel="nofollow noopener noreferrer" target="_blank" href="{{asset('storage/1020/'.$inundacion->id.'/206A.pdf')}}">Formulario 206A - PDF</a></li>
 					<!-- <iframe width="400" height="400" src="{{asset('storage/1020/'.$inundacion->id.'/206A.pdf')}}" frameborder="0"></iframe>	 -->
 
 				</div>

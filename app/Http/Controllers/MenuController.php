@@ -163,7 +163,8 @@ class MenuController extends Controller
 
         $mensualesInundacion="";
         $station = trans('messages.Station1');
-        return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date") );
+        $estacion_id="1";
+        return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date", "estacion_id") );
     }
 
     public function evento2()
@@ -216,8 +217,9 @@ class MenuController extends Controller
                                                 ->whereNull('fugas.deleted_at')
                                                 ->get()->count();
         $mensualesInundacion="";
+        $estacion_id = "2";
         $station = trans('messages.Station2');
-        return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date") );
+        return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date", "estacion_id") );
     }
 
     public function evento3()
@@ -271,7 +273,8 @@ class MenuController extends Controller
                                                 ->get()->count();
         $mensualesInundacion="";
         $station = trans('messages.Station3');
-        return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date") );
+        $estacion_id = "3";
+        return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date", "estacion_id") );
     }
     public function evento4()
     {
@@ -324,7 +327,8 @@ class MenuController extends Controller
                                                 ->get()->count();
         $mensualesInundacion="";
         $station = trans('messages.Station4');
-        return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date") );
+        $estacion_id = "4";
+        return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date", "estacion_id") );
     }
     public function evento5()
     {
@@ -377,7 +381,8 @@ class MenuController extends Controller
                                                 ->get()->count();
         $mensualesInundacion="";
         $station = trans('messages.Station5');
-        return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date") );
+        $estacion_id = "5";
+        return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date", "estacion_id") );
     }
     public function evento6()
     {
@@ -430,7 +435,8 @@ class MenuController extends Controller
                                                 ->get()->count();
         $mensualesInundacion="";
         $station = trans('messages.Station6');
-        return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date") );
+        $estacion_id = "6";
+        return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date", "estacion_id") );
     }
     public function evento7()
     {
@@ -483,7 +489,8 @@ class MenuController extends Controller
                                                 ->get()->count();
         $mensualesInundacion="";
         $station = trans('messages.Station7');
-        return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date") );
+        $estacion_id = "7";
+        return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date", "estacion_id") );
     }
     public function evento8()
     {
@@ -536,7 +543,8 @@ class MenuController extends Controller
                                                 ->get()->count();
         $mensualesInundacion="";
         $station = trans('messages.Station8');
-        return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date") );
+        $estacion_id = "8";
+        return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date", "estacion_id") );
     }
     public function evento9()
     {
@@ -589,6 +597,7 @@ class MenuController extends Controller
                                                 ->get()->count();
         $mensualesInundacion="";
         $station = trans('messages.Station9');
-        return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date") );
+        $estacion_id = "9";
+        return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date", "estacion_id") );
     }
 }

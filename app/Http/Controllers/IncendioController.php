@@ -35,11 +35,13 @@ class IncendioController extends Controller
     public function index(Request $request) {
         if($request)
         {
+            $estacion_id = trim($request->get('estacion_id'));
             $query = trim($request->get('searchText'));
             $incendios = Incendio::where("direccion",'LIKE','%'.$query.'%')
+              /* ->where("station_id", "==", $estacion_id) */
               ->OrderBy('fecha','desc')
               ->paginate(15);
-            return view( "/fuego.index", compact( "incendios","query" ) );
+            return view( "/fuego.index", compact( "incendios","query","estacion_id" ) );
         }
     }
 

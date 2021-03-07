@@ -9,7 +9,7 @@ $(document).ready(function(){
 });
 
 function weather(city) {
-var api = url+'?key='+key+'&q='+city+'&days=3';
+var api = url+'?key='+key+'&q='+city+'&days=7';
 $.getJSON(api, function(result) {
         $("#city").html(result.location.name);
         $("#mainbody img").attr("src", 'https:'+result.current.condition.icon);

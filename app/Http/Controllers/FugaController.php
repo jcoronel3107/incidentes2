@@ -36,11 +36,13 @@ class FugaController extends Controller
     {
         if($request)
         {
+          $estacion_id = trim($request->get('estacion_id'));
           $query = trim($request->get('searchText'));
           $fugas = Fuga::where("direccion",'LIKE','%'.$query.'%')
+          /* ->where("station_id", "==", $estacion_id) */
           ->OrderBy('fecha','desc')
           ->paginate(15);
-              return view( "/fuga.index", compact( "fugas","query" ) );
+              return view( "/fuga.index", compact( "fugas","query","estacion_id"));
         }
     }
 

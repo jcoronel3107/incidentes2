@@ -35,13 +35,17 @@ class InundacionController extends Controller
 
     public function index(Request $request)
     {
+      
         if($request)
         {
+          
+          $estacion_id = trim($request->get('estacion_id'));
           $query = trim($request->get('searchText'));
           $inundaciones = Inundacion::where("direccion",'LIKE','%'.$query.'%')
+          /* ->where("station_id", "==", $estacion_id) */
           ->OrderBy('fecha','desc')
           ->paginate(15);
-		      return view( "/inundacion.index", compact( "inundaciones","query" ) );
+		      return view("/inundacion.index", compact( "inundaciones","query"));
         }
     }
 

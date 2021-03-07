@@ -39,12 +39,8 @@
 				            position: results[0].geometry.location
 				            
 				        });
-				        
-
 				        alert(results[0].formatted_address);
-				        $("#pgeoposicion").val(results[0].geometry.location);
-				       
-      					
+				        $("#pgeoposicion").val(results[0].geometry.location);	
 				      } else {
 				        alert('Geocode was not successful for the following reason: ' + status);
 				      }
@@ -53,12 +49,14 @@
 
 				  function notificacionWhatsapp(){
 				  	var address = document.getElementById('pdireccion').value;
+					var incidente = $('#incidente_id option:selected').text();
+					console.log(incidente);
 				  	if (address!="") {
 				  	var name = document.getElementById('pgeoposicion').value;
 				  	name = (name.replace(/ /g, ""));
 				  	var urlgeo = 'https://maps.google.com/?q='+name+'&z=14&t=k';
 				  	
-				  	var url = 'https://wa.me/?text=Incidente%20Tipo%2010_20%20Ubicacion%20'+urlgeo;
+				  	var url = 'https://wa.me/?text=Incidente%20Tipo:'+incidente+'%20Ubicacion:%20'+urlgeo;
 				  	window.open(url);
 				  	}
 				  	else

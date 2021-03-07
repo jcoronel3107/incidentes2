@@ -41,7 +41,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Hora Ficha ECU911</span>
 						</div>
-						<input type="time" id="hora_fichaecu911" name="hora_fichaecu911" class="form-control" placeholder="hh:mm:ss" required="" value="">
+						<input type="text" id="hora_fichaecu911" name="hora_fichaecu911" class="form-control" placeholder="hh:mm:ss" required="" onblur="CheckTime(this);" value="{{old('hora_fichaecu911')}}">
 						<div class="input-group-append">
 							<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual0" id="horactual0"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 						</div>
@@ -189,7 +189,7 @@
 					<option value="{{$parroquia->id}}">{{$parroquia->nombre}}</option>
 					@endforeach
 				</select>
-				<a href="{{asset('files/MapaCuenca.pdf')}}" target="_blank" role="button" data-toggle="tooltip" title="Mapa" class="btn btn-outline-info"><i class="icon-file icon-2x"></i></a>
+				<a rel="nofollow noopener noreferrer" href="{{asset('files/MapaCuenca.pdf')}}" target="_blank" role="button" data-toggle="tooltip" title="Mapa" class="btn btn-outline-info"><i class="icon-file icon-2x"></i></a>
 			</div>
 			<div class="form-group input-group col-md-4">
 				<div class="input-group-prepend">
@@ -244,7 +244,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Salida A Emerg.</span>
 				</div>
-				<input type="time" class="form-control" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" value="" required="">
+				<input type="text" class="form-control" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" onblur="CheckTime(this);" value="{{old('hora_salida_a_emergencia')}}" required="">
 				<div class="input-group-append">
 					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual" id="horactual"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 				</div>
@@ -253,7 +253,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Llegada A Emerg.</span>
 				</div>
-				<input type="time" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm:ss" value="" required="">
+				<input type="text" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm:ss" onblur="CheckTime(this);" value="{{old('hora_llegada_a_emergencia')}}" required="">
 				<div class="input-group-append">
 					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual1" id="horactual1"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 				</div>
@@ -265,7 +265,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Fin Emerg.</span>
 				</div>
-				<input type="time" class="form-control" name="hora_fin_emergencia" id="hora_fin_emergencia" value="" required="">
+				<input type="text" class="form-control" name="hora_fin_emergencia" id="hora_fin_emergencia" onblur="CheckTime(this);" value="{{old('hora_fin_emergencia')}}" required="">
 				<div class="input-group-append">
 					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual2" id="horactual2"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 				</div>
@@ -274,7 +274,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora En Base</span>
 				</div>
-				<input type="time" class="form-control" name="hora_en_base" id="hora_en_base" value="" required="">
+				<input type="text" class="form-control" name="hora_en_base" id="hora_en_base" onblur="CheckTime(this);" value="{{old('hora_fichaecu911')}}" required="">
 				<div class="input-group-append">
 					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual3" id="horactual3"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 				</div>
@@ -286,7 +286,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Detalle Emergencia</span>
 				</div>
-				<textarea onkeyup="mayus(this);" class="form-control Text-uppercase" id="detalle_emergencia" name="detalle_emergencia" aria-label="With textarea" maxlength="2000" required="">{{old('detalle_emergencia')}}</textarea>
+				<textarea class="form-control Text-uppercase" id="detalle_emergencia" name="detalle_emergencia" aria-label="With textarea" maxlength="2000" required="">{{old('detalle_emergencia')}}</textarea>
 
 			</div>
 		</div>
@@ -304,8 +304,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDaños">Daños Estimados</span>
 				</div>
-				<textarea onkeyup="mayus(this);" class="form-control Text-uppercase" id="danos_estimados" name="danos_estimados" aria-label="With textarea" maxlength="2000" required="">{{old('danos_estimados')}}</textarea>
-
+				<textarea class="form-control Text-uppercase" id="danos_estimados" name="danos_estimados" aria-label="With textarea" maxlength="2000" required="">{{old('danos_estimados')}}</textarea>
 			</div>
 		</div>{{-- Danos Estimados --}}
 
