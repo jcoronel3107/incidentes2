@@ -223,7 +223,7 @@
 
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="true" aria-controls="collapseUsers">
-      <i class="fas fa-fw fa-cogs"></i>
+      <i class="fas fa-users-cog"></i>
       <span>{!! trans('messages.Users')!!}</span>
     </a>
     <div id="collapseUsers" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">

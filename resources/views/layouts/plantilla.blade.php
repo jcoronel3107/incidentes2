@@ -10,6 +10,7 @@
 
 	<!-- Custom styles for this template-->
 	<link href="/css/sb-admin-2.min.css" rel="stylesheet">
+	<link href="/css/varios.css" rel="stylesheet">
 	<!-- Custom fonts for this template-->
 	<link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
@@ -20,6 +21,7 @@
 </head>
 
 <body onload="startTime()" id="page-top">
+	<div class="loader"></div>
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 		@yield("cabeza")
@@ -131,7 +133,8 @@
 	<!-- Bootstrap core JavaScript-->
 	<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQWkyaqY4K2sOinX5crayMw6oVrg6LrwE&callback=initMap">
 	</script>
-	<script src="/vendor/jquery/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<!-- <script src="/vendor/jquery/jquery.min.js"></script> -->
 	<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
@@ -140,6 +143,8 @@
 
 	<!-- Geolocalizacion  for all pages-->
 	<script src="/js/geocoder.js"></script>
+	<!-- Carga Loader en cada pagina-->
+	<script src="/js/loader.js"></script>
 
 	<!-- Custom scripts for all pages-->
 	<script src="/js/sb-admin-2.min.js"></script>

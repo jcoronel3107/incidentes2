@@ -212,9 +212,9 @@
 					<li>
 						<a rel="nofollow noopener noreferrer" target="_blank" href="{{asset('storage/fuga/'.$fuga->id.'/201.pdf')}}">Formulario 201 - PDF</a>
 					</li>
-					<li><a rel="nofollow noopener noreferrer" target="_blank" href="{{asset('storage/fuga/'.$fuga->id.'/202.pdf')}}">Formulario 202 - PDF</a>
+					<li><a rel="nofollow noopener noreferrer" target="_blank" href="{{asset('storage/fuga/'.$fuga->id.'/207.pdf')}}">Formulario 207 - PDF</a>
 					</li>
-					<li><a rel="nofollow noopener noreferrer" target="_blank" href="{{asset('storage/fuga/'.$fuga->id.'/206A.pdf')}}">Formulario 206A - PDF</a></li>
+					<li><a rel="nofollow noopener noreferrer" target="_blank" href="{{asset('storage/fuga/'.$fuga->id.'/211.pdf')}}">Formulario 211 - PDF</a></li>
 
 
 				</div>

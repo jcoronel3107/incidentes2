@@ -93,9 +93,10 @@ class ServicioController extends Controller
             $servicio->vehiculo_id = $request->vehiculo_id;
             $servicio->usr_creador = auth()->user()->name;
             $servicio->save();
-            
-            Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
-            return redirect( "/servicio" );
+            if ($servicio->save()) {
+                Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
+                return redirect( "/servicio" );
+            }
         } else {
             return view( "/auth.login" );
         }

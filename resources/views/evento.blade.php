@@ -47,8 +47,7 @@
 		<input type="text" hidden name="estacion_id" id="estacion_id" value="{{$estacion_id}}">
 	</div>
 	<div class="row">
-
-		<div class="col-xl-3 col-lg-3 col-md-4 sm-6">
+		<div class="col-xl-3 col-lg-3 col-md-12 sm-12">
 			<div class="card">
 				<div class="card-header text-white bg-primary">
 					<a>
@@ -120,9 +119,6 @@
 
 			</div>
 		</div>
-
-
-
 		<div class="col-xl-3 col-lg-3 col-md-4 sm-6">
 			<div class="card">
 				<div class="card-header text-white bg-success">

@@ -96,9 +96,10 @@ class ClaveController extends Controller {
 			$clave->vehiculo_id = $request->vehiculo_id;;
 			$clave->Orden = $request->Orden;
 			$clave->save();
-			
-			Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
-			return redirect( "/clave" );
+			if ($clave->save()) {
+				Session::flash('Registro_Almacenado', "Registro Almacenado con Exito!!!");
+				return redirect("/clave");
+			}
 		} else {
 			return view( "/auth.login" );
 		}
