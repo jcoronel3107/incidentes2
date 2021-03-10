@@ -49,8 +49,9 @@
 
             </div>
         </div>
-        <div>
-            <div class="row">
+        <hr>
+        
+        <div class="row">
                 <div class="col-xl-8 col-lg-8">
 
                     <p style="text-align: center;" class="text-info" id="fch1">Fecha Desde: {{$fechaD}} &nbsp;&nbsp; Fecha Hasta: {{$fechaH}}</p>
@@ -80,11 +81,12 @@
                     </div>
 
                 </div>
-            </div>
-
         </div>
-        <div>
-            <div class="row">
+
+       
+        <hr>
+       
+        <div class="row">
                 <div class="col-xl-8 col-lg-8">
 
                     <p style="text-align: center;" class="text-info" id="fch1">Fecha Desde: {{$fechaD}} &nbsp;&nbsp; Fecha Hasta: {{$fechaH}}</p>
@@ -114,12 +116,10 @@
                     </div>
 
                 </div>
-            </div>
-
         </div>
 
+       
     </div>
-
 </div>
 
 

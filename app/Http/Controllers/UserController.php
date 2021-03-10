@@ -96,7 +96,7 @@ class UserController extends Controller
 
     public function CambiaPermisosRol(Request $request)
     {
-        $user = Auth::user();
+        /* $user = Auth::user(); */
         $rol = Role::findByName($request->Roles);
         $rol->syncPermissions([$request->permissions]);
         Session::flash('Permisos Asignado', "Asignación Permisos con Exito!!!");

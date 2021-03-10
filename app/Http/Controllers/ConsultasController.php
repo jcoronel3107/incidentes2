@@ -248,6 +248,30 @@ class ConsultasController extends Controller
 				->havingRaw('count(station_id) >= ?',[1])
 				->get();
 
+			$Gasxparroquia = DB::table('fugas')
+				->join('parroquias', 'fugas.parroquia_id', '=', 'parroquias.id')
+				->select('parroquias.nombre', DB::raw('count(fugas.id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull('fugas.deleted_at')
+				->groupBy('parroquias.nombre')
+				->havingRaw('count(fugas.id) >= ?', [1])
+				->get();
+			
+			$GasxTipoCilindro = DB::table('fugas')
+				->join('incidentes', 'fugas.incidente_id', '=', 'incidentes.id')
+				->select('tipo_cilindro', DB::raw('count(tipo_cilindro) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull('fugas.deleted_at')
+				->groupBy('tipo_cilindro')
+				->get();
+
+			$GasxColor = DB::table('fugas')
+			->join('incidentes', 'fugas.incidente_id', '=', 'incidentes.id')
+			->select('color_cilindro', DB::raw('count(color_cilindro) salidas'))
+			->whereYear('fecha', '=', date('Y'))
+			->whereNull('fugas.deleted_at')
+			->groupBy('color_cilindro')
+			->get();
 			/**************************************
         	*
         	*	Derrame
@@ -292,7 +316,7 @@ class ConsultasController extends Controller
 			$EventosMensuales = $EventosMensuales->merge($mensualesGas);
 			$EventosMensuales = $EventosMensuales->merge($mensualesDerrames);
 
-        	return view("/consulta.estadisticas",compact("mensualesInundacion","Inundacionxestacion","Inundacionxincidente","Inundacionxparroquia","mensualesRescate","Rescatexestacion","Rescatexincidente","mensualesTransito","Transitoxestacion","Transitoxincidente","mensualesSalud","Saludxestacion","Saludxincidente","mensualesFuego","Fuegoxestacion","Fuegoxincidente","Incendiosxparroquia","mensualesGas","Gasxestacion","Gasxincidente","now","EventosxIncidente","EventosMensuales"));
+        	return view("/consulta.estadisticas",compact("mensualesInundacion","Inundacionxestacion","Inundacionxincidente","Inundacionxparroquia","mensualesRescate","Rescatexestacion","Rescatexincidente","mensualesTransito","Transitoxestacion","Transitoxincidente","mensualesSalud","Saludxestacion","Saludxincidente","mensualesFuego","Fuegoxestacion","Fuegoxincidente","Incendiosxparroquia","mensualesGas","Gasxestacion","Gasxincidente", "Gasxparroquia", "GasxTipoCilindro", "GasxColor","now","EventosxIncidente","EventosMensuales"));
         }
     }
 
@@ -337,6 +361,19 @@ class ConsultasController extends Controller
 			->groupBy('parroquias.nombre')
 			->havingRaw('count('.$tabla.'.id) >= ?', [1])
 			->get();
+
+		
+			$Busquedaentrefechas_TipoCilindro = DB::table($tabla)
+				->join('parroquias',  $tabla . '.parroquia_id', '=', 'parroquias.id')
+				->select('parroquias.nombre', DB::raw('count(' . $tabla . '.id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull($tabla . '.deleted_at')
+				->whereBetween('fecha', array($fechaD, $fechaH))
+				->groupBy('parroquias.nombre')
+				->havingRaw('count(' . $tabla . '.id) >= ?', [1])
+				->get();
+
+		
 
 		
 

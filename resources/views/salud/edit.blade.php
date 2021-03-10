@@ -410,11 +410,11 @@
 			e.value = e.value.toUpperCase();
 		}
 
-		{
-			{
-				--Script para almacenar pacientes atendidos--
-			}
-		}
+		
+			
+		/* --Script para almacenar pacientes atendidos-- */
+			
+		
 		//total=0;
 		var contpac = 0;
 		var jqnombres = "";

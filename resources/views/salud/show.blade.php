@@ -221,7 +221,7 @@
 					<li><a rel="nofollow noopener noreferrer" target="_blank" href="{{asset('storage/1038/'.$salud->id.'/207.pdf')}}">Formulario 207 - PDF</a>
 					</li>
 					<li><a rel="nofollow noopener noreferrer" target="_blank" href="{{asset('storage/1038/'.$salud->id.'/211.pdf')}}">Formulario 211 - PDF</a></li>
-					<!-- <iframe width="400" height="400" src="{{asset('storage/1020/'.$rescate->id.'/206A.pdf')}}" frameborder="0"></iframe>	 -->
+					
 
 				</div>
 			</div>
