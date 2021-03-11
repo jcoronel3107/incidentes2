@@ -293,9 +293,11 @@
 				</div>
 				<select class="form-control" id="tipo_cilindro" name="tipo_cilindro" required="">
 					<option selected>Seleccione...</option>
-					<option>Domestico 15Kg</option>
+					<option>Comercial 15Kg</option>
 					<option>Comercial 45Kg</option>
 					<option>Centralizado</option>
+					<option>Domestico 15Kg</option>
+					<option>No Aplica</option>
 				</select>
 			</div>
 			<div class="form-group input-group col-md-4 col-sm-12">
@@ -307,6 +309,7 @@
 					<option>Amarillo</option>
 					<option>Azul</option>
 					<option>Blanco</option>
+					<option>No Aplica</option>
 					<option>Otros</option>
 				</select>
 			</div>
@@ -317,10 +320,11 @@
 				<select class="form-control" id="tipo_fallo" name="tipo_fallo" required="">
 					<option selected>Seleccione...</option>
 					<option>Manguera</option>
-					<option>Regulador</option>
-					<option>Pin/Vastago</option>
-					<option>Toroide</option>
+					<option>No Aplica</option>
 					<option>Otro</option>
+					<option>Pin/Vastago</option>
+					<option>Regulador</option>
+					<option>Toroide</option>
 				</select>
 			</div>
 		</div>{{-- Fallos --}}

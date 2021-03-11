@@ -33,13 +33,13 @@
 	{{-- Contenedor General --}}
 	<div class="tab-pane fade show active" id="General" role="tabpanel" aria-labelledby="General-tab">
 		<div class="row">
-			<div class="col-xl-8 col-lg-8">
+			<div class="col-xl-9 col-lg-9">
 
 				<div class="py-2 " id="container0"></div>
 
 			</div>
 
-			<div class="col-xl-4 col-lg-4">
+			<div class="col-xl-3 col-lg-3">
 
 				<div class="py-2 " id="table0.1">
 					<table class="table table-sm" id="datatable0.1">
@@ -62,18 +62,7 @@
 
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-xl-8 col-lg-8">
-
-				<!-- <div class="py-2 " id="container0.2"></div> -->
-
-			</div>
-
-			<div class="col-xl-4 col-lg-4">
-
-
-			</div>
-		</div>
+		
 	</div>
 	{{-- Contenedor Inundaciones --}}
 	<div class="tab-pane fade show " id="Inundaciones" role="tabpanel" aria-labelledby="Inundaciones-tab">

@@ -210,9 +210,12 @@
 				</div>
 				<select class="form-control" id="tipo_cilindro" name="tipo_cilindro" required="">
 					<option value="{{$fuga->tipo_cilindro}}" selected>{{old('tipo_cilindro',$fuga->tipo_cilindro)}}</option>
-					<option value="Domestico 15Kg">Domestico 15Kg</option>
-					<option value="Comercial 45Kg">Comercial 45Kg</option>
 					<option value="Centralizado">Centralizado</option>
+					<option value="Comercial 15Kg">Comercial 15Kg</option>
+					<option value="Comercial 45Kg">Comercial 45Kg</option>
+					<option value="Domestico 15Kg">Domestico 15Kg</option>
+					<option value="Centralizado">Centralizado</option>
+					<option value="No Aplica">No Aplica</option>
 				</select>
 			</div>
 			<div class="form-group input-group col-md-4 col-sm-12">
@@ -225,6 +228,7 @@
 					<option value="Azul">Azul</option>
 					<option value="Blanco">Blanco</option>
 					<option value="Otros">Otros</option>
+					<option value="No Aplica">No Aplica</option>
 				</select>
 			</div>
 			<div class="form-group input-group col-md-4 col-sm-12">
@@ -237,6 +241,7 @@
 					<option value="Regulador">Regulador</option>
 					<option value="Pin/Vastago">Pin/Vastago</option>
 					<option value="Toroide">Toroide</option>
+					<option value="No Aplica">No Aplica</option>
 					<option value="Otro">Otro</option>
 				</select>
 			</div>
@@ -259,7 +264,7 @@
 			</div>
 		</div>
 
-		{{--Vehiculos asisten emergencia --}}
+		<!-- Vehiculos asisten emergencia -->
 		<hr>
 		<div class="card">
 			<div class="card-header text-white bg-primary">Vehiculos en la Emergencia</div>
@@ -357,7 +362,7 @@
 		</div>
 	</form>
 	@push ('scripts')
-	{{-- Script para almacenar vehiculos asisten --}}
+	<!-- Script para almacenar vehiculos asisten -->
 	<script>
 		$(document).ready(function() {
 			$("#bt_add").click(function() {
@@ -401,7 +406,6 @@
 
 		});
 
-		//total=0;
 		var cont = 0;
 		var jqkm_salida = 0;
 		var jqkm_llegada = 0;
@@ -435,13 +439,8 @@
 		}
 
 		function evaluar() {
-			//if(jqkm_llegada>jqkm_salida && jqnombres!="" ){
 			$("#divguardar").show();
 			$("#Enviar").show();
-			//}
-			//else{
-			//	$("#divguardar").hide();
-			//}
 		}
 
 		function eliminar1(index) {
