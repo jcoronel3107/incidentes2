@@ -32,8 +32,9 @@ class SaveTransitoRequest extends FormRequest
                 'ficha_ecu911'=>'required',
                 'hora_fichaecu911'=>'required',
                 'hora_salida_a_emergencia'=>'required',
-                'informacion_inicial'=>'max:1000',
-                'detalle_emergencia'=>'max:1000'
+                'informacion_inicial'=> 'required|max:2000',
+                'detalle_emergencia'=> 'required|max:3000',
+                'danos_estimados' => 'required|max:2000'
             ];
     }
 }

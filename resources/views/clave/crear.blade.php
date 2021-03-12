@@ -16,7 +16,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Estaciòn Servicio</span>
 				</div>
-				<select required="" class="form-control selectpicker" name="gasolinera_id" data-live-search="true">
+				<select required class="form-control selectpicker" name="gasolinera_id" data-live-search="true">
 					<option value="">Seleccione...</option>
 					@foreach($gasolineras as $gasolinera)
 					<option value="{{$gasolinera->id}}">{{$gasolinera->razonsocial}}</option>
@@ -31,7 +31,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Vehìculo</span>
 				</div>
-				<select required="" class="form-control selectpicker" name="vehiculo_id" data-live-search="true">
+				<select required class="form-control selectpicker" name="vehiculo_id" data-live-search="true">
 					<option value="">Seleccione...</option>
 					@foreach($vehiculos as $vehiculo)
 					<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>
@@ -44,19 +44,19 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Km. Salida del Vehìculo</span>
 				</div>
-				<input required="" type="number" id="km_salida" name="km_salida" placeholder="Km. Salida" class="form-control">
+				<input required type="number" id="km_salida" name="km_salida" placeholder="Km. Salida" class="form-control">
 			</div>
 			<div class="form-group input-group  col-md-4">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Km. en Gasolinera</span>
 				</div>
-				<input required="" type="number" id="km_gasolinera" onfocusout="validar()" name="km_gasolinera" class="form-control" placeholder="Km. en Gasolinera">
+				<input required type="number" id="km_gasolinera" onfocusout="validar()" name="km_gasolinera" class="form-control" placeholder="Km. en Gasolinera">
 			</div>
 			<div class="form-group input-group col-md-4">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Km. Llegada Vehìculo</span>
 				</div>
-				<input required="" type="number" name="km_llegada" onfocusout="validar2()" class="form-control" id="km_llegada" placeholder="Km. Retorno">
+				<input required type="number" name="km_llegada" onfocusout="validar2()" class="form-control" id="km_llegada" placeholder="Km. Retorno">
 			</div>
 		</div>
 		<div class="form-row">
@@ -70,19 +70,19 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDolares">Dòlares</span>
 				</div>
-				<input required="" type="number" step=".01" required="" name="dolares" class="form-control" id="dolares" placeholder="Valor $ de Carga combustible">
+				<input type="number" step=".01" required name="dolares" class="form-control" id="dolares" placeholder="Valor $ de Carga combustible">
 			</div>
 			<div class="form-group input-group  col-md-4">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Galones</span>
 				</div>
-				<input required="" type="number" step=".01" name="galones" class="form-control" id="galones" placeholder="Galones de Carga combustible">
+				<input required type="number" step=".01" name="galones" class="form-control" id="galones" placeholder="Galones de Carga combustible">
 			</div>
 			<div class="form-group input-group col-md-4">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Combustible</span>
 				</div>
-				<select required="" class="form-control" name="combustible">
+				<select required class="form-control" name="combustible">
 					<option value="" selected>Choose...</option>
 					<option value="Diesel">Diesel</option>
 					<option value="Eco">Eco</option>
@@ -96,7 +96,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Conductor</span>
 				</div>
-				<select required="" class="form-control" name="user_id">
+				<select required class="form-control" name="user_id">
 					<option value="">Seleccione...</option>
 					@foreach($users as $user)
 					<option value="{{$user->id}}">{{$user->name}}</option>
@@ -107,7 +107,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Orden</span>
 				</div>
-				<input required="" type="number" min="0" name="Orden" class="form-control" id="Orden" placeholder="#Orden Fisica">
+				<input required type="number" min="0" name="Orden" class="form-control" id="Orden" placeholder="#Orden Fisica">
 			</div>
 
 		</div>

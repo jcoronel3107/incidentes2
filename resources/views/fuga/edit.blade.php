@@ -373,6 +373,7 @@
 			});
 
 			var max_chars = 2000;
+			var max_chars1 = 3000;
 			$('#max').html(max_chars);
 
 			$("#pinformacion_inicial").keyup(function() {
@@ -391,11 +392,11 @@
 			});
 			$("#detalle_emergencia").keyup(function() {
 				var chars = $("#detalle_emergencia").val().length;
-				var diff = max_chars - chars;
-				var leyenda = "Caracteres Permitidos 2000 - Digitados: ";
+				var diff = max_chars1 - chars;
+				var leyenda = "Caracteres Permitidos 3000 - Digitados: ";
 				var res = leyenda.concat(chars);
 				$("#pcounter1").html(res);
-				if (chars > 2000) {
+				if (chars > 3000) {
 					$("#detalle_emergencia").addClass('error');
 					$("#detalle_emergencia").addClass('error');
 				} else {

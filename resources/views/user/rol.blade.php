@@ -28,7 +28,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label text-sm-right">Seleccione Rol</label>
                   <div class="col-sm-9">
-                    <select class="selectpicker form-control" data-live-search="true" id="Roles" name="Roles" required="">
+                    <select class="selectpicker form-control" data-live-search="true" id="Roles" name="Roles" required>
                       @foreach($all_roles_in_database as $rol)
                       <option>{{$rol->name}}</option>
                       @endforeach
@@ -46,7 +46,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label text-sm-right">Asignar Permisos</label>
                   <div class="col-sm-9">
-                    <select class="selectpicker form-control" data-live-search="true" size="15" id="permissions" name="permissions" required="" multiple>
+                    <select class="selectpicker form-control" data-live-search="true" size="15" id="permissions" name="permissions" required multiple>
                       @foreach($all_permissions_in_database as $permission)
                       <option>{{$permission->name}}</option>
                       @endforeach
@@ -72,7 +72,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label text-sm-right">Usuario</label>
                   <div class="col-sm-9">
-                    <select class="selectpicker form-control" data-live-search="true" id="user" name="user" required="">
+                    <select class="selectpicker form-control" data-live-search="true" id="user" name="user" required>
                       @foreach($users as $user)
                       <option value="{{$user->id}}">{{$user->name}}</option>
                       @endforeach
@@ -89,7 +89,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label text-sm-right">Roles</label>
                   <div class="col-sm-9">
-                    <select class="selectpicker form-control" data-live-search="true" id="Roles" name="Roles" required="" multiple>
+                    <select class="selectpicker form-control" data-live-search="true" id="Roles" name="Roles" required multiple>
                       @foreach($all_roles_in_database as $rol)
                       <option>{{$rol->name}}</option>
                       @endforeach

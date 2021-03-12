@@ -52,7 +52,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Información Inicial</span>
 						</div>
-						<textarea onkeyup="mayus(this);" class="form-control" maxlength="2000" name="informacion_inicial" id="pinformacion_inicial" aria-label="With textarea">{{old('informacion_inicial',$rescate->informacion_inicial)}}</textarea>
+						<textarea class="form-control" maxlength="2000" name="informacion_inicial" id="pinformacion_inicial" aria-label="With textarea">{{old('informacion_inicial',$rescate->informacion_inicial)}}</textarea>
 					</div>
 				</div>
 			</div>
@@ -196,7 +196,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Detalle Emergencia</span>
 					</div>
-					<textarea onkeyup="mayus(this);" class="form-control" maxlength="2000" name="detalle_emergencia" id="detalle_emergencia" aria-label="With textarea" placeholder="Digite a detalle lo ocurrido en Emergencia">{{old('detalle_emergencia',$rescate->detalle_emergencia)}}</textarea>
+					<textarea class="form-control" maxlength="3000" name="detalle_emergencia" id="detalle_emergencia" aria-label="With textarea" placeholder="Digite a detalle lo ocurrido en Emergencia">{{old('detalle_emergencia',$rescate->detalle_emergencia)}}</textarea>
 				</div>
 			</div>
 		</div>{{--Detalle Emergencia--}}
@@ -335,6 +335,7 @@
 
 
 			var max_chars = 2000;
+			var max_chars1 = 3000;
 			$('#max').html(max_chars);
 
 			$("#pinformacion_inicial").keyup(function() {
@@ -353,11 +354,11 @@
 			});
 			$("#detalle_emergencia").keyup(function() {
 				var chars = $("#detalle_emergencia").val().length;
-				var diff = max_chars - chars;
-				var leyenda = "Caracteres Permitidos 2000 - Digitados: ";
+				var diff = max_chars1 - chars;
+				var leyenda = "Caracteres Permitidos 3000 - Digitados: ";
 				var res = leyenda.concat(chars);
 				$("#pcounter1").html(res);
-				if (chars > 2000) {
+				if (chars > 3000) {
 					$("#detalle_emergencia").addClass('error');
 					$("#detalle_emergencia").addClass('error');
 				} else {

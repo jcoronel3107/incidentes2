@@ -183,7 +183,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Dirección</span>
 				</div>
-				<textarea onkeyup="mayus(this);" class="form-control" id="pdireccion" name="address" maxlength="2000" placeholder="Ubicacion del Evento" aria-label="With textarea" required=""></textarea>
+				<textarea onkeyup="mayus(this);" class="form-control" id="pdireccion" name="address" placeholder="Ubicacion del Evento" aria-label="With textarea" required=""></textarea>
 				<button data-toggle="tooltip" title="Geolocaliza" value="Encode" onclick="codeAddress()"><i class="icon-globe"></i></button>
 			</div>
 			<div class="form-group input-group input-group-prepend col-md-3">
@@ -291,7 +291,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Detalle Emergencia</span>
 				</div>
-				<textarea onkeyup="mayus(this);" class="form-control Text-uppercase" maxlength="2000" id="detalle_emergencia" name="detalle_emergencia" aria-label="With textarea" required="">{{old('detalle_emergencia')}}</textarea>
+				<textarea onkeyup="mayus(this);" class="form-control Text-uppercase" maxlength="3000" id="detalle_emergencia" name="detalle_emergencia" aria-label="With textarea" required="">{{old('detalle_emergencia')}}</textarea>
 			</div>
 		</div>
 		<!--Detalle Emergencia-->

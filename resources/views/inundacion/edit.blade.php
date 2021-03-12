@@ -56,7 +56,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Información Inicial</span>
 						</div>
-						<textarea onkeyup="mayus(this);" class="form-control" maxlength="2000" name="informacion_inicial" id="pinformacion_inicial" aria-label="With textarea">{{old('informacion_inicial',$inundacion->informacion_inicial)}}</textarea>
+						<textarea class="form-control" maxlength="2000" name="informacion_inicial" id="pinformacion_inicial" aria-label="With textarea">{{old('informacion_inicial',$inundacion->informacion_inicial)}}</textarea>
 					</div>
 				</div>
 			</div>
@@ -104,7 +104,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Dirección</span>
 				</div>
-				<textarea class="form-control" id="pdireccion" name="direccion" maxlength="2000" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$inundacion->direccion)}}</textarea>
+				<textarea class="form-control" id="pdireccion" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$inundacion->direccion)}}</textarea>
 				<input type="button" value="Encode" onclick="codeAddress()">
 			</div>
 			<div class="form-group input-group input-group-prepend col-md-4">
@@ -123,7 +123,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputAddress">Geoposicion</span>
 				</div>
-				<textarea class="form-control" id="pgeoposicion" maxlength="2000" name="geoposicion" aria-label="With textarea">{{old('geoposicion',$inundacion->geoposicion)}}</textarea>
+				<textarea class="form-control" id="pgeoposicion" name="geoposicion" aria-label="With textarea">{{old('geoposicion',$inundacion->geoposicion)}}</textarea>
 			</div>
 		</div>
 		<!--Div Ubicacion Evento-->
@@ -211,7 +211,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Detalle Emergencia</span>
 					</div>
-					<textarea onkeyup="mayus(this);" class="form-control" name="detalle_emergencia" id="detalle_emergencia" maxlength="2000" aria-label="With textarea" placeholder="Digite a detalle lo ocurrido en Emergencia">{{old('detalle_emergencia',$inundacion->detalle_emergencia)}}</textarea>
+					<textarea class="form-control" name="detalle_emergencia" id="detalle_emergencia" maxlength="3000" aria-label="With textarea" placeholder="Digite a detalle lo ocurrido en Emergencia">{{old('detalle_emergencia',$inundacion->detalle_emergencia)}}</textarea>
 				</div>
 			</div>
 		</div>{{--Detalle Emergencia--}}
@@ -230,7 +230,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDaños">Daños Estimados</span>
 				</div>
-				<textarea onkeyup="mayus(this);" class="form-control" maxlength="2000" name="danos_estimados" id="danos_estimados">{{old('danos_estimados',$inundacion->danos_estimados)}}</textarea>
+				<textarea onkeyup="mayus(this);" maxlength="2000" class="form-control" name="danos_estimados" id="danos_estimados">{{old('danos_estimados',$inundacion->danos_estimados)}}</textarea>
 			</div>
 		</div>{{-- Daños Estimados --}}
 
@@ -353,6 +353,7 @@
 			});
 
 			var max_chars = 2000;
+			var max_chars1 = 3000;
 			$('#max').html(max_chars);
 
 			$("#pinformacion_inicial").keyup(function() {
@@ -371,11 +372,11 @@
 			});
 			$("#detalle_emergencia").keyup(function() {
 				var chars = $("#detalle_emergencia").val().length;
-				var diff = max_chars - chars;
-				var leyenda = "Caracteres Permitidos 2000 - Digitados: ";
+				var diff = max_chars1 - chars;
+				var leyenda = "Caracteres Permitidos 3000 - Digitados: ";
 				var res = leyenda.concat(chars);
 				$("#pcounter1").html(res);
-				if (chars > 2000) {
+				if (chars > 3000) {
 					$("#detalle_emergencia").addClass('error');
 					$("#detalle_emergencia").addClass('error');
 				} else {

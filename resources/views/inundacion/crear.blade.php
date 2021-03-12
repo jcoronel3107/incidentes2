@@ -127,7 +127,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Informacion Inicial</span>
 						</div>
-						<textarea onkeyup="mayus(this);" class="form-control Text-uppercase" id="pinformacion_inicial" name="informacion_inicial" aria-label="With textarea" maxlength="2000" required=""></textarea>
+						<textarea class="form-control Text-uppercase" id="pinformacion_inicial" name="informacion_inicial" aria-label="With textarea" maxlength="2000" required></textarea>
 					</div>
 				</div>
 				<p class="text-sm-left" id="pcounter">0</p>
@@ -176,7 +176,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Dirección</span>
 				</div>
-				<textarea class="form-control Text-uppercase" id="pdireccion" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea" maxlength="2000" required=""></textarea>
+				<textarea class="form-control Text-uppercase" id="pdireccion" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea" required></textarea>
 				<input type="button" value="Encode" onclick="codeAddress()">
 			</div>
 			<div class="form-group input-group input-group-prepend col-md-4">
@@ -200,7 +200,7 @@
 
 		</div>
 		<!--Div Ubicacion Evento-->
-		<div class="counter col-md-3 col-sm-12" id="pcounter1">0</div>
+
 		<div onload="initMap()" id="map" style="width: 100%; height: 280px;"></div>
 		<hr>
 		<div class="form-row">
@@ -274,7 +274,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora En Base</span>
 				</div>
-				<input type="text" class="form-control" name="hora_en_base" id="hora_en_base" onblur="CheckTime(this);" value="{{old('hora_fichaecu911')}}" required="">
+				<input type="text" class="form-control" name="hora_en_base" id="hora_en_base" onblur="CheckTime(this);" value="{{old('hora_fichaecu911')}}" required>
 				<div class="input-group-append">
 					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual3" id="horactual3"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 				</div>
@@ -286,10 +286,11 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Detalle Emergencia</span>
 				</div>
-				<textarea class="form-control Text-uppercase" id="detalle_emergencia" name="detalle_emergencia" aria-label="With textarea" maxlength="2000" required="">{{old('detalle_emergencia')}}</textarea>
+				<textarea class="form-control Text-uppercase" id="detalle_emergencia" name="detalle_emergencia" aria-label="With textarea" maxlength="3000" required>{{old('detalle_emergencia')}}</textarea>
 
 			</div>
 		</div>
+		<div class="counter col-md-3 col-sm-12" id="pcounter1">0</div>
 		<!--Detalle Emergencia-->
 		<div class="form-row">
 			<div class="form-group input-group  col-md-8">
@@ -304,7 +305,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDaños">Daños Estimados</span>
 				</div>
-				<textarea class="form-control Text-uppercase" id="danos_estimados" name="danos_estimados" aria-label="With textarea" maxlength="2000" required="">{{old('danos_estimados')}}</textarea>
+				<textarea class="form-control Text-uppercase" id="danos_estimados" name="danos_estimados" aria-label="With textarea" maxlength="2000" required>{{old('danos_estimados')}}</textarea>
 			</div>
 		</div>{{-- Danos Estimados --}}
 

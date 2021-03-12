@@ -16,7 +16,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Fecha Salida</span>
 					</div>
-					<input type="datetime-local" required="" id="fecha_salida" name="fecha_salida" class="form-control">
+					<input type="datetime-local" required id="fecha_salida" name="fecha_salida" class="form-control">
 				</div>
 				<div class="form-group input-group  col-md-4">
 					<div class="input-group-prepend">
@@ -33,7 +33,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Unidad Delegante</span>
 					</div>
-					<select required="" class="form-control selectpicker" id="unidad" name="unidad" data-live-search="true">
+					<select required class="form-control selectpicker" id="unidad" name="unidad" data-live-search="true">
 						<option selected>Elija...</option>
 						<option>Jefatura</option>
 						<option>U. Operaciones</option>
@@ -48,7 +48,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Delegante</span>
 					</div>
-					<select required="" class="form-control selectpicker" id="delegante" name="delegante" data-live-search="true">
+					<select required class="form-control selectpicker" id="delegante" name="delegante" data-live-search="true">
 						<option selected>Elija...</option>
 						<option>Tnte.Crnl. P.Lucero</option>
 						<option>Cptn. S.Heras</option>
@@ -66,7 +66,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Km. Salida del Vehìculo</span>
 					</div>
-					<input type="number" step=".01" required="" id="km_salida" name="km_salida" placeholder="Km. Salida" class="form-control">
+					<input type="number" step=".01" required id="km_salida" name="km_salida" placeholder="Km. Salida" class="form-control">
 				</div>
 				
 				<div class="form-group input-group col-md-4">
@@ -87,7 +87,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputasunto">Asunto</span>
 					</div>
-					<textarea required="" maxlength="1000" name="asunto" class="form-control" id="asunto" placeholder="Digite actividades a realizar en comision de servicio"></textarea> 
+					<textarea required maxlength="1000" name="asunto" class="form-control" id="asunto" placeholder="Digite actividades a realizar en comision de servicio"></textarea> 
 				</div>
 				<div class="counter" id="pcounter">0</div>
 			</div>
@@ -97,7 +97,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Conductor</span>
 					</div>
-					<select required="" class="form-control" name="user_id">
+					<select required class="form-control" name="user_id">
 						<option selected>Choose...</option>
 						@foreach($users as $user)
 						<option value="{{$user->id}}">{{$user->name}}</option>
@@ -108,7 +108,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Vehiculo</span>
 					</div>
-					<select required="" class="form-control" id="vehiculo_id" name="vehiculo_id">
+					<select required class="form-control" id="vehiculo_id" name="vehiculo_id">
 						<option selected>Choose...</option>
 						@foreach($vehiculos as $vehiculo)
 						<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>

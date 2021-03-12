@@ -170,7 +170,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Dirección</span>
 				</div>
-				<textarea class="form-control" name="direccion" maxlength="2000" id="pdireccion" placeholder="Ubicacion del Evento" aria-label="With textarea" required="">{{old('direccion')}}</textarea>
+				<textarea class="form-control" name="direccion" id="pdireccion" placeholder="Ubicacion del Evento" aria-label="With textarea" required="">{{old('direccion')}}</textarea>
 				<input type="button" value="Encode" onclick="codeAddress()">
 			</div>
 			<div class="form-group input-group col-md-4 col-sm-12">
@@ -280,7 +280,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Detalle Emergencia</span>
 				</div>
-				<textarea class="form-control" name="detalle_emergencia" maxlength="2000" id="detalle_emergencia" placeholder="Digite a detalle lo ocurrido en Emergencia" aria-label="With textarea" required="">{{old('detalle_emergencia')}}</textarea>
+				<textarea class="form-control" name="detalle_emergencia" maxlength="3000" id="detalle_emergencia" placeholder="Digite a detalle lo ocurrido en Emergencia" aria-label="With textarea" required="">{{old('detalle_emergencia')}}</textarea>
 
 			</div>
 		</div>

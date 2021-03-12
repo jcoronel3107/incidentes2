@@ -21,7 +21,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Fecha</span>
 				</div>
-				<input type="date" required="" name="fecha" id="fecha" class="form-control" placeholder="AA-MM-DD">
+				<input type="date" required name="fecha" id="fecha" class="form-control" placeholder="AA-MM-DD">
 			</div>
 		</div>
 		<!--Div Fecha-->
@@ -119,7 +119,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Informacion Inicial</span>
 						</div>
-						<textarea class="form-control" required="" maxlength="2000" id="pinformacion_inicial" name="informacion_inicial" aria-label="With textarea">{{old('informacion_inicial')}}</textarea>
+						<textarea class="form-control" required maxlength="2000" id="pinformacion_inicial" name="informacion_inicial" aria-label="With textarea">{{old('informacion_inicial')}}</textarea>
 
 					</div>
 				</div>
@@ -131,7 +131,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Incidente</span>
 				</div>
-				<select class="form-control" required="" name="incidente_id" id="incidente_id">
+				<select class="form-control" required name="incidente_id" id="incidente_id">
 					<option value="" selected>{{old('incidente_id')}}</option>
 					@foreach($incidentes as $incidente)
 					<option value="{{$incidente->id}}">{{$incidente->nombre_incidente}}</option>
@@ -143,7 +143,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Escenario</span>
 				</div>
-				<select class="form-control" required="" name="tipo_escena">
+				<select class="form-control" required name="tipo_escena">
 					<option value="" selected>{{old('tipo_escena')}}</option>
 					<option value="Tipo 1">Tipo 1</option>
 					<option value="Tipo 2">Tipo 2</option>
@@ -155,7 +155,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Estacion</span>
 				</div>
-				<select name="station_id" required="" class="form-control">
+				<select name="station_id" required class="form-control">
 					<option value="" selected>{{old('station_id')}}</option>
 					@foreach($estaciones as $estacion)
 					<option value="{{$estacion->id}}">{{$estacion->nombre}}</option>
@@ -169,14 +169,14 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Dirección</span>
 				</div>
-				<textarea class="form-control" required="" id="pdireccion" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea"></textarea>
+				<textarea class="form-control" required id="pdireccion" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea"></textarea>
 				<input type="button" value="Encode" onclick="codeAddress()">
 			</div>
 			<div class="form-group input-group input-group-prepend col-md-4">
 				<div>
 					<span class="input-group-text">Parroquia</span>
 				</div>
-				<select name="parroquia_id" required="" class="form-control">
+				<select name="parroquia_id" required class="form-control">
 					<option selected>{{old('parroquia_id')}}</option>
 					@foreach($parroquias as $parroquia)
 					<option value="{{$parroquia->id}}">{{$parroquia->nombre}}</option>
@@ -188,7 +188,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputAddress">Geoposicion</span>
 				</div>
-				<textarea class="form-control" required="" placeholder="Formato:. -2.56985, -79.23658" id="pgeoposicion" name="geoposicion" aria-label="With textarea"></textarea>
+				<textarea class="form-control" required placeholder="Formato:. -2.56985, -79.23658" id="pgeoposicion" name="geoposicion" aria-label="With textarea"></textarea>
 			</div>
 		</div>
 		<!--Div Ubicacion Evento-->
@@ -199,7 +199,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Jefe Guardia</span>
 				</div>
-				<select class="form-control" required="" name="jefeguardia_id">
+				<select class="form-control" required name="jefeguardia_id">
 					<option selected>{{old('jefeguardia_id')}}</option>
 					@foreach($bomberos as $user)
 					<option value="{{$user->id}}">{{$user->name}}</option>
@@ -210,7 +210,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Bombero</span>
 				</div>
-				<select class="form-control" required="" name="bombero_id">
+				<select class="form-control" required name="bombero_id">
 					<option selected>{{old('bombero_id')}}</option>
 					@foreach($bomberos as $user)
 					<option value="{{$user->id}}">{{$user->name}}</option>
@@ -221,7 +221,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Conductor</span>
 				</div>
-				<select class="form-control" required="" name="conductor_id">
+				<select class="form-control" required name="conductor_id">
 					<option selected>{{old('conductor_id')}}</option>
 					@foreach($maquinistas as $maquinista)
 					<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>
@@ -278,7 +278,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Detalle Emergencia</span>
 				</div>
-				<textarea class="form-control" required="" maxlength="2000" placeholder="Digite a detalle lo ocurrido en Emergencia" id="detalle_emergencia" name="detalle_emergencia" aria-label="With textarea">{{old('detalle_emergencia')}}</textarea>
+				<textarea class="form-control" required maxlength="3000" placeholder="Digite a detalle lo ocurrido en Emergencia" id="detalle_emergencia" name="detalle_emergencia" aria-label="With textarea">{{old('detalle_emergencia')}}</textarea>
 
 			</div>
 		</div>
@@ -289,7 +289,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Ciud. Afectado</span>
 				</div>
-				<input onkeyup="mayus(this);" type="text" class="form-control" required="" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado')}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia">
+				<input onkeyup="mayus(this);" type="text" class="form-control" required name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado')}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia">
 			</div>
 		</div>{{--Usuario Afectado--}}
 		<div class="form-row">
@@ -297,7 +297,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDaños">Daños Estimados</span>
 				</div>
-				<textarea class="form-control" required="" maxlength="2000" placeholder="Detalle los daños producidos por  el incidente" id="danos_estimados" name="danos_estimados" aria-label="With textarea">{{old('danos_estimados')}}</textarea>
+				<textarea class="form-control" required maxlength="2000" placeholder="Detalle los daños producidos por  el incidente" id="danos_estimados" name="danos_estimados" aria-label="With textarea">{{old('danos_estimados')}}</textarea>
 
 			</div>
 		</div>{{-- Danos Estimados --}}

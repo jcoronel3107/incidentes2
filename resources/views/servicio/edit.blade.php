@@ -70,14 +70,14 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Km. Salida del Vehìculo</span>
 					</div>
-					<input type="number" step=".01" required="" id="km_salida" name="km_salida" placeholder="Km. Salida" class="form-control" value="{{old('km_salida',$servicio->km_salida)}}">
+					<input type="number" step=".01" required id="km_salida" name="km_salida" placeholder="Km. Salida" class="form-control" value="{{old('km_salida',$servicio->km_salida)}}">
 				</div>
 				
 				<div class="form-group input-group col-md-4">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="kmllegada">Km. Retorno Vehìculo</span>
 					</div>
-					<input type="number" step=".01" required="" name="km_retorno" class="form-control" id="km_retorno" placeholder="Km. Retorno" value="{{old('km_retorno',$servicio->km_retorno)}}">
+					<input type="number" step=".01" required name="km_retorno" class="form-control" id="km_retorno" placeholder="Km. Retorno" value="{{old('km_retorno',$servicio->km_retorno)}}">
 				</div>
 			</div>
 			<div class="form-row">
@@ -91,7 +91,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDolares">Asunto</span>
 					</div>
-					<textarea required="" maxlength="1000" name="asunto" class="form-control" id="asunto" placeholder="Digite actividades a realizar en comision de servicio">{{old('asunto',$servicio->asunto)}}</textarea> 
+					<textarea required maxlength="1000" name="asunto" class="form-control" id="asunto" placeholder="Digite actividades a realizar en comision de servicio">{{old('asunto',$servicio->asunto)}}</textarea> 
 				</div>
 				<div class="counter" id="pcounter">0</div>
 			</div>

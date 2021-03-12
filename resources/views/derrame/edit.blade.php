@@ -101,7 +101,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Dirección</span>
 				</div>
-				<textarea required="" onkeyup="mayus(this);" class="form-control" id="pdireccion" maxlength="2000" name="address" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$derrame->address)}}</textarea>
+				<textarea required="" onkeyup="mayus(this);" class="form-control" id="pdireccion" name="address" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$derrame->address)}}</textarea>
 				<input type="button" value="Encode" onclick="codeAddress()">
 			</div>
 			<div class="form-group input-group input-group-prepend col-md-4">
@@ -208,7 +208,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Detalle Emergencia</span>
 					</div>
-					<textarea required="" onkeyup="mayus(this);" class="form-control" name="detalle_emergencia" id="detalle_emergencia" maxlength="2000" aria-label="With textarea" placeholder="Digite a detalle lo ocurrido en Emergencia">{{old('detalle_emergencia',$derrame->detalle_emergencia)}}</textarea>
+					<textarea required="" onkeyup="mayus(this);" class="form-control" name="detalle_emergencia" id="detalle_emergencia" maxlength="3000" aria-label="With textarea" placeholder="Digite a detalle lo ocurrido en Emergencia">{{old('detalle_emergencia',$derrame->detalle_emergencia)}}</textarea>
 				</div>
 			</div>
 		</div>{{--Detalle Emergencia--}}
@@ -227,7 +227,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDaños">Daños Estimados</span>
 				</div>
-				<input required="" type="text" class="form-control" name="danos_estimados" id="danos_estimados" value="{{old('danos_estimados',$derrame->danos_estimados)}}" placeholder="Detalle los daños producidos por  el incidente">
+				<input required="" type="text" class="form-control" name="danos_estimados" maxlength="2000" id="danos_estimados" value="{{old('danos_estimados',$derrame->danos_estimados)}}" placeholder="Detalle los daños producidos por  el incidente">
 			</div>
 		</div>{{-- Daños Estimados --}}
 
@@ -345,6 +345,7 @@
 			});
 
 			var max_chars = 2000;
+			var max_chars1 = 3000;
 			$('#max').html(max_chars);
 
 			$("#pinformacion_inicial").keyup(function() {
@@ -363,11 +364,11 @@
 			});
 			$("#detalle_emergencia").keyup(function() {
 				var chars = $("#detalle_emergencia").val().length;
-				var diff = max_chars - chars;
-				var leyenda = "Caracteres Permitidos 2000 - Digitados: ";
+				var diff = max_chars1 - chars;
+				var leyenda = "Caracteres Permitidos 3000 - Digitados: ";
 				var res = leyenda.concat(chars);
 				$("#pcounter1").html(res);
-				if (chars > 2000) {
+				if (chars > 3000) {
 					$("#detalle_emergencia").addClass('error');
 					$("#detalle_emergencia").addClass('error');
 				} else {
