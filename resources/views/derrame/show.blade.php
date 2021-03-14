@@ -180,12 +180,28 @@
 					<p class="text-center">
 					<h4>Formularios del Incidente</h4>
 					</p>
-					<li>
-						<a rel="nofollow noopener noreferrer" target="_blank" href="{{asset('storage/hazmat/'.$derrame->id.'/201.pdf')}}">Formulario 201 - PDF</a>
-					</li>
-					<li><a rel="nofollow noopener noreferrer" target="_blank" href="{{asset('storage/hazmat/'.$derrame->id.'/207.pdf')}}">Formulario 207 - PDF</a>
-					</li>
-					<li><a rel="nofollow noopener noreferrer" target="_blank" href="{{asset('storage/hazmat/'.$derrame->id.'/211.pdf')}}">Formulario 211 - PDF</a></li>
+					<ul>
+						<p class="text-info">Formulario 201 - PDF</p>
+						<a class="btn btn-info btn-sm"  title="Descargar" rel="nofollow noopener noreferrer" target="_blank" href="{{asset('storage/hazmat/'.$derrame->id.'/201.pdf')}}"><i class="fas fa-cloud-download-alt"></i></a>
+						<button type="button" title="Previsualiza" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
+						<i class="far fa-eye"></i>
+						</button>
+						
+					</ul>
+					<ul>
+					<p class="text-info">Formulario 207 - PDF</p>
+						<a class="btn btn-info btn-sm"  title="Descargar" rel="nofollow noopener noreferrer" target="_blank" href="{{asset('storage/hazmat/'.$derrame->id.'/207.pdf')}}"><i class="fas fa-cloud-download-alt"></i></a>
+						<button type="button" title="Previsualiza" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal2">
+						<i class="far fa-eye"></i>
+						
+					</ul>
+					<ul>
+					<p class="text-info">Formulario 211 - PDF</p>
+						<a class="btn btn-info btn-sm"  title="Descargar" rel="nofollow noopener noreferrer" target="_blank" href="{{asset('storage/hazmat/'.$derrame->id.'/211.pdf')}}"><i class="fas fa-cloud-download-alt"></i></a>
+						<button type="button" title="Previsualiza" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal3">
+						<i class="far fa-eye"></i>
+					
+					</ul>
 
 
 				</div>
@@ -193,6 +209,62 @@
 		</div>
 	</div>
 
-
+	<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Formulario 201</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+	  <iframe src="{{asset('storage/hazmat/'.$derrame->id.'/201.pdf')}}" width="50%" height="100%"></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel2">Formulario 207</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+	  <iframe src="{{asset('storage/hazmat/'.$derrame->id.'/207.pdf')}}" width="50%" height="100%"></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel3">Formulario 211</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+	  <iframe src="{{asset('storage/hazmat/'.$derrame->id.'/211.pdf')}}" width="50%" height="100%"></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 	@endsection
 	@section( "piepagina" ) @endsection

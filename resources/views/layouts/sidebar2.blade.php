@@ -142,7 +142,7 @@
     <div id="collapse9" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-        <a class="collapse-item" target="_blank" href="/eventoE9/">{!! trans('messages.Incident') !!}</a>
+        <a rel="nofollow noopener noreferrer" class="collapse-item" target="_blank" href="/eventoE9/">{!! trans('messages.Incident') !!}</a>
 
       </div>
     </div>

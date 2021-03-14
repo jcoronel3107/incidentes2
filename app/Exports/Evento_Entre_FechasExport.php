@@ -32,31 +32,32 @@ class Evento_Entre_FechasExport implements FromQuery, Responsable, WithHeadings,
 
     public function query()
     {
-        $downloadbusquedaentrefechas =  DB::table($this->tabla)
-        ->join('incidentes', $this->tabla . '.incidente_id', '=', 'incidentes.id')
-        ->join('stations', $this->tabla .'.station_id', '=', 'stations.id')
-        ->select(
-            'fecha',
-            'nombre_incidente',
-            'direccion',
-            'geoposicion',
-            'ficha_ecu911',
-            'nombre',
-            'informacion_inicial',
-            'detalle_emergencia',
-            'usuario_afectado',
-            'danos_estimados',
-            'hora_fichaecu911',
-            'hora_salida_a_emergencia',
-            'hora_llegada_a_emergencia',
-            'hora_fin_emergencia',
-            'hora_en_base'
-        )
-        ->whereYear('fecha', '=', date('Y'))
-        ->whereNull($this->tabla . '.deleted_at')
-        ->whereBetween('fecha', array($this->fechaD, $this->fechaH))
-        ->orderByDesc('fecha');
-        return $downloadbusquedaentrefechas;
+        
+        
+            $downloadbusquedaentrefechas =  DB::table($this->tabla)
+            ->join('incidentes', $this->tabla . '.incidente_id', '=', 'incidentes.id')
+            ->join('stations', $this->tabla .'.station_id', '=', 'stations.id')
+            ->select(
+                'fecha',
+                'nombre_incidente',
+                'direccion',
+                'geoposicion',
+                'ficha_ecu911',
+                'nombre',
+                'informacion_inicial',
+                'detalle_emergencia',
+                'hora_fichaecu911',
+                'hora_salida_a_emergencia',
+                'hora_llegada_a_emergencia',
+                'hora_fin_emergencia',
+                'hora_en_base'
+            )
+            ->whereYear('fecha', '=', date('Y'))
+            ->whereNull($this->tabla . '.deleted_at')
+            ->whereBetween('fecha', array($this->fechaD, $this->fechaH))
+            ->orderByDesc('fecha');
+            return $downloadbusquedaentrefechas;
+        
     }
 
     public function setFileName(): void

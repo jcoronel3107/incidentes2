@@ -57,12 +57,10 @@ class Salud extends Model
 			return $this->belongsToMany(Vehiculo::class)
 			->withTimestamps()
 			->withPivot('km_salida','km_llegada');
-
 		}
 
 		public function pacientes(){
 			return $this->hasMany(Paciente::class);
-
 		}
 
 }

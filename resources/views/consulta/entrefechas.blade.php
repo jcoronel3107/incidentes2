@@ -14,6 +14,11 @@
 
 <div class="tab-content" id="myTabContent">
     {{-- Contenedor General --}}
+    <ul class="nav justify-content-end">
+		<li class="nav-item">
+			<a class="btn btn-outline-info" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('consultaentrefechas')}}"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></a>
+		</li>
+	</ul>
     <div class="tab-pane fade show active" id="General" role="tabpanel" aria-labelledby="General-tab">
         <div class="row">
             <div class="col-xl-8 col-lg-8">
@@ -25,6 +30,7 @@
             </div>
 
             <div class="col-xl-4 col-lg-4">
+                
                 <p style="text-transform: uppercase; text-align: center;" class="text-info" id="incidente">{{$tabla}}</p>
                 <p class="text-info"> Busqueda entre Fechas</p>
                 <div class="py-2 " id="table0.1">

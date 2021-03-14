@@ -96,8 +96,8 @@
 		color: white;
 		background-color: cadetblue;
 		margin-top: 10px;
-		height: 300px;
-		width: 400px;
+		height: 100%;
+		width: 100%;
 		text-align: center;
 		animation: appear 1s 1;
 	}

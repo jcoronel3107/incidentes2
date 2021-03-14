@@ -57,7 +57,7 @@ Route::resource('consulta',      	'ConsultasController');
 Route::resource('user',		      	'UserController');
 
 Route::get('/activitylog',			'ConsultasController@activitylog');
-Route::get('/consultaentrefechas',	'ConsultasController@consultaentrefechas');
+Route::get('/consultaentrefechas',	'ConsultasController@consultaentrefechas')->name('consultaentrefechas');
 Route::get('/busquedaentrefechas',	'ConsultasController@busquedaentrefechas');
 
 Route::get('/download/{file}', 		'DownloadsController@download');
