@@ -138,7 +138,7 @@
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<!-- Bootstrap core JavaScript-->
-	<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQWkyaqY4K2sOinX5crayMw6oVrg6LrwE&callback=initMap">
+	<script defer src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_API_KEY')}}&callback=initMap">
 	</script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<!-- <script src="/vendor/jquery/jquery.min.js"></script> -->
