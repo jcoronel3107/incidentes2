@@ -67,16 +67,7 @@ class ProfileController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+    
 
     /**
      * Update the specified resource in storage.
@@ -108,6 +99,7 @@ class ProfileController extends Controller
         return redirect()->route('profile.index')->with("status", 'Datos actualizados');
     }
 
+   
     /**
      * Remove the specified resource from storage.
      *

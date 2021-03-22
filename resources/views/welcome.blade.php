@@ -157,18 +157,7 @@
 @section( "cuerpo" )
 
 <div class="row">
-
-	<div class="col-xl-3 col-lg-3 col-md-6 sm-6">
-		<div class="card mb-4">
-
-			<h5 class="card-header text-white bg-primary"><i class="fas fa-fw fa-shower"></i> {!! trans('messages.flood') !!}</h5>
-			<div class="card-body">
-				<p class="card-text text-black">
-				<h1>{{$mensualesInundacion}}</h1> {!! trans('messages.Current Month Events') !!}</p>
-			</div>
-		</div>
-	</div>
-	<div class="col-xl-6 col-md-12 col-sm-12" id="clockdate">
+	<div class="col-xl-12 col-md-12 col-sm-12" id="clockdate">
 		<div class="card mb-4 ">
 
 			<div class="card-body">
@@ -179,7 +168,17 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-xl-3 col-lg-3 col-md-6 sm-6">
+	<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+		<div class="card mb-4">
+
+			<h5 class="card-header text-white bg-primary"><i class="fas fa-fw fa-shower"></i> {!! trans('messages.flood') !!}</h5>
+			<div class="card-body">
+				<p class="card-text text-black">
+				<h1>{{$mensualesInundacion}}</h1> {!! trans('messages.Current Month Events') !!}</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
 		<div class="card mb-4">
 			<h5 class="card-header text-white bg-secondary"><i class="fas fa-fw fa-life-ring"></i> {!! trans('messages.rescue') !!}</h5>
 			<div class="card-body">
@@ -188,7 +187,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-xl-3 col-lg-3 col-md-6 sm-6">
+	<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
 		<div class="card mb-4">
 			<h5 class="card-header text-white bg-secondary"><i class="fas fa-fw fa-life-ring"></i> {!! trans('messages.Hazmat') !!}</h5>
 			<div class="card-body">
@@ -200,7 +199,7 @@
 
 
 
-	<div class="col-xl-3 col-lg-3 col-md-6 sm-6">
+	<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
 		<div class="card mb-4">
 			<h5 class="card-header text-white bg-success"><i class="fas fa-fw fa-wrench"></i> {!! trans('messages.transit') !!}</h5>
 			<div class="card-body">
@@ -209,7 +208,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-xl-3 col-lg-3 col-md-6 sm-6">
+	<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
 		<div class="card mb-4">
 			<h5 class="card-header text-white bg-warning"><i class="fas fa-fw fa-heartbeat"></i> {!! trans('messages.Health') !!}</h5>
 			<div class="card-body">
@@ -219,7 +218,7 @@
 		</div>
 	</div>
 
-	<div class="col-xl-3 col-lg-3 col-md-6 sm-6">
+	<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
 		<div class="card mb-4">
 			<h5 class="card-header text-white bg-danger"><i class="fas fa-fw fa-fire"></i>{!! trans('messages.fire') !!}</h5>
 			<div class="card-body">
@@ -229,7 +228,7 @@
 		</div>
 	</div>
 
-	<div class="col-xl-3 col-lg-3 col-md-6 sm-6">
+	<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
 		<div class="card mb-4">
 			<h5 class="card-header text-white bg-info"><i class="fas fa-fw fa-fire-extinguisher"></i> {!! trans('messages.leak') !!}</h5>
 			<div class="card-body">
@@ -238,7 +237,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-xl-6 col-md-12 col-sm-12">
+	<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 		<div class="card mb-4 ">
 			<h5 class="card-header text-white bg-secondary">
 				<div id="topbar">Clima<span id="searchicon">🔍</span></div>
@@ -281,7 +280,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-xl-3 col-lg-3 col-md-6 sm-6">
+	<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
 		<div class="card mb-4">
 			<h5 class="card-header text-gray bg-light"><i class="fas fa-fw fa-wallet"></i> Claves</h5>
 			<div class="card-body">
@@ -290,7 +289,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-xl-3 col-lg-3 col-md-6 sm-6">
+	<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
 		<div class="card mb-4">
 			<h5 class="card-header text-white bg-primary"><i class="fas fa-fw fa-wallet"></i> Comisiones</h5>
 			<div class="card-body">

@@ -50,11 +50,9 @@
 			<td>{{$user->status}}</td>
 			<td>
 				@can('edit user')
-				<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Edit" href=""><i class="icon-edit"></i></a>
+				<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Edit" href="profile/edit/{{$user->id}}"><i class="icon-edit"></i></a>
 				@endcan
-				@can('create pdf')
-				<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="PDF" href="" role="button"><i class="icon-file-text"></i></a>
-				@endcan
+				
 			</td>
 		</tr>
 		@endforeach

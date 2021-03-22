@@ -46,8 +46,20 @@
 		<h1> <i class="fa fa-university" aria-hidden="true"></i> {{$station}}</h1>
 		<input type="text" hidden name="estacion_id" id="estacion_id" value="{{$estacion_id}}">
 	</div>
-	<div class="row">
-		<div class="col-xl-3 col-lg-3 col-md-12 sm-12">
+	<div class="row mb-4">
+		<div class="col-xl-12 col-md-12 sm-12 " id="clockdate">
+			<div class="card mb-4 ">
+				<div class="card-body">
+					<div class="clockdate-wrapper">
+						<div id="clock"></div>
+						<div id="date"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row mb-4">
+		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
 			<div class="card">
 				<div class="card-header text-white bg-primary">
 					<a>
@@ -65,24 +77,13 @@
 					</a>
 				</div>
 			</div>
-		</div>
-		<div class="col-xl-6 col-md-6" id="clockdate">
-			<div class="card mb-4 ">
-				<div class="card-body">
-					<div class="clockdate-wrapper">
-						<div id="clock"></div>
-						<div id="date"></div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-xl-3 col-lg-3 col-md-4 sm-6">
+		</div>	
+		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
 			<div class="card">
 				<div class="card-header text-white bg-secondary">
 					<a>
 						<h5 title="Crea {!! trans('messages.rescue') !!}" class=" text-white bg-secondary"><i class="fas fa-fw fa-life-ring"></i>{!! trans('messages.rescue') !!}</h5>
 					</a>
-
 				</div>
 				<div class="card-body">
 					@can('create evento')
@@ -94,17 +95,14 @@
 						<p class="card-text text-center text-black"> {!! trans('messages.Current Month Events') !!}</p>
 					</a>
 				</div>
-
 			</div>
-
 		</div>
-		<div class="col-xl-3 col-lg-3 col-md-4 sm-6">
+		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
 			<div class="card">
 				<div class="card-header text-white bg-secondary">
 					<a>
 						<h5 title="Crea {!! trans('messages.rescue') !!}" class=" text-white bg-secondary"><i class="fas fa-fw fa-life-ring"></i>{!! trans('messages.Hazmat') !!}</h5>
 					</a>
-
 				</div>
 				<div class="card-body">
 					@can('create evento')
@@ -119,7 +117,9 @@
 
 			</div>
 		</div>
-		<div class="col-xl-3 col-lg-3 col-md-4 sm-6">
+	</div>
+	<div class="row mb-4">
+		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
 			<div class="card">
 				<div class="card-header text-white bg-success">
 					<a>
@@ -141,7 +141,7 @@
 			</div>
 
 		</div>
-		<div class="col-xl-3 col-lg-3 col-md-4 sm-6">
+		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
 			<div class="card">
 				<div class="card-header text-white bg-warning">
 					<a>
@@ -164,13 +164,12 @@
 
 
 		</div>
-		<div class="col-xl-3 col-lg-3 col-md-4 sm-6">
+		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
 			<div class="card">
 				<div class="card-header text-white bg-danger">
 					<a>
 						<h5 title="Crea {!! trans('messages.rescue') !!}" class=" text-white bg-danger"><i class="fas fa-fw fa-fire"></i>{!! trans('messages.fire') !!}</h5>
 					</a>
-
 				</div>
 				<div class="card-body">
 					@can('create evento')
@@ -182,12 +181,11 @@
 						<p class="card-text text-center text-black"> {!! trans('messages.Current Month Events') !!}</p>
 					</a>
 				</div>
-
 			</div>
-
-
 		</div>
-		<div class="col-xl-3 col-lg-3 col-md-4 sm-6">
+	</div>
+	<div class="row mb-4">
+		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
 			<div class="card">
 				<div class="card-header text-white bg-info">
 					<a>
@@ -210,9 +208,7 @@
 
 
 		</div>
-
 	</div>
-
 	@push ('scripts')
 	<script type="text/javascript">
 		$(document).ready(function() {

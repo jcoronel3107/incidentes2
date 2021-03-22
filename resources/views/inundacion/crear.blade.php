@@ -6,22 +6,21 @@
 	@endsection
 
 	@section( "cuerpo" )
-
 	<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Registro Información de Eventos 10-20</h2>
-
 	<ul class="nav justify-content-end">
 		<li class="nav-item">
-
 			<a class="btn btn-outline-info" data-toggle="tooltip" title="Whatsapp" role="button" onclick="notificacionWhatsapp();"><i class="icon-comments-alt icon-2x"></i></a>
 			<a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('inundacion.index')}}"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></a>
-
 		</li>
-
-
-
-
 	</ul>
 	<hr style="border:2px;">
+	@if(count($errors)>0)
+	@foreach($errors->all() as $error)
+	<div class="alert alert-danger" role="alert">
+		{{$error}}
+	</div>
+	@endforeach
+	@endif
 	<form method="post" action="/inundacion">
 		<div class="form-row">
 			{{csrf_field()}}
@@ -29,9 +28,8 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Fecha</span>
 				</div>
-				<input type="date" placeholder="Introduce una fecha" required="" id="fecha" name="fecha" class="form-control">
+				<input type="date" placeholder="Introduce una fecha" required id="fecha" name="fecha" class="form-control">
 			</div>
-
 		</div>
 		<!--Div Fecha-->
 		<div class="form-row ">
@@ -41,7 +39,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Hora Ficha ECU911</span>
 						</div>
-						<input type="text" id="hora_fichaecu911" name="hora_fichaecu911" class="form-control" placeholder="hh:mm:ss" required="" onblur="CheckTime(this);" value="{{old('hora_fichaecu911')}}">
+						<input type="text" autocomplete="false" id="hora_fichaecu911" name="hora_fichaecu911" class="form-control" placeholder="hh:mm:ss" required onblur="CheckTime(this);" value="{{old('hora_fichaecu911')}}">
 						<div class="input-group-append">
 							<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual0" id="horactual0"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 						</div>
@@ -54,7 +52,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Nro.Ficha ECU911</span>
 						</div>
-						<input type="text" onkeyup="mayus(this);" name="ficha_ecu911" value="{{old('ficha_ecu911')}}" required="" class="form-control">
+						<input type="text" onkeyup="mayus(this);" name="ficha_ecu911" value="{{old('ficha_ecu911')}}" required autocomplete="off" class="form-control">
 					</div>
 				</div>
 			</div>
@@ -138,7 +136,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Incidente</span>
 				</div>
-				<select class="form-control" name="incidente_id" id="incidente_id" required="">
+				<select class="form-control" name="incidente_id" id="incidente_id" required>
 					<option value="" selected>{{old('incidente_id')}}</option>
 					@foreach($incidentes as $incidente)
 					<option value="{{$incidente->id}}">{{$incidente->nombre_incidente}}</option>
@@ -150,7 +148,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Escenario</span>
 				</div>
-				<select class="form-control" name="tipo_escena" required="">
+				<select class="form-control" name="tipo_escena" required>
 					<option value="" selected>{{old('tipo_escena')}}</option>
 					<option value="Tipo 1">Tipo 1</option>
 					<option value="Tipo 1">Tipo 2</option>
@@ -162,7 +160,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Estacion</span>
 				</div>
-				<select name="station_id" class="form-control" required="">
+				<select name="station_id" class="form-control" required>
 					<option value="" selected>{{old('station_id')}}</option>
 					@foreach($estaciones as $estacion)
 					<option value="{{$estacion->id}}">{{$estacion->nombre}}</option>
@@ -183,7 +181,7 @@
 				<div>
 					<span class="input-group-text">Parroquia</span>
 				</div>
-				<select name="parroquia_id" class="form-control" required="">
+				<select name="parroquia_id" class="form-control" required>
 					<option value="" selected>{{old('parroquia_id')}}</option>
 					@foreach($parroquias as $parroquia)
 					<option value="{{$parroquia->id}}">{{$parroquia->nombre}}</option>
@@ -208,7 +206,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">C.I.</span>
 				</div>
-				<select class="form-control" name="jefeguardia_id" required="">
+				<select class="form-control" name="jefeguardia_id" required>
 					<option selected>{{old('jefeguardia_id')}}</option>
 					@foreach($users as $user)
 					<option>{{$user->name}}</option>
@@ -219,7 +217,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Bombero</span>
 				</div>
-				<select class="form-control" name="bombero_id" required="">
+				<select class="form-control" name="bombero_id" required>
 					<option selected>{{old('bombero_id')}}</option>
 					@foreach($users as $user)
 					<option>{{$user->name}}</option>
@@ -230,7 +228,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Conductor</span>
 				</div>
-				<select class="form-control" name="conductor_id" required="">
+				<select class="form-control" name="conductor_id" required>
 					<option selected>{{old('conductor_id')}}</option>
 					@foreach($maquinistas as $maquinista)
 					<option>{{$maquinista->name}}</option>
@@ -244,7 +242,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Salida A Emerg.</span>
 				</div>
-				<input type="text" class="form-control" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" onblur="CheckTime(this);" value="{{old('hora_salida_a_emergencia')}}" required="">
+				<input type="text" class="form-control" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" onblur="CheckTime(this);" value="{{old('hora_salida_a_emergencia')}}" required>
 				<div class="input-group-append">
 					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual" id="horactual"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 				</div>
@@ -253,7 +251,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Llegada A Emerg.</span>
 				</div>
-				<input type="text" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm:ss" onblur="CheckTime(this);" value="{{old('hora_llegada_a_emergencia')}}" required="">
+				<input type="text" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm:ss" onblur="CheckTime(this);" value="{{old('hora_llegada_a_emergencia')}}" required>
 				<div class="input-group-append">
 					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual1" id="horactual1"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 				</div>
@@ -265,7 +263,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Fin Emerg.</span>
 				</div>
-				<input type="text" class="form-control" name="hora_fin_emergencia" id="hora_fin_emergencia" onblur="CheckTime(this);" value="{{old('hora_fin_emergencia')}}" required="">
+				<input type="text" class="form-control" name="hora_fin_emergencia" id="hora_fin_emergencia" onblur="CheckTime(this);" value="{{old('hora_fin_emergencia')}}" required>
 				<div class="input-group-append">
 					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual2" id="horactual2"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 				</div>
@@ -291,15 +289,15 @@
 			</div>
 		</div>
 		<div class="counter col-md-3 col-sm-12" id="pcounter1">0</div>
-		<!--Detalle Emergencia-->
+		
 		<div class="form-row">
 			<div class="form-group input-group  col-md-8">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Ciud. Afectado</span>
 				</div>
-				<input onkeyup="mayus(this);" type="text" maxlength="255" class="form-control" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado')}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia" required="">
+				<input onkeyup="mayus(this);" type="text" maxlength="255" class="form-control" autocomplete="off" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado')}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia" required>
 			</div>
-		</div>{{--Usuario Afectado--}}
+		</div><!-- Usuario Afectado -->
 		<div class="form-row">
 			<div class="form-group input-group col-md-12">
 				<div class="input-group-prepend">
@@ -307,7 +305,7 @@
 				</div>
 				<textarea class="form-control Text-uppercase" id="danos_estimados" name="danos_estimados" aria-label="With textarea" maxlength="2000" required>{{old('danos_estimados')}}</textarea>
 			</div>
-		</div>{{-- Danos Estimados --}}
+		</div><!-- Danos Estimados -->
 
 
 		<div class="form-group py-3 " id="divguardar">
@@ -324,13 +322,7 @@
 			</ul>
 		</div>
 	</form>
-	@if(count($errors)>0)
-	@foreach($errors->all() as $error)
-	<div class="alert alert-danger" role="alert">
-		{{$error}}
-	</div>
-	@endforeach
-	@endif
+	
 	@push ('scripts')
 
 

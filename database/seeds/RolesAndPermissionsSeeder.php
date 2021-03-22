@@ -56,12 +56,34 @@ class RolesAndPermissionsSeeder extends Seeder
         $role3->givePermissionTo('create pdf');
         $role3->givePermissionTo('send mail');
 
+        // this can be done as separate statements
+        $role4 = Role::create(['name' => 'fireman']);
+        $role4->givePermissionTo('create pdf');
+        $role4->givePermissionTo('allow upload');
+
+        // this can be done as separate statements
+        $role5 = Role::create(['name' => 'admin']);
+        $role5->givePermissionTo('delete evento');
+        $role5->givePermissionTo('create evento');
+        $role5->givePermissionTo('create user');
+        $role5->givePermissionTo('edit evento');
+        $role5->givePermissionTo('view parametrizacion');
+        $role5->givePermissionTo('view estadisticas');
+        $role5->givePermissionTo('allow export');
+        $role5->givePermissionTo('allow upload');
+        $role5->givePermissionTo('create pdf');
+        $role5->givePermissionTo('send mail');
+
+        $role6 = Role::create(['name' => 'conductor']);
+        $role6->givePermissionTo('create pdf');
+        $role6->givePermissionTo('allow upload');
+
         /*// or may be done by chaining
         $role = Role::create(['name' => 'moderator'])
             ->givePermissionTo(['publish articles', 'unpublish articles']);
 */
-        $role4 = Role::create(['name' => 'super-admin']);
-        $role4->givePermissionTo(Permission::all());
+        $role7 = Role::create(['name' => 'Super-Admin']);
+        $role7->givePermissionTo(Permission::all());
 
         // create demo users
         $user = Factory(App\User::class)->create([
@@ -70,7 +92,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'cargo' => 'Analista 2 Sistemas',
             'password' => Hash::make('K@rin@2018')
         ]);
-        $user->assignRole($role4);
+        $user->assignRole($role7);
 
         
         $user = Factory(App\User::class)->create([

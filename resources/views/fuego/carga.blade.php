@@ -22,7 +22,7 @@
 						<div class="panel-heading">Agregar archivos en Registro {{$id}}</div>
 						<hr>
 						<div class="panel-body">
-							<form method="POST" action="http://incidentes2.test/incendios/guardaform" accept-charset="UTF-8" enctype="multipart/form-data">
+							<form method="POST" action="/incendios/guardaform" accept-charset="UTF-8" enctype="multipart/form-data">
 
 								<input type="hidden" name="_token" value="{{ csrf_token() }}">
 								<input type="hidden" name="id" value="{{$id}}">

@@ -111,4 +111,45 @@ class UserController extends Controller
         Session::flash('Rol Asignado', "Asignación Rol con Exito!!!");
         return redirect("/user");
     }
+
+    public function update2(Request $request) {
+        //
+        $user = $request->user_id;
+  
+          $validaciones = [
+              'name' => ['required', 'string', 'max:255', 'unique:users,name,'.$user],
+              'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$user],
+          ];
+  
+          $request->validate($validaciones, $this->errores);
+  
+          $user->name = $request->name;
+          $user->email = $request->email;
+          
+          
+          if(! $user->isDirty())
+              { return redirect()->route('profile.index')->with("status", 'No se detectaron cambios a realizar');
+               }
+           $user->save();
+  
+          return redirect()->route('profile.index')->with("status", 'Datos actualizados');
+        
+      }
+
+      /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        if ( Auth::check() ) {
+            $user = User::findorFail($id);
+            return view( "user.edit",compact("user"));
+        } else {
+            return view( "/auth.login" );
+        }
+    }
+
 }

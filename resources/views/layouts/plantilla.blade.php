@@ -21,6 +21,13 @@
 </head>
 
 <body onload="startTime()" id="page-top">
+	<noscript>
+	<p>Bienvenido a Incidentes2</p>
+	<p>La página que estás viendo requiere para su funcionamiento el uso de
+	JavaScript.
+	Si lo has deshabilitado intencionadamente, por favor vuelve a activarlo.</p>
+	</noscript>
+
 	<div class="loader"></div>
 	<!-- Page Wrapper -->
 	<div id="wrapper">
