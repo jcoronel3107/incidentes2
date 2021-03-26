@@ -3,11 +3,13 @@
 */
 window.addEventListener("load", cargaPagina);
 function cargaPagina() {
-    var btn = document.getElementById("horactual0").addEventListener("click", hractual);
+    
 	var btn = document.getElementById("horactual").addEventListener("click", hractual);
+	var btn = document.getElementById("horactual0").addEventListener("click", hractual);
 	var btn = document.getElementById("horactual1").addEventListener("click", hractual);
 	var btn = document.getElementById("horactual2").addEventListener("click", hractual);
 	var btn = document.getElementById("horactual3").addEventListener("click", hractual);
+
 }
 
 
@@ -208,89 +210,82 @@ function hractual(e) {
 	}
 	var hora = h1  + ':' + min + ':' + sec;
 	if(e.name == "horactual")
-		/* $('#hora_salida_a_emergencia').attr('value', hora); */
+	{
+		console.log(e.name);
 		document.getElementById("hora_salida_a_emergencia").value=hora;
+	}
 	
 	else if (e.name == "horactual1")
+	{
+		console.log(e.name);
 		document.getElementById("hora_llegada_a_emergencia").value=hora;
-		
 
+	}
 	else if (e.name == "horactual2")
+	{
+		console.log(e.name);
 		document.getElementById("hora_fin_emergencia").value=hora;
-		
+	}	
 	
 	else if(e.name == "horactual3")
+	{
+		console.log(e.name);
 		document.getElementById("hora_en_base").value=hora;
 		
+	}	
 	
-	else
-	document.getElementById("hora_fichaecu911").value=hora;
-	/* console.log(hora); */
+	else if(e.name == "horactual0")
+	{
+		console.log(e.name);
+		document.getElementById("hora_fichaecu911").value=hora;
+	}
 }
 
 function CheckTime(str)
 {
-hora=str.value
-if (hora=='')
- {
-	 str.select() ;
-	 str.focus() ;
-	
-}
-if (hora.length>8) 
-{	
-	alert("Introdujo una cadena mayor a 8 caracteres");
-	str.select() ;
-	//coloco otra vez el foco 
-    str.focus() ;
-	
-}
-if (hora.length!=8) 
-{
-	alert("Introducir HH:MM:SS");
-	str.select() ;
-	//coloco otra vez el foco 
-    str.focus() ;
-	
-}
-a=hora.charAt(0) //<=2
-b=hora.charAt(1) //<4
-c=hora.charAt(2) //:
-d=hora.charAt(3) //<=5
-e=hora.charAt(5) //:
-f=hora.charAt(6) //<=5
-if ((a==2 && b>3) || (a>2)) 
-{
-	alert("El valor que introdujo en la Hora no corresponde, introduzca un digito entre 00 y 23");
-	str.select() ;
-	//coloco otra vez el foco 
-    str.focus() ;
-	
-}
-if (d>5)
- {
-	 alert("El valor que introdujo en los minutos no corresponde, introduzca un digito entre 00 y 59");
-	 str.select() ;
-	 //coloco otra vez el foco 
-    str.focus() ;
-	 
-}
-if (f>5) 
-{
-	alert("El valor que introdujo en los segundos no corresponde");
-	str.select() ;
-	//coloco otra vez el foco 
-    str.focus() ;
-	
-}
-if (c!=':' || e!=':') 
-{
-	alert("Introduzca el caracter ':' para separar la hora, los minutos y los segundos");
-	str.select() ;
-	//coloco otra vez el foco 
-    str.focus() ;
-	
-} 
+	hora=str.value
+	if (hora=='')
+	{
+		str.select() ;
+	}
+	if (hora.length>8) 
+	{	
+		alert("Introdujo una cadena mayor a 8 caracteres");
+		str.select() ;
+		
+	}
+	if (hora.length!=8) 
+	{
+		alert("Introducir formato HH:MM:SS");
+		str.select() ;		
+	}
+	a=hora.charAt(0) //<=2
+	b=hora.charAt(1) //<4
+	c=hora.charAt(2) //:
+	d=hora.charAt(3) //<=5
+	e=hora.charAt(5) //:
+	f=hora.charAt(6) //<=5
+	if ((a==2 && b>3) || (a>2)) 
+	{
+		alert("El valor que introdujo en la Hora no corresponde, introduzca un digito entre 00 y 23");
+		str.title = "El valor que introdujo en la Hora no corresponde, introduzca un digito entre 00 y 23";
+		str.select() ;		
+	}
+	if (d>5)
+	{
+		alert("El valor que introdujo en los minutos no corresponde, introduzca un digito entre 00 y 59");
+		str.select() ;
+	}
+	if (f>5) 
+	{
+		alert("El valor que introdujo en los segundos no corresponde");
+		str.select() ;
+	}
+	if (c!=':' || e!=':') 
+	{
+		alert("Introduzca el caracter ':' para separar la hora, los minutos y los segundos");
+		str.select() ;	
+	} 
 } 
 
 

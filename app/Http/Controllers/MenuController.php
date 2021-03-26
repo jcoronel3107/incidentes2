@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Clave;
 use App\Inundacion;
 use App\Incendio;
@@ -113,6 +114,7 @@ class MenuController extends Controller
     public function evento()
     {
         
+        
         $carbon = new \Carbon\Carbon();
         $date = $carbon->now();
         $fechaComoEntero = strtotime($date);
@@ -169,6 +171,7 @@ class MenuController extends Controller
 
     public function evento2()
     {
+        
         $carbon = new \Carbon\Carbon();
         $date = $carbon->now();
         $fechaComoEntero = strtotime($date);
@@ -219,11 +222,13 @@ class MenuController extends Controller
         $mensualesInundacion="";
         $estacion_id = "2";
         $station = trans('messages.Station2');
-        return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date", "estacion_id") );
+        return view("evento", compact("mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date", "estacion_id") );
     }
 
     public function evento3()
     {
+        
+
         $carbon = new \Carbon\Carbon();
         $date = $carbon->now();
         $fechaComoEntero = strtotime($date);
@@ -278,6 +283,8 @@ class MenuController extends Controller
     }
     public function evento4()
     {
+        
+
         $carbon = new \Carbon\Carbon();
         $date = $carbon->now();
         $fechaComoEntero = strtotime($date);
@@ -332,6 +339,7 @@ class MenuController extends Controller
     }
     public function evento5()
     {
+       
         $carbon = new \Carbon\Carbon();
         $date = $carbon->now();
         $fechaComoEntero = strtotime($date);
@@ -386,6 +394,8 @@ class MenuController extends Controller
     }
     public function evento6()
     {
+        
+
         $carbon = new \Carbon\Carbon();
         $date = $carbon->now();
         $fechaComoEntero = strtotime($date);
@@ -440,6 +450,8 @@ class MenuController extends Controller
     }
     public function evento7()
     {
+        
+
         $carbon = new \Carbon\Carbon();
         $date = $carbon->now();
         $fechaComoEntero = strtotime($date);
@@ -494,6 +506,8 @@ class MenuController extends Controller
     }
     public function evento8()
     {
+        
+
         $carbon = new \Carbon\Carbon();
         $date = $carbon->now();
         $fechaComoEntero = strtotime($date);
@@ -548,6 +562,8 @@ class MenuController extends Controller
     }
     public function evento9()
     {
+        
+
         $carbon = new \Carbon\Carbon();
         $date = $carbon->now();
         $fechaComoEntero = strtotime($date);
@@ -599,5 +615,16 @@ class MenuController extends Controller
         $station = trans('messages.Station9');
         $estacion_id = "9";
         return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date", "estacion_id") );
+    }
+
+    public function refrescamiento()
+    {
+        $sdd = Auth::check();
+        if ( Auth::check() )
+        {
+            $sdd = session()->all;
+           
+        }  
+         return view("refresca", compact ("sdd"));
     }
 }

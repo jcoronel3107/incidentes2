@@ -1,25 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Mail;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\IncidentesExport;
-use App\Exports\StationsExport;
-use App\Exports\InundacionsExport;
-use App\Exports\TransitosExport;
-use App\Inundacion;
-use App\Rescate;
-use App\Transito;
-use App\Salud;
-use App\Incendio;
-use App\Fuga;
-use App\Derrame;
-use App\Mail\ReportSentInundacions;
-use GuzzleHttp\Client;
-use Spatie\Geocoder\Facades\Geocoder as GeocoderFacade;
-use Spatie\Geocoder\Geocoder;
+
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+
 
 /*
 
@@ -166,9 +150,12 @@ Route::get('/eventoE6/',							'MenuController@evento6');
 Route::get('/eventoE7/',							'MenuController@evento7');
 Route::get('/eventoE8/',							'MenuController@evento8');
 Route::get('/eventoE9/',							'MenuController@evento9');
+Route::get('/refresh/',							    'MenuController@refrescamiento');
+
 
 Route::get('profile/perfil', 						'ProfileController@index')->name('profile.index');
 
 Route::put('profile/perfil', 						'ProfileController@update')->name('profile.update');
 Route::put('profile/pass', 							'ProfileController@pass')->name('profile.pass');
 Route::put('profile/avatar', 						'ProfileController@update_avatar')->name('profile.avatar');
+

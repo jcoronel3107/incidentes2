@@ -8,6 +8,7 @@ use App\Incidente;
 use App\Gasolinera;
 use App\Vehiculo;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\SaveClaveRequest;
@@ -26,16 +27,19 @@ class ClaveController extends Controller {
 	 */
 	public function __construct(){
 		$this->middleware('auth');
-
+		
 	}
 
-	public
+	
 
 	function index(Request $request) {
 
 
 		if($request)
         {
+			
+		
+
 	        $query = trim($request->get('searchText'));
 	        //
 	        $claves = Clave::where("created_at",'LIKE','%'.$query.'%')

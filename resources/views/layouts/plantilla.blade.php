@@ -7,7 +7,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="System for the Control and Registration of Incidents to which a Firefighters Institution attends. Fully responsive system, that is, it works on mobiles, tablets and computers">
 	<meta name="Ing. Juan Coronel" content="">
-
+	<link rel="shortcut icon" type="image/png" href="{{ asset('/images/favicon_192x192.png') }}">
+    <link rel="shortcut icon" sizes="192x192" href="{{ asset('/images/favicon_192x192.png') }}">
 	<!-- Custom styles for this template-->
 	<link href="/css/sb-admin-2.min.css" rel="stylesheet">
 	<link href="/css/varios.css" rel="stylesheet">
@@ -34,25 +35,25 @@
 		@yield("cabeza")
 		@include("layouts.sidebar2")
 		<!-- Logout Modal-->
-		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">{!! trans('messages.Ready to Leave?') !!}</h5>
-						<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">{!! trans('messages.Select "Logout" below if you are ready to end your current session.') !!}</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+			<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">{!! trans('messages.Ready to Leave?') !!}</h5>
+							<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">{!! trans('messages.Select "Logout" below if you are ready to end your current session.') !!}</div>
+						<div class="modal-footer">
+							<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
 
-						<a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault();
-								                             document.getElementById('logout-form').submit();">Logout</a>
+							<a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault();
+																document.getElementById('logout-form').submit();">Logout</a>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 
 
 		<div id="content-wrapper" class="d-flex flex-column">
@@ -84,41 +85,53 @@
 						@endif
 
 					</ul>
-
+					<ul class="navbar-nav">
+						<div class="topbar-divider d-none d-sm-block">
+						</div>
+						<div class="top-right links">
+							<li class="nav-item dropdown no-arrow">
+						
+							</li>
+						</div>
+					</ul>
+					
 					<ul class="navbar-nav ml-right ">
 						<div class="topbar-divider d-none d-sm-block">
+						
 						</div>
 
 						<!-- Authentication Links -->
 
 						@guest
-						<li class="nav-item dropdown no-arrow">
-							<a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="{{ route('login') }}">{{ __('Login') }}</a>
-						</li>
-						@if (Route::has('register'))
-						<!-- <li class="nav-item">
-												<a class="nav-link dropdown-toggle" href="{{ route('register') }}">{{ __('Register') }}</a>
-											</li> -->
-						@endif @else
-						<li class="nav-item dropdown no-arrow">
-							<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }} </span><img src="{{ asset('storage/avatar/'.Auth::user()->avatar) }}" height="40px" style="max-width: 100%" /><span class="caret"> </span>
-							</a>
-
-							<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-								<a class="dropdown-item" href="{{route('profile.index')}}">
-									<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>Profile</a>
-
-								<a rel="nofollow noopener noreferrer" class="dropdown-item" target="_blank" href="/activitylog">
-									<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>Activity Log</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" data-toggle="modal" data-target="#logoutModal"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-									{{ __('Logout') }}
+							<li class="nav-item dropdown no-arrow">
+								<a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="{{ route('login') }}">{{ __('Login') }}</a>
+							</li>
+							@if (Route::has('register'))
+							<!-- <li class="nav-item">
+													<a class="nav-link dropdown-toggle" href="{{ route('register') }}">{{ __('Register') }}</a>
+												</li> -->
+							@endif @else
+							<li class="nav-item dropdown no-arrow">
+								<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }} </span><img src="{{ asset('storage/avatar/'.Auth::user()->avatar) }}" height="40px" style="max-width: 100%" /><span class="caret"> </span>
 								</a>
-								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-									@csrf
-								</form>
-							</div>
-						</li>
+
+								<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+									<a class="dropdown-item" href="{{route('profile.index')}}">
+										<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>Profile</a>
+
+									<a rel="nofollow noopener noreferrer" class="dropdown-item" target="_blank" href="/activitylog">
+										<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>Activity Log</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" data-toggle="modal" data-target="#logoutModal"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+										{{ __('Logout') }}
+									</a>
+									<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+										@csrf
+									</form>
+								</div>
+								
+							</li>
+						
 						@endguest
 
 					</ul>

@@ -14,7 +14,8 @@ use App\Derrame;
 use App\Servicio;
 use App\Http\Requests\CreateClaveRequest;
 use Illuminate\Support\Facades\DB;
-
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class PagesController extends Controller
 {
@@ -25,14 +26,22 @@ class PagesController extends Controller
 
     public function index()
     {
+       
+        $date = Carbon::now();
+        $lifetime = config('session.lifetime');
+        $date->toDateTimeString();  
+        $endDate = $date->subHour($lifetime);
+        $timestamp = $date->getTimestamp();
+        $loggedin_instances = DB::table('sessions')
+        ->where('user_id', Auth::user()->id)
+        ->where('last_activity','>', $timestamp) //This condition is needed only if lifetime is set and expire_on_close is false;
+        ->get();
+    	
 
-
-    	$carbon = new \Carbon\Carbon();
-		$date = $carbon->now();
+		$date = Carbon::now();
 		$fechaComoEntero = strtotime($date);
 		$mes = date("m", $fechaComoEntero);
-		//$date = $date->format('l jS \\of F Y h:i:s A');
-
+ 
     	$mensualesInundacion= Inundacion::whereMonth('fecha', $mes)
         ->whereYear('fecha', '=', date('Y'))
         ->whereNull('inundacions.deleted_at')
@@ -70,6 +79,8 @@ class PagesController extends Controller
         ->whereYear('fecha', '=', date('Y'))
         ->whereNull('derrames.deleted_at')
         ->get()->count();
-    	return view("welcome",compact("mensualesInundacion","mensualesRescate","mensualesIncendio","mensualesSalud","mensualesTransito","mensualesFuga","mensualesClave","mensualesServicio","mensualesDerrame"));
+    	return view("welcome",compact("mensualesInundacion","mensualesRescate","mensualesIncendio","mensualesSalud","mensualesTransito","mensualesFuga","mensualesClave","mensualesServicio","mensualesDerrame","loggedin_instances"));
     }
+
+    
 }

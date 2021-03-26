@@ -21,6 +21,13 @@
 		</li>
 	</ul>
 	<hr style="border:2px;">
+	@if(count($errors)>0)
+	@foreach($errors->all() as $error)
+	<div class="alert alert-danger" role="alert">
+		{{$error}}
+	</div>
+	@endforeach
+	@endif
 	<form method="post" action="/derrame">
 		<div class="form-row">
 
@@ -47,7 +54,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Hora Ficha ECU911</span>
 						</div>
-						<input type="text" id="hora_fichaecu911" name="hora_fichaecu911" onblur="CheckTime(this);" class="form-control" placeholder="hh:mm:ss" required="" value="{{old('hora_fichaecu911')}}">
+						<input type="text" id="hora_fichaecu911" name="hora_fichaecu911" onblur="CheckTime(this);" class="form-control" placeholder="hh:mm:ss" required value="{{old('hora_fichaecu911')}}">
 						<div class="input-group-append">
 							<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual0" id="horactual0"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 						</div>
@@ -250,7 +257,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Salida A Emerg.</span>
 				</div>
-				<input type="text" class="form-control" name="hora_salida_a_emergencia" onblur="CheckTime(this);" id="hora_salida_a_emergencia" value="{{old('hora_salida_a_emergencia')}}" required="">
+				<input type="text" class="form-control" name="hora_salida_a_emergencia" onblur="CheckTime(this);" id="hora_salida_a_emergencia" value="{{old('hora_salida_a_emergencia')}}" required>
 				<div class="input-group-append">
 					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual" id="horactual"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 				</div>
@@ -329,13 +336,7 @@
 			</ul>
 		</div>
 	</form>
-	@if(count($errors)>0)
-	@foreach($errors->all() as $error)
-	<div class="alert alert-danger" role="alert">
-		{{$error}}
-	</div>
-	@endforeach
-	@endif
+	
 	@push ('scripts')
 
 
