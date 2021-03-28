@@ -57,6 +57,9 @@
 					@can('create pdf')
 					<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="PDF" href="{{action('IncendioController@downloadPDF', $incendio->id)}}" role="button"><i class="icon-file-text"></i></a>
 					@endcan
+					@can('create inspeccion')
+						<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Inspeccion" href="/incendios/inspeccionfuego/{{$incendio->id}}"><i class="fas fa-notes-medical"></i></a>
+					@endcan
 				</td>
 			</tr>
 			<!-- Modal -->

@@ -163,7 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Spatie\Geocoder\GeocoderServiceProvider::class,
-
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -229,7 +229,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
-        'Geocoder' => Spatie\Geocoder\Facades\Geocoder::class
+        'Geocoder' => Spatie\Geocoder\Facades\Geocoder::class,
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class
 
     ],
 

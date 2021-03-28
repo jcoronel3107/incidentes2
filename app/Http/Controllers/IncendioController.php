@@ -59,7 +59,7 @@ class IncendioController extends Controller
         $incidentes = Incidente::where("tipo_incidente","10_70")
         ->orderBy("nombre_incidente",'asc')
         ->get();
-        $maquinistas = User::where("cargo","maquinista")
+        $maquinistas = User::where("cargo","Maquinista")
         ->orderBy("name",'asc')
         ->get();
         $users = DB::table('users')->where([
@@ -155,7 +155,8 @@ class IncendioController extends Controller
      */
     public
 
-    function show( $id ) {
+    function show( $id ) 
+    {
         //
         $incendio = Incendio::findOrFail( $id );
         return view( "fuego.show", compact( "incendio" ) );
@@ -169,8 +170,9 @@ class IncendioController extends Controller
      */
     public
 
-    function edit($id) {
-       if ( Auth::check() ) {
+    function edit($id) 
+    {
+        if ( Auth::check() ) {
             $conductor_id = DB::table('users')
             ->where('id', $id)
             ->value('name');
@@ -185,7 +187,7 @@ class IncendioController extends Controller
             ->orWhere('cargo','=','Paramedico')
             ->orderBy("name",'asc')
             ->get();
-            $maquinistas=User::where('cargo','maquinista')
+            $maquinistas=User::where('cargo','Maquinista')
             ->orderBy("name",'asc')
             ->get();
             $incidentes = Incidente::where('tipo_incidente','=','10_70')
@@ -195,7 +197,9 @@ class IncendioController extends Controller
             $parroquias = Parroquia::all();
             
             return view( "fuego.edit", compact("incendio","vehiculos","bomberos","maquinistas","incidentes","estaciones","parroquias"));
-        } else {
+        } 
+        else 
+        {
             return view( "/auth.login" );
         }
     }
@@ -209,9 +213,8 @@ class IncendioController extends Controller
      */
     public
 
-    function update( SaveIncendioRequest $request , $id ) {
-        
-        
+    function update( SaveIncendioRequest $request , $id ) 
+    {
         if ( Auth::check() ) {  
             DB::begintransaction();
             try
@@ -277,7 +280,8 @@ class IncendioController extends Controller
      */
     public
 
-    function destroy( $id ) {
+    function destroy( $id )
+    {
         //
         if ( Auth::check() ) {
             $incendio = Incendio::findOrFail( $id );
@@ -327,16 +331,12 @@ class IncendioController extends Controller
       return view("/fuego.carga",compact('id'));
     }
 
-   public function upload(Request $request)
+    public function upload(Request $request)
     {
-
-
         //obtenemos el nombre del archivo
         $file201 = $request->file('fileSCI-201');
         $nombre = "201." . $file201->getClientOriginalExtension();
-        $validation = $request->validate([
-            'fileSCI-201' => 'required|file|mimes:pdf|max:2048'
-        ]);
+        $validation = $request->validate(['fileSCI-201' => 'required|file|mimes:pdf|max:2048']);
         $file      = $validation['fileSCI-201']; // get the validated file        
         $path      = $file->storeAs('1070/' . $request->id, $nombre);
         $exists = Storage::disk('local')->exists($path);
@@ -344,9 +344,7 @@ class IncendioController extends Controller
         //obtenemos el nombre del archivo
         $file207 = $request->file('fileSCI-207');
         $nombre1 = "207." . $file207->getClientOriginalExtension();
-        $validation = $request->validate([
-            'fileSCI-207' => 'required|file|mimes:pdf|max:2048'
-        ]);
+        $validation = $request->validate(['fileSCI-207' => 'required|file|mimes:pdf|max:2048']);
         $file      = $validation['fileSCI-207']; // get the validated file
         $path1      = $file->storeAs('1070/' . $request->id, $nombre1);
         $exists1 = Storage::disk('local')->exists($path1);
@@ -354,39 +352,30 @@ class IncendioController extends Controller
         //obtenemos el nombre del archivo
         $file211 = $request->file('fileSCI-211');
         $nombre2 = "211." . $file211->getClientOriginalExtension();
-        $validation = $request->validate([
-            'fileSCI-211' => 'required|file|mimes:pdf|max:2048'
-        ]);
+        $validation = $request->validate(['fileSCI-211' => 'required|file|mimes:pdf|max:2048']);
         $file      = $validation['fileSCI-211']; // get the validated file        
         $path2      = $file->storeAs('1070/' . $request->id, $nombre2);
         $exists2 = Storage::disk('local')->exists($path2);
-        if ($exists&&$exists1&&$exists2) {
-          Session::flash('Carga_Correcta',"Formularios Subidos con Exito!!!");
-         return redirect( "/fuego" );
-        } else {
+        if ($exists&&$exists1&&$exists2) 
+        {
+            Session::flash('Carga_Correcta',"Formularios Subidos con Exito!!!");
+            return redirect( "/fuego" );
+        } 
+        else 
+        {
           Session::flash('Carga_Incorrecta',"Evento Tiene Formularios Cargados con Anterioridad.!!!");
           return redirect( "/fuego" );
         }
-        
-        
-       /*if ($size>1048576) {
-          Session::flash('Tamaño_Excedido',"El tamaño maximo pemitido es de 1 MB por Archivo.!!!".$size/1024);
-          return redirect( "/inundacion" );
-       } 
-       else {
-         if (!$exists) {
-         \Storage::disk('local')->put($nombre,  \File::get($file201));
-         \Storage::disk('local')->put($nombre1,  \File::get($file202));
-         \Storage::disk('local')->put($nombre2,  \File::get($file206));
-         Session::flash('Carga_Correcta',"Formularios Subidos con Exito!!!");
-         return redirect( "/inundacion" );
-         }
-          else
-         {
-          
-          }
-       }*/ 
     }
 
-    
+    public function inspeccion($id)
+    {
+        return view("/fuego.inspeccion",compact('id'));
+    }
+
+
+    public function registra_Inspeccion(Request $request)
+    {
+
+    }
 }

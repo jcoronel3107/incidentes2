@@ -15,10 +15,10 @@
 		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Nuevo" href="derrame/create"><i class="icon-plus icon-2x"></i></a>
 		    @endcan
 		    @can('allow export')
-		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Export" href="derrames/export/"><i class="icon-download-alt icon-2x"></i></a>
+		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Export" href="derrames/export/"><i class="icon-cloud-upload icon-2x"></i></a>
 		    @endcan
 		    @can('allow import')
-		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Import" href="/derrames/importar"><i class="icon-cloud-upload icon-2x"></i></a>
+		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Import" href="/derrames/importar"><i class="icon-download-alt icon-2x"></i></a>
 		    @endcan
 		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Estadistica" href="derrames/grafic/"><i class="icon-filter icon-2x"></i> </a>
 		  </li>
@@ -58,10 +58,9 @@
 						@can('send mail')
 						<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" data-target="#exampleModal" role="button"><i class="icon-envelope"></i></a>
 						@endcan
-
-						{{-- <a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Enviar" href="{{action('MailController@SendMailsInundacion', $inundacion->id)}}" role="button"><i class="icon-envelope"></i></a> --}}
-
-
+						@can('create prevencion')
+						<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" href="{{route('inspeccion',$derrame->id)}}"><i class="fas fa-notes-medical"></i></a>
+						@endcan
 					</td>
 				</tr>
 				<!-- Modal -->

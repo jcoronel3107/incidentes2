@@ -68,7 +68,7 @@ class SaludController extends Controller
         ->orWhere('cargo','=','Paramedico')
         ->orderBy("name",'asc')
         ->get();
-        $maquinistas = User::where("cargo","maquinista")
+        $maquinistas = User::where("cargo","Maquinista")
         ->orderBy("name",'asc')
         ->get();
         $incidentes = Incidente::where("tipo_incidente","10_38")
@@ -229,7 +229,7 @@ class SaludController extends Controller
             ->orderBy("name",'asc')
             ->get();
 
-            $maquinistas=User::where('cargo','maquinista')
+            $maquinistas=User::where('cargo','Maquinista')
             ->orderBy("name",'asc')
             ->get();
             $incidentes = Incidente::where("tipo_incidente","10_38")

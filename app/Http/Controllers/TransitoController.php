@@ -66,7 +66,7 @@ class TransitoController extends Controller
         ->orWhere('cargo','=','Paramedico')
         ->orderBy("name",'asc')
         ->get();
-        $maquinistas = User::where("cargo","maquinista")
+        $maquinistas = User::where("cargo","Maquinista")
             ->orderBy("name",'asc')
             ->get();
         $incidentes = Incidente::where("tipo_incidente","10_42")
@@ -183,7 +183,7 @@ class TransitoController extends Controller
             $bomberos=User::where('cargo','bombero')
             ->orderBy("name",'asc')
             ->get();
-            $maquinistas=User::where('cargo','maquinista')
+            $maquinistas=User::where('cargo','Maquinista')
             ->orderBy("name",'asc')
             ->get();
             $incidentes = Incidente::where("tipo_incidente","10_33")

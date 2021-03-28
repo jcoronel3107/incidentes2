@@ -39,6 +39,30 @@ Route::resource('derrame',							'DerrameController');
 Route::resource('servicio',							'ServicioController');
 Route::resource('consulta',							'ConsultasController');
 Route::resource('user',								'UserController');
+Route::resource('prevencion',						'PrevencionController');
+
+//Rutas Carga Formularios Inspeccion Prevencion
+Route::get('/derrames/inspeccionderrame/{$id}',     'DerrameController@inspeccion')->name('inspeccionderrame');
+Route::put('/registrainspeccionderrame',            'DerrameController@registrainspeccion')->name('registrainspeccionderrame');
+
+Route::get('/fugas/inspeccionfuga/{$id}',           'FugaController@inspeccion')->name('inspeccionfuga');
+Route::put('/registrainspeccionfuga',               'FugaController@registrainspeccion')->name('registrainspeccionfuga');
+
+Route::get('/incendios/inspeccionfuego/{$id}',      'IncendioController@inspeccion');
+Route::put('/registrainspeccionfuego',              'IncendioController@registrainspeccion')->name('registrainspeccionfuego');
+
+Route::get('/inundacions/inspeccioninundacion/{$id}','InundacionController@inspeccion')->name('inspeccioninundacion');
+Route::put('/registrainspeccioninundacion',         'InundacionController@registrainspeccion')->name('registrainspeccioninundacion');
+
+Route::get('/inspeccionrescate/{$id}',              'RescateController@inspeccion')->name('inspeccionrescate');
+Route::put('/registrainspeccionrescate',            'RescateController@registrainspeccion')->name('registrainspeccionrescate');
+
+Route::get('/inspeccionsalud/{$id}',                'SaludController@inspeccion')->name('inspeccionsalud');
+Route::put('/registrainspeccionsalud',              'SaludController@registrainspeccion')->name('registrainspeccionsalud');
+
+Route::get('/inspecciontransito/{$id}',             'TransitoController@inspeccion')->name('inspecciontransito');
+Route::put('/registrainspeccionsalud',              'TransitoController@registrainspeccion')->name('registrainspeccionsalud');
+
 
 Route::get('/activitylog',							'ConsultasController@activitylog');
 Route::get('/consultaentrefechas',					'ConsultasController@consultaentrefechas')->name('consultaentrefechas');

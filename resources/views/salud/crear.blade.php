@@ -374,6 +374,7 @@
 								<option>Hosp.Militar</option>
 								<option>Hosp.Snta.Ana</option>
 								<option>Hosp.Santa.Ines</option>
+								<option>Hosp.San Juan de Dios</option>
 								<option>Hosp.Sinai</option>
 								<option>Hosp.Univ.Catolico</option>
 								<option>Hosp.Vicente.Corral</option>

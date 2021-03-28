@@ -52,13 +52,16 @@
 						@endcan
 						@can('allow upload')
 						<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Forms SCI" href="/fugas/carga/{{$fuga->id}}"><i class="fa fa-upload" aria-hidden="true"></i></a>
-					@endcan
+						@endcan
 						<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Ver" href="{{route('fuga.show',$fuga->id)}}" role="button"><i class="icon-search"></i></a>
 						@can('send mail')
 						<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" data-target="#exampleModal" role="button"><i class="icon-envelope"></i></a>
 						@endcan
 						@can('create pdf')
 						<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="PDF" href="{{action('FugaController@downloadPDF', $fuga->id)}}" role="button"><i class="icon-file-text"></i></a>
+						@endcan
+						@can('create prevencion')
+						<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" href="{{route('inspeccion',$fuga->id)}}"><i class="fas fa-notes-medical"></i></a>
 						@endcan
 
 				</tr>

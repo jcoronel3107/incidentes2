@@ -54,10 +54,12 @@
 				<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Ver" href="{{route('rescate.show',$rescate->id)}}" role="button"><i class="icon-search"></i></a>
 				@can('send mail')
 				<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" data-target="#exampleModal" role="button"><i class="icon-envelope"></i></a>
-				<!-- <a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Enviar" href="{{action('MailController@SendMailsRescate', $rescate->id)}}" role="button"><i class="icon-envelope"></i></a> -->
 				@endcan
 				@can('create pdf')
 				<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="PDF" href="{{action('RescateController@downloadPDF', $rescate->id)}}" role="button"><i class="icon-file-text"></i></a>
+				@endcan
+				@can('create prevencion')
+				<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" href="{{route('inspeccion',$rescate->id)}}"><i class="fas fa-notes-medical"></i></a>
 				@endcan
 			</td>
 		</tr>

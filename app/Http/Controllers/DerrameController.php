@@ -63,7 +63,7 @@ class DerrameController extends Controller
         $users = User::where("cargo","bombero")
             ->orderBy("name",'asc')
             ->get();
-        $maquinistas = User::where("cargo","maquinista")
+        $maquinistas = User::where("cargo","Maquinista")
             ->orderBy("name",'asc')
          ->get();
         $incidentes = Incidente::where("tipo_incidente","Hazmat")
@@ -179,7 +179,7 @@ class DerrameController extends Controller
             $bomberos=User::where('cargo','bombero')
             ->orderBy("name",'asc')
             ->get();
-            $maquinistas=User::where('cargo','maquinista')
+            $maquinistas=User::where('cargo','Maquinista')
             ->orderBy("name",'asc')
             ->get();
             
@@ -320,8 +320,8 @@ class DerrameController extends Controller
     }
 
    public function upload(Request $request)
-    {
-        //obtenemos el nombre del archivo
+   {    
+       //obtenemos el nombre del archivo
         $file201 = $request->file('fileSCI-201');
         $nombre = "201." . $file201->getClientOriginalExtension();
         $validation = $request->validate([
@@ -332,8 +332,8 @@ class DerrameController extends Controller
         $exists = Storage::disk('local')->exists($path);
        
         //obtenemos el nombre del archivo
-       $file207 = $request->file('fileSCI-207');
-       $nombre1 = "207." . $file207->getClientOriginalExtension();
+        $file207 = $request->file('fileSCI-207');
+        $nombre1 = "207." . $file207->getClientOriginalExtension();
         $validation = $request->validate([
             'fileSCI-207' => 'required|file|mimes:pdf|max:2048'
         ]);
@@ -342,8 +342,8 @@ class DerrameController extends Controller
         $exists1 = Storage::disk('local')->exists($path1);
         
         //obtenemos el nombre del archivo
-       $file211 = $request->file('fileSCI-211');
-       $nombre2 = "211.".$file211->getClientOriginalExtension();
+        $file211 = $request->file('fileSCI-211');
+        $nombre2 = "211.".$file211->getClientOriginalExtension();
         $validation = $request->validate([
             'fileSCI-211' => 'required|file|mimes:pdf|max:2048'
         ]);  
@@ -351,13 +351,31 @@ class DerrameController extends Controller
         $path2      = $file->storeAs('hazmat/'.$request->id, $nombre2);
         $exists2 = Storage::disk('local')->exists($path2);
         
-        if ($exists && $exists1 && $exists2) {
+        if ($exists && $exists1 && $exists2) 
+        {
           Session::flash('Carga_Correcta',"Formularios Subidos con Exito!!!");
-         return redirect( "/derrame" );
-        } else {
+          return redirect( "/derrame" );
+        } 
+        else
+        {
           Session::flash('Carga_Incorrecta',"Evento Tiene Formularios Cargados con Anterioridad.!!!");
           return redirect( "/derrame" );
         }
-        
+
     }
+
+
+
+    public function inspeccion($id)
+    {
+        return view("prevencion.crear");
+    }
+
+
+    public function registra_Inspeccion(Request $request)
+    {
+
+    }
+
+
 }

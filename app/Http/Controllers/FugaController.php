@@ -63,7 +63,7 @@ class FugaController extends Controller
         ->orWhere('cargo','=','Paramedico')
         ->orderBy("name",'asc')
         ->get();
-        $maquinistas = User::where("cargo","maquinista")
+        $maquinistas = User::where("cargo","Maquinista")
             ->orderBy("name",'asc')
          ->get();
         $incidentes = Incidente::where("tipo_incidente","Fuga")
@@ -181,7 +181,7 @@ class FugaController extends Controller
             $bomberos=User::where('cargo','bombero')
             ->orderBy("name",'asc')
             ->get();
-            $maquinistas=User::where('cargo','maquinista')
+            $maquinistas=User::where('cargo','Maquinista')
             ->orderBy("name",'asc')
             ->get();
             $incidentes = Incidente::where("tipo_incidente","Fuga")
@@ -365,5 +365,16 @@ class FugaController extends Controller
           return redirect( "/fuga" );
         }
         
+    }
+
+    public function inspeccion($id)
+    {
+        return view("prevencion.crear");
+    }
+
+
+    public function registra_Inspeccion(Request $request)
+    {
+
     }
 }
