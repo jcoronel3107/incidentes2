@@ -66,7 +66,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Incidente</span>
 				</div>
-				<select class="form-control" name="incidente_id" id="incidente_id">
+				<select class="selectpicker form-control" data-live-search="true" name="incidente_id" id="incidente_id">
 					<option value="{{$inundacion->incidente->id}}" selected>{{old('incidente_id',$inundacion->incidente->nombre_incidente)}}</option>
 					@foreach($incidentes as $incidente)
 					<option value="{{$incidente->id}}">{{$incidente->nombre_incidente}}</option>
@@ -78,7 +78,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Escenario</span>
 				</div>
-				<select class="form-control" name="tipo_escena">
+				<select class="selectpicker form-control" data-live-search="true" name="tipo_escena">
 					<option selected>{{old('tipo_escena',$inundacion->tipo_escena)}}</option>
 					<option value="Tipo 1">Tipo 1</option>
 					<option value="Tipo 2">Tipo 2</option>
@@ -90,7 +90,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Estacion</span>
 				</div>
-				<select name="station_id" class="form-control">
+				<select class="selectpicker form-control" data-live-search="true" name="station_id">
 					<option value="{{$inundacion->station->id}}" selected>{{old('estacion_id',$inundacion->station->nombre)}}</option>
 					@foreach($estaciones as $estacion)
 					<option value="{{$estacion->id}}">{{$estacion->nombre}}</option>
@@ -111,7 +111,7 @@
 				<div>
 					<span class="input-group-text">Parroquia</span>
 				</div>
-				<select name="parroquia_id" class="form-control">
+				<select class="selectpicker form-control" data-live-search="true" name="parroquia_id" >
 					<option selected>{{old('parroquia_id',$inundacion->parroquia->nombre)}}</option>
 					@foreach($parroquias as $parroquia)
 					<option>{{$parroquia->nombre}}</option>
@@ -134,7 +134,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Jefe Guardia</span>
 				</div>
-				<select required="" class="form-control" name="jefeguardia_id">
+				<select required class="selectpicker form-control" data-live-search="true" name="jefeguardia_id">
 					@if((count($inundacion->users) === 3)&&($inundacion->users->isNotEmpty())){
 					<option value="{{$inundacion->users[2]->id}}" selected="{{$inundacion->users[2]->id}}">{{$inundacion->users[2]->name}}</option>
 					@else{
@@ -149,7 +149,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Bombero</span>
 				</div>
-				<select required="" class="form-control" name="bombero_id">
+				<select required class="selectpicker form-control" data-live-search="true" name="bombero_id">
 					@if((count($inundacion->users) === 3)&&($inundacion->users->isNotEmpty())){
 					<option value="{{$inundacion->users[1]->id}}" selected="{{$inundacion->users[1]->id}}">{{$inundacion->users[1]->name}}</option>
 					@else{
@@ -164,7 +164,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Conductor</span>
 				</div>
-				<select required="" class="form-control" name="conductor_id">
+				<select required class="selectpicker form-control" data-live-search="true" name="conductor_id">
 					@if((count($inundacion->users) === 3 )&&($inundacion->users->isNotEmpty())){
 					<option value="{{$inundacion->users[0]->id}}" selected="{{$inundacion->users[0]->id}}">{{$inundacion->users[0]->name}}</option>
 					@else{
@@ -245,7 +245,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Vehìculo</span>
 							</div>
-							<select class="form-control selectpicker" name="vehiculo_id" id="pvehiculo_id" data-live-search="true">
+							<select class="selectpicker form-control" data-live-search="true" name="vehiculo_id" id="pvehiculo_id">
 								<option selected>Elija...</option>
 								@foreach($vehiculos as $vehiculo)
 								<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>
@@ -286,9 +286,9 @@
 							@foreach($inundacion->vehiculos as $vehiculo)
 							<tr class="selected" id="fila{{count($inundacion->vehiculos)}}">
 								<td><button type="button" class="btn btn-warning" onclick="eliminar1('{{count($inundacion->vehiculos)}}')" type="button">X</button></td>
-								<td><input type="hidden" name="vehiculo_id[]" value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</td>
-								<td><input type="number" name="km_salida[]" value="{{$vehiculo->pivot->km_salida}}">{{$vehiculo->pivot->km_salida}}</td>
-								<td><input type="number" name="km_llegada[]" value="{{$vehiculo->pivot->km_llegada}}">{{$vehiculo->pivot->km_llegada}}</td>
+								<td><input class="form-control" type="hidden" name="vehiculo_id[]" value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</td>
+								<td><input class="form-control" type="number" name="km_salida[]" value="{{$vehiculo->pivot->km_salida}}">{{$vehiculo->pivot->km_salida}}</td>
+								<td><input class="form-control" type="number" name="km_llegada[]" value="{{$vehiculo->pivot->km_llegada}}">{{$vehiculo->pivot->km_llegada}}</td>
 							</tr>
 							<tbody></tbody>
 							@endforeach

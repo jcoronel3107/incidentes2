@@ -35,10 +35,8 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Hora Ficha ECU911</span>
 						</div>
-						<input type="text" id="hora_fichaecu911" name="hora_fichaecu911" class="form-control" onblur="CheckTime(this);" placeholder="hh:mm:ss" required>
-						<div class="input-group-append">
-							<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual0" id="horactual0"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-						</div>
+						<input type="text" id="hora_fichaecu911" name="hora_fichaecu911" class="form-control" onblur="CheckTime(this);" placeholder="hh:mm:ss" value="{{old('hora_fichaecu911',$now->format('H:i:s') )}}" required>
+						
 					</div>
 				</div>
 			</div>
@@ -65,7 +63,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Vehìculo</span>
 							</div>
-							<select class="form-control selectpicker" name="vehiculo_id" id="pvehiculo_id" data-live-search="true" required="">
+							<select class="form-control selectpicker" name="vehiculo_id" id="pvehiculo_id" data-live-search="true" required>
 								<option value="" selected>Elija...</option>
 								@foreach($vehiculos as $vehiculo)
 								<option>{{$vehiculo->codigodis}}</option>
@@ -133,8 +131,8 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Incidente</span>
 				</div>
-				<select class="form-control" required="" name="incidente_id" id="incidente_id">
-					<option value="" selected="">{{old('incidente_id')}}</option>
+				<select class="selectpicker form-control" data-live-search="true" required name="incidente_id" id="incidente_id">
+					<option value="" selected>{{old('incidente_id')}}</option>
 					@foreach($incidentes as $incidente)
 					<option value="{{$incidente->id}}">{{$incidente->nombre_incidente}}</option>
 					@endforeach
@@ -145,7 +143,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Escenario</span>
 				</div>
-				<select class="form-control" name="tipo_escena" required="">
+				<select class="selectpicker form-control" data-live-search="true" class="form-control" name="tipo_escena" required>
 					<option value="" selected>{{old('tipo_escena')}}</option>
 					<option value="Tipo 1">Tipo 1</option>
 					<option value="Tipo 2">Tipo 2</option>
@@ -157,7 +155,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Estacion</span>
 				</div>
-				<select name="station_id" required="" class="form-control">
+				<select class="selectpicker form-control" data-live-search="true" name="station_id" required >
 					<option value="" selected>{{old('station_id')}}</option>
 					@foreach($estaciones as $estacion)
 					<option value="{{$estacion->id}}">{{$estacion->nombre}}</option>
@@ -178,7 +176,7 @@
 				<div>
 					<span class="input-group-text">Parroquia</span>
 				</div>
-				<select name="parroquia_id" required="" class="form-control">
+				<select class="selectpicker form-control" data-live-search="true" name="parroquia_id" required>
 					<option value="" selected>{{old('parroquia_id')}}</option>
 					@foreach($parroquias as $parroquia)
 					<option value="{{$parroquia->id}}">{{$parroquia->nombre}}</option>
@@ -202,7 +200,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Jefe Guardia</span>
 				</div>
-				<select required="" class="form-control" name="jefeguardia_id">
+				<select class="selectpicker form-control" data-live-search="true"  name="jefeguardia_id" required>
 					<option value="" selected>{{old('jefeguardia_id')}}</option>
 					@foreach($bomberos as $user)
 					<option value="{{$user->id}}">{{$user->name}}</option>
@@ -213,7 +211,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Bombero</span>
 				</div>
-				<select required="" class="form-control" name="bombero_id">
+				<select required class="selectpicker form-control" data-live-search="true" name="bombero_id">
 					<option value="" selected>{{old('bombero_id')}}</option>
 					@foreach($bomberos as $user)
 					<option value="{{$user->id}}">{{$user->name}}</option>
@@ -224,7 +222,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Conductor</span>
 				</div>
-				<select required="" class="form-control" name="conductor_id">
+				<select required class="selectpicker form-control" data-live-search="true" name="conductor_id">
 					<option value="" selected>{{old('conductor_id')}}</option>
 					@foreach($maquinistas as $maquinista)
 					<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>

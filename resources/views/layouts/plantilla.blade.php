@@ -22,6 +22,7 @@
 </head>
 
 <body onload="startTime()" id="page-top">
+	
 	<noscript>
 	<p>Bienvenido a Incidentes2</p>
 	<p>La página que estás viendo requiere para su funcionamiento el uso de
@@ -138,7 +139,7 @@
 				</nav>
 				<!-- End of Topbar -->
 				<div class="container-fluid fondo-blur">
-					@yield("cuerpo")
+					@yield("cuerpo")		
 				</div>
 				<div onload="initMap()" hidden="" id="map" style="width: 100%; height: 280px;"></div>
 				<hr>
@@ -147,6 +148,12 @@
 			@yield("piepagina")
 			@include("layouts.footer")
 		</div>
+	</div>
+	
+
+
+	<div class="alert alert-warning text-center" role="alert">
+		@include('cookieConsent::index')
 	</div>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->

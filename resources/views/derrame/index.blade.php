@@ -59,7 +59,7 @@
 						<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" data-target="#exampleModal" role="button"><i class="icon-envelope"></i></a>
 						@endcan
 						@can('create prevencion')
-						<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" href="{{route('inspeccion',$derrame->id)}}"><i class="fas fa-notes-medical"></i></a>
+						<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" href="{{route('inspeccionderrame',$derrame->id)}}"><i class="fas fa-clipboard-list"></i></a>
 						@endcan
 					</td>
 				</tr>

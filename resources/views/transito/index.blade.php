@@ -61,7 +61,7 @@
 					<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="PDF" href="{{action('TransitoController@downloadPDF', $transito->id)}}" role="button"><i class="icon-file-text"></i></a>
 					@endcan
 					@can('create prevencion')
-					<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" href="{{route('inspeccion',$transito->id)}}"><i class="fas fa-notes-medical"></i></a>
+					<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" href="{{route('inspecciontransito',$transito->id)}}"><i class="fas fa-notes-medical"></i></a>
 					@endcan
 
 

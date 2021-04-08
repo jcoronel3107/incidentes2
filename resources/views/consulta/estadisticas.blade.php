@@ -30,7 +30,7 @@
 	</li>
 </ul>
 <div class="tab-content" id="myTabContent">
-	{{-- Contenedor General --}}
+	
 	<div class="tab-pane fade show active" id="General" role="tabpanel" aria-labelledby="General-tab">
 		<div class="row">
 			<div class="col-xl-9 col-lg-9">
@@ -39,7 +39,7 @@
 
 			</div>
 
-			<div class="col-xl-3 col-lg-3">
+			<div class="col-xl-3 col-lg-3 " style="overflow-y: auto; width: 200px;">
 
 				<div class="py-2 " id="table0.1">
 					<table class="table table-sm" id="datatable0.1">
@@ -63,8 +63,8 @@
 			</div>
 		</div>
 		
-	</div>
-	{{-- Contenedor Inundaciones --}}
+	</div><!-- Contenedor General  -->
+	
 	<div class="tab-pane fade show " id="Inundaciones" role="tabpanel" aria-labelledby="Inundaciones-tab">
 		<div class="row">
 			<div class="col-xl-10 col-lg-10">
@@ -172,8 +172,8 @@
 			</div>{{-- Contenedor Inundacion x Incidente --}}
 			<div class="col-xl-8 col-lg-4 py-8" id="container1.4"></div>
 		</div>
-	</div>
-	{{-- Contenedor Rescates --}}
+	</div><!-- Contenedor Inundaciones -->
+	
 	<div class="tab-pane fade" id="Rescates" role="tabpanel" aria-labelledby="Rescates-tab">
 		<div class="row">{{-- Contenedor Grafico1 --}}
 			<div class="col-xl-10 col-lg-10">
@@ -248,8 +248,8 @@
 				<div class="py-2" id="container2.2"></div>
 			</div>
 		</div>
-	</div>
-	{{-- Contenedor Transito --}}
+	</div><!-- Contenedor Rescates -->
+	
 	<div class="tab-pane fade" id="Transito" role="tabpanel" aria-labelledby="Transito-tab">
 		<div class="row">
 			<div class="col-xl-10 col-lg-10">
@@ -324,8 +324,8 @@
 				<div class="py-2" id="container3.2"></div>
 			</div>{{-- Contenedor Inundacion x Estaciones --}}
 		</div>
-	</div>
-	{{-- Contenedor Salud --}}
+	</div><!-- Contenedor Transito  -->
+	
 	<div class="tab-pane fade" id="Salud" role="tabpanel" aria-labelledby="Salud-tab">
 		{{-- Contenedor Grafico4 --}}
 		<div class="row">
@@ -403,8 +403,9 @@
 				<div class="py-2" id="container4.2"></div>
 			</div>
 		</div>
-	</div>
-	{{-- Contenedor Fuego --}}
+		
+	</div><!-- Contenedor Salud  -->
+	
 	<div class="tab-pane fade" id="Fuego" role="tabpanel" aria-labelledby="Fuego-tab">
 		{{-- Contenedor Grafico5 --}}
 		<div class="row">
@@ -514,8 +515,8 @@
 			</div>{{-- Contenedor Inundacion x Incidente --}}
 			<div class="col-xl-9 col-lg-4 py-9" id="container5.3"></div>
 		</div>
-	</div>
-	{{-- Contenedor F-Gas --}}
+	</div><!-- Contenedor Fuego -->
+	
 	<div class="tab-pane fade" id="F-Gas" role="tabpanel" aria-labelledby="F-Gas-tab">
 		{{-- Contenedor Grafico5 --}}
 		<div class="row">
@@ -675,7 +676,7 @@
 			</div>
 
 		</div><!-- Contenedor Gas x Color -->
-	</div>
+	</div> <!-- Contenedor F-Gas  -->
 
 </div>
 
@@ -688,7 +689,7 @@
 <script src="https://code.highcharts.com/modules/data.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-{{-- Pestaña General --}}
+<!-- Pestaña General  -->
 <script>
 	Highcharts.chart('container0', {
 		data: {
@@ -721,6 +722,7 @@
 		}
 	});
 </script>
+<!-- Pestaña Inundaciones  -->
 <script>
 	Highcharts.chart('container0.2', {
 
@@ -781,7 +783,7 @@
 		}
 	});
 </script>
-{{-- Pestaña Inundaciones --}}
+
 <script>
 	Highcharts.chart('container1', {
 		data: {
@@ -809,7 +811,7 @@
 			}
 		}
 	});
-</script>{{-- Container Inundaciones Mensuales --}}
+</script><!-- Container Inundaciones Mensuales -->
 <script>
 	Highcharts.chart('container1.2', {
 		data: {
@@ -837,7 +839,7 @@
 			}
 		}
 	});
-</script>{{-- Container Inundaciones x Incidente --}}
+</script><!--  Container Inundaciones x Incidente  -->
 <script>
 	Highcharts.chart('container1.3', {
 		data: {
@@ -864,7 +866,7 @@
 			}
 		}
 	});
-</script>{{-- Container Inundaciones x Estaciones --}}
+</script><!-- Container Inundaciones x Estaciones  -->
 <script>
 	Highcharts.chart('container1.4', {
 		data: {
@@ -891,7 +893,7 @@
 			}
 		}
 	});
-</script>{{-- Container Inundaciones x Parroquia --}}
+</script><!-- Container Inundaciones x Parroquia -->
 
 {{-- Pestaña Rescates --}}
 <script>

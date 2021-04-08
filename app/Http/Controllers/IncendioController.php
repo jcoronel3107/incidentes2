@@ -370,7 +370,29 @@ class IncendioController extends Controller
 
     public function inspeccion($id)
     {
-        return view("/fuego.inspeccion",compact('id'));
+       
+            $conductor_id = DB::table('users')
+            ->where('id', $id)
+            ->value('name');
+            $bombero_id = DB::table('users')
+            ->where('id', $id)
+            ->value('name');
+            $incendio = Incendio::findOrFail( $id );
+            $vehiculos = Vehiculo::all();
+            $bomberos=User::where('cargo','bombero')
+            ->orderBy("name",'asc')
+            ->get();
+            $maquinistas=User::where('cargo','Maquinista')
+            ->orderBy("name",'asc')
+            ->get();
+            $incidentes = Incidente::where("tipo_incidente","10_70")
+            ->orderBy("nombre_incidente",'asc')
+            ->get();
+            $estaciones = Station::all();
+            $parroquias = Parroquia::all();
+            return view( "/fuego.inspeccion", compact("incendio","vehiculos","bomberos","maquinistas","incidentes","estaciones","parroquias"));
+      
+        
     }
 
 

@@ -68,7 +68,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label text-sm-right">Cambiar foto</label>
                   <div class="col-sm-9">
-                    <input type="file" required="" class="form-control-file @error('avatar') is-invalid @enderror" name="avatar" aria-describedby="fileHelp">
+                    <input type="file" required class="form-control-file @error('avatar') is-invalid @enderror" name="avatar" aria-describedby="fileHelp">
                     @error('avatar') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     <small class="form-text text-muted">Adjunta un archivo válido de imagen. No debe exceder los 2MB.</small>
                   </div><!-- /.col -->

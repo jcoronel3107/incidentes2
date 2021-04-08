@@ -45,20 +45,20 @@
 				<td>{{$incendio->direccion}}</td>
 				<td>
 					@can('edit evento')
-					<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Edit" href="{{route('fuego.edit',$incendio->id)}}"><i class="icon-edit"></i></a>
+					<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Edit" href="{{route('fuego.edit',$incendio->id)}}" role="button"><i class="icon-edit" aria-hidden="true"></i></a>
 					@endcan
 					@can('allow upload')
 					<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Forms SCI" href="/incendios/carga/{{$incendio->id}}"><i class="fa fa-upload" aria-hidden="true"></i></a>
 					@endcan
-					<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Ver" href="{{route('fuego.show',$incendio->id)}}" role="button"><i class="icon-search"></i></a>
+					<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Ver" href="{{route('fuego.show',$incendio->id)}}" role="button"><i class="icon-search" aria-hidden="true"></i></a>
 					@can('send mail')
-					<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" data-target="#exampleModal" role="button"><i class="icon-envelope"></i></a>
+					<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" data-target="#exampleModal" role="button"><i class="icon-envelope" aria-hidden="true"></i></a>
 					@endcan
 					@can('create pdf')
-					<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="PDF" href="{{action('IncendioController@downloadPDF', $incendio->id)}}" role="button"><i class="icon-file-text"></i></a>
+					<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="PDF" href="{{action('IncendioController@downloadPDF', $incendio->id)}}" role="button"><i class="icon-file-text" aria-hidden="true"></i></a>
 					@endcan
 					@can('create inspeccion')
-						<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Inspeccion" href="/incendios/inspeccionfuego/{{$incendio->id}}"><i class="fas fa-notes-medical"></i></a>
+					<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Inspeccion" href="{{route('inspeccionfuego',$incendio->id)}}" role="button"><i class="fas fa-notes-medical" aria-hidden="true"></i></a>
 					@endcan
 				</td>
 			</tr>

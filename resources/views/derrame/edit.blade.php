@@ -63,7 +63,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Incidente</span>
 				</div>
-				<select required="" class="form-control" name="incidente_id" id="incidente_id">
+				<select required class="selectpicker form-control" data-live-search="true" name="incidente_id" id="incidente_id">
 					<option value="{{$derrame->incidente->id}}" selected>{{old('incidente_id',$derrame->incidente->nombre_incidente)}}</option>
 					@foreach($incidentes as $incidente)
 					<option value="{{$incidente->id}}">{{$incidente->nombre_incidente}}</option>
@@ -75,7 +75,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Escenario</span>
 				</div>
-				<select required="" class="form-control" name="tipo_escena">
+				<select required class="selectpicker form-control" data-live-search="true" name="tipo_escena">
 					<option value="{{$derrame->tipo_escena}}" selected>{{old('tipo_escena',$derrame->tipo_escena)}}</option>
 					<option value="Tipo 1">Tipo 1</option>
 					<option value="Tipo 2">Tipo 2</option>
@@ -87,7 +87,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Estacion</span>
 				</div>
-				<select required="" name="station_id" class="form-control">
+				<select required class="selectpicker form-control" data-live-search="true" name="station_id" >
 					<option value="{{$derrame->station->id}}" selected>{{old('estacion_id',$derrame->station->nombre)}}</option>
 					@foreach($estaciones as $estacion)
 					<option value="{{$estacion->id}}">{{$estacion->nombre}}</option>
@@ -108,7 +108,7 @@
 				<div>
 					<span class="input-group-text">Parroquia</span>
 				</div>
-				<select required="" name="parroquia_id" class="form-control">
+				<select required class="selectpicker form-control" data-live-search="true" name="parroquia_id">
 					<option value="{{$derrame->parroquia->id}}" selected>{{old('parroquia_id',$derrame->parroquia->nombre)}}</option>
 					@foreach($parroquias as $parroquia)
 					<option value="{{$parroquia->id}}">{{$parroquia->nombre}}</option>
@@ -131,7 +131,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Jefe Guardia</span>
 				</div>
-				<select required="" class="form-control" name="jefeguardia_id">
+				<select required class="selectpicker form-control" data-live-search="true" name="jefeguardia_id">
 					@if($derrame->users->isNotEmpty()){
 					<option value="{{$derrame->users[2]->id}}" selected="{{$derrame->users[2]->id}}">{{$derrame->users[2]->name}}</option>
 					@else{
@@ -146,7 +146,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Bombero</span>
 				</div>
-				<select required="" class="form-control" name="bombero_id">
+				<select required class="selectpicker form-control" data-live-search="true" name="bombero_id">
 					@if($derrame->users->isNotEmpty()){
 					<option value="{{$derrame->users[1]->id}}" selected="{{$derrame->users[1]->id}}">{{$derrame->users[1]->name}}</option>
 					@else{
@@ -161,7 +161,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Conductor</span>
 				</div>
-				<select required="" class="form-control" name="conductor_id">
+				<select required class="selectpicker form-control" data-live-search="true" name="conductor_id">
 					@if($derrame->users->isNotEmpty()){
 					<option value="{{$derrame->users[0]->id}}" selected="{{$derrame->users[0]->id}}">{{$derrame->users[0]->name}}</option>
 					@else{
@@ -242,8 +242,8 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Vehìculo</span>
 							</div>
-							<select class="form-control selectpicker" name="vehiculo_id" id="pvehiculo_id" data-live-search="true">
-								<option selected>Elija...</option>
+							<select  class="selectpicker form-control" data-live-search="true" name="vehiculo_id" id="pvehiculo_id">
+								<option selected>{{old('vehiculo_id')}}</option>
 								@foreach($vehiculos as $vehiculo)
 								<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>
 								@endforeach
@@ -284,8 +284,8 @@
 							<tr class="selected" id="fila{{count($derrame->vehiculos)}}">
 								<td><button type="button" class="btn btn-warning" onclick="eliminar1('{{count($derrame->vehiculos)}}')" type="button">X</button></td>
 								<td><input type="hidden" name="vehiculo_id[]" value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</td>
-								<td><input type="number" name="km_salida[]" value="{{$vehiculo->pivot->km_salida}}">{{$vehiculo->pivot->km_salida}}</td>
-								<td><input type="number" name="km_llegada[]" value="{{$vehiculo->pivot->km_llegada}}">{{$vehiculo->pivot->km_llegada}}</td>
+								<td><input class="form-control" type="number" name="km_salida[]" value="{{$vehiculo->pivot->km_salida}}">{{$vehiculo->pivot->km_salida}}</td>
+								<td><input class="form-control" type="number" name="km_llegada[]" value="{{$vehiculo->pivot->km_llegada}}">{{$vehiculo->pivot->km_llegada}}</td>
 							</tr>
 							<tbody></tbody>
 							@endforeach

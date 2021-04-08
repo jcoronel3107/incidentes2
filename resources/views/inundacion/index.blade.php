@@ -40,11 +40,11 @@
 			<tbody>
 				@foreach($inundaciones as $inundacion)
 				<tr>
-					<th>{{$inundacion->id}}</th>
+					<td>{{$inundacion->id}}</td>
 					<td>{{$inundacion->incidente->nombre_incidente}}</td>
 					<td>{{$inundacion->station->nombre}}</td>
 					<td>{{$inundacion->fecha}}</td>
-					<td align="left">{{$inundacion->address}}</td>
+					<td>{{$inundacion->direccion}}</td>
 					<td>
 						@can('edit evento')
 						<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Edit" href="{{route('inundacion.edit',$inundacion->id)}}"><i class="icon-edit"></i></a>
@@ -60,7 +60,7 @@
 						<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" data-target="#exampleModal" role="button"><i class="fas fa-envelope-open"></i></a>
 						@endcan
 						@can('create prevencion')
-						<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" href="{{route('inspeccion',$inundacion->id)}}"><i class="fas fa-notes-medical"></i></a>
+						<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" href="{{route('inspeccioninundacion',$inundacion->id)}}"><i class="fas fa-notes-medical"></i></a>
 						@endcan
 					</td>
 				</tr>
@@ -92,7 +92,6 @@
 		 				</div>
 					</div>
 				@endforeach
-
 			</tbody>
 			<tfoot>
 				<tr class="table-primary">

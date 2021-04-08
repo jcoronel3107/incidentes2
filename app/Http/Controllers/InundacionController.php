@@ -306,7 +306,6 @@ class InundacionController extends Controller
         $date = $date->format('l jS \\of F Y ');
         $inundacion = Inundacion::find($id);
         $pdf = PDF::loadView('inundacion.pdf', compact('inundacion','date'));
-
         return $pdf->download('inundacion.pdf');
     }
 
@@ -318,60 +317,71 @@ class InundacionController extends Controller
     public function upload(Request $request)
     {
 
-    //obtenemos el nombre del archivo
-    $file201 = $request->file('fileSCI-201');
-    $nombre = "201." . $file201->getClientOriginalExtension();
-    $validation = $request->validate([
-      'fileSCI-201' => 'required|file|mimes:pdf|max:2048'
-    ]);
-    $file      = $validation['fileSCI-201']; // get the validated file        
-    $path      = $file->storeAs('1020/' . $request->id, $nombre);
-    $exists = Storage::disk('local')->exists($path);
+      //obtenemos el nombre del archivo
+      $file201 = $request->file('fileSCI-201');
+      $nombre = "201." . $file201->getClientOriginalExtension();
+      $validation = $request->validate([
+        'fileSCI-201' => 'required|file|mimes:pdf|max:2048'
+      ]);
+      $file      = $validation['fileSCI-201']; // get the validated file        
+      $path      = $file->storeAs('1020/' . $request->id, $nombre);
+      $exists = Storage::disk('local')->exists($path);
 
-    //obtenemos el nombre del archivo
-    $file207 = $request->file('fileSCI-207');
-    $nombre1 = "207." . $file207->getClientOriginalExtension();
-    $validation = $request->validate([
-      'fileSCI-207' => 'required|file|mimes:pdf|max:2048'
-    ]);
-    $file      = $validation['fileSCI-207']; // get the validated file
-    $path1      = $file->storeAs('1020/' . $request->id, $nombre1);
-    $exists1 = Storage::disk('local')->exists($path1);
+      //obtenemos el nombre del archivo
+      $file207 = $request->file('fileSCI-207');
+      $nombre1 = "207." . $file207->getClientOriginalExtension();
+      $validation = $request->validate([
+        'fileSCI-207' => 'required|file|mimes:pdf|max:2048'
+      ]);
+      $file      = $validation['fileSCI-207']; // get the validated file
+      $path1      = $file->storeAs('1020/' . $request->id, $nombre1);
+      $exists1 = Storage::disk('local')->exists($path1);
 
-    //obtenemos el nombre del archivo
-    $file211 = $request->file('fileSCI-211');
-    $nombre2 = "211." . $file211->getClientOriginalExtension();
-    $validation = $request->validate([
-      'fileSCI-211' => 'required|file|mimes:pdf|max:2048'
-    ]);
-    $file      = $validation['fileSCI-211']; // get the validated file        
-    $path2      = $file->storeAs('1020/' . $request->id, $nombre2);
-    $exists2 = Storage::disk('local')->exists($path2);
-        if ($exists&&$exists1&&$exists2) {
-          Session::flash('Carga_Correcta',"Formularios Subidos con Exito!!!");
-         return redirect( "/inundacion" );
-        } else {
-          Session::flash('Carga_Incorrecta',"Evento Tiene Formularios Cargados con Anterioridad.!!!");
+      //obtenemos el nombre del archivo
+      $file211 = $request->file('fileSCI-211');
+      $nombre2 = "211." . $file211->getClientOriginalExtension();
+      $validation = $request->validate([
+        'fileSCI-211' => 'required|file|mimes:pdf|max:2048'
+      ]);
+      $file      = $validation['fileSCI-211']; // get the validated file        
+      $path2      = $file->storeAs('1020/' . $request->id, $nombre2);
+      $exists2 = Storage::disk('local')->exists($path2);
+          if ($exists&&$exists1&&$exists2) {
+            Session::flash('Carga_Correcta',"Formularios Subidos con Exito!!!");
           return redirect( "/inundacion" );
-        }
-        
-        
-       /*if ($size>1048576) {
-          Session::flash('Tamaño_Excedido',"El tamaño maximo pemitido es de 1 MB por Archivo.!!!".$size/1024);
-          return redirect( "/inundacion" );
-       } 
-       else {
-         if (!$exists) {
-         \Storage::disk('local')->put($nombre,  \File::get($file201));
-         \Storage::disk('local')->put($nombre1,  \File::get($file202));
-         \Storage::disk('local')->put($nombre2,  \File::get($file206));
-         Session::flash('Carga_Correcta',"Formularios Subidos con Exito!!!");
-         return redirect( "/inundacion" );
-         }
-          else
-         {
-          
+          } else {
+            Session::flash('Carga_Incorrecta',"Evento Tiene Formularios Cargados con Anterioridad.!!!");
+            return redirect( "/inundacion" );
           }
-       }*/ 
+          
+          
+        /*if ($size>1048576) {
+            Session::flash('Tamaño_Excedido',"El tamaño maximo pemitido es de 1 MB por Archivo.!!!".$size/1024);
+            return redirect( "/inundacion" );
+        } 
+        else {
+          if (!$exists) {
+          \Storage::disk('local')->put($nombre,  \File::get($file201));
+          \Storage::disk('local')->put($nombre1,  \File::get($file202));
+          \Storage::disk('local')->put($nombre2,  \File::get($file206));
+          Session::flash('Carga_Correcta',"Formularios Subidos con Exito!!!");
+          return redirect( "/inundacion" );
+          }
+            else
+          {
+            
+            }
+        }*/ 
+    }
+
+    public function inspeccion($id)
+    {
+      
+    }
+
+
+    public function registra_Inspeccion(Request $request)
+    {
+
     }
 }

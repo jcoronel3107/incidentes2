@@ -110,16 +110,30 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($derrame->vehiculos as $vehiculo)
-						<tr>
-							<th scope="row">{{$vehiculo->id}}</th>
-							<td>{{$vehiculo->codigodis}}</td>
-							<td>{{$vehiculo->placa}}</td>
-							<td>{{$vehiculo->marca}}</td>
-							<td>{{$vehiculo->pivot->km_salida}}</td>
-							<td>{{$vehiculo->pivot->km_llegada}}</td>
-						</tr>
-						@endforeach
+						@if($derrame->vehiculos->isNotEmpty())
+						{
+							@foreach($derrame->vehiculos as $vehiculo)
+							<tr>
+								<th scope="row">{{$vehiculo->id}}</th>
+								<td>{{$vehiculo->codigodis}}</td>
+								<td>{{$vehiculo->placa}}</td>
+								<td>{{$vehiculo->marca}}</td>
+								<td>{{$vehiculo->pivot->km_salida}}</td>
+								<td>{{$vehiculo->pivot->km_llegada}}</td>
+							</tr>
+							@endforeach
+						}else
+						{
+							<tr>
+								<th scope="row"></th>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						
+						}@endif
 					</tbody>
 				</table>
 			</div>
@@ -130,7 +144,7 @@
 				<p class="text-center">
 				<h4>Firmas</h4>
 				</p><br><br>
-				<p class="text-info">{{$incendio->usr_creador}}</p>
+				<p class="text-info">{{$derrame->usr_creador}}</p>
 				<span class="bg-gray font-weight-bold"> Usuario Elaborador</span>
 			</div>
 		</div>

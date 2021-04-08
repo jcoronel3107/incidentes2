@@ -54,10 +54,8 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Hora Ficha ECU911</span>
 						</div>
-						<input type="text" id="hora_fichaecu911" name="hora_fichaecu911" onblur="CheckTime(this);" class="form-control" placeholder="hh:mm:ss" required value="{{old('hora_fichaecu911')}}">
-						<div class="input-group-append">
-							<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual0" id="horactual0"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-						</div>
+						<input type="text" id="hora_fichaecu911" name="hora_fichaecu911" onblur="CheckTime(this);" class="form-control" placeholder="hh:mm:ss" required value="{{old('hora_fichaecu911',$now->format('H:i:s') )}}">
+						
 					</div>
 				</div>
 			</div>
@@ -67,7 +65,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Nro.Ficha ECU911</span>
 						</div>
-						<input type="text" onkeyup="mayus(this);" name="ficha_ecu911" value="{{old('ficha_ecu911')}}" required="" class="form-control">
+						<input type="text" onkeyup="mayus(this);" name="ficha_ecu911" value="{{old('ficha_ecu911')}}" required class="form-control">
 					</div>
 				</div>
 			</div>
@@ -83,10 +81,10 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Vehìculo</span>
 							</div>
-							<select class="form-control selectpicker" name="vehiculo_id" id="pvehiculo_id" data-live-search="true">
-								<option value="" selected>Elija...</option>
+							<select class="form-control selectpicker" data-live-search="true" name="vehiculo_id" id="pvehiculo_id" >
+								<option value="" selected>{{old('vehiculo_id')}}</option>
 								@foreach($vehiculos as $vehiculo)
-								<option>{{$vehiculo->codigodis}}</option>
+									<option>{{$vehiculo->codigodis}}</option>
 								@endforeach
 							</select>
 						</div>
@@ -152,7 +150,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Incidente</span>
 				</div>
-				<select class="form-control" name="incidente_id" id="incidente_id" required="">
+				<select class="selectpicker form-control" data-live-search="true" name="incidente_id" id="incidente_id" required>
 					<option value="" selected>{{old('incidente_id')}}</option>
 					@foreach($incidentes as $incidente)
 					<option value="{{$incidente->id}}">{{$incidente->nombre_incidente}}</option>
@@ -164,7 +162,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Escenario</span>
 				</div>
-				<select class="form-control" name="tipo_escena" required="">
+				<select class="form-control" name="tipo_escena" required>
 					<option value="" selected>{{old('tipo_escena')}}</option>
 					<option value="Tipo 1">Tipo 1</option>
 					<option value="Tipo 2">Tipo 2</option>
@@ -176,7 +174,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Estacion</span>
 				</div>
-				<select name="station_id" class="form-control" required="">
+				<select class="selectpicker form-control" data-live-search="true" name="station_id"   required>
 					<option value="" selected>{{old('station_id')}}</option>
 					@foreach($estaciones as $estacion)
 					<option value="{{$estacion->id}}">{{$estacion->nombre}}</option>
@@ -186,26 +184,26 @@
 		</div>
 		<!--Div Tipo Evento-->
 		<div class="form-row">
-			<div class="form-group input-group col-md-5">
+			<div class="form-group input-group col-md-7">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Dirección</span>
 				</div>
 				<textarea onkeyup="mayus(this);" class="form-control" id="pdireccion" name="address" placeholder="Ubicacion del Evento" aria-label="With textarea" required=""></textarea>
-				<button data-toggle="tooltip" title="Geolocaliza" value="Encode" onclick="codeAddress()"><i class="icon-globe"></i></button>
+				<button class="btn btn-outline-info" data-toggle="tooltip" title="Geolocaliza" value="Encode" onclick="codeAddress()"><i class="icon-globe"></i></button>
 			</div>
-			<div class="form-group input-group input-group-prepend col-md-3">
+			<div class="form-group input-group input-group-prepend col-md-5">
 				<div>
 					<span class="input-group-text">Parroquia</span>
 				</div>
-				<select name="parroquia_id" class="form-control" required="">
+				<select class="selectpicker form-control" data-live-search="true" name="parroquia_id"  required>
 					<option value="" selected>{{old('parroquia_id')}}</option>
 					@foreach($parroquias as $parroquia)
 					<option value="{{$parroquia->id}}">{{$parroquia->nombre}}</option>
 					@endforeach
 				</select>
-				<a rel="nofollow noopener noreferrer" href="{{asset('files/MapaCuenca.pdf')}}" target="_blank" role="button" data-toggle="tooltip" title="Mapa" class="btn btn-outline-info"><i class="icon-file icon-2x"></i></a>
+				<a rel="nofollow noopener noreferrer" href="{{asset('files/MapaCuenca.pdf')}}" target="_blank" role="button" data-toggle="tooltip" title="Mapa" class="btn btn-outline-info"><i class="icon-file icon"></i></a>
 			</div>
-			<div class="form-group input-group col-md-4">
+			<div class="form-group input-group col-md-5">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Geoposicion</span>
 				</div>
@@ -221,34 +219,37 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">C.I.</span>
 				</div>
-				<select class="form-control" name="jefeguardia_id" required="">
+				<select class="selectpicker form-control" data-live-search="true" name="jefeguardia_id" required>
 					<option selected>{{old('jefeguardia_id')}}</option>
 					@foreach($users as $user)
 					<option value="{{$user->id}}">{{$user->name}}</option>
 					@endforeach
 				</select>
+				@error('jefeguardia_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
 			</div>
 			<div class="form-group input-group col-md-4">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Bombero</span>
 				</div>
-				<select class="form-control" name="bombero_id" required="">
+				<select class="selectpicker form-control" data-live-search="true" name="bombero_id" required>
 					<option selected>{{old('bombero_id')}}</option>
 					@foreach($users as $user)
 					<option value="{{$user->id}}">{{$user->name}}</option>
 					@endforeach
 				</select>
+				@error('bombero_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
 			</div>
 			<div class="form-group input-group col-md-4">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Conductor</span>
 				</div>
-				<select class="form-control" name="conductor_id" required="">
+				<select class="selectpicker form-control" data-live-search="true"  name="conductor_id" required>
 					<option selected>{{old('conductor_id')}}</option>
 					@foreach($maquinistas as $maquinista)
 					<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>
 					@endforeach
 				</select>
+				@error('conductor_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
 			</div>
 		</div>
 		<!--Div Personal que asiste Evento-->

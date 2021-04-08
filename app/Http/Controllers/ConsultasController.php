@@ -16,6 +16,7 @@ use App\Incidente;
 use PDF;
 use Spatie\Activitylog\Models\Activity;
 use App\Exports\Evento_Entre_FechasExport;
+use App\Exports\TiempoRespuesta_Entre_FechasExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 use Illuminate\Support\Carbon;
@@ -36,7 +37,7 @@ class ConsultasController extends Controller
 
     public function activitylog()
     {
-    	$lastActivity = Activity::all(); //returns the  logged activity
+    	$lastActivity = Activity::all()->last();//returns the  logged activity
     	
     	return  $lastActivity;
     }
@@ -373,8 +374,7 @@ class ConsultasController extends Controller
 				->havingRaw('count(' . $tabla . '.id) >= ?', [1])
 				->get();
 
-		
-
+			
 		
 
 		return view("/consulta/entrefechas", compact('tabla','Busquedaentrefechas_Parroquias','Busquedaentrefechas_Estaciones','busquedaentrefechas','fechaD','fechaH'));
@@ -383,6 +383,11 @@ class ConsultasController extends Controller
 	public function export($tabla,$fechaD,$fechaH)
 	{
 		return Excel::download(new Evento_Entre_FechasExport($tabla,$fechaD,$fechaH), 'consulta_'.$tabla.'_'.$fechaD.'_a_'.$fechaH.'.xlsx');
+	}
+
+	public function export2($tabla,$fechaD,$fechaH)
+	{
+		return Excel::download(new TiempoRespuesta_Entre_FechasExport($tabla,$fechaD,$fechaH), 'tiempo_respuesta_'.$tabla.'_'.$fechaD.'_a_'.$fechaH.'.xlsx');
 	}
 
 

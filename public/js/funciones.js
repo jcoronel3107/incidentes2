@@ -5,11 +5,10 @@ window.addEventListener("load", cargaPagina);
 function cargaPagina() {
     
 	var btn = document.getElementById("horactual").addEventListener("click", hractual);
-	var btn = document.getElementById("horactual0").addEventListener("click", hractual);
-	var btn = document.getElementById("horactual1").addEventListener("click", hractual);
-	var btn = document.getElementById("horactual2").addEventListener("click", hractual);
-	var btn = document.getElementById("horactual3").addEventListener("click", hractual);
-
+	var btn0 = document.getElementById("horactual0").addEventListener("click", hractual);
+	var btn1 = document.getElementById("horactual1").addEventListener("click", hractual);
+	var btn2 = document.getElementById("horactual2").addEventListener("click", hractual);
+	var btn3 = document.getElementById("horactual3").addEventListener("click", hractual);
 }
 
 
@@ -92,6 +91,8 @@ $(document).ready(function(){
 	    });
 	$("#Enviar").hide();
 	conservarinfo();
+
+	
 });
 		
 total=0;
@@ -101,8 +102,6 @@ var jqkm_llegada=0;
 var jqvehiculo_id="";
 var jqvehiculo="";
 subtotal=[];
-
-
 
 function agregar() {
 	// body...
@@ -209,36 +208,39 @@ function hractual(e) {
 		sec = "0"+ sec;
 	}
 	var hora = h1  + ':' + min + ':' + sec;
-	if(e.name == "horactual")
+	if(e.name === "horactual")
 	{
 		console.log(e.name);
 		document.getElementById("hora_salida_a_emergencia").value=hora;
+		console.log(document.getElementById("hora_salida_a_emergencia").name);
 	}
 	
-	else if (e.name == "horactual1")
+	else if (e.name === "horactual1")
 	{
 		console.log(e.name);
 		document.getElementById("hora_llegada_a_emergencia").value=hora;
-
+		console.log(document.getElementById("hora_llegada_a_emergencia").name);
 	}
 	else if (e.name == "horactual2")
 	{
 		console.log(e.name);
 		document.getElementById("hora_fin_emergencia").value=hora;
+		console.log(document.getElementById("hora_fin_emergencia").name);
 	}	
 	
 	else if(e.name == "horactual3")
 	{
 		console.log(e.name);
 		document.getElementById("hora_en_base").value=hora;
-		
+		console.log(document.getElementById("hora_en_base").name);
 	}	
-	
-	else if(e.name == "horactual0")
+	else if(e.name === "horactual4")
 	{
 		console.log(e.name);
 		document.getElementById("hora_fichaecu911").value=hora;
+		console.log(document.getElementById("hora_fichaecu911").name);
 	}
+	
 }
 
 function CheckTime(str)
@@ -250,14 +252,11 @@ function CheckTime(str)
 	}
 	if (hora.length>8) 
 	{	
-		alert("Introdujo una cadena mayor a 8 caracteres");
-		str.select() ;
-		
+		alert("Introdujo una cadena mayor a 8 caracteres");	
 	}
 	if (hora.length!=8) 
 	{
-		alert("Introducir formato HH:MM:SS");
-		str.select() ;		
+		alert("Introducir formato HH:MM:SS");	
 	}
 	a=hora.charAt(0) //<=2
 	b=hora.charAt(1) //<4
@@ -268,23 +267,21 @@ function CheckTime(str)
 	if ((a==2 && b>3) || (a>2)) 
 	{
 		alert("El valor que introdujo en la Hora no corresponde, introduzca un digito entre 00 y 23");
-		str.title = "El valor que introdujo en la Hora no corresponde, introduzca un digito entre 00 y 23";
-		str.select() ;		
+		str.title = "El valor que introdujo en la Hora no corresponde, introduzca un digito entre 00 y 23";	
 	}
 	if (d>5)
 	{
 		alert("El valor que introdujo en los minutos no corresponde, introduzca un digito entre 00 y 59");
-		str.select() ;
 	}
 	if (f>5) 
 	{
 		alert("El valor que introdujo en los segundos no corresponde");
-		str.select() ;
+		
 	}
 	if (c!=':' || e!=':') 
 	{
 		alert("Introduzca el caracter ':' para separar la hora, los minutos y los segundos");
-		str.select() ;	
+			
 	} 
 } 
 

@@ -64,7 +64,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Incidente</span>
 				</div>
-				<select required="" class="form-control" name="incidente_id" id="incidente_id">
+				<select required class="selectpicker form-control" data-live-search="true" name="incidente_id" id="incidente_id">
 					<option value="{{$fuga->incidente->id}}" selected>{{old('incidente_id',$fuga->incidente->nombre_incidente)}}</option>
 					@foreach($incidentes as $incidente)
 					<option value="{{$incidente->id}}">{{$incidente->nombre_incidente}}</option>
@@ -76,7 +76,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Escenario</span>
 				</div>
-				<select required="" class="form-control" name="tipo_escena">
+				<select required class="selectpicker form-control" data-live-search="true" name="tipo_escena">
 					<option value="{{$fuga->tipo_escena}}" selected>{{old('tipo_escena',$fuga->tipo_escena)}}</option>
 					<option value="Tipo 1">Tipo 1</option>
 					<option value="Tipo 2">Tipo 2</option>
@@ -88,7 +88,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Estacion</span>
 				</div>
-				<select required="" name="station_id" class="form-control">
+				<select required name="station_id" class="selectpicker form-control" data-live-search="true">
 					<option value="{{$fuga->station->id}}" selected>{{old('station_id',$fuga->station->nombre)}}</option>
 					@foreach($estaciones as $estacion)
 					<option value="{{$estacion->id}}">{{$estacion->nombre}}</option>
@@ -109,7 +109,7 @@
 				<div>
 					<span class="input-group-text">Parroquia</span>
 				</div>
-				<select name="parroquia_id" class="form-control">
+				<select name="parroquia_id" class="selectpicker form-control" data-live-search="true">
 					<option value="{{$fuga->parroquia->id}}" selected>{{old('parroquia_id',$fuga->parroquia->nombre)}}</option>
 					@foreach($parroquias as $parroquia)
 					<option value="{{$parroquia->id}}">{{$parroquia->nombre}}</option>
@@ -132,7 +132,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Jefe Guardia</span>
 				</div>
-				<select class="form-control" name="jefeguardia_id">
+				<select class="selectpicker form-control" data-live-search="true" name="jefeguardia_id">
 					<option value="{{$fuga->users[2]->id}}" selected="{{$fuga->users[2]->id}}">{{$fuga->users[2]->name}}</option>
 					@foreach($bomberos as $bombero)
 					<option value="{{$bombero->id}}">{{$bombero->name}}</option>
@@ -143,7 +143,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Bombero</span>
 				</div>
-				<select class="form-control" name="bombero_id">
+				<select class="selectpicker form-control" data-live-search="true" name="bombero_id">
 					<option value="{{$fuga->users[1]->id}}" selected="{{$fuga->users[1]->id}}">{{$fuga->users[1]->name}}</option>
 					@foreach($bomberos as $bombero)
 					<option value="{{$bombero->id}}">{{$bombero->name}}</option>
@@ -154,7 +154,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Conductor</span>
 				</div>
-				<select class="form-control" name="conductor_id">
+				<select class="selectpicker form-control" data-live-search="true" name="conductor_id">
 					<option value="{{$fuga->users[0]->id}}" selected="{{$fuga->users[0]->id}}">{{$fuga->users[0]->name}}</option>
 					@foreach($maquinistas as $maquinista)
 					<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>
@@ -208,7 +208,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputtipo_cilindro">Tipo_Cilindro</span>
 				</div>
-				<select class="form-control" id="tipo_cilindro" name="tipo_cilindro" required="">
+				<select class="selectpicker form-control" data-live-search="true" id="tipo_cilindro" name="tipo_cilindro" required>
 					<option value="{{$fuga->tipo_cilindro}}" selected>{{old('tipo_cilindro',$fuga->tipo_cilindro)}}</option>
 					<option value="Centralizado">Centralizado</option>
 					<option value="Comercial 15Kg">Comercial 15Kg</option>
@@ -222,7 +222,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputcolor_cilindro">Color_Cilindro</span>
 				</div>
-				<select class="form-control" id="color_cilindro" name="color_cilindro" required="">
+				<select class="selectpicker form-control" data-live-search="true" id="color_cilindro" name="color_cilindro" required>
 					<option value="{{$fuga->color_cilindro}}" selected="">{{old('color_cilindro',$fuga->color_cilindro)}}</option>
 					<option value="Amarillo">Amarillo</option>
 					<option value="Azul">Azul</option>
@@ -235,7 +235,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputtipo_fallo">Tipo_Fallo</span>
 				</div>
-				<select class="form-control" id="tipo_fallo" name="tipo_fallo" required="">
+				<select class="selectpicker form-control" data-live-search="true" id="tipo_fallo" name="tipo_fallo" required>
 					<option value="{{$fuga->tipo_fallo}}" selected>{{old('tipo_fallo',$fuga->tipo_fallo)}}</option>
 					<option value="Manguera">Manguera</option>
 					<option value="Regulador">Regulador</option>
@@ -317,8 +317,8 @@
 							<tr class="selected" id="fila{{count($fuga->vehiculos)}}">
 								<td><button type="button" class="btn btn-warning" onclick="eliminar1('{{count($fuga->vehiculos)}}')" type="button">X</button></td>
 								<td><input type="hidden" name="vehiculo_id[]" value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</td>
-								<td><input type="number" name="km_salida[]" value="{{$vehiculo->pivot->km_salida}}">{{$vehiculo->pivot->km_salida}}</td>
-								<td><input type="number" name="km_llegada[]" value="{{$vehiculo->pivot->km_llegada}}">{{$vehiculo->pivot->km_llegada}}</td>
+								<td><input class="form-control" type="number" name="km_salida[]" value="{{$vehiculo->pivot->km_salida}}">{{$vehiculo->pivot->km_salida}}</td>
+								<td><input class="form-control" type="number" name="km_llegada[]" value="{{$vehiculo->pivot->km_llegada}}">{{$vehiculo->pivot->km_llegada}}</td>
 							</tr>
 							<tbody></tbody>
 							@endforeach

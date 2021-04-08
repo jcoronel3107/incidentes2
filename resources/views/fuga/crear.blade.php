@@ -33,10 +33,8 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Hora Ficha ECU911</span>
 						</div>
-						<input type="text" id="hora_fichaecu911" name="hora_fichaecu911" class="form-control" placeholder="hh:mm:ss" onblur="CheckTime(this);" value="{{old('hora_fichaecu911')}}" required="">
-						<div class="input-group-append">
-							<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual0" id="horactual0"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-						</div>
+						<input type="text" id="hora_fichaecu911" name="hora_fichaecu911" class="form-control" placeholder="hh:mm:ss" onblur="CheckTime(this);" value="{{old('hora_fichaecu911',$now->format('H:i:s') )}}" required="">
+						
 					</div>
 				</div>
 			</div>
@@ -63,7 +61,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Vehìculo</span>
 							</div>
-							<select class="form-control selectpicker" name="vehiculo_id" id="pvehiculo_id" data-live-search="true" required="">
+							<select class="form-control selectpicker" name="vehiculo_id" id="pvehiculo_id" data-live-search="true" required>
 								<option value="" selected>Elija...</option>
 								@foreach($vehiculos as $vehiculo)
 								<option>{{$vehiculo->codigodis}}</option>
@@ -132,7 +130,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Incidente</span>
 				</div>
-				<select class="form-control" name="incidente_id" id="incidente_id" required="">
+				<select class="selectpicker form-control" data-live-search="true" name="incidente_id" id="incidente_id" required>
 					<option value="" selected>{{old('incidente_id')}}</option>
 					@foreach($incidentes as $incidente)
 					<option value="{{$incidente->id}}">{{$incidente->nombre_incidente}}</option>
@@ -144,7 +142,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Escenario</span>
 				</div>
-				<select class="form-control" id="tipo_escena" name="tipo_escena" required="">
+				<select class="selectpicker form-control" data-live-search="true" id="tipo_escena" name="tipo_escena" required>
 					<option value="" selected>{{old('tipo_escena')}}</option>
 					<option value="Tipo 1">Tipo 1</option>
 					<option value="Tipo 2">Tipo 2</option>
@@ -156,7 +154,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Estacion</span>
 				</div>
-				<select name="station_id" class="form-control">
+				<select class="selectpicker form-control" data-live-search="true" name="station_id">
 					<option value="" selected>{{old('station_id')}}</option>
 					@foreach($estaciones as $estacion)
 					<option value="{{$estacion->id}}">{{$estacion->nombre}}</option>
@@ -177,7 +175,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Parroquia</span>
 				</div>
-				<select name="parroquia_id" class="form-control" required="">
+				<select class="selectpicker form-control" data-live-search="true" name="parroquia_id" required>
 					<option value="" selected>{{old('parroquia_id')}}</option>
 					@foreach($parroquias as $parroquia)
 					<option value="{{$parroquia->id}}">{{$parroquia->nombre}}</option>
@@ -201,7 +199,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Jefe Guardia</span>
 				</div>
-				<select class="form-control" name="jefeguardia_id" required="">
+				<select class="selectpicker form-control" data-live-search="true" name="jefeguardia_id" required>
 					<option value="" selected>{{old('jefeguardia_id')}}</option>
 					@foreach($users as $user)
 					<option value="{{$user->id}}">{{$user->name}}</option>
@@ -212,7 +210,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Bombero</span>
 				</div>
-				<select class="form-control" name="bombero_id" required="">
+				<select class="selectpicker form-control" data-live-search="true" name="bombero_id" required>
 					<option value="" selected>{{old('bombero_id')}}</option>
 					@foreach($users as $user)
 					<option value="{{$user->id}}">{{$user->name}}</option>
@@ -223,7 +221,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Conductor</span>
 				</div>
-				<select class="form-control" name="conductor_id" required="">
+				<select class="selectpicker form-control" data-live-search="true" name="conductor_id" required="">
 					<option value="" selected>{{old('conductor_id')}}</option>
 					@foreach($maquinistas as $maquinista)
 					<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>
@@ -291,8 +289,8 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputtipo_cilindro">Tipo_Cilindro</span>
 				</div>
-				<select class="form-control" id="tipo_cilindro" name="tipo_cilindro" required="">
-					<option selected>Seleccione...</option>
+				<select class="selectpicker form-control" data-live-search="true" id="tipo_cilindro" name="tipo_cilindro" required>
+					<option selected></option>
 					<option>Comercial 15Kg</option>
 					<option>Comercial 45Kg</option>
 					<option>Centralizado</option>
@@ -304,8 +302,8 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputcolor_cilindro">Color_Cilindro</span>
 				</div>
-				<select class="form-control" id="color_cilindro" name="color_cilindro" required="">
-					<option selected>Seleccione...</option>
+				<select class="selectpicker form-control" data-live-search="true" id="color_cilindro" name="color_cilindro" required>
+					<option selected></option>
 					<option>Amarillo</option>
 					<option>Azul</option>
 					<option>Blanco</option>
@@ -317,8 +315,8 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputtipo_fallo">Tipo_Fallo</span>
 				</div>
-				<select class="form-control" id="tipo_fallo" name="tipo_fallo" required="">
-					<option selected>Seleccione...</option>
+				<select class="selectpicker form-control" data-live-search="true" id="tipo_fallo" name="tipo_fallo" required>
+					<option selected></option>
 					<option>Manguera</option>
 					<option>No Aplica</option>
 					<option>Otro</option>

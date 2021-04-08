@@ -32,10 +32,8 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Hora Ficha ECU911</span>
 						</div>
-						<input type="text" id="hora_fichaecu911" name="hora_fichaecu911" required onblur="CheckTime(this);" value="{{old('hora_fichaecu911')}}" class="form-control" placeholder="hh:mm:ss">
-						<div class="input-group-append">
-							<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual0" id="horactual0"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-						</div>
+						<input type="text" id="hora_fichaecu911" name="hora_fichaecu911" required onblur="CheckTime(this);" value="{{old('hora_fichaecu911',$now->format('H:i:s') )}}" class="form-control" placeholder="hh:mm:ss">
+						
 					</div>
 				</div>
 			</div>
@@ -131,7 +129,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Incidente</span>
 				</div>
-				<select class="form-control" required name="incidente_id" id="incidente_id">
+				<select class="form-control selectpicker" data-live-search="true" required name="incidente_id" id="incidente_id">
 					<option value="" selected>{{old('incidente_id')}}</option>
 					@foreach($incidentes as $incidente)
 					<option value="{{$incidente->id}}">{{$incidente->nombre_incidente}}</option>
@@ -143,7 +141,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Escenario</span>
 				</div>
-				<select class="form-control" required name="tipo_escena">
+				<select class="form-control selectpicker" data-live-search="true" required name="tipo_escena">
 					<option value="" selected>{{old('tipo_escena')}}</option>
 					<option value="Tipo 1">Tipo 1</option>
 					<option value="Tipo 2">Tipo 2</option>
@@ -155,7 +153,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Estacion</span>
 				</div>
-				<select name="station_id" required class="form-control">
+				<select class="form-control selectpicker" data-live-search="true" name="station_id" required >
 					<option value="" selected>{{old('station_id')}}</option>
 					@foreach($estaciones as $estacion)
 					<option value="{{$estacion->id}}">{{$estacion->nombre}}</option>
@@ -176,7 +174,7 @@
 				<div>
 					<span class="input-group-text">Parroquia</span>
 				</div>
-				<select name="parroquia_id" required class="form-control">
+				<select class="form-control selectpicker" data-live-search="true" name="parroquia_id" required >
 					<option selected>{{old('parroquia_id')}}</option>
 					@foreach($parroquias as $parroquia)
 					<option value="{{$parroquia->id}}">{{$parroquia->nombre}}</option>
@@ -199,7 +197,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Jefe Guardia</span>
 				</div>
-				<select class="form-control" required name="jefeguardia_id">
+				<select class="form-control selectpicker" data-live-search="true" required name="jefeguardia_id">
 					<option selected>{{old('jefeguardia_id')}}</option>
 					@foreach($bomberos as $user)
 					<option value="{{$user->id}}">{{$user->name}}</option>
@@ -210,7 +208,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Bombero</span>
 				</div>
-				<select class="form-control" required name="bombero_id">
+				<select class="form-control selectpicker" data-live-search="true" required name="bombero_id">
 					<option selected>{{old('bombero_id')}}</option>
 					@foreach($bomberos as $user)
 					<option value="{{$user->id}}">{{$user->name}}</option>
@@ -221,7 +219,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Conductor</span>
 				</div>
-				<select class="form-control" required name="conductor_id">
+				<select class="form-control selectpicker" data-live-search="true" required name="conductor_id">
 					<option selected>{{old('conductor_id')}}</option>
 					@foreach($maquinistas as $maquinista)
 					<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>

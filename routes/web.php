@@ -42,27 +42,21 @@ Route::resource('user',								'UserController');
 Route::resource('prevencion',						'PrevencionController');
 
 //Rutas Carga Formularios Inspeccion Prevencion
-Route::get('/derrames/inspeccionderrame/{$id}',     'DerrameController@inspeccion')->name('inspeccionderrame');
-Route::put('/registrainspeccionderrame',            'DerrameController@registrainspeccion')->name('registrainspeccionderrame');
-
-Route::get('/fugas/inspeccionfuga/{$id}',           'FugaController@inspeccion')->name('inspeccionfuga');
-Route::put('/registrainspeccionfuga',               'FugaController@registrainspeccion')->name('registrainspeccionfuga');
-
-Route::get('/incendios/inspeccionfuego/{$id}',      'IncendioController@inspeccion');
-Route::put('/registrainspeccionfuego',              'IncendioController@registrainspeccion')->name('registrainspeccionfuego');
-
-Route::get('/inundacions/inspeccioninundacion/{$id}','InundacionController@inspeccion')->name('inspeccioninundacion');
-Route::put('/registrainspeccioninundacion',         'InundacionController@registrainspeccion')->name('registrainspeccioninundacion');
-
+Route::get('/inspeccionderrame/{$id}',              'DerrameController@inspeccion')->name('inspeccionderrame');
+Route::get('/inspeccionfuga/{$id}',                 'FugaController@inspeccion')->name('inspeccionfuga');
+Route::get('/inspeccionfuego/{$id}',                'IncendioController@inspeccion')->name('inspeccionfuego');
+Route::get('/inspeccioninundacion/{$id}',           'InundacionController@inspeccion')->name('inspeccioninundacion');
 Route::get('/inspeccionrescate/{$id}',              'RescateController@inspeccion')->name('inspeccionrescate');
-Route::put('/registrainspeccionrescate',            'RescateController@registrainspeccion')->name('registrainspeccionrescate');
-
 Route::get('/inspeccionsalud/{$id}',                'SaludController@inspeccion')->name('inspeccionsalud');
-Route::put('/registrainspeccionsalud',              'SaludController@registrainspeccion')->name('registrainspeccionsalud');
-
 Route::get('/inspecciontransito/{$id}',             'TransitoController@inspeccion')->name('inspecciontransito');
-Route::put('/registrainspeccionsalud',              'TransitoController@registrainspeccion')->name('registrainspeccionsalud');
 
+Route::put('/registrainspeccionfuga',               'FugaController@registrainspeccion')->name('registrainspeccionfuga');
+Route::put('/registrainspeccionsalud',              'TransitoController@registrainspeccion')->name('registrainspeccionsalud');
+Route::put('/registrainspeccionderrame',            'DerrameController@registrainspeccion')->name('registrainspeccionderrame');
+Route::put('/registrainspeccionfuego',              'IncendioController@registrainspeccion')->name('registrainspeccionfuego');
+Route::put('/registrainspeccioninundacion',         'InundacionController@registrainspeccion')->name('registrainspeccioninundacion');
+Route::put('/registrainspeccionrescate',            'RescateController@registrainspeccion')->name('registrainspeccionrescate');
+Route::put('/registrainspeccionsalud',              'SaludController@registrainspeccion')->name('registrainspeccionsalud');
 
 Route::get('/activitylog',							'ConsultasController@activitylog');
 Route::get('/consultaentrefechas',					'ConsultasController@consultaentrefechas')->name('consultaentrefechas');
@@ -130,6 +124,7 @@ Route::get('saluds/export',   						'SaludController@export');
 Route::get('derrames/export',   					'DerrameController@export');
 Route::get('servicios/export',   					'ServicioController@export');
 Route::get('estadisticas/export/{id},{f1},{f2}', 	'ConsultasController@export');
+Route::get('estadisticas/export2/{id},{f1},{f2}', 	'ConsultasController@export2');
 
 //Rutas Creacion de Raporte Grafico
 Route::get('vehiculos/grafic/',						'VehiculoController@grafica');
@@ -175,6 +170,7 @@ Route::get('/eventoE7/',							'MenuController@evento7');
 Route::get('/eventoE8/',							'MenuController@evento8');
 Route::get('/eventoE9/',							'MenuController@evento9');
 Route::get('/refresh/',							    'MenuController@refrescamiento');
+
 
 
 Route::get('profile/perfil', 						'ProfileController@index')->name('profile.index');
