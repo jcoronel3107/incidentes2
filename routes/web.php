@@ -23,40 +23,33 @@ Route::get('/home',									'HomeController@index');
 Route::get('/admin',								'AdministradorController@index');
 Auth::routes();
 Route::get('lang/{lang}',							'LanguageController@swap')->name('lang.swap');
-Route::resource('clave',							'ClaveController');
-Route::resource('incidente',						'IncidenteController');
-Route::resource('inundacion',						'InundacionController');
-Route::resource('gasolinera',						'GasolineraController');
-Route::resource('vehiculo',							'VehiculoController');
-Route::resource('estacion',							'StationController');
-Route::resource('parroquia',						'ParroquiaController');
-Route::resource('fuego',							'IncendioController');
-Route::resource('fuga',								'FugaController');
-Route::resource('rescate',							'RescateController');
-Route::resource('transito',							'TransitoController');
-Route::resource('salud',							'SaludController');
-Route::resource('derrame',							'DerrameController');
-Route::resource('servicio',							'ServicioController');
-Route::resource('consulta',							'ConsultasController');
-Route::resource('user',								'UserController');
-Route::resource('prevencion',						'PrevencionController');
+Route::resource('clave',							'ClaveController')->middleware('auth');
+Route::resource('incidente',						'IncidenteController')->middleware('auth');
+Route::resource('inundacion',						'InundacionController')->middleware('auth');
+Route::resource('gasolinera',						'GasolineraController')->middleware('auth');
+Route::resource('vehiculo',							'VehiculoController')->middleware('auth');
+Route::resource('estacion',							'StationController')->middleware('auth');
+Route::resource('parroquia',						'ParroquiaController')->middleware('auth');
+Route::resource('fuego',							'IncendioController')->middleware('auth');
+Route::resource('fuga',								'FugaController')->middleware('auth');
+Route::resource('rescate',							'RescateController')->middleware('auth');
+Route::resource('transito',							'TransitoController')->middleware('auth');
+Route::resource('salud',							'SaludController')->middleware('auth');
+Route::resource('derrame',							'DerrameController')->middleware('auth');
+Route::resource('servicio',							'ServicioController')->middleware('auth');
+Route::resource('consulta',							'ConsultasController')->middleware('auth');
+Route::resource('user',								'UserController')->middleware('auth');
+Route::resource('prevencion',						'PrevencionController')->middleware('auth');
 
 //Rutas Carga Formularios Inspeccion Prevencion
-Route::get('/inspeccionderrame/{$id}',              'DerrameController@inspeccion')->name('inspeccionderrame');
-Route::get('/inspeccionfuga/{$id}',                 'FugaController@inspeccion')->name('inspeccionfuga');
-Route::get('/inspeccionfuego/{$id}',                'IncendioController@inspeccion')->name('inspeccionfuego');
-Route::get('/inspeccioninundacion/{$id}',           'InundacionController@inspeccion')->name('inspeccioninundacion');
-Route::get('/inspeccionrescate/{$id}',              'RescateController@inspeccion')->name('inspeccionrescate');
-Route::get('/inspeccionsalud/{$id}',                'SaludController@inspeccion')->name('inspeccionsalud');
-Route::get('/inspecciontransito/{$id}',             'TransitoController@inspeccion')->name('inspecciontransito');
+Route::get('inspeccionderrame/{$id}',              'DerrameController@inspeccion')->name('inspeccionderrame');
+Route::get('inspeccionfuga/{$id}',                 'FugaController@inspeccion')->name('inspeccionfuga');
+Route::get('inspeccionfuego/{$id}',                'IncendioController@inspeccion')->name('inspeccionfuego');
+
 
 Route::put('/registrainspeccionfuga',               'FugaController@registrainspeccion')->name('registrainspeccionfuga');
-Route::put('/registrainspeccionsalud',              'TransitoController@registrainspeccion')->name('registrainspeccionsalud');
 Route::put('/registrainspeccionderrame',            'DerrameController@registrainspeccion')->name('registrainspeccionderrame');
 Route::put('/registrainspeccionfuego',              'IncendioController@registrainspeccion')->name('registrainspeccionfuego');
-Route::put('/registrainspeccioninundacion',         'InundacionController@registrainspeccion')->name('registrainspeccioninundacion');
-Route::put('/registrainspeccionrescate',            'RescateController@registrainspeccion')->name('registrainspeccionrescate');
-Route::put('/registrainspeccionsalud',              'SaludController@registrainspeccion')->name('registrainspeccionsalud');
 
 Route::get('/activitylog',							'ConsultasController@activitylog');
 Route::get('/consultaentrefechas',					'ConsultasController@consultaentrefechas')->name('consultaentrefechas');
@@ -65,12 +58,12 @@ Route::get('/busquedaentrefechas',					'ConsultasController@busquedaentrefechas'
 Route::get('/download/{file}', 						'DownloadsController@download');
 
 //Rutas Carga Formularios Archivos PDF
-Route::get('/inundacions/carga/{id}',				'InundacionController@cargar');
-Route::get('/derrames/carga/{id}',					'DerrameController@cargar');
-Route::get('/incendios/carga/{id}',					'IncendioController@cargar');
-Route::get('/rescates/carga/{id}',					'RescateController@cargar');
-Route::get('/transitos/carga/{id}',					'TransitoController@cargar');
-Route::get('/saluds/carga/{id}',					'SaludController@cargar');
+Route::get('/inundacions/carga/{id}',				'InundacionController@cargar')->middleware('auth');
+Route::get('/derrames/carga/{id}',					'DerrameController@cargar')->middleware('auth');
+Route::get('/incendios/carga/{id}',					'IncendioController@cargar')->middleware('auth');
+Route::get('/rescates/carga/{id}',					'RescateController@cargar')->middleware('auth');
+Route::get('/transitos/carga/{id}',					'TransitoController@cargar')->middleware('auth');
+Route::get('/saluds/carga/{id}',					'SaludController@cargar')->middleware('auth');
 Route::get('/fugas/carga/{id}',						'FugaController@cargar');
 Route::post('inundacions/guardaform',				'InundacionController@upload');
 Route::post('derrames/guardaform',					'DerrameController@upload');
@@ -139,43 +132,43 @@ Route::get('derrames/grafic/',     					'DerrameController@grafica');
 Route::get('servicios/grafic/',    					'ServicioController@grafica');
 
 //Rutas Creacion de Reportes en Formato PDF
-Route::get('/downloadPDFinundacion/{id}',			'InundacionController@downloadPDF');
-Route::get('/downloadPDFrescate/{id}',				'RescateController@downloadPDF');
-Route::get('/downloadPDFtransito/{id}',				'TransitoController@downloadPDF');
-Route::get('/downloadPDFsalud/{id}',				'SaludController@downloadPDF');
-Route::get('/downloadPDFincendio/{id}',				'IncendioController@downloadPDF');
-Route::get('/downloadPDFfuga/{id}',					'FugaController@downloadPDF');
-Route::get('/downloadPDFclave/{id}',				'ClaveController@downloadPDF');
-Route::get('/downloadPDFservicio/{id}',				'ServicioController@downloadPDF');
-Route::get('/downloadPDFderrame/{id}',				'DerrameController@downloadPDF');
+Route::get('/downloadPDFinundacion/{id}',			'InundacionController@downloadPDF')->middleware('auth');;
+Route::get('/downloadPDFrescate/{id}',				'RescateController@downloadPDF')->middleware('auth');
+Route::get('/downloadPDFtransito/{id}',				'TransitoController@downloadPDF')->middleware('auth');
+Route::get('/downloadPDFsalud/{id}',				'SaludController@downloadPDF')->middleware('auth');
+Route::get('/downloadPDFincendio/{id}',				'IncendioController@downloadPDF')->middleware('auth');
+Route::get('/downloadPDFfuga/{id}',					'FugaController@downloadPDF')->middleware('auth');
+Route::get('/downloadPDFclave/{id}',				'ClaveController@downloadPDF')->middleware('auth');
+Route::get('/downloadPDFservicio/{id}',				'ServicioController@downloadPDF')->middleware('auth');
+Route::get('/downloadPDFderrame/{id}',				'DerrameController@downloadPDF')->middleware('auth');
 
 //Rutas Creacion de Reportes a Mail
-Route::get('/sendReportInundacion/{id}',			'MailController@SendMailsInundacion');
-Route::get('/sendReportRescate/{id}',				'MailController@SendMailsRescate');
-Route::get('/sendReportTransito/{id}',				'MailController@SendMailsTransito');
-Route::get('/sendReportSalud/{id}',					'MailController@SendMailsSalud');
-Route::get('/sendReportIncendio/{id}',				'MailController@SendMailsIncendio');
-Route::get('/sendReportFuga/{id}',					'MailController@SendMailsFuga');
-Route::get('/sendReportClave/{id}',					'MailController@SendMailsClave');
-Route::get('/sendReportDerrame/{id}',				'MailController@SendMailsDerrame');
-Route::get('/sendReportServicio/{id}',				'MailController@SendMailsServicio');
+Route::get('/sendReportInundacion/{id}',			'MailController@SendMailsInundacion')->middleware('auth');
+Route::get('/sendReportRescate/{id}',				'MailController@SendMailsRescate')->middleware('auth');
+Route::get('/sendReportTransito/{id}',				'MailController@SendMailsTransito')->middleware('auth');
+Route::get('/sendReportSalud/{id}',					'MailController@SendMailsSalud')->middleware('auth');
+Route::get('/sendReportIncendio/{id}',				'MailController@SendMailsIncendio')->middleware('auth');
+Route::get('/sendReportFuga/{id}',					'MailController@SendMailsFuga')->middleware('auth');
+Route::get('/sendReportClave/{id}',					'MailController@SendMailsClave')->middleware('auth');
+Route::get('/sendReportDerrame/{id}',				'MailController@SendMailsDerrame')->middleware('auth');
+Route::get('/sendReportServicio/{id}',				'MailController@SendMailsServicio')->middleware('auth');
 
-Route::get('/eventoE1/',							'MenuController@evento');
-Route::get('/eventoE2/',							'MenuController@evento2');
-Route::get('/eventoE3/',							'MenuController@evento3');
-Route::get('/eventoE4/',							'MenuController@evento4');
-Route::get('/eventoE5/',							'MenuController@evento5');
-Route::get('/eventoE6/',							'MenuController@evento6');
-Route::get('/eventoE7/',							'MenuController@evento7');
-Route::get('/eventoE8/',							'MenuController@evento8');
-Route::get('/eventoE9/',							'MenuController@evento9');
+Route::get('/eventoE1/',							'MenuController@evento')->middleware('auth');
+Route::get('/eventoE2/',							'MenuController@evento2')->middleware('auth');
+Route::get('/eventoE3/',							'MenuController@evento3')->middleware('auth');
+Route::get('/eventoE4/',							'MenuController@evento4')->middleware('auth');
+Route::get('/eventoE5/',							'MenuController@evento5')->middleware('auth');
+Route::get('/eventoE6/',							'MenuController@evento6')->middleware('auth');
+Route::get('/eventoE7/',							'MenuController@evento7')->middleware('auth');
+Route::get('/eventoE8/',							'MenuController@evento8')->middleware('auth');
+Route::get('/eventoE9/',							'MenuController@evento9')->middleware('auth');
 Route::get('/refresh/',							    'MenuController@refrescamiento');
 
 
 
-Route::get('profile/perfil', 						'ProfileController@index')->name('profile.index');
+Route::get('profile/perfil', 						'ProfileController@index')->name('profile.index')->middleware('auth');
 
-Route::put('profile/perfil', 						'ProfileController@update')->name('profile.update');
-Route::put('profile/pass', 							'ProfileController@pass')->name('profile.pass');
-Route::put('profile/avatar', 						'ProfileController@update_avatar')->name('profile.avatar');
+Route::put('profile/perfil', 						'ProfileController@update')->name('profile.update')->middleware('auth');
+Route::put('profile/pass', 							'ProfileController@pass')->name('profile.pass')->middleware('auth');
+Route::put('profile/avatar', 						'ProfileController@update_avatar')->name('profile.avatar')->middleware('auth');
 

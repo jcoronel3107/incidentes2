@@ -59,9 +59,7 @@
 						@can('send mail')
 						<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" data-target="#exampleModal" role="button"><i class="fas fa-envelope-open"></i></a>
 						@endcan
-						@can('create prevencion')
-						<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" href="{{route('inspeccioninundacion',$inundacion->id)}}"><i class="fas fa-notes-medical"></i></a>
-						@endcan
+						
 					</td>
 				</tr>
 				<!-- Modal -->

@@ -30,9 +30,9 @@ class SaludController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct(){
+    /* public function __construct(){
         $this->middleware('auth');
-    }
+    } */
 
     public function index(Request $request)
     {
@@ -75,11 +75,11 @@ class SaludController extends Controller
             ->orderBy("nombre_incidente",'asc')
             ->get();
 
-            if ( Auth::check() ) {
+           /*  if ( Auth::check() ) { */
                 return view( "/salud.crear", compact( "incidentes","now","estaciones","users","maquinistas", "parroquias","vehiculos","cies" ) );
-            } else {
+            /* } else {
                 return view( "/auth.login" );
-            }
+            } */
     }
 
     /**
@@ -90,8 +90,8 @@ class SaludController extends Controller
      */
     public function store(SaveSaludRequest $request)
     {
-        if ( Auth::check() )
-       {
+        /* if ( Auth::check() )
+       { */
           DB::begintransaction();
           try
           {
@@ -191,9 +191,9 @@ class SaludController extends Controller
               DB::rollback();
               //dd($e);
           }
-        } else {
+        /* } else {
             return view( "/auth.login" );
-        }
+        } */
     }
 
     /**
@@ -253,7 +253,7 @@ class SaludController extends Controller
      */
     public function update(SaveSaludRequest $request, $id)
     {
-        if ( Auth::check() ) {
+        /* if ( Auth::check() ) { */
           DB::begintransaction();
           try
           {
@@ -310,9 +310,9 @@ class SaludController extends Controller
               DB::rollback();
               //dd($e);
           }
-        } else {
+        /* } else {
             return view( "/auth.login" );
-        }
+        } */
     }
 
     /**
@@ -323,14 +323,14 @@ class SaludController extends Controller
      */
     public function destroy($id)
     {
-        if ( Auth::check() ) {
+        /* if ( Auth::check() ) { */
             $salud = Salud::findOrFail( $id );
             $salud->delete();
             Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
             return redirect( "/salud" );
-        } else {
+        /* } else {
             return view( "/auth.login" );
-        }
+        } */
     }
 
     public function export()

@@ -18,10 +18,10 @@ class StationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(){
+    /* public function __construct(){
         $this->middleware('auth');
 
-    }
+    } */
 
     public function index(Request $request)
     {
@@ -53,11 +53,11 @@ class StationController extends Controller
     {
         //
 
-		if ( Auth::check() ) {
+		/* if ( Auth::check() ) { */
 			return view("/estacion.crear");
-		} else {
+		/* } else {
 			return view( "/auth.login" );
-		}
+		} */
     }
 
     /**
@@ -69,7 +69,7 @@ class StationController extends Controller
     public function store(CreateStationRequest $request)
     {
         //
-		if ( Auth::check() ) {
+		/* if ( Auth::check() ) { */
 			//
 			$estaciones = new Station;
 			$estaciones->nombre = $request->nombre;
@@ -77,9 +77,9 @@ class StationController extends Controller
 			$estaciones->save();
 			Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
 			return redirect( "/estacion" );
-		} else {
+		/* } else {
 			return view( "/auth.login" );
-		}
+		} */
     }
 
     /**
@@ -104,12 +104,12 @@ class StationController extends Controller
     public function edit($id)
     {
         //
-		if ( Auth::check() ) {
+		/* if ( Auth::check() ) { */
 			$estaciones = Station::findOrFail( $id );
 			return view( "/estacion.edit", compact( "estaciones" ) );
-		} else {
+		/* } else {
 			return view( "/auth.login" );
-		}
+		} */
     }
 
     /**
@@ -122,14 +122,14 @@ class StationController extends Controller
     public function update(Request $request, $id)
     {
         //
-		if ( Auth::check() ) {
+		/* if ( Auth::check() ) { */
 			$estaciones = Station::findOrFail( $id );
 			$estaciones->update( $request->all() );
 			Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
 			return redirect( "/estacion" );
-		} else {
+		/* } else {
 			return view( "/auth.login" );
-		}
+		} */
     }
 
     /**
@@ -141,14 +141,14 @@ class StationController extends Controller
     public function destroy($id)
     {
         //
-		if ( Auth::check() ) {
+		/* if ( Auth::check() ) { */
 			$estaciones = Station::findOrFail( $id );
 			$estaciones->delete();
 			Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
 			return redirect( "/estacion" );
-		} else {
+		/* } else {
 			return view( "/auth.login" );
-		}
+		} */
     }
 
     public function export()

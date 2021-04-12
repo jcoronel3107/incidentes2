@@ -25,10 +25,10 @@ class MenuController extends Controller
      */
 
 
-    public function __construct()
+    /* public function __construct()
     {
         $this->middleware('auth');
-    }
+    } */
     
     public function index()
     {
@@ -119,6 +119,9 @@ class MenuController extends Controller
         $date = $carbon->now();
         $fechaComoEntero = strtotime($date);
         $mes = date("m", $fechaComoEntero);
+
+       
+
         $SaludEst = Salud::whereMonth('fecha', $mes)
                                                 ->where('station_id','=','1')
                                                 ->whereYear('fecha', '=', date('Y'))
@@ -166,7 +169,7 @@ class MenuController extends Controller
         $mensualesInundacion="";
         $station = trans('messages.Station1');
         $estacion_id="1";
-        return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date", "estacion_id") );
+        return view("evento", compact(  "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date", "estacion_id") );
     }
 
     public function evento2()
@@ -176,6 +179,10 @@ class MenuController extends Controller
         $date = $carbon->now();
         $fechaComoEntero = strtotime($date);
         $mes = date("m", $fechaComoEntero);
+
+       
+      
+             
         $SaludEst = Salud::whereMonth('fecha', $mes)
                                                 ->where('station_id','=','2')
                                                 ->whereYear('fecha', '=', date('Y'))
@@ -222,7 +229,12 @@ class MenuController extends Controller
         $mensualesInundacion="";
         $estacion_id = "2";
         $station = trans('messages.Station2');
-        return view("evento", compact("mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date", "estacion_id") );
+        if(view()->exists('evento'))
+        {
+            return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date", "estacion_id") );
+        }
+
+        
     }
 
     public function evento3()
@@ -233,6 +245,8 @@ class MenuController extends Controller
         $date = $carbon->now();
         $fechaComoEntero = strtotime($date);
         $mes = date("m", $fechaComoEntero);
+
+        
         $SaludEst = Salud::whereMonth('fecha', $mes)
                                                 ->where('station_id','=','3')
                                                 ->whereYear('fecha', '=', date('Y'))
@@ -279,7 +293,7 @@ class MenuController extends Controller
         $mensualesInundacion="";
         $station = trans('messages.Station3');
         $estacion_id = "3";
-        return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date", "estacion_id") );
+        return view("evento", compact(  "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date", "estacion_id") );
     }
     public function evento4()
     {
@@ -289,6 +303,8 @@ class MenuController extends Controller
         $date = $carbon->now();
         $fechaComoEntero = strtotime($date);
         $mes = date("m", $fechaComoEntero);
+
+       
         $SaludEst = Salud::whereMonth('fecha', $mes)
                                                 ->where('station_id','=','4')
                                                 ->whereYear('fecha', '=', date('Y'))
@@ -335,7 +351,7 @@ class MenuController extends Controller
         $mensualesInundacion="";
         $station = trans('messages.Station4');
         $estacion_id = "4";
-        return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date", "estacion_id") );
+        return view("evento", compact(  "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date", "estacion_id") );
     }
     public function evento5()
     {
@@ -344,6 +360,8 @@ class MenuController extends Controller
         $date = $carbon->now();
         $fechaComoEntero = strtotime($date);
         $mes = date("m", $fechaComoEntero);
+
+       
         $SaludEst = Salud::whereMonth('fecha', $mes)
                                                 ->where('station_id','=','5')
                                                 ->whereYear('fecha', '=', date('Y'))
@@ -390,7 +408,7 @@ class MenuController extends Controller
         $mensualesInundacion="";
         $station = trans('messages.Station5');
         $estacion_id = "5";
-        return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date", "estacion_id") );
+        return view("evento", compact(  "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date", "estacion_id") );
     }
     public function evento6()
     {
@@ -400,6 +418,8 @@ class MenuController extends Controller
         $date = $carbon->now();
         $fechaComoEntero = strtotime($date);
         $mes = date("m", $fechaComoEntero);
+        
+       
         $SaludEst = Salud::whereMonth('fecha', $mes)
                                                 ->where('station_id','=','6')
                                                 ->whereYear('fecha', '=', date('Y'))
@@ -446,7 +466,7 @@ class MenuController extends Controller
         $mensualesInundacion="";
         $station = trans('messages.Station6');
         $estacion_id = "6";
-        return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date", "estacion_id") );
+        return view("evento", compact(  "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date", "estacion_id") );
     }
     public function evento7()
     {
@@ -456,6 +476,9 @@ class MenuController extends Controller
         $date = $carbon->now();
         $fechaComoEntero = strtotime($date);
         $mes = date("m", $fechaComoEntero);
+
+      
+          
         $SaludEst = Salud::whereMonth('fecha', $mes)
                                                 ->where('station_id','=','7')
                                                 ->whereYear('fecha', '=', date('Y'))
@@ -502,7 +525,7 @@ class MenuController extends Controller
         $mensualesInundacion="";
         $station = trans('messages.Station7');
         $estacion_id = "7";
-        return view("evento", compact( "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date", "estacion_id") );
+        return view("evento", compact(  "mensualesInundacion","SaludEst","InundacionEst","FuegoEst","HazmatEst","TransitoEst","RescateEst","FugaEst","station","date", "estacion_id") );
     }
     public function evento8()
     {
@@ -512,6 +535,8 @@ class MenuController extends Controller
         $date = $carbon->now();
         $fechaComoEntero = strtotime($date);
         $mes = date("m", $fechaComoEntero);
+
+       
         $SaludEst = Salud::whereMonth('fecha', $mes)
                                                 ->where('station_id','=','8')
                                                 ->whereYear('fecha', '=', date('Y'))
@@ -568,6 +593,8 @@ class MenuController extends Controller
         $date = $carbon->now();
         $fechaComoEntero = strtotime($date);
         $mes = date("m", $fechaComoEntero);
+
+        
         $SaludEst = Salud::whereMonth('fecha', $mes)
                                                 ->where('station_id','=','9')
                                                 ->whereYear('fecha', '=', date('Y'))
@@ -619,12 +646,29 @@ class MenuController extends Controller
 
     public function refrescamiento()
     {
-        $sdd = Auth::check();
-        if ( Auth::check() )
-        {
-            $sdd = session()->all;
-           
-        }  
-         return view("refresca", compact ("sdd"));
+
+         /* $date = Carbon::now();
+        $lifetime = config('session.lifetime');
+        $date->toDateTimeString();  
+        $endDate = $date->subHour($lifetime);
+        $timestamp = $date->getTimestamp();
+        $loggedin_instances = DB::table('sessions')
+        ->where('user_id', Auth::user()->id)
+        ->where('last_activity','>', $timestamp) //This condition is needed only if lifetime is set and expire_on_close is false;
+        ->get(); */
+        $user = Auth::user();
+        
+            $user = Auth::user();
+            $last_activity = DB::table('sessions')
+            ->select('last_activity')
+            ->where('user_id', $user->id)
+            ->get();
+        $last_activity = Carbon::createFromTimestamp($last_activity);
+        
+        $horaactual = Carbon::now()->toTimeString();
+        $last_activity->diffInMinutes($horaactual);
+        //dd($last_activity->diffForHumans());
+        $last_activity = $last_activity->diffForHumans();      
+         return $last_activity;
     }
 }

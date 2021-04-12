@@ -33,10 +33,10 @@ use App\Mail\ReportSentServicio;
 
 class MailController extends Controller
 {
-	public function __construct(){
+	/* public function __construct(){
 		$this->middleware('auth');
 
-	}
+	} */
 
     public function SendMailsInundacion($id,Request $request){
         /*$destinatario = auth()->user()->email;*/

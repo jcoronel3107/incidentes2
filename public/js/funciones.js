@@ -90,7 +90,7 @@ $(document).ready(function(){
 	        }
 	    });
 	$("#Enviar").hide();
-	conservarinfo();
+	/* conservarinfo(); */
 
 	
 });
@@ -116,7 +116,7 @@ function agregar() {
 		if((jqkm_llegada==0)||(jqkm_llegada==null))
 			jqkm_llegada=0;
 		total = total + subtotal[cont];
-		var fila = '<tr class = "selected" id="fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminar('+cont+')" type="button">X</button></td><td><input type="hidden" name="vehiculo_id[]" value="'+jqvehiculo+'">'+jqvehiculo+'</td><td><input type="number" class="form-control"  name="km_salida[]" value="'+jqkm_salida+'"></td><td><input type="number" class="form-control" name="km_llegada[]" value="'+jqkm_llegada+'"></td></tr>';
+		var fila = '<tr class = "selected" id="fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminar('+cont+')" type="button">X</button></td><td><input required type="hidden" name="vehiculo_id[]" value="'+jqvehiculo+'">'+jqvehiculo+'</td><td><input type="number" required class="form-control"  name="km_salida[]" value="'+jqkm_salida+'"></td><td><input type="number" required class="form-control" name="km_llegada[]" value="'+jqkm_llegada+'"></td></tr>';
 		cont++;
 		limpiar();
 		evaluar();

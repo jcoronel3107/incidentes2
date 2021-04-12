@@ -28,10 +28,10 @@ class RescateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(){
+    /* public function __construct(){
         $this->middleware('auth');
 
-    }
+    } */
 
     public function index(Request $request)
     {
@@ -71,11 +71,11 @@ class RescateController extends Controller
             ->orderBy("nombre_incidente",'asc')
             ->get();
 
-    		if ( Auth::check() ) {
+    		/* if ( Auth::check() ) { */
     			return view( "/rescate.crear", compact( "incidentes","now","estaciones","bomberos","maquinistas", "parroquias","vehiculos" ) );
-    		} else {
+    		/* } else {
     			return view( "/auth.login" );
-    		}
+    		} */
     }
 
     /**
@@ -86,8 +86,8 @@ class RescateController extends Controller
      */
     public function store(SaveRescateRequest $request)
     {
-  		if ( Auth::check() )
-       {
+  		/* if ( Auth::check() )
+       { */
           DB::begintransaction();
           try
           {
@@ -147,9 +147,9 @@ class RescateController extends Controller
               DB::rollback();
               dd($e);
           }
-  		} else {
+  		/* } else {
   			return view( "/auth.login" );
-  		}
+  		} */
     }
 
     /**
@@ -172,8 +172,8 @@ class RescateController extends Controller
      * @return \Illuminate\Http\Response
      */
     function edit($id) {
-        if ( Auth::check() )
-       {
+       /*  if ( Auth::check() )
+       { */
             $rescate = Rescate::findOrFail( $id );
             $vehiculos = Vehiculo::orderBy('codigodis','DESC')->get();
             
@@ -194,9 +194,9 @@ class RescateController extends Controller
 
             return view( "rescate.edit", compact("rescate","vehiculos","bomberos","maquinistas","incidentes","estaciones","parroquias"));
           
-        } else {
+       /*  } else {
             return view( "/auth.login" );
-        }
+        } */
     }
     /**
      * Update the specified resource in storage.
@@ -207,7 +207,7 @@ class RescateController extends Controller
      */
     function update(SaveRescateRequest $request , $id ) {
         //
-        if ( Auth::check() ) {
+        /* if ( Auth::check() ) { */
 
           DB::begintransaction();
           try
@@ -263,9 +263,9 @@ class RescateController extends Controller
               DB::rollback();
               dd($e);
           }
-        } else {
+        /* } else {
             return view( "/auth.login" );
-        }
+        } */
     }
 
     /**
@@ -277,14 +277,14 @@ class RescateController extends Controller
     public function destroy($id)
     {
         //
-        if ( Auth::check() ) {
+        /* if ( Auth::check() ) { */
             $rescate = Rescate::findOrFail( $id );
             $rescate->delete();
             Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
             return redirect( "/rescate" );
-        } else {
+        /* } else {
             return view( "/auth.login" );
-        }
+        } */
     }
 
     public function export()

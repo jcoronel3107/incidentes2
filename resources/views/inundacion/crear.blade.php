@@ -207,7 +207,7 @@
 					<select class="selectpicker form-control" data-live-search="true" name="jefeguardia_id" required>
 						<option selected>{{old('jefeguardia_id')}}</option>
 						@foreach($users as $user)
-						<option>{{$user->name}}</option>
+						<option value="{{$user->id}}">{{$user->name}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -218,7 +218,7 @@
 					<select class="selectpicker form-control" data-live-search="true" name="bombero_id" required>
 						<option selected>{{old('bombero_id')}}</option>
 						@foreach($users as $user)
-						<option>{{$user->name}}</option>
+						<option value="{{$user->id}}">{{$user->name}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -229,7 +229,7 @@
 					<select class="selectpicker form-control" data-live-search="true" name="conductor_id" required>
 						<option selected>{{old('conductor_id')}}</option>
 						@foreach($maquinistas as $maquinista)
-						<option>{{$maquinista->name}}</option>
+						<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>
 						@endforeach
 					</select>
 				</div>

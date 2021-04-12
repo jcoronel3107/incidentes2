@@ -15,10 +15,10 @@ class GasolineraController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(){
+   /*  public function __construct(){
         $this->middleware('auth');
 
-    }
+    } */
     public function index(Request $request)
     {
         //
@@ -43,11 +43,11 @@ class GasolineraController extends Controller
     public function create()
     {
         //
-		if ( Auth::check() ) {
+		/* if ( Auth::check() ) { */
 			return view( "/gasolinera.crear");
-		} else {
+		/* } else {
 			return view( "/auth.login" );
-		}
+		} */
     }
 
     /**
@@ -59,7 +59,7 @@ class GasolineraController extends Controller
     public function store(CreateGasolineraRequest $request)
     {
         //
-		if ( Auth::check() ) {
+		/* if ( Auth::check() ) { */
 			$validated = $request->validated();
 			$gasolinera = new Gasolinera;
 			$gasolinera->razonsocial = $request->razonsocial;
@@ -69,9 +69,9 @@ class GasolineraController extends Controller
 			$gasolinera->save();
 			Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
 			return redirect( "/gasolinera" );
-		} else {
+		/* } else {
 			return view( "/auth.login" );
-		}
+		} */
     }
 
     /**
@@ -114,14 +114,14 @@ class GasolineraController extends Controller
     public function update(Request $request, $id)
     {
         //
-		if ( Auth::check() ) {
+		/* if ( Auth::check() ) { */
 			$gasolinera = Gasolinera::findOrFail( $id );
 			$gasolinera->update( $request->all() );
 			Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
 			return redirect( "/gasolinera" );
-		} else {
+		/* } else {
 			return view( "/auth.login" );
-		}
+		} */
     }
 
     /**
@@ -133,13 +133,13 @@ class GasolineraController extends Controller
     public function destroy($id)
     {
         //
-		if ( Auth::check() ) {
+		/* if ( Auth::check() ) { */
 			$gasolinera = Gasolinera::findOrFail( $id );
 			$gasolinera->delete();
 			Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
 			return redirect( "/gasolinera" );
-		} else {
+		/* } else {
 			return view( "/auth.login" );
-		}
+		} */
     }
 }

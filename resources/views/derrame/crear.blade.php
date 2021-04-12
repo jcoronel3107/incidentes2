@@ -42,7 +42,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Fecha</span>
 				</div>
-				<input type="date" required="" id="fecha" name="fecha" class="form-control">
+				<input type="date" required id="fecha" name="fecha" class="form-control">
 			</div>
 
 		</div>

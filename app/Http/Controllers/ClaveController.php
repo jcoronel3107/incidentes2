@@ -25,10 +25,10 @@ class ClaveController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function __construct(){
+	/* public function __construct(){
 		$this->middleware('auth');
 		
-	}
+	} */
 
 	
 
@@ -69,11 +69,11 @@ class ClaveController extends Controller {
 		/*$users = User::where('cargo','maquinista')
 			->get();*/
 
-		if ( Auth::check() ) {
+		/* if ( Auth::check() ) { */
 			return view( "/clave.crear",compact("gasolineras","vehiculos","users") );
-		} else {
+		/* } else {
 			return view( "/auth.login" );
-		}
+		} */
 	}
 
 	/**
@@ -85,8 +85,8 @@ class ClaveController extends Controller {
 	public
 
 	function store( SaveClaveRequest $request ) {
-		if ( Auth::check() ) {
-			$validated = $request->validated();
+		/* if ( Auth::check() ) {
+			$validated = $request->validated(); */
 			
 			$clave = new Clave;
 			$clave->km_salida = $request->km_salida;
@@ -104,9 +104,9 @@ class ClaveController extends Controller {
 				Session::flash('Registro_Almacenado', "Registro Almacenado con Exito!!!");
 				return redirect("/clave");
 			}
-		} else {
+		/* } else {
 			return view( "/auth.login" );
-		}
+		} */
 	}
 
 	/**
@@ -133,7 +133,7 @@ class ClaveController extends Controller {
 
 	function edit($id) {
 		//
-		if ( Auth::check() ) {
+		/* if ( Auth::check() ) { */
 			$gasolineras = Gasolinera::all();
 			$vehiculos = Vehiculo::orderBy('codigodis','asc')->get();
 			$usuarios = DB::table('users')->where([
@@ -145,9 +145,9 @@ class ClaveController extends Controller {
 			//$usuarios=User::all();
 			$claves = Clave::findOrFail( $id );
 			return view( "clave.edit", compact("claves","gasolineras","vehiculos","usuarios"));
-		} else {
+		/* } else {
 			return view( "/auth.login" );
-		}
+		} */
 	}
 
 	/**
@@ -161,7 +161,7 @@ class ClaveController extends Controller {
 
 	function update( SaveClaveRequest $request , $id ) {
 		//
-		if ( Auth::check() ) {
+		/* if ( Auth::check() ) { */
 			DB::begintransaction();
           	try
           	{	
@@ -184,11 +184,11 @@ class ClaveController extends Controller {
           	catch(\Exception $e)
           	{
               DB::rollback();
-              dd($e);
+              
           	}
-		} else {
+		/* } else {
 			return view( "/auth.login" );
-		}
+		} */
 	}
 
 	/**
@@ -201,14 +201,14 @@ class ClaveController extends Controller {
 
 	function destroy( $id ) {
 		//
-		if ( Auth::check() ) {
+		/* if ( Auth::check() ) { */
 			$clave = Clave::findOrFail( $id );
 			$clave->delete();
 			Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
 			return redirect( "/clave" );
-		} else {
+		/* } else {
 			return view( "/auth.login" );
-		}
+		} */
 	}
 
 	public function grafica()

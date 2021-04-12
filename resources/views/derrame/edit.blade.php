@@ -14,6 +14,13 @@
 		</li>
 	</ul>
 	<hr style="border:2px;">
+	@if(count($errors)>0)
+	@foreach($errors->all() as $error)
+	<div class="alert alert-danger" role="alert">
+		{{$error}}
+	</div>
+	@endforeach
+	@endif
 	<form method="post" action="/derrame/{{$derrame->id}}">
 		@csrf @method('PATCH')
 		<div class="form-row">
@@ -433,13 +440,7 @@
 	@endsection
 
 	@section( "piepagina" )
-	@if(count($errors)>0)
-	@foreach($errors->all() as $error)
-	<div class="alert alert-danger" role="alert">
-		{{$error}}
-	</div>
-	@endforeach
-	@endif
+	
 
 
 	@endsection

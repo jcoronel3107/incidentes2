@@ -13,10 +13,10 @@ use Maatwebsite\Excel\Facades\Excel;
 class ParroquiaController extends Controller
 {
     //
-    public function __construct(){
+   /*  public function __construct(){
         $this->middleware('auth');
 
-    }
+    } */
 public function index(Request $request)
     {
         //
@@ -37,18 +37,18 @@ public function index(Request $request)
     public function create()
     {
         //
-		if ( Auth::check() ) {
+		/* if ( Auth::check() ) { */
 			return view( "/parroquia.crear" );
-		} else {
+		/* } else {
 			return view( "/auth.login" );
-		}
+		} */
 
     }
 
     public function store(CreateParroquiaRequest $request)
     {
         //
-		if ( Auth::check() ) {
+	/* 	if ( Auth::check() ) { */
 			//
 
 			$parroquia = new Parroquia;
@@ -57,9 +57,9 @@ public function index(Request $request)
 			$parroquia->save();
 			Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
 			return redirect( "/parroquia" );
-		} else {
+	/* 	} else {
 			return view( "/auth.login" );
-		}
+		} */
     }
 
     public function show($id)
@@ -72,12 +72,12 @@ public function index(Request $request)
     public function edit($id)
     {
         //
-		if ( Auth::check() ) {
+		/* if ( Auth::check() ) { */
 			$parroquia = Parroquia::findOrFail( $id );
 			return view( "parroquia.edit", compact( "parroquia" ) );
-		} else {
+		/* } else {
 			return view( "/auth.login" );
-		}
+		} */
     }
 
     /**
@@ -90,14 +90,14 @@ public function index(Request $request)
     public function update(Request $request, $id)
     {
         //
-		if ( Auth::check() ) {
+		/* if ( Auth::check() ) { */
 			$parroquia = Parroquia::findOrFail( $id );
 			$parroquia->update( $request->all() );
 			Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
 			return redirect( "/incidente" );
-		} else {
+		/* } else {
 			return view( "/auth.login" );
-		}
+		} */
     }
 
     /**
@@ -109,14 +109,14 @@ public function index(Request $request)
     public function destroy($id)
     {
         //
-		if ( Auth::check() ) {
+		/* if ( Auth::check() ) { */
 			$parroquia = Parroquia::findOrFail( $id );
 			$parroquia->delete();
 			Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
 			return redirect( "/parroquia" );
-		} else {
+		/* } else {
 			return view( "/auth.login" );
-		}
+		} */
     }
 
 	public function export()

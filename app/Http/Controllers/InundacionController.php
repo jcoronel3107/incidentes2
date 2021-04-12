@@ -29,9 +29,9 @@ class InundacionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(){
+    /* public function __construct(){
         $this->middleware('auth');
-    }
+    } */
 
     public function index(Request $request)
     {
@@ -72,12 +72,13 @@ class InundacionController extends Controller
     		$incidentes = Incidente::where("tipo_incidente","10_20")
             ->orderBy("nombre_incidente",'asc')
             ->get();
+        return view( "/inundacion.crear", compact( "incidentes","now","estaciones","users","maquinistas", "parroquias","vehiculos") );
 
-    		if ( Auth::check() ) {
+    		/* if ( Auth::check() ) {
     			return view( "/inundacion.crear", compact( "incidentes","now","estaciones","users","maquinistas", "parroquias","vehiculos") );
     		} else {
     			return view( "/auth.login" );
-    		}
+    		} */
     }
 
     /**
@@ -88,12 +89,12 @@ class InundacionController extends Controller
      */
     public function store(SaveInundacionRequest $request)
     {
-  		if ( Auth::check() )
-       {
+  		/* if ( Auth::check() )
+       { */
           DB::begintransaction();
           try
           {
-            /*$validated = $request->validated();*/
+            
             $inundacion = new Inundacion;
         		$inundacion->incidente_id = $request->incidente_id;
         		$inundacion->tipo_escena = $request->tipo_escena;
@@ -145,11 +146,11 @@ class InundacionController extends Controller
           catch(\Exception $e)
           {
               DB::rollback();
-              dd($e);
+              
           }
-  		} else {
+  		/* } else {
   			return view( "/auth.login" );
-  		}
+  		} */
     }
 
     /**
@@ -173,7 +174,7 @@ class InundacionController extends Controller
      * @return \Illuminate\Http\Response
      */
     function edit($id) {
-        if ( Auth::check() ) {
+        /* if ( Auth::check() ) { */
             $conductor_id = DB::table('users')
             ->where('id', $id)
             ->value('name');
@@ -195,9 +196,9 @@ class InundacionController extends Controller
             $parroquias = Parroquia::all();
 
             return view( "inundacion.edit", compact("inundacion","vehiculos","bomberos","maquinistas","incidentes","estaciones","parroquias"));
-        } else {
+        /* } else {
             return view( "/auth.login" );
-        }
+        } */
     }
     /**
      * Update the specified resource in storage.
@@ -208,7 +209,7 @@ class InundacionController extends Controller
      */
     function update( SaveInundacionRequest $request , $id ) {
         //
-        if ( Auth::check() ) {
+        /* if ( Auth::check() ) { */
 
           DB::begintransaction();
           try
@@ -245,17 +246,29 @@ class InundacionController extends Controller
 
             $maqui = User::findOrFail($request->conductor_id);
             $maqui->inundacions()->attach($id);
+            $cont=0;
+            $nombrevehiculo = $request->get('vehiculo_id');
+            $kmsalidavehiculo = $request->get('km_salida');
+            $kmllegadavehiculo = $request->get('km_llegada');
+            $inundacion->vehiculos()->detach();
+            while ($cont < count($nombrevehiculo)) {
+                    $carro = Vehiculo::findOrFail($nombrevehiculo[$cont]);
+                    $carro->inundacions()->attach(
+                    $id , [
+                         'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
+                    $cont=$cont+1;
+            }
             Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
             return redirect( "/inundacion" );
           }
           catch(\Exception $e)
           {
               DB::rollback();
-              dd($e);
+              
           }
-        } else {
+        /* } else {
             return view( "/auth.login" );
-        }
+        } */
     }
 
     /**
@@ -267,14 +280,14 @@ class InundacionController extends Controller
     public function destroy($id)
     {
         //
-        if ( Auth::check() ) {
+        /* if ( Auth::check() ) { */
             $inundacion = Inundacion::findOrFail( $id );
             $inundacion->delete();
             Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
             return redirect( "/inundacion" );
-        } else {
+        /* } else {
             return view( "/auth.login" );
-        }
+        } */
     }
 
     public function export()
@@ -355,23 +368,7 @@ class InundacionController extends Controller
           }
           
           
-        /*if ($size>1048576) {
-            Session::flash('Tamaño_Excedido',"El tamaño maximo pemitido es de 1 MB por Archivo.!!!".$size/1024);
-            return redirect( "/inundacion" );
-        } 
-        else {
-          if (!$exists) {
-          \Storage::disk('local')->put($nombre,  \File::get($file201));
-          \Storage::disk('local')->put($nombre1,  \File::get($file202));
-          \Storage::disk('local')->put($nombre2,  \File::get($file206));
-          Session::flash('Carga_Correcta',"Formularios Subidos con Exito!!!");
-          return redirect( "/inundacion" );
-          }
-            else
-          {
-            
-            }
-        }*/ 
+        
     }
 
     public function inspeccion($id)

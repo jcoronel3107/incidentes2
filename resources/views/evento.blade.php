@@ -41,7 +41,7 @@
 	@endsection
 
 	@section( "cuerpo" )
-
+	
 	<div class="row">
 		<h1> <i class="fa fa-university" aria-hidden="true"></i> {{$station}}</h1>
 		<input type="text" hidden name="estacion_id" id="estacion_id" value="{{$estacion_id}}">

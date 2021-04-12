@@ -46,21 +46,22 @@
 					<td align="left">{{$derrame->address}}</td>
 					<td>
 						@can('edit evento')
-						<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Edit" href="{{route('derrame.edit',$derrame->id)}}"><i class="icon-edit"></i></a>
+						<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Edit Form" href="{{route('derrame.edit',$derrame->id)}}"><i class="icon-edit" aria-hidden="true"></i></a>
 						@endcan
 						@can('allow upload')
-						<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Forms SCI" href="/derrames/carga/{{$derrame->id}}"><i class="fa fa-upload" aria-hidden="true"></i></a>
+						<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Carga Forms SCI" href="/derrames/carga/{{$derrame->id}}"><i class="fa fa-upload" aria-hidden="true"></i></a>
 						@endcan
-						<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Ver" href="{{route('derrame.show',$derrame->id)}}" role="button"><i class="icon-search"></i></a>
+						@can('create inspeccion')
+						<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Crea Inspeccion" href="/inspeccionderrame/{{$derrame->id}}"><i class="fas fa-clipboard-list" aria-hidden="true"></i></a>
+						@endcan
+						<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Ver" href="{{route('derrame.show',$derrame->id)}}" role="button"><i class="icon-search" aria-hidden="true"></i></a>
 						@can('create pdf')
-						<a class="btn btn-outline-info btn-sm" role="button" data-toggle="tooltip" title="PDF" href="/downloadPDFderrame/{{$derrame->id}}" ><i class="icon-file-text"></i></a>
+						<a class="btn btn-outline-info btn-sm" role="button" data-toggle="tooltip" title="Genera PDF" href="/downloadPDFderrame/{{$derrame->id}}" ><i class="icon-file-text" aria-hidden="true"></i></a>
 						@endcan
 						@can('send mail')
-						<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" data-target="#exampleModal" role="button"><i class="icon-envelope"></i></a>
+						<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar Mail" data-target="#exampleModal" role="button"><i class="icon-envelope" aria-hidden="true"></i></a>
 						@endcan
-						@can('create prevencion')
-						<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" href="{{route('inspeccionderrame',$derrame->id)}}"><i class="fas fa-clipboard-list"></i></a>
-						@endcan
+						
 					</td>
 				</tr>
 				<!-- Modal -->

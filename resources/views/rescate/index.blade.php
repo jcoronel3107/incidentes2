@@ -58,9 +58,7 @@
 				@can('create pdf')
 				<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="PDF" href="{{action('RescateController@downloadPDF', $rescate->id)}}" role="button"><i class="icon-file-text"></i></a>
 				@endcan
-				@can('create prevencion')
-				<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" href="{{route('inspeccionrescate',$rescate->id)}}"><i class="fas fa-notes-medical"></i></a>
-				@endcan
+				
 			</td>
 		</tr>
 		<!-- Modal -->

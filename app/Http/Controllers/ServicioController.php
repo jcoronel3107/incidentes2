@@ -26,10 +26,10 @@ class ServicioController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct(){
+   /*  public function __construct(){
         $this->middleware('auth');
 
-    }
+    } */
 
     public function index(Request $request)
     {
@@ -60,11 +60,11 @@ class ServicioController extends Controller
             ->get();
 
        
-        if ( Auth::check() ) {
+       /*  if ( Auth::check() ) { */
             return view( "/servicio.crear",compact("vehiculos","users") );
-        } else {
+       /*  } else {
             return view( "/auth.login" );
-        }
+        } */
     }
 
     /**
@@ -75,7 +75,7 @@ class ServicioController extends Controller
      */
     public function store(SaveServicioRequest $request)
     {
-        if ( Auth::check() ) {
+        /* if ( Auth::check() ) { */
             
             $servicio = new Servicio;
             $servicio->fecha_salida = $request->fecha_salida;
@@ -97,9 +97,9 @@ class ServicioController extends Controller
                 Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
                 return redirect( "/servicio" );
             }
-        } else {
+        /* } else {
             return view( "/auth.login" );
-        }
+        } */
     }
 
     /**
@@ -122,7 +122,7 @@ class ServicioController extends Controller
      */
     public function edit($id)
     {
-        if ( Auth::check() ) {
+        /* if ( Auth::check() ) { */
             
             $servicio = Servicio::findOrFail( $id );
             $vehiculos = Vehiculo::orderBy('codigodis')->get();
@@ -133,9 +133,9 @@ class ServicioController extends Controller
             
             
             return view( "servicio.edit", compact("servicio","vehiculos","maquinistas"));
-        } else {
+        /* } else {
             return view( "/auth.login" );
-        }
+        } */
     }
 
     /**
@@ -147,7 +147,7 @@ class ServicioController extends Controller
      */
     public function update(SaveServicioRequest $request, $id)
     {
-        if ( Auth::check() ) {
+        /* if ( Auth::check() ) { */
                 $servicio = Servicio::findOrFail( $id );
                 
                 $servicio->update([
@@ -165,9 +165,9 @@ class ServicioController extends Controller
             
             Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
             return redirect( "/servicio" );
-        } else {
+        /* } else {
             return view( "/auth.login" );
-        }
+        } */
     }
 
     /**
@@ -178,14 +178,14 @@ class ServicioController extends Controller
      */
     public function destroy($id)
     {
-        if ( Auth::check() ) {
+        /* if ( Auth::check() ) { */
             $servicio = Servicio::findOrFail( $id );
             $servicio->delete();
             Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
             return redirect( "/servicio" );
-        } else {
+        /* } else {
             return view( "/auth.login" );
-        }
+        } */
     }
 
     public function grafica()

@@ -28,9 +28,9 @@ class FugaController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct(){
+   /*  public function __construct(){
         $this->middleware('auth');
-    }
+    } */
 
     public function index(Request $request)
     {
@@ -70,11 +70,11 @@ class FugaController extends Controller
             ->orderBy("nombre_incidente",'asc')
             ->get();
 
-        if ( Auth::check() ) {
+        /* if ( Auth::check() ) { */
                 return view( "/fuga.crear", compact( "incidentes","now","estaciones","users","maquinistas", "parroquias","vehiculos" ) );
-        } else {
+        /* } else {
                 return view( "/auth.login" );
-        }
+        } */
     }
 
     /**
@@ -84,9 +84,9 @@ class FugaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(SaveFugaRequest $request)
-    {
+    {/* 
         if ( Auth::check() )
-       {
+       { */
           DB::begintransaction();
           try
           {
@@ -149,9 +149,9 @@ class FugaController extends Controller
               DB::rollback();
               //dd($e);
           }
-        } else {
+        /* } else {
             return view( "/auth.login" );
-        }
+        } */
     }
 
     /**
@@ -174,7 +174,7 @@ class FugaController extends Controller
      */
     public function edit($id)
     {
-        if ( Auth::check() ) {
+        /* if ( Auth::check() ) { */
             
             $fuga = Fuga::findOrFail( $id );
             $vehiculos = Vehiculo::all();
@@ -191,9 +191,9 @@ class FugaController extends Controller
             $parroquias = Parroquia::all();
 
             return view( "fuga.edit", compact("fuga","vehiculos","bomberos","maquinistas","incidentes","estaciones","parroquias"));
-        } else {
+        /* } else {
             return view( "/auth.login" );
-        }
+        } */
     }
 
     /**
@@ -205,8 +205,8 @@ class FugaController extends Controller
      */
     public function update(SaveFugaRequest $request , $id)
     {
-        if ( Auth::check() ) 
-        {
+        /* if ( Auth::check() ) 
+        { */
           DB::begintransaction();
           try
           {
@@ -265,9 +265,9 @@ class FugaController extends Controller
               DB::rollback();
               //dd($e);
           }
-        } else {
+        /* } else {
             return view( "/auth.login" );
-        }
+        } */
     }
 
     /**
@@ -278,14 +278,14 @@ class FugaController extends Controller
      */
     public function destroy($id)
     {
-        if ( Auth::check() ) {
+        /* if ( Auth::check() ) { */
             $fuga = Fuga::findOrFail( $id );
             $fuga->delete();
             Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
             return redirect( "/fuga" );
-        } else {
+        /* } else {
             return view( "/auth.login" );
-        }
+        } */
     }
 
     public function export()

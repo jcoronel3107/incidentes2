@@ -313,8 +313,11 @@
 	<form method="post" action="/fuego/{{$incendio->id}}">
 		{{csrf_field()}}
 		<input type="hidden" name="_method" value="DELETE">
-
-		<button type="button" class="btn btn-outline-danger" data-toggle="modal" title="Eliminar" data-target="#exampleModal"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
+		<ul class="nav justify-content-end">
+			<li class="nav-item">	
+				<button type="button" class="btn btn-outline-danger" data-toggle="modal" title="Eliminar" data-target="#exampleModal"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
+			</li>
+		</ul>
 		<!-- Modal -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog">

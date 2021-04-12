@@ -28,9 +28,9 @@ class IncendioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(){
+   /*  public function __construct(){
         $this->middleware('auth');
-    }
+    } */
 
     public function index(Request $request) {
         if($request)
@@ -215,7 +215,7 @@ class IncendioController extends Controller
 
     function update( SaveIncendioRequest $request , $id ) 
     {
-        if ( Auth::check() ) {  
+       /*  if ( Auth::check() ) {   */
             DB::begintransaction();
             try
             {         
@@ -265,11 +265,11 @@ class IncendioController extends Controller
             catch(\Exception $e)
             {
               DB::rollback();
-              dd($e);
+              
             }
-        } else {
+       /*  } else {
                 return view( "/auth.login" );
-             }
+             } */
     }
 
     /**
@@ -283,14 +283,14 @@ class IncendioController extends Controller
     function destroy( $id )
     {
         //
-        if ( Auth::check() ) {
+        /* if ( Auth::check() ) { */
             $incendio = Incendio::findOrFail( $id );
             $incendio->delete();
             Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
             return redirect( "/fuego" );
-        } else {
+        /* } else {
             return view( "/auth.login" );
-        }
+        } */
     }
 
     public function export()

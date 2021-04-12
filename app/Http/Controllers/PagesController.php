@@ -19,15 +19,15 @@ use Illuminate\Support\Facades\Auth;
 
 class PagesController extends Controller
 {
-    public function __construct(){
+     public function __construct(){
         $this->middleware('auth');
 
-    }
+    } 
 
     public function index()
     {
        
-        $date = Carbon::now();
+        /* $date = Carbon::now();
         $lifetime = config('session.lifetime');
         $date->toDateTimeString();  
         $endDate = $date->subHour($lifetime);
@@ -35,7 +35,7 @@ class PagesController extends Controller
         $loggedin_instances = DB::table('sessions')
         ->where('user_id', Auth::user()->id)
         ->where('last_activity','>', $timestamp) //This condition is needed only if lifetime is set and expire_on_close is false;
-        ->get();
+        ->get(); */
     	
 
 		$date = Carbon::now();
@@ -79,7 +79,7 @@ class PagesController extends Controller
         ->whereYear('fecha', '=', date('Y'))
         ->whereNull('derrames.deleted_at')
         ->get()->count();
-    	return view("welcome",compact("mensualesInundacion","mensualesRescate","mensualesIncendio","mensualesSalud","mensualesTransito","mensualesFuga","mensualesClave","mensualesServicio","mensualesDerrame","loggedin_instances"));
+    	return view("welcome",compact("mensualesInundacion","mensualesRescate","mensualesIncendio","mensualesSalud","mensualesTransito","mensualesFuga","mensualesClave","mensualesServicio","mensualesDerrame"/* ,"loggedin_instances" */));
     }
 
     

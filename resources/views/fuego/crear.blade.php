@@ -23,7 +23,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Fecha</span>
 				</div>
-				<input type="date" required="" id="fecha" name="fecha" class="form-control" value="{{old('fecha')}}">
+				<input type="date" required id="fecha" name="fecha" class="form-control" value="{{old('fecha')}}">
 			</div>
 		</div>
 		<!--Div Fecha-->
@@ -34,7 +34,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Hora Ficha ECU911</span>
 						</div>
-						<input type="text" required="" name="hora_fichaecu911" onblur="CheckTime(this);" value="{{old('hora_fichaecu911',$now->format('H:i:s') )}}" id="hora_fichaecu911" class="form-control" placeholder="hh:mm:ss">					
+						<input type="text" required name="hora_fichaecu911" onblur="CheckTime(this);" value="{{old('hora_fichaecu911',$now->format('H:i:s') )}}" id="hora_fichaecu911" class="form-control" placeholder="hh:mm:ss">					
 					</div>
 				</div>
 			</div>
