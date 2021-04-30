@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Exports\RescatesExport;
 use App\Imports\RescatesImport;
-use PDF;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -57,7 +57,7 @@ class RescateController extends Controller
         $now = Carbon::now();
         $estaciones = Station::all();
         $parroquias = Parroquia::all();
-        $vehiculos = Vehiculo::orderBy('codigodis')->get();
+        $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
         $bomberos = DB::table('users')->where([
           ['cargo','=','Bombero'],
         ])
@@ -86,8 +86,7 @@ class RescateController extends Controller
      */
     public function store(SaveRescateRequest $request)
     {
-  		/* if ( Auth::check() )
-       { */
+  		
           DB::begintransaction();
           try
           {
@@ -130,10 +129,8 @@ class RescateController extends Controller
               $kmsalidavehiculo = $request->get('km_salida');
               $kmllegadavehiculo = $request->get('km_llegada');
               while ($cont < count($nombrevehiculo)) {
-                  $vehiculo_id = DB::table('vehiculos')
-                    ->where('codigodis',$nombrevehiculo[$cont])
-                    ->value('id');
-                  $carro = vehiculo::findOrFail($vehiculo_id);
+                  
+                  $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);
                   $carro->rescates()->attach(
                     $id , [
                       'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
@@ -145,11 +142,9 @@ class RescateController extends Controller
           catch(\Exception $e)
           {
               DB::rollback();
-              dd($e);
+             
           }
-  		/* } else {
-  			return view( "/auth.login" );
-  		} */
+  		
     }
 
     /**
@@ -175,7 +170,7 @@ class RescateController extends Controller
        /*  if ( Auth::check() )
        { */
             $rescate = Rescate::findOrFail( $id );
-            $vehiculos = Vehiculo::orderBy('codigodis','DESC')->get();
+            $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
             
             $bomberos = DB::table('users')->where([
               ['cargo','=','Bombero'],
@@ -206,9 +201,7 @@ class RescateController extends Controller
      * @return \Illuminate\Http\Response
      */
     function update(SaveRescateRequest $request , $id ) {
-        //
-        /* if ( Auth::check() ) { */
-
+     
           DB::begintransaction();
           try
           {
@@ -261,11 +254,9 @@ class RescateController extends Controller
           catch(\Exception $e)
           {
               DB::rollback();
-              dd($e);
+            
           }
-        /* } else {
-            return view( "/auth.login" );
-        } */
+      
     }
 
     /**
@@ -312,13 +303,12 @@ class RescateController extends Controller
     }
 
     public function downloadPDF($id) {
-        $date = Carbon::now();
-        $date = $date->format('l jS \\of F Y ');
-        $rescate = Rescate::find($id);
-        $pdf = PDF::loadView('rescate.pdf', compact('rescate','date'));
-        return $pdf->download('rescate.pdf');
-
-
+      $date = Carbon::now();
+      $date = $date->format('l jS \\of F Y ');
+      $rescate = Rescate::find($id);
+      $dompdf = App::make("dompdf.wrapper");
+      $dompdf->loadView('rescate.pdf', compact('rescate','date'));
+      return $dompdf->stream();
     }
 
     public function cargar($id)

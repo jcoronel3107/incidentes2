@@ -252,10 +252,10 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Vehìculo</span>
 							</div>
-							<select class="selectpicker form-control" data-live-search="true" name="vehiculo_id" id="pvehiculo_id">
+							<select class="selectpicker form-control" data-live-search="true" name="pvehiculo_id" id="pvehiculo_id">
 								<option selected>Elija...</option>
 								@foreach($vehiculos as $vehiculo)
-								<option >{{$vehiculo->codigodis}}</option>
+								<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>
 								@endforeach
 							</select>
 						</div>
@@ -413,7 +413,7 @@
 			jqvehiculo_id = $("#pvehiculo_id option.selected").text();
 			if (jqkm_salida != "" && jqkm_salida >= 0 && jqkm_llegada != "" && jqkm_llegada >= 0 && jqvehiculo != "") {
 				//total = total + subtotal[cont];
-				var fila = '<tr class = "selected" id="fila' + cont + '"><td><button type="button" class="btn btn-warning" onclick="eliminar1(' + cont + ')" type="button">X</button></td><td><input type="hidden" required name="vehiculo_id[]" value="' + jqvehiculo + '">' + jqvehiculo + '</td><td><input class="form-control" type="number" required  name="km_salida[]" value="' + jqkm_salida + '"></td><td><input class="form-control" required type="number"  name="km_llegada[]" value="' + jqkm_llegada + '"></td></tr>';
+				var fila = '<tr class = "selected" id="fila' + cont + '"><td><button type="button" class="btn btn-warning" onclick="eliminar1(' + cont + ')" type="button">X</button></td><td><input type="hidden" required name="vehiculo_id[]" value="' + jqvehiculo + '">' + jqvehiculo_id + '</td><td><input class="form-control" type="number" required  name="km_salida[]" value="' + jqkm_salida + '"></td><td><input class="form-control" required type="number"  name="km_llegada[]" value="' + jqkm_llegada + '"></td></tr>';
 				cont++;
 				limpiar();
 				evaluar();

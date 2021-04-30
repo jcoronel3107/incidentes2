@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Exports\SaludsExport;
 use App\Imports\SaludsImport;
-use PDF;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
 
 class SaludController extends Controller
@@ -60,7 +60,7 @@ class SaludController extends Controller
         $now = Carbon::now();
         $estaciones = Station::all();
         $parroquias = Parroquia::orderBy('nombre')->get();
-        $vehiculos = Vehiculo::orderBy('codigodis')->get();
+        $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
         $cies = Cie::where('nivel','=','3')->get();
         $users = DB::table('users')->where([
           ['cargo','=','Bombero'],
@@ -133,10 +133,8 @@ class SaludController extends Controller
             $kmsalidavehiculo = $request->get('km_salida');
             $kmllegadavehiculo = $request->get('km_llegada');
             while ($cont < count($nombrevehiculo)) {
-                $vehiculo_id = DB::table('vehiculos')
-                  ->where('codigodis',$nombrevehiculo[$cont])
-                  ->value('id');
-                $carro = Vehiculo::findOrFail($vehiculo_id);
+                
+                $carro = Vehiculo::findOrFail($nombrevehiculo[$cont]);
                 $carro->saluds()->attach(
                   $id , [
                     'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
@@ -221,7 +219,7 @@ class SaludController extends Controller
             $salud = Salud::findOrFail( $id );
            
 
-            $vehiculos = Vehiculo::all();
+            $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
             $bomberos = DB::table('users')->where([
               ['cargo','=','Bombero'],
             ])
@@ -237,7 +235,7 @@ class SaludController extends Controller
             ->get();
             $estaciones = Station::all();
             $parroquias = Parroquia::all();
-            //dd($salud->users[1]->id);
+           
             return view( "salud.edit", compact("salud","vehiculos","bomberos","maquinistas","incidentes","estaciones","parroquias"));
         } else {
             return view( "/auth.login" );
@@ -253,7 +251,7 @@ class SaludController extends Controller
      */
     public function update(SaveSaludRequest $request, $id)
     {
-        /* if ( Auth::check() ) { */
+        
           DB::begintransaction();
           try
           {
@@ -308,11 +306,9 @@ class SaludController extends Controller
           catch(\Exception $e)
           {
               DB::rollback();
-              //dd($e);
+              
           }
-        /* } else {
-            return view( "/auth.login" );
-        } */
+        
     }
 
     /**
@@ -358,11 +354,12 @@ class SaludController extends Controller
     }
 
     public function downloadPDF($id) {
-        $date = Carbon::now();
-        $date = $date->format('l jS \\of F Y ');
-        $salud = Salud::find($id);
-        $pdf = PDF::loadView('salud.pdf', compact('salud','date'));
-        return $pdf->download('salud.pdf');
+      $date = Carbon::now();
+      $date = $date->format('l jS \\of F Y ');
+      $salud = Salud::find($id);
+      $dompdf = App::make("dompdf.wrapper");
+      $dompdf->loadView('salud.pdf', compact('salud','date'));
+      return $dompdf->stream();
     }
 
     public function cargar($id)

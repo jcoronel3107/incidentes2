@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Exports\DerramesExport;
 use App\Imports\DerramesImport;
-use PDF;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
 
 class DerrameController extends Controller
@@ -28,23 +28,15 @@ class DerrameController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-   /*  public function __construct(){
-        $this->middleware('auth');
-    } */
-
     public function index(Request $request)
     {
         if($request)
         {
-          //dd($request);
           $query = trim($request->get('searchText'));
           $estacion_id = trim($request->get('estacion_id'));
-         
           $derrames = Derrame::where("address",'LIKE','%'.$query.'%')
-          /* ->where("station_id","==", $estacion_id) */
           ->OrderBy('fecha','desc')
           ->paginate(15);
-          
               return view( "/derrame.index", compact( "derrames","query","estacion_id" ) );
         }
     }
@@ -59,7 +51,7 @@ class DerrameController extends Controller
         $now = Carbon::now();
         $estaciones = Station::all();
         $parroquias = Parroquia::all();
-        $vehiculos = Vehiculo::orderBy('codigodis')->get();
+        $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
         $users = User::where("cargo","bombero")
             ->orderBy("name",'asc')
             ->get();
@@ -69,12 +61,7 @@ class DerrameController extends Controller
         $incidentes = Incidente::where("tipo_incidente","Hazmat")
             ->orderBy("nombre_incidente",'asc')
             ->get();
-
-        /* if ( Auth::check() ) { */
-                return view( "/derrame.crear", compact( "incidentes","now","estaciones","users","maquinistas", "parroquias","vehiculos" ) );
-        /* } else {
-                return view( "/auth.login" );
-        } */
+                     return view( "/derrame.crear", compact( "incidentes","now","estaciones","users","maquinistas", "parroquias","vehiculos" ) );
     }
 
     /**
@@ -85,13 +72,9 @@ class DerrameController extends Controller
      */
     public function store(SaveDerrameRequest $request)
     {
-        /* if ( Auth::check() )
-       { */
-          DB::begintransaction();
-          try
+        DB::begintransaction();
+        try
           {
-            
-            $validated = $request->validated();
             $derrame = new Derrame;
             $derrame->incidente_id = $request->incidente_id;
             $derrame->tipo_escena = $request->tipo_escena;
@@ -126,12 +109,9 @@ class DerrameController extends Controller
             $nombrevehiculo = $request->get('vehiculo_id');
             $kmsalidavehiculo = $request->get('km_salida');
             $kmllegadavehiculo = $request->get('km_llegada');
+            
             while ($cont < count($nombrevehiculo)) {
-                $vehiculo_id = DB::table('vehiculos')
-                  ->where('codigodis',$nombrevehiculo[$cont])
-                  ->value('id');
-                  dd($vehiculo_id);
-                $carro = Vehiculo::findOrFail($vehiculo_id);
+                $carro = Vehiculo::findOrFail($nombrevehiculo[$cont]);
                 $carro->derrames()->attach(
                     $id , ['km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
                 $cont=$cont+1;
@@ -144,9 +124,6 @@ class DerrameController extends Controller
               DB::rollback();
               
           }
-       /*  } else {
-            return view( "/auth.login" );
-        } */
     }
 
     /**
@@ -168,11 +145,9 @@ class DerrameController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        /* if ( Auth::check() ) { */
-            
+    {     
             $derrame = Derrame::findOrFail( $id );
-            $vehiculos = Vehiculo::all();
+            $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
             $bomberos=User::where('cargo','bombero')
             ->orderBy("name",'asc')
             ->get();
@@ -187,9 +162,6 @@ class DerrameController extends Controller
             $parroquias = Parroquia::all();
 
             return view( "derrame.edit", compact("derrame","vehiculos","bomberos","maquinistas","incidentes","estaciones","parroquias"));
-        /* } else {
-            return view( "/auth.login" );
-        } */
     }
 
     /**
@@ -201,9 +173,8 @@ class DerrameController extends Controller
      */
     public function update(SaveDerrameRequest $request , $id)
     {
-      /*  if ( Auth::check() ) { */
-          DB::begintransaction();
-          try
+        DB::begintransaction();
+        try
           { 
             $derrame = Derrame::findOrFail( $id );
             $derrame->update([
@@ -249,15 +220,13 @@ class DerrameController extends Controller
             }
             Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
             return redirect( "/derrame" );
-          }
-          catch(\Exception $e)
+        }
+        catch(\Exception $e)
           {
               DB::rollback();
-              dd($e);
+              
           }
-       /*  } else {
-            return view( "/auth.login" );
-        } */
+       
     }
 
     /**
@@ -268,14 +237,10 @@ class DerrameController extends Controller
      */
     public function destroy($id)
     {
-       /*  if ( Auth::check() ) { */
             $derrame = Derrame::findOrFail( $id );
             $derrame->delete();
             Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
             return redirect( "/derrame" );
-        /* } else {
-            return view( "/auth.login" );
-        } */
     }
 
     public function export()
@@ -306,9 +271,12 @@ class DerrameController extends Controller
         $date = Carbon::now();
         $date = $date->format('l jS \\of F Y ');
         $derrame = Derrame::find($id);
-        $pdf = PDF::loadView('derrame.pdf', compact('derrame','date'));
-
-        return $pdf->download('derrame.pdf');
+        $dompdf = App::make("dompdf.wrapper");
+        $dompdf->loadView('derrame.pdf', compact('derrame','date'));
+        return $dompdf->stream();
+        
+        
+       
     }
 
     public function cargar($id)

@@ -67,10 +67,10 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Vehìculo</span>
 							</div>
-							<select class="form-control selectpicker" name="vehiculo_id" id="pvehiculo_id" data-live-search="true">
-								<option value="" selected>Elija...</option>
+							<select class="form-control selectpicker" name="pvehiculo_id" id="pvehiculo_id" data-live-search="true">
+								<option  selected></option>
 								@foreach($vehiculos as $vehiculo)
-								<option>{{$vehiculo->codigodis}}</option>
+								<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>
 								@endforeach
 							</select>
 						</div>
@@ -353,6 +353,7 @@
 
 							<select class="form-control selectpicker" name="casasalud" id="pcasasalud" data-live-search="true">
 								<option selected>Elija...</option>
+								<option>Atención en Sitio</option>
 								<option>Clínica Albán</option>
 								<option>Clínica Cisneros</option>
 								<option>Clínica España</option>

@@ -210,7 +210,7 @@
 			</div>
 		</div>{{--Div Horas Evento--}}
 		<div class="form-row">
-			<div class="col-lg-8 col-md-8 col-sm-12">
+			<div class="col-lg-12 col-md-12 col-sm-12">
 				<div class="form-group input-group">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Detalle Emergencia</span>
@@ -230,7 +230,7 @@
 			</div>
 		</div>{{--Usuario Afectado --}}
 		<div class="form-row">
-			<div class="form-group input-group col-lg-8 col-md-8 col-sm-12">
+			<div class="form-group input-group col-lg-12 col-md-12 col-sm-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDaños">Daños Estimados</span>
 				</div>
@@ -249,10 +249,10 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Vehìculo</span>
 							</div>
-							<select  class="selectpicker form-control" data-live-search="true" name="vehiculo_id" id="pvehiculo_id">
+							<select  class="selectpicker form-control" data-live-search="true" name="pvehiculo_id" id="pvehiculo_id">
 								<option selected>{{old('vehiculo_id')}}</option>
 								@foreach($vehiculos as $vehiculo)
-								<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>
+								<option  value="{{$vehiculo->id}}" >{{$vehiculo->codigodis}}</option>
 								@endforeach
 							</select>
 						</div>
@@ -318,7 +318,7 @@
 		{{csrf_field()}}
 		<input type="hidden" name="_method" value="DELETE">
 
-		<button type="button" data-toggle="tooltip" title="Eliminar" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
+		<button type="button" title="Eliminar" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
 		<!-- Modal -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -399,10 +399,11 @@
 			jqkm_salida = $("#pkm_salida").val();
 			jqkm_llegada = $("#pkm_llegada").val();
 			jqvehiculo = $("#pvehiculo_id").val();
-			jqvehiculo_id = $("#pvehiculo_id option.selected").text();
+			jqvehiculo_id = $('#pvehiculo_id option:selected').text()
+			console.log("jqvehiculo_id");
 			if (jqkm_salida != "" && jqkm_salida >= 0 && jqkm_llegada != "" && jqkm_llegada >= 0 && jqvehiculo != "") {
 				//total = total + subtotal[cont];
-				var fila = '<tr class = "selected" id="fila' + cont + '"><td><button type="button" class="btn btn-warning" onclick="eliminar1(' + cont + ')" type="button">X</button></td><td><input type="hidden" name="vehiculo_id[]" value="' + jqvehiculo + '">' + jqvehiculo + '</td><td><input type="number"  name="km_salida[]" value="' + jqkm_salida + '"></td><td><input type="number"  name="km_llegada[]" value="' + jqkm_llegada + '"></td></tr>';
+				var fila = '<tr class = "selected" id="fila' + cont + '"><td><button type="button" class="btn btn-warning" onclick="eliminar1(' + cont + ')" type="button">X</button></td><td><input type="hidden" name="vehiculo_id[]" value="' + jqvehiculo + '">' + jqvehiculo_id + '</td><td><input class="form-control" type="number"  name="km_salida[]" value="' + jqkm_salida + '"></td><td><input class="form-control" type="number"  name="km_llegada[]" value="' + jqkm_llegada + '"></td></tr>';
 				cont++;
 				limpiar();
 				evaluar();

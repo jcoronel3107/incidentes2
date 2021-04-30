@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Exports\FugasExport;
 use App\Imports\FugasImport;
-use PDF;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
 
 class FugaController extends Controller
@@ -56,7 +56,7 @@ class FugaController extends Controller
         $now = Carbon::now();
         $estaciones = Station::all();
         $parroquias = Parroquia::all();
-        $vehiculos = Vehiculo::orderBy('codigodis')->get();
+        $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
         $users = DB::table('users')->where([
           ['cargo','=','Bombero'],
         ])
@@ -132,10 +132,8 @@ class FugaController extends Controller
             $kmsalidavehiculo = $request->get('km_salida');
             $kmllegadavehiculo = $request->get('km_llegada');
             while ($cont < count($nombrevehiculo)) {
-                $vehiculo_id = DB::table('vehiculos')
-                  ->where('codigodis',$nombrevehiculo[$cont])
-                  ->value('id');
-                $carro = vehiculo::findOrFail($vehiculo_id);
+               
+                $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);
                 $carro->fugas()->attach(
                   $id , [
                     'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
@@ -177,7 +175,7 @@ class FugaController extends Controller
         /* if ( Auth::check() ) { */
             
             $fuga = Fuga::findOrFail( $id );
-            $vehiculos = Vehiculo::all();
+            $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
             $bomberos=User::where('cargo','bombero')
             ->orderBy("name",'asc')
             ->get();
@@ -316,9 +314,9 @@ class FugaController extends Controller
         $date = Carbon::now();
         $date = $date->format('l jS \\of F Y ');
         $fuga = Fuga::find($id);
-        $pdf = PDF::loadView('fuga.pdf', compact('fuga','date'));
-
-        return $pdf->download('fuga.pdf');
+        $dompdf = App::make("dompdf.wrapper");
+        $dompdf->loadView('fuga.pdf', compact('fuga','date'));
+        return $dompdf->stream();
     }
 
     public function cargar($id)

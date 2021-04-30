@@ -15,6 +15,8 @@ use App\Rescate;
 use App\Fuga;
 use App\Derrame;
 use App\Servicio;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
 
 class MenuController extends Controller
 {
@@ -670,5 +672,13 @@ class MenuController extends Controller
         //dd($last_activity->diffForHumans());
         $last_activity = $last_activity->diffForHumans();      
          return $last_activity;
+    }
+
+    public function qrcode_blade()
+    {
+       
+            return QrCode::size(150)
+                ->backgroundColor(205, 205, 204)
+                ->generate('MyNotePaper');
     }
 }

@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Exports\InundacionsExport;
 use App\Imports\InundacionsImport;
-use PDF;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -59,7 +59,7 @@ class InundacionController extends Controller
         $now = Carbon::now();
         $estaciones = Station::all();
         $parroquias = Parroquia::all();
-        $vehiculos = Vehiculo::orderBy('codigodis')->get();
+        $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
         $users = DB::table('users')->where([
           ['cargo','=','Bombero'],
         ])
@@ -131,10 +131,8 @@ class InundacionController extends Controller
             $kmsalidavehiculo = $request->get('km_salida');
             $kmllegadavehiculo = $request->get('km_llegada');
             while ($cont < count($nombrevehiculo)) {
-                $vehiculo_id = DB::table('vehiculos')
-                  ->where('codigodis',$nombrevehiculo[$cont])
-                  ->value('id');
-                $carro = vehiculo::findOrFail($vehiculo_id);
+                
+                $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);
                 $carro->inundacions()->sync(
                   $id , [
                     'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
@@ -182,7 +180,7 @@ class InundacionController extends Controller
             ->where('id', $id)
             ->value('name');
             $inundacion = Inundacion::findOrFail( $id );
-            $vehiculos = Vehiculo::all();
+            $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
             $bomberos=User::where('cargo','bombero')
             ->orderBy("name",'asc')
             ->get();
@@ -315,11 +313,12 @@ class InundacionController extends Controller
     }
 
     public function downloadPDF($id) {
-        $date = Carbon::now();
-        $date = $date->format('l jS \\of F Y ');
-        $inundacion = Inundacion::find($id);
-        $pdf = PDF::loadView('inundacion.pdf', compact('inundacion','date'));
-        return $pdf->download('inundacion.pdf');
+      $date = Carbon::now();
+      $date = $date->format('l jS \\of F Y ');
+      $incendio = Inundacion::find($id);
+      $dompdf = App::make("dompdf.wrapper");
+      $dompdf->loadView('inundacion.pdf', compact('inundacion','date'));
+      return $dompdf->stream();
     }
 
     public function cargar($id)

@@ -154,3 +154,12 @@ button {
     width: 300px;
   }
 }
+
+#column {
+  display: flex;  
+}
+#article
+{
+  flex: 1;
+  flex: 200px;
+}

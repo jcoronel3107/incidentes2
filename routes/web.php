@@ -42,9 +42,9 @@ Route::resource('user',								'UserController')->middleware('auth');
 Route::resource('prevencion',						'PrevencionController')->middleware('auth');
 
 //Rutas Carga Formularios Inspeccion Prevencion
-Route::get('inspeccionderrame/{$id}',              'DerrameController@inspeccion')->name('inspeccionderrame');
-Route::get('inspeccionfuga/{$id}',                 'FugaController@inspeccion')->name('inspeccionfuga');
-Route::get('inspeccionfuego/{$id}',                'IncendioController@inspeccion')->name('inspeccionfuego');
+Route::get('inspeccionderrame/{id}',              'DerrameController@inspeccion')->name('inspeccionderrame')->middleware('auth');
+Route::get('inspeccionfuga/{id}',                 'FugaController@inspeccion')->name('inspeccionfuga')->middleware('auth');
+Route::get('inspeccionfuego/{id}',                'IncendioController@inspeccion')->name('inspeccionf')->middleware('auth');
 
 
 Route::put('/registrainspeccionfuga',               'FugaController@registrainspeccion')->name('registrainspeccionfuga');
@@ -164,10 +164,10 @@ Route::get('/eventoE8/',							'MenuController@evento8')->middleware('auth');
 Route::get('/eventoE9/',							'MenuController@evento9')->middleware('auth');
 Route::get('/refresh/',							    'MenuController@refrescamiento');
 
-
+// Rotas Creacion QR
+Route::get('qrcode',                                'MenuController@qrcode_blade')->middleware(('auth'));
 
 Route::get('profile/perfil', 						'ProfileController@index')->name('profile.index')->middleware('auth');
-
 Route::put('profile/perfil', 						'ProfileController@update')->name('profile.update')->middleware('auth');
 Route::put('profile/pass', 							'ProfileController@pass')->name('profile.pass')->middleware('auth');
 Route::put('profile/avatar', 						'ProfileController@update_avatar')->name('profile.avatar')->middleware('auth');

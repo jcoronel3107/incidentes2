@@ -33,13 +33,8 @@ class ClaveController extends Controller {
 	
 
 	function index(Request $request) {
-
-
 		if($request)
         {
-			
-		
-
 	        $query = trim($request->get('searchText'));
 	        //
 	        $claves = Clave::where("created_at",'LIKE','%'.$query.'%')
@@ -54,9 +49,7 @@ class ClaveController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public
-
-	function create() {
+	public function create() {
 		//
 		$gasolineras = Gasolinera::all();
 		$vehiculos = Vehiculo::orderBy('codigodis','asc')->get();

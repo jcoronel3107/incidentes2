@@ -64,6 +64,7 @@
 					<td>Clase</td>
 					<td>Motor</td>
 					<td>Chasis</td>
+					<td>Estado</td>
 					<td>Opciones</td>
 			</thead>
 			<tbody>
@@ -76,6 +77,7 @@
 					<td>{{$vehiculo->clase}}&nbsp;</td>
 					<td>{{$vehiculo->motor}}&nbsp;</td>
 					<td>{{$vehiculo->chasis}}&nbsp;</td>
+					<td>{{$vehiculo->activo}}&nbsp;</td>
 					<td>
 						<a class="btn btn-outline-danger btn-sm" href="{{route('vehiculo.edit',$vehiculo->id)}}" role="button">Edit</a>
 						<a class="btn btn-outline-info btn-sm" href="{{route('vehiculo.show',$vehiculo->id)}}" role="button">Ver</a>

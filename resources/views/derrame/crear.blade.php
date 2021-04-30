@@ -81,10 +81,10 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Vehìculo</span>
 							</div>
-							<select class="form-control selectpicker" data-live-search="true" name="vehiculo_id" id="pvehiculo_id" >
-								<option value="" selected>{{old('vehiculo_id')}}</option>
+							<select class="form-control selectpicker" data-live-search="true" name="pvehiculo_id" id="pvehiculo_id" >
+								<option selected></option>
 								@foreach($vehiculos as $vehiculo)
-									<option>{{$vehiculo->codigodis}}</option>
+									<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>
 								@endforeach
 							</select>
 						</div>
@@ -267,7 +267,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Llegada A Emerg.</span>
 				</div>
-				<input type="text" class="form-control" name="hora_llegada_a_emergencia" onblur="CheckTime(this);" id="hora_llegada_a_emergencia" placeholder="hh:mm:ss" value="{{old('hora_llegada_a_emergencia')}}" required="">
+				<input type="text" class="form-control" name="hora_llegada_a_emergencia" onblur="CheckTime(this);" id="hora_llegada_a_emergencia" value="{{old('hora_llegada_a_emergencia')}}" required="">
 				<div class="input-group-append">
 					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual1" id="horactual1"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 				</div>

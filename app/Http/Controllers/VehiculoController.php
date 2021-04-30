@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use App\Exports\VehiculosExport;
 use App\Imports\VehiculosImport;
-use PDF;
+use Barryvdh\DomPDF\PDF;
 
 class VehiculoController extends Controller
 {
@@ -34,7 +34,7 @@ class VehiculoController extends Controller
         //
          $vehiculos = Vehiculo::where("codigodis",'LIKE','%'.$query.'%')
           ->OrderBy('codigodis','asc')
-          ->paginate(5);
+          ->paginate(10);
           return view( "/vehiculo.index", compact( "vehiculos","query" ) );
         }
 
@@ -83,7 +83,7 @@ class VehiculoController extends Controller
 			$vehiculo->cilindraje = $request->cilindraje;
 			$vehiculo->motor = $request->motor;
 			$vehiculo->chasis = $request->chasis;
-			$vehiculo->estacion = $request->estacion;
+			$vehiculo->station_id = $request->station_id;
 			$vehiculo->estado = $request->estado;
 			$vehiculo->activo = $request->activo;
 			$vehiculo->codigoinv = $request->codigoinv;

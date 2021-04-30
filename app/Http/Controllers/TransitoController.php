@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Exports\TransitosExport;
 use App\Imports\TransitosImport;
-use PDF;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -59,7 +59,7 @@ class TransitoController extends Controller
         $now = Carbon::now();
         $estaciones = Station::all();
         $parroquias = Parroquia::all();
-        $vehiculos = Vehiculo::orderBy('codigodis')->get();
+        $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
         $bomberos = DB::table('users')->where([
           ['cargo','=','Bombero'],
         ])
@@ -88,8 +88,7 @@ class TransitoController extends Controller
      */
     public function store(SaveTransitoRequest $request)
     {
-        /* if ( Auth::check() )
-       { */
+        
           DB::begintransaction();
           try
           {
@@ -129,10 +128,8 @@ class TransitoController extends Controller
             $kmsalidavehiculo = $request->get('km_salida');
             $kmllegadavehiculo = $request->get('km_llegada');
             while ($cont < count($nombrevehiculo)) {
-                $vehiculo_id = DB::table('vehiculos')
-                  ->where('codigodis',$nombrevehiculo[$cont])
-                  ->value('id');
-                $carro = vehiculo::findOrFail($vehiculo_id);
+                
+                $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);
                 $carro->transitos()->attach(
                   $id , [
                     'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
@@ -144,11 +141,9 @@ class TransitoController extends Controller
           catch(\Exception $e)
           {
               DB::rollback();
-              dd($e);
+             
           }
-        /* } else {
-            return view( "/auth.login" );
-        } */
+        
     }
 
     /**
@@ -179,7 +174,7 @@ class TransitoController extends Controller
             ->where('id', $id)
             ->value('name');
             $transito = Transito::findOrFail( $id );
-            $vehiculos = Vehiculo::all();
+            $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
             $bomberos=User::where('cargo','bombero')
             ->orderBy("name",'asc')
             ->get();
@@ -259,7 +254,7 @@ class TransitoController extends Controller
           catch(\Exception $e)
           {
               DB::rollback();
-              dd($e);
+              
           }
         /* } else {
             return view( "/auth.login" );
@@ -309,11 +304,12 @@ class TransitoController extends Controller
     }
 
     public function downloadPDF($id) {
-        $date = Carbon::now();
-        $date = $date->format('l jS \\of F Y ');
-        $transito = Transito::find($id);
-        $pdf = PDF::loadView('transito.pdf', compact('transito','date'));
-        return $pdf->download('transito.pdf');
+      $date = Carbon::now();
+      $date = $date->format('l jS \\of F Y ');
+      $transito = Transito::find($id);
+      $dompdf = App::make("dompdf.wrapper");
+      $dompdf->loadView('transito.pdf', compact('transito','date'));
+      return $dompdf->stream();
     }
 
     public function cargar($id)

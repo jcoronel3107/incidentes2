@@ -39,7 +39,7 @@ class CreateVehiculoRequest extends FormRequest
                 'cilindraje'=>'required',
                 'motor'=>'required',
                 'chasis'=>'required',
-                'estacion'=>'required',
+                'station_id'=>'required',
                 'activo'=>'required',
                 'responsab'=>'required',
                 'kmmantrut'=>'required'

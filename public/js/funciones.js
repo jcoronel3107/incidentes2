@@ -5,7 +5,7 @@ window.addEventListener("load", cargaPagina);
 function cargaPagina() {
     
 	var btn = document.getElementById("horactual").addEventListener("click", hractual);
-	var btn0 = document.getElementById("horactual0").addEventListener("click", hractual);
+	/* var btn0 = document.getElementById("horactual0").addEventListener("click", hractual); */
 	var btn1 = document.getElementById("horactual1").addEventListener("click", hractual);
 	var btn2 = document.getElementById("horactual2").addEventListener("click", hractual);
 	var btn3 = document.getElementById("horactual3").addEventListener("click", hractual);
@@ -90,33 +90,35 @@ $(document).ready(function(){
 	        }
 	    });
 	$("#Enviar").hide();
-	/* conservarinfo(); */
+	
 
 	
 });
 		
-total=0;
+
 var cont=0;
 var jqkm_salida=0;
 var jqkm_llegada=0;
 var jqvehiculo_id="";
 var jqvehiculo="";
-subtotal=[];
+
 
 function agregar() {
 	// body...
 	jqkm_salida=$("#pkm_salida").val();
 	jqkm_llegada=$("#pkm_llegada").val();
 	jqvehiculo=$("#pvehiculo_id").val();
-	jqvehiculo_id=$("#pvehiculo_id option.selected").text();
+	jqvehiculo_id=$( "#pvehiculo_id option.selected" ).text();
+				 
+	console.log(jqvehiculo_id);
 	if(jqkm_salida!="" && jqkm_salida>=0 && jqkm_llegada>=0 && jqkm_llegada!=""  && jqvehiculo!="")
 	{
 		if((jqkm_salida==0)||(jqkm_salida==null))
 			jqkm_salida=0;
 		if((jqkm_llegada==0)||(jqkm_llegada==null))
 			jqkm_llegada=0;
-		total = total + subtotal[cont];
-		var fila = '<tr class = "selected" id="fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminar('+cont+')" type="button">X</button></td><td><input required type="hidden" name="vehiculo_id[]" value="'+jqvehiculo+'">'+jqvehiculo+'</td><td><input type="number" required class="form-control"  name="km_salida[]" value="'+jqkm_salida+'"></td><td><input type="number" required class="form-control" name="km_llegada[]" value="'+jqkm_llegada+'"></td></tr>';
+		
+		var fila = '<tr class = "selected" id="fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminar('+cont+')" type="button">X</button></td><td><input required type="hidden" name="vehiculo_id[]" value="'+jqvehiculo+'">'+jqvehiculo_id+'</td><td><input type="number" required class="form-control"  name="km_salida[]" value="'+jqkm_salida+'"></td><td><input type="number" required class="form-control" name="km_llegada[]" value="'+jqkm_llegada+'"></td></tr>';
 		cont++;
 		limpiar();
 		evaluar();
@@ -127,10 +129,7 @@ function agregar() {
 }
 
 function conservarinfo(){
-	$("#pkm_salida").val(jqkm_salida);
-	$("#pkm_llegada").val(jqkm_llegada);
-	$("#pvehiculo_id").val(jqvehiculo);
-
+	
 }
 
 function limpiar(){
@@ -182,7 +181,7 @@ function evaluar(){
 }
 
 function eliminar(index){
-	total = total - subtotal[index];
+	
 	$("#fila"+index).remove();
 	evaluar();
 }
@@ -252,11 +251,13 @@ function CheckTime(str)
 	}
 	if (hora.length>8) 
 	{	
-		alert("Introdujo una cadena mayor a 8 caracteres");	
+		str.title = "Introdujo una cadena mayor a 8 caracteres";
+		//alert("Introdujo una cadena mayor a 8 caracteres");	
 	}
 	if (hora.length!=8) 
 	{
-		alert("Introducir formato HH:MM:SS");	
+		//alert("Introducir formato HH:MM:SS");	
+		str.title = "Introducir formato HH:MM:SS";
 	}
 	a=hora.charAt(0) //<=2
 	b=hora.charAt(1) //<4
@@ -266,21 +267,24 @@ function CheckTime(str)
 	f=hora.charAt(6) //<=5
 	if ((a==2 && b>3) || (a>2)) 
 	{
-		alert("El valor que introdujo en la Hora no corresponde, introduzca un digito entre 00 y 23");
+		//alert("El valor que introdujo en la Hora no corresponde, introduzca un digito entre 00 y 23");
 		str.title = "El valor que introdujo en la Hora no corresponde, introduzca un digito entre 00 y 23";	
 	}
 	if (d>5)
 	{
-		alert("El valor que introdujo en los minutos no corresponde, introduzca un digito entre 00 y 59");
+		//alert("El valor que introdujo en los minutos no corresponde, introduzca un digito entre 00 y 59");
+		str.title = "El valor que introdujo en los minutos no corresponde, introduzca un digito entre 00 y 59";
 	}
 	if (f>5) 
 	{
-		alert("El valor que introdujo en los segundos no corresponde");
+		//alert("El valor que introdujo en los segundos no corresponde");
+		str.title = "El valor que introdujo en los segundos no corresponde";
 		
 	}
 	if (c!=':' || e!=':') 
 	{
-		alert("Introduzca el caracter ':' para separar la hora, los minutos y los segundos");
+		str.title = "Introduzca el caracter ':' para separar la hora, los minutos y los segundos";
+		//alert("Introduzca el caracter ':' para separar la hora, los minutos y los segundos");
 			
 	} 
 } 

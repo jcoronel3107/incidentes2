@@ -17,8 +17,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Exports\IncendiosExport;
 use App\Imports\IncendiosImport;
-use PDF;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
+
+
 
 
 class IncendioController extends Controller
@@ -53,7 +55,7 @@ class IncendioController extends Controller
     public function create() {
         //
         $now = Carbon::now();
-        $vehiculos = Vehiculo::orderBy('codigodis')->get();
+        $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
         $estaciones = Station::all();
         $parroquias = Parroquia::all();
         $incidentes = Incidente::where("tipo_incidente","10_70")
@@ -83,11 +85,9 @@ class IncendioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(SaveIncendioRequest $request) {
-        if ( Auth::check() ) {
+       
             try
             {
-                $validated = $request->validated();
-                
                 $incendio = new Incendio;
                 $incendio->incidente_id = $request->incidente_id;
                 $incendio->tipo_escena = $request->tipo_escena;
@@ -125,10 +125,8 @@ class IncendioController extends Controller
                 $kmsalidavehiculo = $request->get('km_salida');
                 $kmllegadavehiculo = $request->get('km_llegada');
                 while ($cont < count($nombrevehiculo)) {
-                   $vehiculo_id = DB::table('vehiculos')
-                    ->where('codigodis',$nombrevehiculo[$cont])
-                    ->value('id');
-                  $carro = vehiculo::findOrFail($vehiculo_id);
+                   
+                  $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);
                   $carro->incendios()->attach(
                       $id , [
                         'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
@@ -140,11 +138,8 @@ class IncendioController extends Controller
             catch(\Exception $e)
             {
               DB::rollback();
-              dd($e);
             }
-        } else {
-            return view( "/auth.login" );
-        }
+        
     }
 
     /**
@@ -180,7 +175,7 @@ class IncendioController extends Controller
             ->where('id', $id)
             ->value('name');
             $incendio = Incendio::findOrFail( $id );
-            $vehiculos = Vehiculo::orderBy('codigodis','DESC')->get();
+            $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
             $bomberos = DB::table('users')->where([
               ['cargo','=','Bombero'],
             ])
@@ -321,9 +316,10 @@ class IncendioController extends Controller
         $date = Carbon::now();
         $date = $date->format('l jS \\of F Y ');
         $incendio = Incendio::find($id);
-        $pdf = PDF::loadView('fuego.pdf', compact('incendio','date'));
-
-        return $pdf->download('incendio.pdf');
+        $dompdf = App::make("dompdf.wrapper");
+        $dompdf->loadView('fuego.pdf', compact('incendio','date'));
+        return $dompdf->stream();
+        //return $dompdf->download('incendio.pdf');
     }
 
     public function cargar($id)

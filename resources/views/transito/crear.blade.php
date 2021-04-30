@@ -60,10 +60,10 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Vehìculo</span>
 							</div>
-							<select class="form-control selectpicker" name="vehiculo_id" id="pvehiculo_id" data-live-search="true">
-								<option selected>Elija...</option>
+							<select class="form-control selectpicker" name="pvehiculo_id" id="pvehiculo_id" data-live-search="true">
+								<option selected></option>
 								@foreach($vehiculos as $vehiculo)
-								<option>{{$vehiculo->codigodis}}</option>
+								<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>
 								@endforeach
 							</select>
 						</div>

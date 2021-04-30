@@ -21,53 +21,53 @@
 		<p align="right" class="text-info text">Cuenca, {{$date}}</p>
 		<h3>Registro Nro.{{$inundacion->id}}</h3>
 		<span class="bg-gray font-weight-bold">Cod_Incidente:</span>
-		<p class="text-info">{{$inundacion->incidente->nombre_incidente}}</p>
+		<ul><p> class="text-info">{{$inundacion->incidente->nombre_incidente}}</p></ul>
 		<span class="bg-gray font-weight-bold">Tipo_Escena:</span>
-		<p class=" text-info">{{$inundacion->tipo_escena}}</p>
+		<ul><p> class=" text-info">{{$inundacion->tipo_escena}}</p></ul>
 		<span class="bg-gray font-weight-bold">Cod_Estacion:</span>
-		<p class=" text-info">{{$inundacion->station_id}}</p>
+		<ul><p> class=" text-info">{{$inundacion->station_id}}</p></ul>
 		<hr>
 
 		<span class="bg-gray font-weight-bold">Fecha:</span>
-		<p class="text-info">{{$inundacion->fecha}}</p>
+		<ul><p> class="text-info">{{$inundacion->fecha}}</p></ul>
 		<span class="bg-gray font-weight-bold">Ficha_Ecu911:</span>
-		<p class="text-info">{{$inundacion->ficha_ecu911}}</p>
+		<ul><p> class="text-info">{{$inundacion->ficha_ecu911}}</p></ul>
 		<span class="bg-gray font-weight-bold">Hora_FichaEcu911:</span>
-		<p class="text-info">{{$inundacion->hora_fichaecu911}}</p>
+		<ul><p> class="text-info">{{$inundacion->hora_fichaecu911}}</p></ul>
 		<hr>
 		<span class="bg-gray font-weight-bold">Dirección:</span>
-		<p class="text-info">{{$inundacion->direccion}}</p>
+		<ul><p> class="text-info">{{$inundacion->direccion}}</p></ul>
 		<span class="bg-gray font-weight-bold">Parroquia: </span>
-		<p class="text-info">{{$inundacion->parroquia->nombre}}</p>
+		<ul><p> class="text-info">{{$inundacion->parroquia->nombre}}</p></ul>
 		<span class="bg-gray font-weight-bold">Georeferencia:</span>
-		<p class="text-info">{{$inundacion->geoposicion}}</p><br />
+		<ul><p> class="text-info">{{$inundacion->geoposicion}}</p></ul><br />
 		<hr>
 		<span class="bg-gray font-weight-bold">Hora Salida a Emergencia:</span>
-		<p class="text-info">{{$inundacion->hora_salida_a_emergencia}}</p><br />
+		<ul><p> class="text-info">{{$inundacion->hora_salida_a_emergencia}}</p></ul><br />
 		<span class="bg-gray font-weight-bold">Hora Llegada A Emergencia:</span>
-		<p class="text-info">{{$inundacion->hora_llegada_a_emergencia}}</p><br />
+		<ul><p> class="text-info">{{$inundacion->hora_llegada_a_emergencia}}</p></ul><br />
 		<hr>
 		<span class="bg-gray font-weight-bold">Hora Fin Emergencia:</span>
-		<p class="text-info">{{$inundacion->hora_fin_emergencia}}</p>
+		<ul><p> class="text-info">{{$inundacion->hora_fin_emergencia}}</p></ul>
 		<span class="bg-gray font-weight-bold">Hora En Base:</span>
-		<p class="text-info">{{$inundacion->hora_en_base}}</p>
+		<ul><p> class="text-info">{{$inundacion->hora_en_base}}</p></ul>
 		<span class="bg-gray font-weight-bold">Informacion Inicial:</span>
-		<p class="text-info text-wrap text-break">{{$inundacion->informacion_inicial}}</p>
+		<ul><p> class="text-info text-wrap text-break">{{$inundacion->informacion_inicial}}</p></ul>
 		<span class="bg-gray font-weight-bold">Detalle Emergencia:</span>
-		<p class="text-info text-wrap text-break">{{$inundacion->detalle_emergencia}}</p>
+		<ul><p> class="text-info text-wrap text-break">{{$inundacion->detalle_emergencia}}</p></ul>
 
 		<hr>
 		<span class="bg-gray font-weight-bold">Usuario Afectado:</span>
-		<p class="text-info">{{$inundacion->usuario_afectado}}</p>
+		<ul><p> class="text-info">{{$inundacion->usuario_afectado}}</p></ul>
 		<span class="bg-gray font-weight-bold"> Danos Estimados:</span>
-		<p class="text-info text-wrap text-break">{{$inundacion->danos_estimados}}</p>
+		<ul><p> class="text-info text-wrap text-break">{{$inundacion->danos_estimados}}</p></ul>
 		<hr>
 		<span class="bg-gray font-weight-bold"> Usuario Elabora:</span>
-		<p class="text-info">{{$inundacion->usr_creador}}</p>
+		<ul><p> class="text-info">{{$inundacion->usr_creador}}</p></ul>
 		<span class="bg-gray font-weight-bold"> Usuario Edición:</span>
-		<p class="text-info">{{$inundacion->usr_editor}}</p>
+		<ul><p> class="text-info">{{$inundacion->usr_editor}}</p></ul>
 		<span class="bg-gray font-weight-bold"> Fechas Edición:</span>
-		<p class="text-info">{{$inundacion->updated_at}}</p>
+		<ul><p> class="text-info">{{$inundacion->updated_at}}</p></ul></ul>
 		<hr><br /><br />
 		<div class="row p-3 border-left-secondary">
 			<div class="col-sm-12 col-md-12 col-lg-12">

@@ -14,65 +14,72 @@
 </head>
 
 <body>
-	<img src="images/encabezado.png" alt="encabezadopdf" width="500" height="90">
-	<div class="container">
-
-		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Consultar Información de Evento Incendio (10-70)</h2>
-		<p align="right" class="text-info text">Cuenca, {{$date}}</p>
-		<h3>Registro Nro.{{$incendio->id}}</h3>
-		<span class="bg-gray font-weight-bold">Cod_Incidente:</span>
-		<p class="text-info">{{$incendio->incidente->nombre_incidente}}</p>
-		<span class="bg-gray font-weight-bold">Tipo_Escena:</span>
-		<p class=" text-info">{{$incendio->tipo_escena}}</p>
-		<span class="bg-gray font-weight-bold">Cod_Estacion:</span>
-		<p class=" text-info">{{$incendio->station_id}}</p>
+	<img src="images/encabezado.png" alt="encabezadopdf" width="500" height="80">
+	<div id="column" class="container fluid">
+		<div id="article">
+			<h2 class=" shadow p-3 bg-white rounded text-danger">Consultar Información de Evento Incendio (10-70)</h2>
+			<p align="right" class="text-info text">Cuenca, {{$date}}</p>
+			<hr>
+			<h3>Registro Nro.{{$incendio->id}}</h3>
+			<hr>
+			<span class="bg lightgrey font-weight-bold">Cod_Incidente:</span>
+			<ul><p class="text-info">{{$incendio->incidente->nombre_incidente}}</p></ul>
+			<span class="bg-gray font-weight-bold">Tipo_Escena:</span>
+			<ul><p class=" text-info">{{$incendio->tipo_escena}}</p></ul>
+			<span class="bg-gray font-weight-bold">Cod_Estacion:</span>
+			<ul><p class=" text-info">{{$incendio->station_id}}</p></ul>
+			<hr>
+			<span class="bg-gray font-weight-bold">Fecha:</span>
+			<ul><p class="text-info">{{$incendio->fecha}}</p></ul>
+			<span class="bg-gray font-weight-bold">Ficha_Ecu911:</span>
+			<ul><p class="text-info">{{$incendio->ficha_ecu911}}</p></ul>
+			<span class="bg-gray font-weight-bold">Hora_FichaEcu911:</span>
+			<ul><p class="text-info">{{$incendio->hora_fichaecu911}}</p></ul>
+			<hr>
+			<span class="bg-gray font-weight-bold">Dirección:</span>
+			<ul><p class="text-info">{{$incendio->direccion}}</p></ul>
+			<span class="bg-gray font-weight-bold">Parroquia: </span>
+			<ul><p class="text-info">{{$incendio->parroquia->nombre}}</p></ul>
+			
+		</div>
 		<hr>
-
-		<span class="bg-gray font-weight-bold">Fecha:</span>
-		<p class="text-info">{{$incendio->fecha}}</p>
-		<span class="bg-gray font-weight-bold">Ficha_Ecu911:</span>
-		<p class="text-info">{{$incendio->ficha_ecu911}}</p>
-		<span class="bg-gray font-weight-bold">Hora_FichaEcu911:</span>
-		<p class="text-info">{{$incendio->hora_fichaecu911}}</p>
+		<div id="article">
+			<span class="bg-gray font-weight-bold">Hora Salida a Emergencia:</span>
+			<ul><p class="text-info">{{$incendio->hora_salida_a_emergencia}}</p></ul>
+			<span class="bg-gray font-weight-bold">Hora Llegada A Emergencia:</span>
+			<ul><p class="text-info">{{$incendio->hora_llegada_a_emergencia}}</p></ul>
+			<span class="bg-gray font-weight-bold">Hora Fin Emergencia:</span>
+			<ul><p class="text-info">{{$incendio->hora_fin_emergencia}}</p></ul>
+			<span class="bg-gray font-weight-bold">Hora En Base:</span>
+			<ul><p class="text-info">{{$incendio->hora_en_base}}</p></ul>
+			<span class="bg-gray font-weight-bold">Informacion Inicial:</span>
+			<ul><p class="text-info text-wrap text-break">{{$incendio->informacion_inicial}}</p></ul>
+			<span class="bg-gray font-weight-bold">Detalle Emergencia:</span>
+			<ul><p class="text-info text-wrap text-break">{{$incendio->detalle_emergencia}}</p></ul>
+		</div>
 		<hr>
-		<span class="bg-gray font-weight-bold">Dirección:</span>
-		<p class="text-info">{{$incendio->direccion}}</p>
-		<span class="bg-gray font-weight-bold">Parroquia: </span>
-		<p class="text-info">{{$incendio->parroquia->nombre}}</p><br />
+		<div id="article">
+			<span class="bg-gray font-weight-bold">Usuario Afectado:</span>
+			<ul><p class="text-info">{{$incendio->usuario_afectado}}</p></ul>
+			<span class="bg-gray font-weight-bold"> Danos Estimados:</span>
+			<ul><p class="text-info text-wrap text-break">{{$incendio->danos_estimados}}</p></ul>
+		</div>
 		<hr>
-		<span class="bg-gray font-weight-bold">Hora Salida a Emergencia:</span>
-		<p class="text-info">{{$incendio->hora_salida_a_emergencia}}</p><br />
-		<span class="bg-gray font-weight-bold">Hora Llegada A Emergencia:</span>
-		<p class="text-info">{{$incendio->hora_llegada_a_emergencia}}</p><br />
+		<div id="article">
+			<span class="bg-gray font-weight-bold"> Usuario Elabora:</span>
+			<ul><p class="text-info">{{$incendio->usr_creador}}</p></ul>
+			<span class="bg-gray font-weight-bold"> Usuario Edición:</span>
+			<ul><p class="text-info">{{$incendio->usr_editor}}</p></ul>
+			<span class="bg-gray font-weight-bold"> Fechas Edición:</span>
+			<ul><p class="text-info">{{$incendio->updated_at}}</p></ul>
+		</div>
 		<hr>
-		<span class="bg-gray font-weight-bold">Hora Fin Emergencia:</span>
-		<p class="text-info">{{$incendio->hora_fin_emergencia}}</p>
-		<span class="bg-gray font-weight-bold">Hora En Base:</span>
-		<p class="text-info">{{$incendio->hora_en_base}}</p>
-		<span class="bg-gray font-weight-bold">Informacion Inicial:</span>
-		<p class="text-info text-wrap text-break">{{$incendio->informacion_inicial}}</p>
-		<span class="bg-gray font-weight-bold">Detalle Emergencia:</span>
-		<p class="text-info text-wrap text-break">{{$incendio->detalle_emergencia}}</p>
-
-		<hr>
-		<span class="bg-gray font-weight-bold">Usuario Afectado:</span>
-		<p class="text-info">{{$incendio->usuario_afectado}}</p>
-		<span class="bg-gray font-weight-bold"> Danos Estimados:</span>
-		<p class="text-info text-wrap text-break">{{$incendio->danos_estimados}}</p>
-		<hr>
-		<span class="bg-gray font-weight-bold"> Usuario Elabora:</span>
-		<p class="text-info">{{$incendio->usr_creador}}</p>
-		<span class="bg-gray font-weight-bold"> Usuario Edición:</span>
-		<p class="text-info">{{$incendio->usr_editor}}</p>
-		<span class="bg-gray font-weight-bold"> Fechas Edición:</span>
-		<p class="text-info">{{$incendio->updated_at}}</p>
-		<hr><br /><br />
-		<div class="row p-3 border-left-secondary">
+		<div id="article" class="row p-3 border-left-secondary">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<p class="text-center">
 				<h4>Personal Asiste</h4>
 				</p>
-				<table class="table table-sm table-hover">
+				<table class="table table-sm">
 					<thead>
 						<tr>
 							<th scope="col">#</th>
@@ -98,7 +105,7 @@
 				<p class="text-center">
 				<h4>Vehiculos En Incidente</h4>
 				</p>
-				<table class="table table-sm table-hover">
+				<table class="table table-sm">
 					<thead>
 						<tr>
 							<th scope="col">#</th>

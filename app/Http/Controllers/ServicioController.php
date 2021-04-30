@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Exports\ServiciosExport;
 use Illuminate\Support\Carbon;
-use PDF;
+use Barryvdh\DomPDF\PDF;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class ServicioController extends Controller

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Imports\UsersImport;
 use Illuminate\Cookie\CookieValuePrefix;
-use PDF;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
