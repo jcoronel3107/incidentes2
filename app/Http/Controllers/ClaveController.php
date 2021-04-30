@@ -15,8 +15,8 @@ use App\Http\Requests\SaveClaveRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Exports\ClavesExport;
-use PDF;
-use Spatie\Activitylog\Traits\LogsActivity;
+
+use Illuminate\Support\Facades\App;
 
 
 class ClaveController extends Controller {
@@ -52,7 +52,8 @@ class ClaveController extends Controller {
 	public function create() {
 		//
 		$gasolineras = Gasolinera::all();
-		$vehiculos = Vehiculo::orderBy('codigodis','asc')->get();
+		
+		$vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
 		$users = DB::table('users')->where([
           ['cargo','=','Bombero'],
         ])
@@ -128,7 +129,7 @@ class ClaveController extends Controller {
 		//
 		/* if ( Auth::check() ) { */
 			$gasolineras = Gasolinera::all();
-			$vehiculos = Vehiculo::orderBy('codigodis','asc')->get();
+			$vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
 			$usuarios = DB::table('users')->where([
           ['cargo','=','Bombero'],
         ])
@@ -224,9 +225,14 @@ class ClaveController extends Controller {
     }
 
     public function downloadPDF($id) {
-        $clave = Clave::find($id);
-        $pdf = PDF::loadView('clave.pdf', compact('clave'));
+       
+       
 
-        return $pdf->download('clave.pdf');
+		$date = Carbon::now();
+        $date = $date->format('l jS \\of F Y ');
+        $clave = Clave::find($id);
+        $dompdf = App::make("dompdf.wrapper");
+        $dompdf->loadView('clave.pdf', compact('clave','date'));
+        return $dompdf->stream();
 	}
 }

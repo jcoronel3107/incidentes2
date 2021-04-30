@@ -4,19 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Servicio;
-use App\Incidente;
-use App\Gasolinera;
+
 use App\Vehiculo;
 use App\User;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\SaveServicioRequest;
-use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\DB;
 use App\Exports\ServiciosExport;
 use Illuminate\Support\Carbon;
-use Barryvdh\DomPDF\PDF;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Support\Facades\App;
 
 class ServicioController extends Controller
 {
@@ -52,7 +50,8 @@ class ServicioController extends Controller
     public function create()
     {
        
-        $vehiculos = Vehiculo::orderBy('codigodis')->get();
+        
+        $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
 
         $users = User::where('cargo','maquinista')
             ->orWhere('cargo','bombero')
@@ -125,7 +124,7 @@ class ServicioController extends Controller
         /* if ( Auth::check() ) { */
             
             $servicio = Servicio::findOrFail( $id );
-            $vehiculos = Vehiculo::orderBy('codigodis')->get();
+            $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
             $maquinistas = User::where('cargo','maquinista')
             ->orWhere('cargo','bombero')
             ->orderBy("name",'asc')
@@ -200,11 +199,13 @@ class ServicioController extends Controller
     }
 
     public function downloadPDF($id) {
+        
+
         $date = Carbon::now();
         $date = $date->format('l jS \\of F Y ');
         $servicio = Servicio::find($id);
-        $pdf = PDF::loadView('servicio.pdf', compact('servicio','date'));
-
-        return $pdf->download('servicio.pdf');
+        $dompdf = App::make("dompdf.wrapper");
+        $dompdf->loadView('servicio.pdf', compact('servicio','date'));
+        return $dompdf->stream();
     }
 }

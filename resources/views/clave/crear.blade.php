@@ -9,10 +9,21 @@
 	<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Registro Información de Clave_14</h2>
 
 	<form method="post" action="/clave">
-
+		<div class="form-row ">
+			<div class="input-group mb-3 justify-content-end">
+                     <div class="input-group-prepend">
+                            	<span class="input-group-text"><i class="fas fa-check"></i></span>
+                     </div>
+					 <button type="submit" name="Enviar" value="Enviar" class="btn btn-outline-primary">Registrar</button>   
+                     <div class="input-group-prepend ml-2">
+                            	<span class="input-group-text"><i class="fas fa-arrow-left"></i></span>
+                     </div>
+					 <a class="btn btn-outline-secondary" title="Regresar" role="button" href="{{ route('clave.index')}}">Cancelar</a>   
+             </div>
+		</div>
 		<div class="form-row">
 			{{csrf_field()}}
-			<div class="form-group input-group  col-md-8">
+			<div class="form-group input-group  col-md-10">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Estaciòn Servicio</span>
 				</div>
@@ -112,12 +123,7 @@
 
 		</div>
 
-		<div class="form-group">
-			<button type="submit" name="Enviar" value="Enviar" class="btn btn-success">Registrar</button>
-			<a class="btn btn btn-primary" role="button" href="{{ route('clave.index')}}">Cancelar
-			</a>
-			<button type="reset" name="Borrar" value="Borrar" class="btn btn-danger">Borrar Formulario</button>
-		</div>
+		
 	</form>
 
 	@if(count($errors)>0) @foreach($errors->all() as $error)

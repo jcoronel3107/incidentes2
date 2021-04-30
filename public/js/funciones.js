@@ -108,7 +108,8 @@ function agregar() {
 	jqkm_salida=$("#pkm_salida").val();
 	jqkm_llegada=$("#pkm_llegada").val();
 	jqvehiculo=$("#pvehiculo_id").val();
-	jqvehiculo_id=$( "#pvehiculo_id option.selected" ).text();
+	jqvehiculo_id=$('#pvehiculo_id').find('option:selected').text();
+	
 				 
 	console.log(jqvehiculo_id);
 	if(jqkm_salida!="" && jqkm_salida>=0 && jqkm_llegada>=0 && jqkm_llegada!=""  && jqvehiculo!="")
@@ -143,37 +144,37 @@ function evaluar(){
 	}
 	
 	if(document.title=="Derrame"){
-		jqtitle = jqvehiculo +" - Derrame - BCBVC";
+		jqtitle = jqvehiculo_id +" - Derrame - BCBVC";
 		//console.log(jqtitle);
 		document.title =jqtitle;
 	}
 	if(document.title=="Transito"){
-		jqtitle = jqvehiculo +" - Transito - BCBVC";
+		jqtitle = jqvehiculo_id +" - Transito - BCBVC";
 		//console.log(jqtitle);
 		document.title =jqtitle;
 	}
 	if(document.title=="Salud"){
-		jqtitle = jqvehiculo +" - Salud - BCBVC";
+		jqtitle = jqvehiculo_id +" - Salud - BCBVC";
 		//console.log(jqtitle);
 		document.title =jqtitle;
 	}
 	if(document.title=="Rescate"){
-		jqtitle = jqvehiculo +" - Rescate - BCBVC";
+		jqtitle = jqvehiculo_id +" - Rescate - BCBVC";
 		//console.log(jqtitle);
 		document.title =jqtitle;
 	}
 	if(document.title=="Inundacion"){
-		jqtitle = jqvehiculo +" - Inundacion - BCBVC";
+		jqtitle = jqvehiculo_id +" - Inundacion - BCBVC";
 		//console.log(jqtitle);
 		document.title =jqtitle;
 	}
 	if(document.title=="Incendio"){
-		jqtitle = jqvehiculo +" - Incendio - BCBVC";
+		jqtitle = jqvehiculo_id +" - Incendio - BCBVC";
 		//console.log(jqtitle);
 		document.title =jqtitle;
 	}
 	if(document.title=="Fuga"){
-		jqtitle = jqvehiculo +" - Fuga - BCBVC";
+		jqtitle = jqvehiculo_id +" - Fuga - BCBVC";
 		//console.log(jqtitle);
 		document.title =jqtitle;
 	}
