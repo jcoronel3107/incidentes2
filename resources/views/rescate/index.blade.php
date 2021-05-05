@@ -26,7 +26,7 @@
 
 <table id="dataTable" class="table table-hover table-condensed" role="grid" aria-describedby="dataTable_info">
 	<thead>
-		<tr role="row" class="table-primary">
+		<tr role="row" class="table-info">
 			<th>id</th>
 			<th>{!! trans('messages.Incident') !!}</th>
 			<th>{!! trans('messages.Station') !!}</th>
@@ -92,7 +92,7 @@
 
 	</tbody>
 	<tfoot>
-		<tr class="table-primary">
+		<tr class="table-info">
 			<th>id</th>
 			<th>{!! trans('messages.Incident') !!}</th>
 			<th>{!! trans('messages.Station') !!}</th>

@@ -29,10 +29,7 @@ class InundacionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    /* public function __construct(){
-        $this->middleware('auth');
-    } */
-
+   
     public function index(Request $request)
     {
       
@@ -73,12 +70,6 @@ class InundacionController extends Controller
             ->orderBy("nombre_incidente",'asc')
             ->get();
         return view( "/inundacion.crear", compact( "incidentes","now","estaciones","users","maquinistas", "parroquias","vehiculos") );
-
-    		/* if ( Auth::check() ) {
-    			return view( "/inundacion.crear", compact( "incidentes","now","estaciones","users","maquinistas", "parroquias","vehiculos") );
-    		} else {
-    			return view( "/auth.login" );
-    		} */
     }
 
     /**

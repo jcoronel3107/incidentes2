@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Inundacion;
-use App\Clave;
 use App\Rescate;
 use App\Transito;
 use App\Salud;
@@ -13,7 +12,6 @@ use App\Incendio;
 use App\Fuga;
 use App\Derrame;
 use App\Incidente;
-use PDF;
 use Spatie\Activitylog\Models\Activity;
 use App\Exports\Evento_Entre_FechasExport;
 use App\Exports\TiempoRespuesta_Entre_FechasExport;
@@ -37,7 +35,8 @@ class ConsultasController extends Controller
 
     public function activitylog()
     {
-    	$lastActivity = Activity::all()->last();//returns the  logged activity
+    	/* $lastActivity = Activity::all()->last();//returns the  logged activity */
+		$lastActivity = Activity::whereIn('causer_id','163','1')->get();
     	
     	return  $lastActivity;
     }

@@ -24,7 +24,7 @@
 		<p class="text-info">{{$derrame->incidente->nombre_incidente}}</p>
 		<span class="bg-gray font-weight-bold">Tipo_Escena:</span>
 		<p class=" text-info">{{$derrame->tipo_escena}}</p>
-		<span class="bg-gray font-weight-bold">Cod_Estacion:</span>
+		<span class="bg-gray font-weight-bold">Cod_{!! trans('messages.Station') !!}:</span>
 		<p class=" text-info">{{$derrame->station_id}}</p>
 		<hr>
 
@@ -35,7 +35,7 @@
 		<span class="bg-gray font-weight-bold">Hora_FichaEcu911:</span>
 		<p class="text-info">{{$derrame->hora_fichaecu911}}</p>
 		<hr>
-		<span class="bg-gray font-weight-bold">Dirección:</span>
+		<span class="bg-gray font-weight-bold">{!! trans('messages.Address') !!}:</span>
 		<p class="text-info">{{$derrame->address}}</p>
 		<span class="bg-gray font-weight-bold">Parroquia: </span>
 		<p class="text-info">{{$derrame->parroquia->nombre}}</p><br />

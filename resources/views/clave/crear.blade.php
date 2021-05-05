@@ -14,7 +14,7 @@
                      <div class="input-group-prepend">
                             	<span class="input-group-text"><i class="fas fa-check"></i></span>
                      </div>
-					 <button type="submit" name="Enviar" value="Enviar" class="btn btn-outline-primary">Registrar</button>   
+					 <button type="submit" name="Enviar" value="Enviar" class="btn btn-outline-primary">{!! trans('messages.to register') !!}</button>   
                      <div class="input-group-prepend ml-2">
                             	<span class="input-group-text"><i class="fas fa-arrow-left"></i></span>
                      </div>
@@ -40,7 +40,7 @@
 		<div class="form-row">
 			<div class="form-group input-group  col-md-8">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Vehìculo</span>
+					<span class="input-group-text">{!! trans('messages.Vehicles') !!}</span>
 				</div>
 				<select required class="form-control selectpicker" name="vehiculo_id" data-live-search="true">
 					<option value="">Seleccione...</option>

@@ -29,11 +29,11 @@
 					<p class=" text-info">{{$derrame->tipo_escena}}</p>
 				</div>
 				<div class="col-2">
-					<span class="bg-gray font-weight-bold">Cod_Estacion:</span>
+					<span class="bg-gray font-weight-bold">Cod_{!! trans('messages.Station') !!}:</span>
 					<p class=" text-info">{{$derrame->station_id}}</p>
 				</div>
 				<div class="col-2">
-					<span class="bg-gray font-weight-bold">Fecha:</span>
+					<span class="bg-gray font-weight-bold">{!! trans('messages.Date') !!}:</span>
 					<p class="text-info">{{$derrame->fecha}}</p>
 				</div>
 				<div class="col-2">
@@ -48,7 +48,7 @@
 			<hr>
 			<div class="row p-3 border-left-secondary">
 				<div class="col-4">
-					<span class="bg-gray font-weight-bold">Dirección:</span>
+					<span class="bg-gray font-weight-bold">{!! trans('messages.Address') !!}:</span>
 					<p class="text-info">{{$derrame->address}}</p>
 
 				</div>

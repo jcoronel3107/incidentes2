@@ -74,7 +74,7 @@
 		@include('clave.search')
 		<table class="table p-3 table-hover table-condensed">
 			<thead>
-				<tr class="table-primary">
+				<tr class="table-info">
 					<td>id</td>
 					<td>{!! trans('messages.Order') !!}</td>
 					<td>{!! trans('messages.Dollars') !!}</td>

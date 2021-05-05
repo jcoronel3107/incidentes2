@@ -26,7 +26,7 @@
 		<div class="form-row">
 			<div class="form-group input-group  col-md-4">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Fecha</span>
+					<span class="input-group-text">{!! trans('messages.Date') !!}</span>
 				</div>
 				<input required="" type="date" name="fecha" class="form-control" placeholder="AA-MM-DD" value="{{old('fecha',$derrame->fecha)}}">
 			</div>
@@ -57,7 +57,7 @@
 				<div class="form-group">
 					<div class="input-group date" id="datetimepicker3">
 						<div class="input-group-prepend">
-							<span class="input-group-text">Información Inicial</span>
+							<span class="input-group-text">{!! trans('messages.Initial information') !!}</span>
 						</div>
 						<textarea required="" id="pinformacion_inicial" onkeyup="mayus(this);" class="form-control" maxlength="2000" name="informacion_inicial" aria-label="With textarea">{{old('informacion_inicial',$derrame->informacion_inicial)}}</textarea>
 					</div>
@@ -68,7 +68,7 @@
 		<div class="form-row">
 			<div class="form-group input-group col-md-5">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Incidente</span>
+					<span class="input-group-text">{!! trans('messages.Incident') !!}</span>
 				</div>
 				<select required class="selectpicker form-control" data-live-search="true" name="incidente_id" id="incidente_id">
 					<option value="{{$derrame->incidente->id}}" selected>{{old('incidente_id',$derrame->incidente->nombre_incidente)}}</option>
@@ -80,7 +80,7 @@
 
 			<div class="form-group input-group col-md-3">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Escenario</span>
+					<span class="input-group-text">{!! trans('messages.scene') !!}</span>
 				</div>
 				<select required class="selectpicker form-control" data-live-search="true" name="tipo_escena">
 					<option value="{{$derrame->tipo_escena}}" selected>{{old('tipo_escena',$derrame->tipo_escena)}}</option>
@@ -92,7 +92,7 @@
 			</div>
 			<div class="form-group input-group col-md-4">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Estacion</span>
+					<span class="input-group-text">{!! trans('messages.Station') !!}</span>
 				</div>
 				<select required class="selectpicker form-control" data-live-search="true" name="station_id" >
 					<option value="{{$derrame->station->id}}" selected>{{old('estacion_id',$derrame->station->nombre)}}</option>
@@ -106,14 +106,14 @@
 		<div class="form-row">
 			<div class="form-group input-group col-md-4">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Dirección</span>
+					<span class="input-group-text">{!! trans('messages.Address') !!}</span>
 				</div>
 				<textarea required="" onkeyup="mayus(this);" class="form-control" id="pdireccion" name="address" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$derrame->address)}}</textarea>
 				<input type="button" value="Encode" onclick="codeAddress()">
 			</div>
 			<div class="form-group input-group input-group-prepend col-md-4">
 				<div>
-					<span class="input-group-text">Parroquia</span>
+					<span class="input-group-text">{!! trans('messages.Parishes') !!}</span>
 				</div>
 				<select required class="selectpicker form-control" data-live-search="true" name="parroquia_id">
 					<option value="{{$derrame->parroquia->id}}" selected>{{old('parroquia_id',$derrame->parroquia->nombre)}}</option>
@@ -241,13 +241,13 @@
 		{{--Vehiculos asisten emergencia --}}
 		<hr>
 		<div class="card">
-			<div class="card-header text-white bg-primary">Vehiculos en la Emergencia</div>
+			<div class="card-header text-white bg-primary">{!! trans('messages.Vehicles in the Emergency') !!}</div>
 			<div class="card-body">
 				<div class="row">
 					<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
 						<div class="form-group input-group">
 							<div class="input-group-prepend">
-								<span class="input-group-text">Vehìculo</span>
+								<span class="input-group-text">{!! trans('messages.Vehicles') !!}</span>
 							</div>
 							<select  class="selectpicker form-control" data-live-search="true" name="pvehiculo_id" id="pvehiculo_id">
 								<option selected>{{old('vehiculo_id')}}</option>
@@ -274,7 +274,7 @@
 						</div>
 					</div>
 					<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2">
-						<button type="button" id="bt_add" class="btn btn-primary">Agregar</button>
+						<button type="button" id="bt_add" class="btn btn-primary">{!! trans('messages.add') !!}</button>
 					</div>
 				</div>
 				<div class="row">

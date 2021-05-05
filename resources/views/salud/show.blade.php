@@ -33,7 +33,7 @@
 					<p class=" text-info">{{$salud->station_id}}</p>
 				</div>
 				<div class="col-2">
-					<span class="bg-gray font-weight-bold">Fecha:</span>
+					<span class="bg-gray font-weight-bold">{!! trans('messages.Date') !!}:</span>
 					<p class="text-info">{{$salud->fecha}}</p>
 				</div>
 				<div class="col-2">

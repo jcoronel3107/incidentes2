@@ -26,7 +26,7 @@
 
 <table id="dataTable" class="table table-hover table-condensed" role="grid" aria-describedby="dataTable_info">
 	<thead>
-		<tr role="row" class="table-primary">
+		<tr role="row" class="table-info">
 			<th>id</th>
 			<th>{!! trans('messages.name') !!}</th>
 			<th>{!! trans('messages.E-Mail Address') !!}</th>
@@ -59,7 +59,7 @@
 
 	</tbody>
 	<tfoot>
-		<tr class="table-primary">
+		<tr class="table-info">
 			<th>id</th>
 			<th>{!! trans('messages.name') !!}</th>
 			<th>{!! trans('messages.E-Mail Address') !!}</th>

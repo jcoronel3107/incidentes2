@@ -46,7 +46,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label text-sm-right">Asignar Permisos</label>
                   <div class="col-sm-9">
-                    <select class="selectpicker form-control" data-live-search="true" size="15" id="permissions" name="permissions" required multiple>
+                    <select class="selectpicker form-control" data-live-search="true" size="15" id="permissions[]" name="permissions[]" required multiple>
                       @foreach($all_permissions_in_database as $permission)
                       <option>{{$permission->name}}</option>
                       @endforeach
@@ -151,7 +151,7 @@
         //esta el la peticion get, la cual se divide en tres partes. ruta,variables y funcion
         var producto_select = ''
         for (var i = 0; i < data.length; i++)
-          producto_select += '<input readonly="true" value="' + data[i].name + '">';
+          producto_select += '<input class="form-control" readonly="true" value="' + data[i].name + '">';
         $("#response").html(producto_select);
       });
     });

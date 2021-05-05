@@ -23,7 +23,7 @@
 			{{csrf_field()}}
 			<div class="form-group input-group  col-md-4">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Fecha</span>
+					<span class="input-group-text">{!! trans('messages.Date') !!}</span>
 				</div>
 				<input type="date" required id="fecha" name="fecha" value="{{old('fecha')}}" class="form-control">
 			</div>
@@ -59,7 +59,7 @@
 		<!--Div Informacion ECU911-->
 		<hr>
 		<div class="card">
-			<div class="card-header text-white bg-primary">Vehiculos en la Emergencia</div>
+			<div class="card-header text-white bg-primary">{!! trans('messages.Vehicles in the Emergency') !!}</div>
 			<div class="card-body">
 				<div class="row">
 					<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
@@ -92,7 +92,7 @@
 						</div>
 					</div>
 					<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2">
-						<button type="button" id="bt_add" class="btn btn-primary">Agregar</button>
+						<button type="button" id="bt_add" class="btn btn-primary">{!! trans('messages.add') !!}</button>
 					</div>
 				</div>
 				<div class="row">
@@ -123,7 +123,7 @@
 				<div class="form-group">
 					<div class="input-group date" id="datetimepicker3">
 						<div class="input-group-prepend">
-							<span class="input-group-text ">Informacion Inicial</span>
+							<span class="input-group-text ">{!! trans('messages.Initial information') !!}</span>
 						</div>
 						<textarea class="form-control @error('informacion_inicial') is-invalid @enderror" maxlength="2000" id="pinformacion_inicial" name="informacion_inicial" aria-label="With textarea" required>{{old('informacion_inicial')}}</textarea>
 						@error('informacion_inicial')
@@ -137,7 +137,7 @@
 		<div class="form-row">
 			<div class="form-group input-group col-md-5">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Incidente</span>
+					<span class="input-group-text">{!! trans('messages.Incident') !!}</span>
 				</div>
 				<select required data-live-search="true" class="form-control selectpicker @error('incidente_id') is-invalid @enderror" name="incidente_id" id="incidente_id">
 					<option value="">Seleccione...</option>
@@ -152,7 +152,7 @@
 
 			<div class="form-group input-group col-md-3">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Escenario</span>
+					<span class="input-group-text">{!! trans('messages.scene') !!}</span>
 				</div>
 				<select required  class="form-control selectpicker @error('informacion_inicial') is-invalid @enderror" data-live-search="true" name="tipo_escena">
 
@@ -167,7 +167,7 @@
 			</div>
 			<div class="form-group input-group col-md-4">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Estacion</span>
+					<span class="input-group-text">{!! trans('messages.Station') !!}</span>
 				</div>
 				<select class="form-control selectpicker" data-live-search="true"  required name="station_id">
 					<option value="Seleccione..." selected="">Seleccione...</option>
@@ -181,14 +181,14 @@
 		<div class="form-row">
 			<div class="form-group input-group col-md-4">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Dirección</span>
+					<span class="input-group-text">{!! trans('messages.Address') !!}</span>
 				</div>
 				<textarea class="form-control" id="pdireccion" onkeypress="mayus(this)" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea" required></textarea>
 				<input type="button" value="Encode" onclick="codeAddress()">
 			</div>
 			<div class="form-group input-group input-group-prepend col-md-4">
 				<div>
-					<span class="input-group-text">Parroquia</span>
+					<span class="input-group-text">{!! trans('messages.Parishes') !!}</span>
 				</div>
 				<select class="form-control selectpicker" data-live-search="true" required name="parroquia_id">
 					<option value="" selected>Selecciones...</option>
@@ -471,7 +471,7 @@
 					</div>
 
 					<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2">
-						<button type="button" id="bt_addpaciente" class="btn btn-primary">Agregar</button>
+						<button type="button" id="bt_addpaciente" class="btn btn-primary">{!! trans('messages.add') !!}</button>
 					</div>
 				</div>
 				<div class="row">

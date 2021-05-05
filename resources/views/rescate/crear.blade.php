@@ -22,7 +22,7 @@
 			{{csrf_field()}}
 			<div class="form-group input-group  col-md-4">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Fecha</span>
+					<span class="input-group-text">{!! trans('messages.Date') !!}</span>
 				</div>
 				<input type="date" id="fecha" name="fecha" class="form-control" placeholder="AA-MM-DD" value="{{$now->format('Y-m-m')}}" required="">
 			</div>
@@ -55,13 +55,13 @@
 		<!--Div Informacion ECU911-->
 		<hr>
 		<div class="card">
-			<div class="card-header">Vehiculos en la Emergencia</div>
+			<div class="card-header">{!! trans('messages.Vehicles in the Emergency') !!}</div>
 			<div class="card-body">
 				<div class="row">
 					<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
 						<div class="form-group input-group">
 							<div class="input-group-prepend">
-								<span class="input-group-text">Vehìculo</span>
+								<span class="input-group-text">{!! trans('messages.Vehicles') !!}</span>
 							</div>
 							<select class="form-control selectpicker" name="pvehiculo_id" id="pvehiculo_id" data-live-search="true" required>
 								<option selected></option>
@@ -88,7 +88,7 @@
 						</div>
 					</div>
 					<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2">
-						<button type="button" id="bt_add" class="btn btn-primary">Agregar</button>
+						<button type="button" id="bt_add" class="btn btn-primary">{!! trans('messages.add') !!}</button>
 					</div>
 				</div>
 				<div class="row">
@@ -117,7 +117,7 @@
 				<div class="form-group">
 					<div class="input-group date">
 						<div class="input-group-prepend">
-							<span class="input-group-text">Informacion Inicial</span>
+							<span class="input-group-text">{!! trans('messages.Initial information') !!}</span>
 						</div>
 						<textarea class="form-control" id="pinformacion_inicial" name="informacion_inicial" maxlength="2000" aria-label="With textarea" required="">{{old('informacion_inicial')}}</textarea>
 					</div>
@@ -129,7 +129,7 @@
 		<div class="form-row">
 			<div class="form-group input-group col-md-5">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Incidente</span>
+					<span class="input-group-text">{!! trans('messages.Incident') !!}</span>
 				</div>
 				<select class="selectpicker form-control" data-live-search="true" required name="incidente_id" id="incidente_id">
 					<option value="" selected>{{old('incidente_id')}}</option>
@@ -141,7 +141,7 @@
 
 			<div class="form-group input-group col-md-3">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Escenario</span>
+					<span class="input-group-text">{!! trans('messages.scene') !!}</span>
 				</div>
 				<select class="selectpicker form-control" data-live-search="true" class="form-control" name="tipo_escena" required>
 					<option value="" selected>{{old('tipo_escena')}}</option>
@@ -153,7 +153,7 @@
 			</div>
 			<div class="form-group input-group col-md-4">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Estacion</span>
+					<span class="input-group-text">{!! trans('messages.Station') !!}</span>
 				</div>
 				<select class="selectpicker form-control" data-live-search="true" name="station_id" required >
 					<option value="" selected>{{old('station_id')}}</option>
@@ -167,14 +167,14 @@
 		<div class="form-row">
 			<div class="form-group input-group col-md-4">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Dirección</span>
+					<span class="input-group-text">{!! trans('messages.Address') !!}</span>
 				</div>
 				<textarea class="form-control" id="pdireccion" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion')}}</textarea>
 				<input type="button" value="Encode" onclick="codeAddress()">
 			</div>
 			<div class="form-group input-group input-group-prepend col-md-4">
 				<div>
-					<span class="input-group-text">Parroquia</span>
+					<span class="input-group-text">{!! trans('messages.Parishes') !!}</span>
 				</div>
 				<select class="selectpicker form-control" data-live-search="true" name="parroquia_id" required>
 					<option value="" selected>{{old('parroquia_id')}}</option>

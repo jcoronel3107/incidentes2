@@ -33,7 +33,7 @@
 			<div class="form-row">
 				<div class="form-group input-group  col-md-8">
 					<div class="input-group-prepend">
-						<span class="input-group-text">Vehìculo</span>
+						<span class="input-group-text">{!! trans('messages.Vehicles') !!}</span>
 					</div>
 					<select class="form-control" name="vehiculo_id">
 						<option value="{{$claves->vehiculo->id}}" selected>{{old('vehiculo_id',$claves->vehiculo->codigodis)}}</option>

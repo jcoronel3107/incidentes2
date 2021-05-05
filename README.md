@@ -25,6 +25,7 @@ Fully responsive system, that is, it works on mobiles, tablets and computers
 -Excel import	maatwebsite/excel": "^3.1
 
 -Bootstrap		Fully responsive system, that is, it works on mobiles, tablets and computers
+### Images
 
 ### Installation
 

@@ -26,7 +26,7 @@
 			<ul><p class="text-info">{{$incendio->incidente->nombre_incidente}}</p></ul>
 			<span class="bg-gray font-weight-bold">Tipo_Escena:</span>
 			<ul><p class=" text-info">{{$incendio->tipo_escena}}</p></ul>
-			<span class="bg-gray font-weight-bold">Cod_Estacion:</span>
+			<span class="bg-gray font-weight-bold">Cod_{!! trans('messages.Station') !!}:</span>
 			<ul><p class=" text-info">{{$incendio->station_id}}</p></ul>
 			<hr>
 			<span class="bg-gray font-weight-bold">Fecha:</span>
@@ -36,7 +36,7 @@
 			<span class="bg-gray font-weight-bold">Hora_FichaEcu911:</span>
 			<ul><p class="text-info">{{$incendio->hora_fichaecu911}}</p></ul>
 			<hr>
-			<span class="bg-gray font-weight-bold">Dirección:</span>
+			<span class="bg-gray font-weight-bold">{!! trans('messages.Address') !!}:</span>
 			<ul><p class="text-info">{{$incendio->direccion}}</p></ul>
 			<span class="bg-gray font-weight-bold">Parroquia: </span>
 			<ul><p class="text-info">{{$incendio->parroquia->nombre}}</p></ul>

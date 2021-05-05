@@ -96,6 +96,7 @@
 
 			</div>
 		</div>
+		<hr>
 		<div class="row">
 			{{-- Contenedor Inundacion x Incidente --}}
 			<div class="col-xl-6 col-lg-6">
@@ -144,6 +145,7 @@
 				<div class="py-2" id="container1.3"></div>
 			</div>
 		</div>
+		<hr>
 		<div class="row">
 			{{-- Contenedor Inundacion x Parroquias --}}
 			<div class="col-xl-4 col-lg-4">
@@ -225,6 +227,7 @@
 				</div>
 				<div class="py-2" id="container2.1"></div>
 			</div>
+			<hr>
 			<div class="col-xl-6 col-lg-6">{{-- Contenedor Rescates x Estaciones --}}
 				<h3>Asitencias por Estación</h3>
 				<div class="py-2" id="table2.2">
@@ -257,6 +260,7 @@
 				<div class="py-2" id="container3"></div>
 
 			</div>
+			<hr>
 			<div class="col-xl-2 col-lg-2">
 
 				<div class="py-2 " id="table3">
@@ -302,6 +306,7 @@
 				</div>
 				<div class="py-2" id="container3.1"></div>
 			</div>{{-- Contenedor Inundacion x Incidente --}}
+			<hr>
 			<div class="col-xl-6 col-lg-6">
 				<div class="py-2" id="table3.2">
 					<table class="table table-sm" id="datatable3.2">
@@ -357,6 +362,7 @@
 
 			</div>
 		</div>
+		<hr>
 		<div class="row">
 			{{-- Contenedor Salud x Incidente --}}
 			<div class="col-xl-6 col-lg-6">
@@ -381,6 +387,7 @@
 				<div class="py-2" id="container4.1"></div>
 			</div>
 			{{-- Contenedor Salud x Estaciones --}}
+			<hr>
 			<div class="col-xl-6 col-lg-6">
 				<div class="py-2" id="table4.2">
 					<table class="table table-sm" id="datatable4.2">
@@ -437,6 +444,7 @@
 
 			</div>
 		</div>
+		<hr>
 		<div class="row">
 			{{-- Contenedor Fuego x Incidente --}}
 			<div class="col-xl-3 col-lg-3">
@@ -463,6 +471,7 @@
 			<div class=" col-xl-9 col-lg-9 py-2" id="container5.1"></div>
 		</div>
 		{{-- Contenedor Fuego x Estaciones --}}
+		<hr>
 		<div class="row">
 			<div class="col-xl-3 col-lg-3">
 				<div class="py-2" id="table5.2">
@@ -487,8 +496,8 @@
 			</div>
 			<div class="col-xl-9 col-lg-9 py-2" id="container5.2"></div>
 		</div>
+		<hr>
 		<div class="row">
-			{{-- Contenedor Incendios x Parroquias --}}
 			<div class="col-xl-3 col-lg-3">
 				<h3>Incendios por Parroquia</h3>
 				<div class="py-2" id="table5.3">
@@ -512,7 +521,7 @@
 
 				</div>
 
-			</div>{{-- Contenedor Inundacion x Incidente --}}
+			</div>{{-- Contenedor Incendios x Parroquias --}}
 			<div class="col-xl-9 col-lg-4 py-9" id="container5.3"></div>
 		</div>
 	</div><!-- Contenedor Fuego -->
@@ -783,7 +792,6 @@
 		}
 	});
 </script>
-
 <script>
 	Highcharts.chart('container1', {
 		data: {
@@ -1240,7 +1248,7 @@
 			table: 'datatable5.3'
 		},
 		chart: {
-			type: 'area'
+			type: 'bar'
 		},
 		title: {
 			text: 'Asistencias Fuego por Parroquia (Anual)'
@@ -1355,7 +1363,7 @@
 			type: 'bar'
 		},
 		title: {
-			text: 'Asistencias Fuego por Parroquia (Anual)'
+			text: 'Asistencias Fuga por Parroquia (Anual)'
 		},
 		subtitle: {
 			text: 'Grafica'

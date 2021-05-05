@@ -38,8 +38,8 @@ return [
     'Consult Traffic Accident Information' => 'Consult Traffic Accident Information',
     'Consult Fire Information' => 'Consult Fire Information',
     'Consult Leak Information' => 'Consult Leak Information',
-    'Hazmat Event Information Log'=> 'Hazmat Event Information Log',
-    'Event Information Log 10-42'=>'Event Information Log 10-42',
+    'Hazmat Event Information Record'=> 'Hazmat Event Information Record',
+    'Event Information Record 10-42'=>'Event Information Record 10-42',
     'Edit Hazmat Event Information'=>'Edit Hazmat Event Information',
     'Check Services Commission Information'=>'Check Services Commission Information',
     'Edit Service Commission Information'=>'Edit Service Commission Information',
@@ -84,4 +84,12 @@ return [
     'avatar'=> 'Avatar',
     'position'=>'Position',
     'status'=>'Status',
+    'add'=>'Add',
+    'to register'=>'To Register',
+    'Vehicles in the Emergency'=>'Vehicles in the Emergency',
+    'scene'=>'Scene',
+    'Initial information'=>'Initial information',
+    'another'=>'Another',
+
+
 ];

@@ -6,19 +6,11 @@ use Illuminate\Http\Request;
 use App\User;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Imports\UsersImport;
 use Illuminate\Cookie\CookieValuePrefix;
-use Barryvdh\DomPDF\PDF;
-use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-
-
-
-
 
 
 class UserController extends Controller
@@ -28,13 +20,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-   /*  public function __construct(){
-        $this->middleware('auth');
-    } */
-
+  
     public function index(Request $request)
     {
-        //
         if ($request) {
             $query = trim($request->get('searchText'));
             $users = User::where("name", 'LIKE', '%' . $query . '%')
@@ -49,7 +37,7 @@ class UserController extends Controller
     {
         $file = $request->file('file');
         Excel::import(new UsersImport, $file);
-        Session::flash('Importacion_Correcta',"Importacion Realizada con Exito!!!");
+        Session::flash('Importación_Correcta',"Importación Realizada con Exito!!!");
         return redirect( "/" );
     }
 
@@ -96,9 +84,11 @@ class UserController extends Controller
 
     public function CambiaPermisosRol(Request $request)
     {
-        /* $user = Auth::user(); */
+        
+        $permisos = $request->permissions;
         $rol = Role::findByName($request->Roles);
-        $rol->syncPermissions([$request->permissions]);
+        //dd($permisos);
+        $rol->syncPermissions([$permisos]);
         Session::flash('Permisos Asignado', "Asignación Permisos con Exito!!!");
         return redirect("/user");
     }

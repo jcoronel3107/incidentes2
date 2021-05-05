@@ -68,6 +68,7 @@
 										<option>NISSAN</option>
 										<option>PIERCE</option>
 										<option>ROSENBAUER</option>
+										<option>RENAULT</option>
 
 									</select>
 								</div>
@@ -329,11 +330,14 @@
 			<div>
 				<br>{{csrf_field()}}
 			</div>
-			<div class="form-group">
-				<button type="submit" name="Enviar" value="Enviar" class="btn btn-success">Registrar</button>
-				<button type="reset" name="Borrar" value="Borrar" class="btn btn-danger">Borrar Formulario</button>
+			<div class="input-group mb-3 justify-content-end">
+				
+					<div class="input-group-prepend">
+                            	<span class="input-group-text"><i class="fas fa-check"></i></span>
+                      </div>
+					<button type="submit" name="Enviar" value="Enviar" class="btn btn-outline-success">{!! trans('messages.to register') !!}</button>
+				
 			</div>
-
 		</form>
 
 	@if(count($errors)>0)

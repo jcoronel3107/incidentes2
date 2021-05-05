@@ -32,7 +32,7 @@
 			<div class="form-row">
 				<div class="form-group input-group  col-md-6">
 					<div class="input-group-prepend">
-						<span class="input-group-text">Dirección</span>
+						<span class="input-group-text">{!! trans('messages.Address') !!}</span>
 					</div>
 					<input type="text" name="direccion" placeholder="Nombre / Descripcion Incidente" class="form-control">
 				</div>
@@ -48,7 +48,7 @@
 			</div>
 
 			<div class="form-group">
-				<button type="submit" name="Enviar" value="Enviar" class="btn btn-success">Registrar</button>
+				<button type="submit" name="Enviar" value="Enviar" class="btn btn-success">{!! trans('messages.to register') !!}</button>
 				<a class="btn btn btn-primary" role="button"
 					href="{{ route('gasolinera.index')}}">Cancelar
 				</a>

@@ -27,7 +27,7 @@
 		@include('fuga.search')
 		<table class="table table-hover table-condensed">
 			<thead>
-				<tr class="table-primary">
+				<tr class="table-info">
 					<th>id</th>
 					<th>{!! trans('messages.Incident') !!}</th>
 					<th>{!! trans('messages.Station') !!}</th>
@@ -96,7 +96,7 @@
 				@endforeach
 			</tbody>
 			<tfoot>
-				<tr class="table-primary">
+				<tr class="table-info">
 					<th>id</th>
 					<th>{!! trans('messages.Incident') !!}</th>
 					<th>{!! trans('messages.Station') !!}</th>

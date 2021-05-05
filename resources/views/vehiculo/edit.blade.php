@@ -6,9 +6,19 @@
 	@endsection
 
 	@section( "cuerpo" )
-		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded">Edicion Información de Vehículos</h2>
-
+		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded">Edición Información de Vehículos</h2>
+		
 		<form method="post" action="/vehiculo/{{$vehiculo->id}}">
+		<div class="input-group mb-3 justify-content-end">
+				     <div class="input-group-prepend">
+                            	<span class="input-group-text"><i class="fas fa-check"></i></span>
+                      </div>
+					 <button type="submit" name="Enviar" value="Enviar" class="btn btn-outline-primary">Editar</button>   
+                     <div class="input-group-prepend ml-2">
+                            	<span title="Regresar" class="input-group-text"><i class="fas fa-arrow-left"></i></span>
+                     </div>
+					 <a class="btn btn-outline-secondary"  role="button" href="{{ route('vehiculo.index')}}">Cancelar</a>   
+		</div>
 		<input type="hidden" name="_method" value="PUT">
 			<div class="accordion" id="accordionExample">
 				<div class="card">
@@ -66,7 +76,7 @@
 										<option>NISSAN</option>
 										<option>PIERCE</option>
 										<option>ROSENBAUER</option>
-
+										<option>RENAULT</option>
 									</select>
 								</div>
 								<div class='col-md-4'>
@@ -300,19 +310,19 @@
 					</div>
 				</div>
 			</div>
-			<div class="form-group">
-				<button type="submit" name="Enviar" value="Enviar" class="btn btn-success">Editar</button>
-				<a class="btn btn btn-primary" role="button"
-					href="{{ route('vehiculo.index')}}">Cancelar
-				</a>
-			</div>
+			
 
 		</form>
 		<form method="post" action="/clave/{{$vehiculo->id}}">
 			{{csrf_field()}}
-			<input type="hidden" name="_method" value="DELETE">
+			<div class="input-group mb-3 justify-content-end">
+				<div class="input-group-prepend">
+                            	<span title="Eliminar Registro" class="input-group-text"><i class="fas fa-trash"></i></span>
+                </div>
+				<input type="hidden" name="_method" value="DELETE">
 
-			<button type="button" class="btn btn-primary btn-danger" data-toggle="modal" data-target="#exampleModal">Eliminar Registro</button>
+				<button type="button" class="btn btn-outline-danger " data-toggle="modal" data-target="#exampleModal">Eliminar Registro</button>
+			</div>
 			<!-- Modal -->
 			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  <div class="modal-dialog">

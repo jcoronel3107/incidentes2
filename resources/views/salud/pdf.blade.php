@@ -33,7 +33,7 @@
 		<span class="bg-gray font-weight-bold">Hora_FichaEcu911:</span>
 		<p class="text-info">{{$salud->hora_fichaecu911}}</p>
 		<hr>
-		<span class="bg-gray font-weight-bold">Dirección:</span>
+		<span class="bg-gray font-weight-bold">{!! trans('messages.Address') !!}:</span>
 		<p class="text-info">{{$salud->direccion}}</p>
 		<span class="bg-gray font-weight-bold">Parroquia: </span>
 		<p class="text-info">{{$salud->parroquia->nombre}}</p>

@@ -55,6 +55,9 @@ class ServicioController extends Controller
 
         $users = User::where('cargo','maquinista')
             ->orWhere('cargo','bombero')
+            ->orWhere('cargo','Inspector')
+            ->orWhere('cargo','Tecnico Prevencion')
+            ->orWhere('cargo','Jefe Prevencion')
             ->orderBy("name",'asc')
             ->get();
 

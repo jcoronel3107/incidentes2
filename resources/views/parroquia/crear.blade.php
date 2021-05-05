@@ -28,7 +28,7 @@
 			<div class="form-row">
 			</div>
 			<div class="form-group">
-				<button type="submit" name="Enviar" value="Enviar" class="btn btn-success">Registrar</button>
+				<button type="submit" name="Enviar" value="Enviar" class="btn btn-success">{!! trans('messages.to register') !!}</button>
 				<a class="btn btn btn-primary" role="button"
 					href="{{ route('parroquia.index')}}">Cancelar
 				</a>

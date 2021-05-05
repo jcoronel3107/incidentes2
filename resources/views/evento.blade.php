@@ -61,14 +61,14 @@
 	<div class="row mb-4">
 		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
 			<div class="card">
-				<div class="card-header text-white bg-primary">
+				<div class="card-header text-white bg-info">
 					<a>
-						<h5 title="Crea {!! trans('messages.flood') !!}" class=" text-white bg-primary"><i class="fas fa-fw fa-shower"></i>{!! trans('messages.flood') !!}</h5>
+						<h5 title="Crea {!! trans('messages.flood') !!}" class=" text-white bg-info"><i class="fas fa-fw fa-shower"></i>{!! trans('messages.flood') !!}</h5>
 					</a>
 				</div>
 				<div class="card-body">
 					@can('create evento')
-					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/inundacion/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
+					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.New') !!}" class="btn btn-primary text-center" target="_blank" href="/inundacion/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
 					@endcan
 					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/inundacion"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
 					<h1 class="text-center">{{"$InundacionEst"}}</h1>
@@ -80,14 +80,14 @@
 		</div>	
 		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
 			<div class="card">
-				<div class="card-header text-white bg-secondary">
+				<div class="card-header text-white bg-info">
 					<a>
-						<h5 title="Crea {!! trans('messages.rescue') !!}" class=" text-white bg-secondary"><i class="fas fa-fw fa-life-ring"></i>{!! trans('messages.rescue') !!}</h5>
+						<h5 title="Crea {!! trans('messages.rescue') !!}" class=" text-white bg-info"><i class="fas fa-fw fa-life-ring"></i>{!! trans('messages.rescue') !!}</h5>
 					</a>
 				</div>
 				<div class="card-body">
 					@can('create evento')
-					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/rescate/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
+					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.New') !!}" class="btn btn-primary text-center" target="_blank" href="/rescate/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
 					@endcan
 					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/rescate"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
 					<h1 class="text-center">{{$RescateEst}}</h1>
@@ -99,14 +99,14 @@
 		</div>
 		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
 			<div class="card">
-				<div class="card-header text-white bg-secondary">
+				<div class="card-header text-white bg-info">
 					<a>
-						<h5 title="Crea {!! trans('messages.rescue') !!}" class=" text-white bg-secondary"><i class="fas fa-fw fa-life-ring"></i>{!! trans('messages.Hazmat') !!}</h5>
+						<h5 title="Crea {!! trans('messages.rescue') !!}" class=" text-white bg-info"><i class="fas fa-fw fa-life-ring"></i>{!! trans('messages.Hazmat') !!}</h5>
 					</a>
 				</div>
 				<div class="card-body">
 					@can('create evento')
-					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/derrame/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
+					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.New') !!}" class="btn btn-primary text-center" target="_blank" href="/derrame/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
 					@endcan
 					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/derrame"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
 					<h1 class="text-center">{{$HazmatEst}}</h1>
@@ -121,15 +121,15 @@
 	<div class="row mb-4">
 		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
 			<div class="card">
-				<div class="card-header text-white bg-success">
+				<div class="card-header text-white bg-info">
 					<a>
-						<h5 title="Crea {!! trans('messages.rescue') !!}" class=" text-white bg-success"><i class="fas fa-fw fa-wrench"></i>{!! trans('messages.transit') !!}</h5>
+						<h5 title="Crea {!! trans('messages.rescue') !!}" class=" text-white bg-info"><i class="fas fa-fw fa-wrench"></i>{!! trans('messages.transit') !!}</h5>
 					</a>
 
 				</div>
 				<div class="card-body">
 					@can('create evento')
-					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/transito/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
+					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.New') !!}" class="btn btn-primary text-center" target="_blank" href="/transito/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
 					@endcan
 					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/transito"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
 					<h1 class="text-center">{{$TransitoEst}}</h1>
@@ -143,15 +143,15 @@
 		</div>
 		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
 			<div class="card">
-				<div class="card-header text-white bg-warning">
+				<div class="card-header text-white bg-info">
 					<a>
-						<h5 title="Crea {!! trans('messages.rescue') !!}" class=" text-white bg-warning"><i class="fas fa-fw fa-heartbeat"></i>{!! trans('messages.Health') !!}</h5>
+						<h5 title="Crea {!! trans('messages.rescue') !!}" class=" text-white bg-info"><i class="fas fa-fw fa-heartbeat"></i>{!! trans('messages.Health') !!}</h5>
 					</a>
 
 				</div>
 				<div class="card-body">
 					@can('create evento')
-					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/salud/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
+					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.New') !!}" class="btn btn-primary text-center" target="_blank" href="/salud/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
 					@endcan
 					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/salud"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
 					<h1 class="text-center">{{$SaludEst}}</h1>
@@ -166,14 +166,14 @@
 		</div>
 		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
 			<div class="card">
-				<div class="card-header text-white bg-danger">
+				<div class="card-header text-white bg-info">
 					<a>
-						<h5 title="Crea {!! trans('messages.rescue') !!}" class=" text-white bg-danger"><i class="fas fa-fw fa-fire"></i>{!! trans('messages.fire') !!}</h5>
+						<h5 title="Crea {!! trans('messages.rescue') !!}" class=" text-white bg-info"><i class="fas fa-fw fa-fire"></i>{!! trans('messages.fire') !!}</h5>
 					</a>
 				</div>
 				<div class="card-body">
 					@can('create evento')
-					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/fuego/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
+					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.New') !!}" class="btn btn-primary text-center" target="_blank" href="/fuego/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
 					@endcan
 					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/fuego"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
 					<h1 class="text-center">{{$FuegoEst}}</h1>
@@ -195,7 +195,7 @@
 				</div>
 				<div class="card-body">
 					@can('create evento')
-					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.New') !!}" class="btn btn-info text-center" target="_blank" href="/fuga/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
+					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.New') !!}" class="btn btn-primary text-center" target="_blank" href="/fuga/create"><i class="fa fa-plus" aria-hidden="true"></i></a>
 					@endcan
 					<a rel="nofollow noopener noreferrer" title="{!! trans('messages.Index') !!}" class="btn btn-info text-center" target="_blank" href="/fuga"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
 					<h1 class="text-center">{{$FugaEst}}</h1>

@@ -35,7 +35,7 @@
 		<span class="bg-gray font-weight-bold">Hora_FichaEcu911:</span>
 		<ul><p> class="text-info">{{$inundacion->hora_fichaecu911}}</p></ul>
 		<hr>
-		<span class="bg-gray font-weight-bold">Dirección:</span>
+		<span class="bg-gray font-weight-bold">{!! trans('messages.Address') !!}:</span>
 		<ul><p> class="text-info">{{$inundacion->direccion}}</p></ul>
 		<span class="bg-gray font-weight-bold">Parroquia: </span>
 		<ul><p> class="text-info">{{$inundacion->parroquia->nombre}}</p></ul>

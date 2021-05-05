@@ -26,7 +26,7 @@
 				<p class=" text-info">{{$clave->vehiculo->codigodis}}</p>
 			</div>
 			<div class="col-lg-3 col-md-3 col-sm-12">
-				<span class="bg-gray font-weight-bold">Fecha:</span>
+				<span class="bg-gray font-weight-bold">{!! trans('messages.Date') !!}:</span>
 				<p class=" text-info">{{$clave->created_at}}</p>
 			</div>
 			<div class="col-lg-6 col-md-6 col-sm-12">

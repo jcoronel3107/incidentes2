@@ -25,7 +25,7 @@
 		<div class="form-row">
 			<div class="form-group input-group  col-md-4">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Fecha Registrada Incidente</span>
+					<span class="input-group-text">{!! trans('messages.Date') !!} Registrada Incidente</span>
 				</div>
 				<input required readonly type="text" name="fecha" class="form-control" placeholder="AA-MM-DD" value="{{old('fecha',$derrame->fecha)}}">
 			</div>
@@ -90,7 +90,7 @@
 			</div>
 			<div class="form-group input-group col-md-4">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Estacion</span>
+					<span class="input-group-text">{!! trans('messages.Station') !!}</span>
 				</div>
 				<select aria-readonly="true" required name="station_id" class="selectpicker form-control" data-live-search="true">
 					<option value="{{$derrame->station->id}}" selected>{{old('station_id',$derrame->station->nombre)}}</option>
@@ -226,13 +226,13 @@
 		
 		<hr>
 		<div class="card">
-			<div class="card-header text-white bg-primary">Vehiculos en la Emergencia</div>
+			<div class="card-header text-white bg-primary">{!! trans('messages.Vehicles in the Emergency') !!}</div>
 			<div class="card-body">
 				<div class="row">
 					<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
 						<div class="form-group input-group">
 							<div class="input-group-prepend">
-								<span class="input-group-text">Vehìculo</span>
+								<span class="input-group-text">{!! trans('messages.Vehicles') !!}</span>
 							</div>
 							<select class="form-control selectpicker" name="vehiculo_id" id="pvehiculo_id" data-live-search="true">
 								<option selected>Elija...</option>
@@ -259,7 +259,7 @@
 						</div>
 					</div>
 					<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2">
-						<button type="button" id="bt_add" class="btn btn-primary">Agregar</button>
+						<button type="button" id="bt_add" class="btn btn-primary">{!! trans('messages.add') !!}</button>
 					</div>
 				</div>
 				<div class="row">

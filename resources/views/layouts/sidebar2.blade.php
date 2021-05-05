@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-secondary  sidebar sidebar-dark accordion" id="accordionSidebar">
 
   <!-- Sidebar - Brand -->
   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
@@ -19,8 +19,8 @@
   <div class="sidebar-heading">
     {!! trans('messages.Station') !!}
   </div>
-
-  <!-- Nav Item - Pages Collapse Menu -->
+  @can('create evento')
+  <!-- Nav Item - Pages Collapse Menu E1-->
   <li class="nav-item">
     <a rel="nofollow noopener noreferrer" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" target="_blank" aria-controls="collapseTwo">
       <i class="fa fa-star-half" aria-hidden="true"></i>
@@ -35,7 +35,7 @@
     </div>
   </li>
 
-  <!-- Nav Item - Pages Collapse Menu -->
+  <!-- Nav Item - Pages Collapse Menu E2-->
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
       <i class="fa fa-star-half" aria-hidden="true"></i>
@@ -49,7 +49,7 @@
     </div>
   </li>
 
-  <!-- Nav Item - Utilities Collapse Menu -->
+  <!-- Nav Item - Utilities Collapse Menu E3 -->
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapseRescate">
       <i class="fa fa-star-half" aria-hidden="true"></i>
@@ -63,7 +63,7 @@
       </div>
     </div>
   </li>
-  <!-- Nav Item - Utilities Collapse Menu -->
+  <!-- Nav Item - Utilities Collapse Menu E4 -->
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapseTransito">
       <i class="fa fa-star-half" aria-hidden="true"></i>
@@ -77,7 +77,7 @@
       </div>
     </div>
   </li>
-  <!-- Nav Item - Utilities Collapse Menu -->
+  <!-- Nav Item - Utilities Collapse Menu E5-->
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse5" aria-expanded="true" aria-controls="collapseSalud">
       <i class="fa fa-star-half" aria-hidden="true"></i>
@@ -91,7 +91,7 @@
       </div>
     </div>
   </li>
-  <!-- Nav Item - Utilities Collapse Menu -->
+  <!-- Nav Item - Utilities Collapse Menu E6-->
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFuego" aria-expanded="true" aria-controls="collapseFuego">
       <i class="fa fa-star-half" aria-hidden="true"></i>
@@ -105,7 +105,7 @@
       </div>
     </div>
   </li>
-  <!-- Nav Item - Pages Collapse Menu -->
+  <!-- Nav Item - Pages Collapse Menu E7-->
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse7" aria-expanded="true" aria-controls="collapse7">
       <i class="fa fa-star-half" aria-hidden="true"></i>
@@ -119,7 +119,7 @@
       </div>
     </div>
   </li>
-  <!-- Nav Item - Pages Collapse Menu -->
+  <!-- Nav Item - Pages Collapse Menu E8-->
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse8" aria-expanded="true" aria-controls="collapse8">
       <i class="fa fa-star-half" aria-hidden="true"></i>
@@ -133,7 +133,7 @@
       </div>
     </div>
   </li>
-  <!-- Nav Item - Pages Collapse Menu -->
+  <!-- Nav Item - Pages Collapse Menu E9-->
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse9" aria-expanded="true" aria-controls="collapse9">
       <i class="fa fa-star-half" aria-hidden="true"></i>
@@ -147,7 +147,14 @@
       </div>
     </div>
   </li>
-  <!-- Nav Item - Utilities Collapse Menu -->
+  
+   <!-- Heading -->
+   <div class="sidebar-heading">
+    {!! trans('messages.another') !!}
+  </div>
+  <!-- Divider -->
+  <hr class="sidebar-divider">
+  <!-- Nav Item - Utilities Collapse Menu C14-->
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseClave14" aria-expanded="true" aria-controls="collapseClave14">
       <i class="fas fa-fw fa-wallet"></i>
@@ -160,7 +167,9 @@
       </div>
     </div>
   </li>
-  <!-- Nav Item - Utilities Collapse Menu -->
+  @endcan
+  <!-- Nav Item - Utilities Collapse Menu Servicio-->
+  
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="true" aria-controls="collapseServicios">
       <i class="fas fa-clipboard-check"></i>
@@ -173,14 +182,15 @@
       </div>
     </div>
   </li>
-  <!-- Divider -->
-  <hr class="sidebar-divider">
+  
+  
   <!-- Heading -->
   <div class="sidebar-heading">
     Addons
   </div>
-
-  <!-- Nav Item - Pages Collapse Menu -->
+  <!-- Divider -->
+  <hr class="sidebar-divider">
+  <!-- Nav Item - Pages Collapse Menu estadisticas-->
   @can('view estadisticas')
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEstadistica" aria-expanded="true" aria-controls="collapseEstadistica">
@@ -196,9 +206,9 @@
     </div>
 
   </li>
-
   @endcan
-  <!-- Nav Item - Pages Collapse Menu -->
+  
+  <!-- Nav Item - Pages Collapse Menu parametrizacion-->
   @can('view parametrizacion')
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseParametros" aria-expanded="true" aria-controls="collapseParametros">
@@ -218,9 +228,8 @@
     </div>
   </li>
   @endcan
-  <!-- Divider -->
-
-
+  
+  <!-- Nav Item - Pages Collapse Menu Users -->
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="true" aria-controls="collapseUsers">
       <i class="fas fa-users-cog"></i>
