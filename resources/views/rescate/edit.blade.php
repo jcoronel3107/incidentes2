@@ -373,7 +373,7 @@
 			jqkm_salida = $("#pkm_salida").val();
 			jqkm_llegada = $("#pkm_llegada").val();
 			jqvehiculo = $("#pvehiculo_id").val();
-			jqvehiculo_id = $("#pvehiculo_id option.selected").text();
+			jqvehiculo_id = $('#pvehiculo_id').find('option:selected').text();
 			if (jqkm_salida != "" && jqkm_salida >= 0 && jqkm_llegada != "" && jqkm_llegada >= 0 && jqvehiculo != "") {
 				//total = total + subtotal[cont];
 				var fila = '<tr class = "selected" id="fila' + cont + '"><td><button type="button" class="btn btn-warning" onclick="eliminar1(' + cont + ')" type="button">X</button></td><td><input type="hidden" name="vehiculo_id[]" value="' + jqvehiculo + '">' + jqvehiculo_id + '</td><td><input class="form-control" type="number"  name="km_salida[]" value="' + jqkm_salida + '"></td><td><input class="form-control" type="number"  name="km_llegada[]" value="' + jqkm_llegada + '"></td></tr>';

@@ -30,9 +30,7 @@ class IncendioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-   /*  public function __construct(){
-        $this->middleware('auth');
-    } */
+  
 
     public function index(Request $request) {
         if($request)
@@ -137,7 +135,7 @@ class IncendioController extends Controller
             }
             catch(\Exception $e)
             {
-              DB::rollback();
+         
             }
         
     }
@@ -210,8 +208,7 @@ class IncendioController extends Controller
 
     function update( SaveIncendioRequest $request , $id ) 
     {
-       /*  if ( Auth::check() ) {   */
-            DB::begintransaction();
+       
             try
             {         
                 $incendio = Incendio::findOrFail( $id );
@@ -259,12 +256,10 @@ class IncendioController extends Controller
             }
             catch(\Exception $e)
             {
-              DB::rollback();
+              
               
             }
-       /*  } else {
-                return view( "/auth.login" );
-             } */
+      
     }
 
     /**
@@ -277,15 +272,12 @@ class IncendioController extends Controller
 
     function destroy( $id )
     {
-        //
-        /* if ( Auth::check() ) { */
+        
             $incendio = Incendio::findOrFail( $id );
             $incendio->delete();
             Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
             return redirect( "/fuego" );
-        /* } else {
-            return view( "/auth.login" );
-        } */
+       
     }
 
     public function export()
@@ -319,7 +311,7 @@ class IncendioController extends Controller
         $dompdf = App::make("dompdf.wrapper");
         $dompdf->loadView('fuego.pdf', compact('incendio','date'));
         return $dompdf->stream();
-        //return $dompdf->download('incendio.pdf');
+       
     }
 
     public function cargar($id)

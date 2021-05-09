@@ -39,7 +39,7 @@ class InundacionController extends Controller
           $estacion_id = trim($request->get('estacion_id'));
           $query = trim($request->get('searchText'));
           $inundaciones = Inundacion::where("direccion",'LIKE','%'.$query.'%')
-          /* ->where("station_id", "==", $estacion_id) */
+         
           ->OrderBy('fecha','desc')
           ->paginate(15);
 		      return view("/inundacion.index", compact( "inundaciones","query"));
@@ -80,12 +80,10 @@ class InundacionController extends Controller
      */
     public function store(SaveInundacionRequest $request)
     {
-  		/* if ( Auth::check() )
-       { */
-          DB::begintransaction();
+  		
+          
           try
           {
-            
             $inundacion = new Inundacion;
         		$inundacion->incidente_id = $request->incidente_id;
         		$inundacion->tipo_escena = $request->tipo_escena;
@@ -105,11 +103,12 @@ class InundacionController extends Controller
         		$inundacion->usuario_afectado = $request->usuario_afectado;
         		$inundacion->danos_estimados = $request->danos_estimados;
         		$inundacion->usr_creador = auth()->user()->name;
-        			$inundacion->save();
+        		$inundacion->save();
 
             $id = DB::table('inundacions')
                 ->select(DB::raw('max(id) as id'))
-                ->first();
+                ->value('id');
+            
             $maqui = User::findOrFail($request->conductor_id);
             $maqui->inundacions()->attach($id);
             $jefe = User::findOrFail($request->jefeguardia_id);
@@ -124,7 +123,8 @@ class InundacionController extends Controller
             while ($cont < count($nombrevehiculo)) {
                 
                 $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);
-                $carro->inundacions()->sync(
+                
+                $carro->inundacions()->attach(
                   $id , [
                     'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
                 $cont=$cont+1;
@@ -134,12 +134,9 @@ class InundacionController extends Controller
           }
           catch(\Exception $e)
           {
-              DB::rollback();
-              
+             
           }
-  		/* } else {
-  			return view( "/auth.login" );
-  		} */
+  		
     }
 
     /**
@@ -163,7 +160,7 @@ class InundacionController extends Controller
      * @return \Illuminate\Http\Response
      */
     function edit($id) {
-        /* if ( Auth::check() ) { */
+       
             $conductor_id = DB::table('users')
             ->where('id', $id)
             ->value('name');
@@ -185,9 +182,7 @@ class InundacionController extends Controller
             $parroquias = Parroquia::all();
 
             return view( "inundacion.edit", compact("inundacion","vehiculos","bomberos","maquinistas","incidentes","estaciones","parroquias"));
-        /* } else {
-            return view( "/auth.login" );
-        } */
+        
     }
     /**
      * Update the specified resource in storage.
@@ -197,10 +192,7 @@ class InundacionController extends Controller
      * @return \Illuminate\Http\Response
      */
     function update( SaveInundacionRequest $request , $id ) {
-        //
-        /* if ( Auth::check() ) { */
-
-          DB::begintransaction();
+      
           try
           { 
             $inundacion = Inundacion::findOrFail( $id );
@@ -238,10 +230,12 @@ class InundacionController extends Controller
             $cont=0;
             $nombrevehiculo = $request->get('vehiculo_id');
             $kmsalidavehiculo = $request->get('km_salida');
+            
             $kmllegadavehiculo = $request->get('km_llegada');
             $inundacion->vehiculos()->detach();
             while ($cont < count($nombrevehiculo)) {
                     $carro = Vehiculo::findOrFail($nombrevehiculo[$cont]);
+                    
                     $carro->inundacions()->attach(
                     $id , [
                          'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
@@ -252,12 +246,10 @@ class InundacionController extends Controller
           }
           catch(\Exception $e)
           {
-              DB::rollback();
+              
               
           }
-        /* } else {
-            return view( "/auth.login" );
-        } */
+        
     }
 
     /**
@@ -268,15 +260,12 @@ class InundacionController extends Controller
      */
     public function destroy($id)
     {
-        //
-        /* if ( Auth::check() ) { */
+        
             $inundacion = Inundacion::findOrFail( $id );
             $inundacion->delete();
             Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
             return redirect( "/inundacion" );
-        /* } else {
-            return view( "/auth.login" );
-        } */
+       
     }
 
     public function export()

@@ -45,7 +45,9 @@ return [
     'Check Services Commission Information'=>'Consultar Información de Comisión Servicios',
     'Check Services Information'=>'Consultar Información de Servicios',
     'Service Commission Information Registry'=>'Registro de Información de Comisiones Servicio',
+    'Mobilization Information Registry'=>'Registro de Información de Movilizaciones',
     'Edit Service Commission Information'=>'Edita Información de Comisiones Servicio',
+    'Check Mobilization Information'=>'Consulta Información de Movilizaciones',
     'Incident'=>'Incidentes',
     'Station'=>'Estación',
     'Date'=>'Fecha',
@@ -91,4 +93,6 @@ return [
     'scene'=>'Escenario',
     'Initial information'=>'Información Inicial',
     'another'=>'Otr@s',
+    'Prevention Unit'=>'Unidad Prevención',
+    'Mobilization'=>'Movilización',
 ];

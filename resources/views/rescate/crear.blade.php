@@ -66,7 +66,7 @@
 							<select class="form-control selectpicker" name="pvehiculo_id" id="pvehiculo_id" data-live-search="true" required>
 								<option selected></option>
 								@foreach($vehiculos as $vehiculo)
-								<option value="{{$vehiculo->codigodis}}">{{$vehiculo->codigodis}}</option>
+								<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>
 								@endforeach
 							</select>
 						</div>

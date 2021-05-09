@@ -20,10 +20,7 @@ class VehiculoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    /* public function __construct(){
-        $this->middleware('auth');
-
-    } */
+  
 
     public function index(Request $request)
     {
@@ -49,12 +46,8 @@ class VehiculoController extends Controller
     public function create()
     {
         //
-
-		/* if ( Auth::check() ) { */
 			return view( "/vehiculo.crear" );
-		/* } else {
-			return view( "/auth.login" );
-		} */
+		
     }
 
     /**
@@ -65,9 +58,7 @@ class VehiculoController extends Controller
      */
     public function store(CreateVehiculoRequest $request)
     {
-        //
-		/* if ( Auth::check() ) { */
-			//
+      
 			$vehiculo = new Vehiculo;
 			$vehiculo->placa = $request->placa;
 			$vehiculo->marca = $request->marca;
@@ -102,9 +93,7 @@ class VehiculoController extends Controller
 			$vehiculo->save();
 			Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
 			return redirect( "/vehiculo" );
-		/* } else {
-			return view( "/auth.login" );
-		} */
+		
     }
 
     /**
@@ -128,13 +117,10 @@ class VehiculoController extends Controller
      */
     public function edit($id)
     {
-        //
-		/* if ( Auth::check() ) { */
+       
 			$vehiculo = Vehiculo::findOrFail( $id );
 			return view( "vehiculo.edit", compact( "vehiculo" ) );
-		/* } else {
-			return view( "/auth.login" );
-		} */
+		
     }
 
     /**
@@ -146,15 +132,12 @@ class VehiculoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-		/* if ( Auth::check() ) { */
+      
 			$vehiculo = Vehiculo::findOrFail( $id );
 			$vehiculo->update( $request->all() );
 			Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
 			return redirect( "/vehiculo" );
-		/* } else {
-			return view( "/auth.login" );
-		} */
+		
     }
 
     /**
@@ -165,15 +148,12 @@ class VehiculoController extends Controller
      */
     public function destroy($id)
     {
-        //
-		/* if ( Auth::check() ) { */
+       
 			$vehiculo = Vehiculo::findOrFail( $id );
 			$vehiculo->delete();
 			Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
 			return redirect( "/vehiculo" );
-		/* } else {
-			return view( "/auth.login" );
-        } */
+	
     }
 
     public function export()

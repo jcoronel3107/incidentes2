@@ -399,7 +399,7 @@
 			jqkm_salida = $("#pkm_salida").val();
 			jqkm_llegada = $("#pkm_llegada").val();
 			jqvehiculo = $("#pvehiculo_id").val();
-			jqvehiculo_id = $('#pvehiculo_id option:selected').text()
+			jqvehiculo_id =  $('#pvehiculo_id').find('option:selected').text();
 			console.log("jqvehiculo_id");
 			if (jqkm_salida != "" && jqkm_salida >= 0 && jqkm_llegada != "" && jqkm_llegada >= 0 && jqvehiculo != "") {
 				//total = total + subtotal[cont];

@@ -44,6 +44,8 @@ return [
     'Check Services Commission Information'=>'Check Services Commission Information',
     'Edit Service Commission Information'=>'Edit Service Commission Information',
     'Service Commission Information Registry'=>'Service Commission Information Registry',
+    'Mobilization Information Registry'=>'Mobilization Information Registry',
+    'Check Mobilization Information'=>'Check Mobilization Information',
     'Incident'=>'Incidents',
     'Station'=>'Station',
     'Date'=>'Date',
@@ -90,6 +92,7 @@ return [
     'scene'=>'Scene',
     'Initial information'=>'Initial information',
     'another'=>'Another',
-
+    'Prevention Unit'=>'Prevention Unit',
+    'Mobilization'=>'Mobilization',
 
 ];

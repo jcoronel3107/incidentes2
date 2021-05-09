@@ -72,7 +72,7 @@ class DerrameController extends Controller
      */
     public function store(SaveDerrameRequest $request)
     {
-        DB::begintransaction();
+       
         try
           {
             $derrame = new Derrame;
@@ -121,7 +121,6 @@ class DerrameController extends Controller
           }
           catch(\Exception $e)
           {
-              DB::rollback();
               
           }
     }
@@ -173,7 +172,7 @@ class DerrameController extends Controller
      */
     public function update(SaveDerrameRequest $request , $id)
     {
-        DB::begintransaction();
+        
         try
           { 
             $derrame = Derrame::findOrFail( $id );
@@ -223,7 +222,7 @@ class DerrameController extends Controller
         }
         catch(\Exception $e)
           {
-              DB::rollback();
+             
               
           }
        

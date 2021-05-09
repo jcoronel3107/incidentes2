@@ -39,7 +39,7 @@ Route::resource('derrame',							'DerrameController')->middleware('auth');
 Route::resource('servicio',							'ServicioController')->middleware('auth');
 Route::resource('consulta',							'ConsultasController')->middleware('auth');
 Route::resource('user',								'UserController')->middleware('auth');
-Route::resource('prevencion',						'PrevencionController')->middleware('auth');
+Route::resource('prevencion',						'MovilizacionController')->middleware('auth');
 
 //Rutas Carga Formularios Inspeccion Prevencion
 Route::get('inspeccionderrame/{id}',              'DerrameController@inspeccion')->name('inspeccionderrame')->middleware('auth');
@@ -116,6 +116,7 @@ Route::get('fugas/export',   						'FugaController@export');
 Route::get('saluds/export',   						'SaludController@export');
 Route::get('derrames/export',   					'DerrameController@export');
 Route::get('servicios/export',   					'ServicioController@export');
+Route::get('prevencion/export',   					'MovilizacionController@export');
 Route::get('estadisticas/export/{id},{f1},{f2}', 	'ConsultasController@export');
 Route::get('estadisticas/export2/{id},{f1},{f2}', 	'ConsultasController@export2');
 
@@ -130,6 +131,7 @@ Route::get('saluds/grafic/',     					'SaludController@grafica');
 Route::get('fugas/grafic/',     					'FugaController@grafica');
 Route::get('derrames/grafic/',     					'DerrameController@grafica');
 Route::get('servicios/grafic/',    					'ServicioController@grafica');
+Route::get('prevencion/grafic/',    				'MovilizacionController@grafica');
 
 //Rutas Creacion de Reportes en Formato PDF
 Route::get('/downloadPDFinundacion/{id}',			'InundacionController@downloadPDF')->middleware('auth');;
@@ -140,6 +142,7 @@ Route::get('/downloadPDFincendio/{id}',				'IncendioController@downloadPDF')->mi
 Route::get('/downloadPDFfuga/{id}',					'FugaController@downloadPDF')->middleware('auth');
 Route::get('/downloadPDFclave/{id}',				'ClaveController@downloadPDF')->middleware('auth');
 Route::get('/downloadPDFservicio/{id}',				'ServicioController@downloadPDF')->middleware('auth');
+Route::get('/downloadPDFmovilizacion/{id}', 		'MovilizacionController@downloadPDF')->middleware('auth');
 Route::get('/downloadPDFderrame/{id}',				'DerrameController@downloadPDF')->middleware('auth');
 
 //Rutas Creacion de Reportes a Mail
@@ -152,6 +155,8 @@ Route::get('/sendReportFuga/{id}',					'MailController@SendMailsFuga')->middlewa
 Route::get('/sendReportClave/{id}',					'MailController@SendMailsClave')->middleware('auth');
 Route::get('/sendReportDerrame/{id}',				'MailController@SendMailsDerrame')->middleware('auth');
 Route::get('/sendReportServicio/{id}',				'MailController@SendMailsServicio')->middleware('auth');
+Route::get('/sendReportMovilizacion/{id}',			'MailController@SendMailsMovilizacion')->middleware('auth');
+Route::get('/sendReportPrevencion/{id}',			'MailController@SendMailsPrevencion')->middleware('auth');
 
 Route::get('/eventoE1/',							'MenuController@evento')->middleware('auth');
 Route::get('/eventoE2/',							'MenuController@evento2')->middleware('auth');

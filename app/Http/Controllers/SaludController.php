@@ -30,9 +30,7 @@ class SaludController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    /* public function __construct(){
-        $this->middleware('auth');
-    } */
+ 
 
     public function index(Request $request)
     {
@@ -41,7 +39,7 @@ class SaludController extends Controller
           $estacion_id = trim($request->get('estacion_id'));
           $query = trim($request->get('searchText'));
           $saluds = Salud::where("direccion",'LIKE','%'.$query.'%')
-          /* ->where("station_id", "==", $estacion_id) */
+         
           ->OrderBy('fecha','desc')
           ->paginate(15);
               
@@ -75,11 +73,9 @@ class SaludController extends Controller
             ->orderBy("nombre_incidente",'asc')
             ->get();
 
-           /*  if ( Auth::check() ) { */
+         
                 return view( "/salud.crear", compact( "incidentes","now","estaciones","users","maquinistas", "parroquias","vehiculos","cies" ) );
-            /* } else {
-                return view( "/auth.login" );
-            } */
+           
     }
 
     /**
@@ -90,13 +86,11 @@ class SaludController extends Controller
      */
     public function store(SaveSaludRequest $request)
     {
-        /* if ( Auth::check() )
-       { */
-          DB::begintransaction();
+       
+         
           try
           {
-            
-            /*$validated = $request->validated();*/
+          
             $salud = new Salud;
             $paciente = new Paciente;
             $salud->incidente_id = $request->incidente_id;
@@ -186,12 +180,9 @@ class SaludController extends Controller
           }
           catch(\Exception $e)
           {
-              DB::rollback();
-              //dd($e);
+              
           }
-        /* } else {
-            return view( "/auth.login" );
-        } */
+       
     }
 
     /**
@@ -252,7 +243,7 @@ class SaludController extends Controller
     public function update(SaveSaludRequest $request, $id)
     {
         
-          DB::begintransaction();
+         
           try
           {
             $salud = Salud::findOrFail( $id );
@@ -305,7 +296,7 @@ class SaludController extends Controller
           }
           catch(\Exception $e)
           {
-              DB::rollback();
+             
               
           }
         
@@ -319,14 +310,12 @@ class SaludController extends Controller
      */
     public function destroy($id)
     {
-        /* if ( Auth::check() ) { */
+        
             $salud = Salud::findOrFail( $id );
             $salud->delete();
             Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
             return redirect( "/salud" );
-        /* } else {
-            return view( "/auth.login" );
-        } */
+      
     }
 
     public function export()

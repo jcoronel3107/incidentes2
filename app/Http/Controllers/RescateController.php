@@ -28,11 +28,7 @@ class RescateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    /* public function __construct(){
-        $this->middleware('auth');
-
-    } */
-
+    
     public function index(Request $request)
     {
         if($request)
@@ -40,7 +36,7 @@ class RescateController extends Controller
           $estacion_id = trim($request->get('estacion_id'));
           $query = trim($request->get('searchText'));
           $rescates = Rescate::where("direccion",'LIKE','%'.$query.'%')
-          /* ->where("station_id", "==", $estacion_id) */
+          
           ->OrderBy('fecha','desc')
           ->paginate(15);
 		      return view( "/rescate.index", compact( "rescates","query", "estacion_id"));
@@ -71,11 +67,9 @@ class RescateController extends Controller
             ->orderBy("nombre_incidente",'asc')
             ->get();
 
-    		/* if ( Auth::check() ) { */
+    	
     			return view( "/rescate.crear", compact( "incidentes","now","estaciones","bomberos","maquinistas", "parroquias","vehiculos" ) );
-    		/* } else {
-    			return view( "/auth.login" );
-    		} */
+    	
     }
 
     /**
@@ -87,7 +81,7 @@ class RescateController extends Controller
     public function store(SaveRescateRequest $request)
     {
   		
-          DB::begintransaction();
+          
           try
           {
           
@@ -141,7 +135,7 @@ class RescateController extends Controller
           }
           catch(\Exception $e)
           {
-              DB::rollback();
+              
              
           }
   		
@@ -167,8 +161,7 @@ class RescateController extends Controller
      * @return \Illuminate\Http\Response
      */
     function edit($id) {
-       /*  if ( Auth::check() )
-       { */
+       
             $rescate = Rescate::findOrFail( $id );
             $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
             
@@ -189,9 +182,7 @@ class RescateController extends Controller
 
             return view( "rescate.edit", compact("rescate","vehiculos","bomberos","maquinistas","incidentes","estaciones","parroquias"));
           
-       /*  } else {
-            return view( "/auth.login" );
-        } */
+     
     }
     /**
      * Update the specified resource in storage.
@@ -202,7 +193,7 @@ class RescateController extends Controller
      */
     function update(SaveRescateRequest $request , $id ) {
      
-          DB::begintransaction();
+          
           try
           {
             $rescate = Rescate::findOrFail( $id );
@@ -253,7 +244,7 @@ class RescateController extends Controller
           }
           catch(\Exception $e)
           {
-              DB::rollback();
+             
             
           }
       
@@ -267,15 +258,12 @@ class RescateController extends Controller
      */
     public function destroy($id)
     {
-        //
-        /* if ( Auth::check() ) { */
+        
             $rescate = Rescate::findOrFail( $id );
             $rescate->delete();
             Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
             return redirect( "/rescate" );
-        /* } else {
-            return view( "/auth.login" );
-        } */
+      
     }
 
     public function export()

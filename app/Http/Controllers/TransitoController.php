@@ -29,11 +29,7 @@ class TransitoController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-   /*  public function __construct(){
-        $this->middleware('auth');
-
-    } */
-
+  
     public function index(Request $request)
     {
         //
@@ -42,7 +38,7 @@ class TransitoController extends Controller
           $query = trim($request->get('searchText'));
             $estacion_id = trim($request->get('estacion_id'));
           $transitos = Transito::where("direccion",'LIKE','%'.$query.'%')
-           /* ->where("station_id", "==", $estacion_id) */
+          
           ->OrderBy('fecha','desc')
           ->paginate(15);
               return view( "/transito.index", compact( "transitos","query"));
@@ -89,7 +85,7 @@ class TransitoController extends Controller
     public function store(SaveTransitoRequest $request)
     {
         
-          DB::begintransaction();
+        
           try
           {
             $transito = new Transito;
@@ -140,7 +136,7 @@ class TransitoController extends Controller
           }
           catch(\Exception $e)
           {
-              DB::rollback();
+              
              
           }
         
@@ -166,7 +162,7 @@ class TransitoController extends Controller
      */
     public function edit($id)
     {
-       /*  if ( Auth::check() ) { */
+      
             $conductor_id = DB::table('users')
             ->where('id', $id)
             ->value('name');
@@ -188,9 +184,7 @@ class TransitoController extends Controller
             $parroquias = Parroquia::all();
 
             return view( "transito.edit", compact("transito","vehiculos","bomberos","maquinistas","incidentes","estaciones","parroquias"));
-       /*  } else {
-            return view( "/auth.login" );
-        } */
+    
     }
 
     /**
@@ -202,8 +196,8 @@ class TransitoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        /* if ( Auth::check() ) { */
-          DB::begintransaction();
+       
+         
           try
           {
                 $transito = Transito::findOrFail( $id );
@@ -253,7 +247,7 @@ class TransitoController extends Controller
           }
           catch(\Exception $e)
           {
-              DB::rollback();
+             
               
           }
         /* } else {
@@ -269,14 +263,12 @@ class TransitoController extends Controller
      */
     public function destroy($id)
     {
-        /* if ( Auth::check() ) { */
+       
             $transito = Transito::findOrFail( $id );
             $transito->delete();
             Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
             return redirect( "/transito" );
-        /* } else {
-            return view( "/auth.login" );
-        } */
+      
     }
 
     public function export()
