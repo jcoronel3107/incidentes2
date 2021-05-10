@@ -85,7 +85,7 @@ class RescateController extends Controller
           try
           {
           
-              $validated = $request->validated();
+             
               $rescate = new Rescate;
               
     	        $rescate->incidente_id = $request->incidente_id;
@@ -108,8 +108,8 @@ class RescateController extends Controller
     			    $rescate->usr_creador = auth()->user()->name;
     			    $rescate->save();
               $id = DB::table('rescates')
-                ->select(DB::raw('max(id) as id'))
-                ->first();
+                  ->select(DB::raw('max(id) as id'))
+                  ->value('id');
               $maqui = User::findOrFail($request->conductor_id);
               $maqui->rescates()->attach($id);
               $jefe = User::findOrFail($request->jefeguardia_id);

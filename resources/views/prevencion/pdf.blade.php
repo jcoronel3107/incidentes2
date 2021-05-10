@@ -27,58 +27,83 @@
 	<img src="images/encabezado.png" alt="encabezadopdf" width="500" height="90">
 	<p align="right" class="text-info text">Cuenca, {{$date}}</p>
 	<hr>
-	<table>
-		<caption class="text-info text">Consulta Registro Información de Comisión Servicio</caption>
+	<table class="table table-striped">
+		<caption class="text-info text">Consulta Registro Información de Movilizacion</caption>
 		<tr>
 			<th>Fecha_Salida</th>
 			<th>Fecha_Retorno</th>
 		</tr>
 		<tr>
-			<td>{{$servicio->fecha_salida}}</td>
-			<td>{{$servicio->fecha_retorno}}</td>
+			<td>{{$movilizacion->fecha_salida}}</td>
+			<td>{{$movilizacion->fecha_retorno}}</td>
 		</tr>
 	</table>
 	<hr>
-	<div class="row">
-		<div class="col-sm-12 col-md-12 col-lg-12">
-			<dl>
-				<dt>Vehiculo</dt>
-				<dd>{{$servicio->vehiculo->codigodis}}</dd>
-				<dt>Km_Salida</dt>
-				<dd>{{$servicio->km_salida}}</dd>
-				<dt>km_retorno</dt>
-				<dd>{{$servicio->km_retorno}}</dd>
-			</dl>
-		</div>
-	</div>
+	<table class="table table-striped">
+			<tr>
+				<th>Vehiculo</th>
+				<th>Km_Salida</th>
+				<th>km_retorno</th>
+			</tr>
+			<tr>
+				<td>{{$movilizacion->vehiculo->codigodis}}</td>
+				<td>{{$movilizacion->km_salida}}</td>
+				<td>{{$movilizacion->km_retorno}}</td>
+			</tr>
+	</table>
 	<hr>
+	<table class="table table-striped">
+			<tr>
+				<th>Conductor</th>
+			</tr>
+			<tr>
+				<td>{{$movilizacion->user->name}}</td>
+			</tr>
+	</table>
+	<table class="table-condense table-striped">
+			@foreach($movilizacion->actividad as $detalle)
+			<tr>
+				<th>Actividades</th>
+				<th>Detalle</th>
+			</tr>
+			<tr>
+				<td><p>{{$detalle->descripcion}}</p></td>
+				<td><p>{{$detalle->detalle}}</p></td>
+			</tr>
+			@endforeach
+	</table>
+	<hr>
+	<table class="table table-striped">
+			<tr>
+				<th>Observaciones</th>
+			</tr>
+			<tr>
+				<td>{{$movilizacion->observaciones}}</td>
+			</tr>
+			<tr>
+				<th>Usr_creador</th>
+			</tr>
+			<tr>
+				<td>{{$movilizacion->usr_creador}}</td>
+			</tr>
+			@empty($movilizacion->usr_editor)
+			<tr>
+				<th>Usr_editor</th>
+			</tr>
+			<tr>
+				<td>{{$movilizacion->usr_editor}}</td>
+			</tr>
+			@endempty
+	</table>
 
+	
 	<div class="row">
 		<div class="col-sm-12 col-md-12 col-lg-12">
-			<dl>
-				<dt>Delegante</dt>
-				<dd>{{$servicio->delegante}}</dd>
-				<dt>Unidad</dt>
-				<dd>{{$servicio->unidad}}</dd>
-				<hr>
-				<dt>Conductor</dt>
-				<dd>{{$servicio->user->name}}</dd>
-				<dt>Asunto</dt>
-				<dd>{{$servicio->asunto}}</dd>
-				<dt>Usr_creador</dt>
-				<dd>{{$servicio->usr_creador}}</dd>
-				<dt>Usr_editor</dt>
-				<dd>{{$servicio->usr_editor}}</dd>
-			</dl>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-sm-12 col-md-12 col-lg-12">
-			<p class="text-center">
-			<h5>Firma</h5>
-			</p><br><br>
-			<p class="text-info">{{$servicio->usr_creador}}</p>
-			<span class="bg-gray font-weight-bold"> Usuario Elaborador</span>
+		<h5><p class="text-center">
+			Firma Responsabilidad</p></h5>
+			<br><br>
+			<p class="text-info text-center">{{$movilizacion->user->name}}</p>
+			<p class="bg-gray font-weight-bold text-center"> Usuario Elaborador</p>
 		</div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

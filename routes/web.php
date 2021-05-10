@@ -53,6 +53,7 @@ Route::put('/registrainspeccionfuego',              'IncendioController@registra
 
 Route::get('/activitylog',							'ConsultasController@activitylog');
 Route::get('/consultaentrefechas',					'ConsultasController@consultaentrefechas')->name('consultaentrefechas');
+Route::get('/consultaentrefechasmov',	        	'MovilizacionController@consultaentrefechas')->name('consultaentrefechasmov');
 Route::get('/busquedaentrefechas',					'ConsultasController@busquedaentrefechas');
 
 Route::get('/download/{file}', 						'DownloadsController@download');

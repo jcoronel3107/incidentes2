@@ -19,6 +19,7 @@
   <div class="sidebar-heading">
     {!! trans('messages.Station') !!}
   </div>
+  <hr class="sidebar-divider">
   @can('create evento')
   <!-- Nav Item - Pages Collapse Menu E1-->
   <li class="nav-item">
@@ -190,8 +191,8 @@
   <!-- Divider -->
   <hr class="sidebar-divider">
   
-  <!-- Nav Item - Utilities Collapse Menu Servicio-->
-  
+  <!-- Nav Item - Utilities Collapse Menu Prevencion-->
+  @can('view movements')
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePrevencion" aria-expanded="true" aria-controls="collapsePrevencion">
       <i class="fas fa-clipboard-check"></i>
@@ -201,9 +202,12 @@
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
         <a rel="nofollow noopener noreferrer" class="collapse-item" href="/prevencion">{!! trans('messages.Index') !!}</a>
+        <a class="collapse-item" href="/consultaentrefechasmov">{!! trans('messages.Search between dates') !!}</a>
       </div>
     </div>
+    
   </li>
+  @endcan
   
   <!-- Heading -->
   <div class="sidebar-heading">

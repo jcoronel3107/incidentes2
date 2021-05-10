@@ -6,6 +6,8 @@
 @section('image')
 
 <div style="background-image: url('/svg/404.svg');" class="absolute pin bg-cover bg-no-repeat md:bg-left lg:bg-center">
+<img src="/images/errors/404.gif"/>
+
 </div>
 @endsection
 

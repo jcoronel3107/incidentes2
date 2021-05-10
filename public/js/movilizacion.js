@@ -150,7 +150,6 @@ chkotros.addEventListener( 'change', function() {
 
 textcomision.addEventListener("change",function(){
     strcomision = $('#textcomision').val();
-    chkcomision.value= strcomision;
 	alert("El Texto Ingresado es:. \n" + strcomision); 
 });
 

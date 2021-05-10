@@ -7,10 +7,10 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ReportSentServicio extends Mailable
+class ReportSentPrevencion extends Mailable
 {
     use Queueable, SerializesModels;
-    public $prevencion;
+    public $movilizacion;
     /**
      * Create a new message instance.
      *

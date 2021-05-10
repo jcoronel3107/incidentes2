@@ -17,8 +17,9 @@ class CreateActividadsTable extends Migration
             $table->id();
             $table->string("descripcion");
             $table->string("detalle",1000);
-            $table->timestamps();
             $table->unsignedBigInteger("movilizacion_id");
+            $table->timestamps();
+            $table->softDeletes();
             $table->foreign('movilizacion_id')->references('id')->on('movilizacions')
             ->constrained()
             ->onUpdate('cascade')

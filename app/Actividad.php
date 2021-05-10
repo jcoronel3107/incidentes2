@@ -17,7 +17,7 @@ class Actividad extends Model
 
         protected static $logFillable = true;
 
-    public function movilizacions()
+    public function movilizacion()
     {
         return $this->belongsTo(Movilizacion::class);
     }

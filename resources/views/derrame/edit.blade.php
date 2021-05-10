@@ -391,7 +391,7 @@
 		var jqkm_salida = 0;
 		var jqkm_llegada = 0;
 		subtotal = [];
-		$("#Enviar").hide();
+		
 
 
 		function agregar() {

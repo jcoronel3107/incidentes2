@@ -26,7 +26,7 @@ class Movilizacion extends Model
 
     protected static $logFillable = true;
     
-    public function actividads()
+    public function actividad()
     {
         return $this->hasMany(Actividad::class);
     }
@@ -35,5 +35,12 @@ class Movilizacion extends Model
 		//Muestra informacion del vehiculo en la clave consultada
 		return $this->belongsTo(Vehiculo::class);
 	}
+
+    public function user(){
+		//Muestra informacion del vehiculo en la clave consultada
+		return $this->belongsTo(User::class);
+	}
+
+    
 	
 }

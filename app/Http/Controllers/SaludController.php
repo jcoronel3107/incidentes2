@@ -115,11 +115,11 @@ class SaludController extends Controller
                 ->select(DB::raw('max(id) as id'))
                 ->value('id');
             $maqui = User::findOrFail($request->conductor_id);
-            $maqui->saluds()->sync($id);
+            $maqui->saluds()->attach($id);
             $jefe = User::findOrFail($request->jefeguardia_id);
-            $jefe->saluds()->sync($id);
+            $jefe->saluds()->attach($id);
             $bomb = User::findOrFail($request->bombero_id);
-            $bomb->saluds()->sync($id);
+            $bomb->saluds()->attach($id);
 
             //para almacenar kilimetrajes por vehiculos asistentes al evento
             $cont=0;

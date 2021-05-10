@@ -23,6 +23,7 @@ use App\Mail\ReportSentGas;
 use App\Mail\ReportSentClave;
 use App\Mail\ReportSentDerrame;
 use App\Mail\ReportSentServicio;
+use App\Mail\ReportSentPrevencion;
 use App\Movilizacion;
 
 class MailController extends Controller
@@ -113,6 +114,7 @@ class MailController extends Controller
     public function SendMailsPrevencion($id,Request $request){
         $destinatario = $request->email;
         $data = Movilizacion::findOrFail($id);
+        
         Mail::to($destinatario)->send(new ReportSentPrevencion($data));
         Session::flash('Envio Mail Correcto',"Reporte Enviado con Exito!!!");
         return redirect( "/prevencion" );

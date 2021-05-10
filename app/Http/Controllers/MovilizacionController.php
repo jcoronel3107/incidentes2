@@ -8,12 +8,10 @@ use App\Vehiculo;
 use App\User;
 use Illuminate\Support\Facades\Session;
 use App\Movilizacion;
-use Dotenv\Loader\Value;
-use Hamcrest\Type\IsString;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
-
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\App;
 
 class MovilizacionController extends Controller
 {
@@ -24,13 +22,12 @@ class MovilizacionController extends Controller
      */
     public function index(Request $request)
     {
-        if($request)
-        {
+        if ($request) {
             $query = trim($request->get('searchText'));
-            $movilizacions = Movilizacion::where("created_at",'LIKE','%'.$query.'%')
-              ->OrderBy('created_at','desc')
-              ->paginate(10);
-            return view( "prevencion.index", compact( "movilizacions","query"));
+            $movilizacions = Movilizacion::where("created_at", 'LIKE', '%' . $query . '%')
+                ->OrderBy('created_at', 'desc')
+                ->paginate(10);
+            return view("prevencion.index", compact("movilizacions", "query"));
         }
     }
 
@@ -41,11 +38,11 @@ class MovilizacionController extends Controller
      */
     public function create()
     {
-        $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
-        $users = User::where('cargo','Inspector')
-            ->orderBy("name",'asc')
+        $vehiculos = Vehiculo::orderBy('codigodis')->where('activo', '1')->get();
+        $users = User::where('cargo', 'Inspector')
+            ->orderBy("name", 'asc')
             ->get();
-            return view( "/prevencion.crear",compact("vehiculos","users") );
+        return view("/prevencion.crear", compact("vehiculos", "users"));
     }
 
     /**
@@ -56,29 +53,29 @@ class MovilizacionController extends Controller
      */
     public function store(Request $request)
     {
-        
-        /* $datosSolicitud = request()->except(['_token','_method']);
-        Movilizacion::create($datosSolicitud); */
+
+        $datosSolicitud = request()->except(['_token','_method']);
+        //dd($datosSolicitud);
+        Movilizacion::create($datosSolicitud);
         $id = DB::table('movilizacions')
-                ->select(DB::raw('max(id) as id'))
-                ->value('id');
-        $detalle_filtrado = Arr::where($request->detalle,function($value,$key){
+            ->select(DB::raw('max(id) as id'))
+            ->value('id');
+        $detalle_filtrado = Arr::where($request->detalle, function ($value, $key) {
             return is_string($value);
         });
-        
-        dd($request);
-        for($i=0; $i < count($request->actividad) ;$i++){
-           
+        [$keys, $values] = Arr::divide($detalle_filtrado);
+
+       /*  dd($request->actividad); */
+        for ($i = 0; $i < count($request->actividad); $i++) {
+
             $actividad = new Actividad;
             $actividad->descripcion = $request->actividad[$i];
-            
-            /* $actividad->detalle = $detalle_filtrado[$i]; */
+            $actividad->detalle = $values[$i];
             $actividad->movilizacion_id = $id;
             $actividad->save();
-            
         }
-        Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
-        return redirect( "/prevencion" );
+        Session::flash('Registro_Almacenado', "Registro Almacenado con Exito!!!");
+        return redirect("/prevencion");
     }
 
     /**
@@ -89,7 +86,9 @@ class MovilizacionController extends Controller
      */
     public function show($id)
     {
-        //
+        
+        $movilizacion = Movilizacion::findOrFail( $id );
+		return view( "prevencion.show", compact( "movilizacion" ) );
     }
 
     /**
@@ -125,4 +124,38 @@ class MovilizacionController extends Controller
     {
         //
     }
+
+    public function downloadPDF($id) {
+        $date = Carbon::now();
+        $date = $date->format('l jS \\of F Y ');
+        $movilizacion = Movilizacion::find($id);
+        $dompdf = App::make("dompdf.wrapper");
+        $dompdf->loadView('prevencion.pdf', compact('movilizacion','date'));
+        return $dompdf->stream();
+      }
+
+      public function consultaentrefechas()	{
+		$vehiculos = Vehiculo::orderBy('codigodis')->where('activo', '1')->get();
+        $users = User::where('cargo', 'Inspector')
+            ->orderBy("name", 'asc')
+            ->get();
+        return view("prevencion.consulta", compact("vehiculos", "users"));
+	}
+
+    public function busquedaentrefechas(Request $request)
+	{
+		
+		$fechaD = $request->fechaD;
+		$fechaH = $request->fechaH;
+		$busquedaentrefechas = DB::table('movilizacions')
+			->join('actividads', 'actividads.movilizacion_id', '=', 'movilizacions.id')
+			/* ->select('nombre_incidente', DB::raw('count(station_id) salidas')) */
+			->whereYear('fecha', '=', date('Y'))
+			->whereNull('movilizacions.deleted_at')
+			->whereBetween('fecha_salida', array($fechaD, $fechaH))
+			->groupBy('nombre_incidente')
+			->havingRaw('count(station_id) >= ?', [1])
+			->get();
+		return view("/consulta/entrefechas", compact('tabla','busquedaentrefechas','fechaD','fechaH'));
+	}
 }

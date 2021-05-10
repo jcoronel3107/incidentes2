@@ -22,33 +22,44 @@
 				<p class="text-info">{{$movilizacion->fecha_salida}}</p>
 			</div>
 			<div class="col-lg-6 col-md-6 col-sm-12">
-				<span class="bg-gray font-weight-bold">fecha_Retorno:</span>
+				<span class="bg-gray font-weight-bold">Fecha_Retorno:</span>
 				<p class="text-info">{{$movilizacion->fecha_retorno}}</p>
 			</div>
 			<div class="col-lg-3 col-md-3 col-sm-12">
 				<span class="bg-gray font-weight-bold">Vehiculo:</span>
 				<p class=" text-info">{{$movilizacion->vehiculo->codigodis}}</p>
 			</div>
+			
 			<div class="col-lg-3 col-md-3 col-sm-12">
-				<span class="bg-gray font-weight-bold">unidad:</span>
-				<p class=" text-info">{{$movilizacion->unidad}}</p>
-			</div>
-			<div class="col-lg-3 col-md-3 col-sm-12">
-				<span class="bg-gray font-weight-bold">km_salida:</span>
+				<span class="bg-gray font-weight-bold">KM_salida:</span>
 				<p class=" text-info">{{$movilizacion->km_salida}}</p>
 			</div>
 			<div class="col-lg-3 col-md-3 col-sm-12">
-				<span class="bg-gray font-weight-bold">km_retorno:</span>
+				<span class="bg-gray font-weight-bold">KM_retorno:</span>
 				<p class=" text-info">{{$movilizacion->km_retorno}}</p>
 			</div>
+			@foreach($movilizacion->actividad as $detalle)
 			<div class="col-lg-3 col-md-3 col-sm-12">
-				<span class="bg-gray font-weight-bold">Delegante:</span>
-				<p class=" text-info">{{$movilizacion->delegante}}</p>
+				<span class="bg-gray font-weight-bold">Actividades:</span>
+				<p class=" text-info">{{$detalle->descripcion}}</p>
 			</div>
 			<div class="col-lg-3 col-md-3 col-sm-12">
-				<span class="bg-gray font-weight-bold">Asunto:</span>
-				<p class=" text-info">{{$movilizacion->asunto}}</p>
+				<span class="bg-gray font-weight-bold">Detalle:</span>
+				<p class=" text-info">{{$detalle->detalle}}</p>
 			</div>
+			@endforeach
+			
+				<div class="col-lg-3 col-md-3 col-sm-12">
+					@empty($movilizacion->observaciones)
+						<span class="bg-gray font-weight-bold">Observaciones:</span>
+						<p class=" text-info">{{$movilizacion->observaciones}}</p>
+					
+					@else
+						<span class="bg-gray font-weight-bold"></span>
+						<p class=" text-info"></p>
+   					 @endempty
+				</div>
+			
 			<div class="col-lg-6 col-md-6 col-sm-12">
 				<span class="bg-gray font-weight-bold">Conductor:</span>
 				<p class=" text-info">{{$movilizacion->user->name}}</p>

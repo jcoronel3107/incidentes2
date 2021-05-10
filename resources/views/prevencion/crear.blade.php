@@ -108,7 +108,7 @@
 						</div>
 					</div>
 					
-				</div>
+				 </div>
 				<div class="form-group input-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 					<div class="input-group">
 						<div class="input-group-prepend">
