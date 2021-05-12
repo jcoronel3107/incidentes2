@@ -20,6 +20,7 @@
 		</li>
 	</ul>
     <div class="tab-pane fade show active" id="General" role="tabpanel" aria-labelledby="General-tab">
+    @if(!empty($username->name))
         <div class="row">
             <div class="col-xl-8 col-lg-8">
 
@@ -59,7 +60,9 @@
 
             </div>
         </div>
+     @endif
         <hr>
+    @if(!empty($vehiculoname->codigodis))
         <div class="row">
             <div class="col-xl-8 col-lg-8">
 
@@ -98,6 +101,7 @@
 
             </div>
         </div>
+     @endif
         <hr>
         <div class="row">
             <div class="col-xl-8 col-lg-8">

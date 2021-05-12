@@ -18,6 +18,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ActUsuario_Entre_FechasExport;
 use App\Exports\ActVehiculos_Entre_FechasExport;
 use App\Exports\ActInspectores_Entre_FechasExport;
+use App\Exports\MovilizacionsExport;
 
 class MovilizacionController extends Controller
 {
@@ -142,7 +143,7 @@ class MovilizacionController extends Controller
         return $dompdf->stream();
     }
 
-      public function consultaentrefechas()	{
+    public function consultaentrefechas()	{
 		$vehiculos = Vehiculo::orderBy('codigodis')->where('activo', '1')->get();
         $users = User::where('cargo', 'Inspector')
             ->orderBy("name", 'asc')
@@ -158,15 +159,11 @@ class MovilizacionController extends Controller
         $conductor = $request->usuario;
         $vehiculo = $request->vehiculo;
         $tabla = "movilizacions";
-        if($conductor=='Ninguno')
+        if(($vehiculo!='Ninguno')&&($conductor=='Ninguno')){
             $conductor = null;
-        if($vehiculo=='Ninguno')
-            $vehiculo = null;
-        $username = User::findOrFail($conductor);
-        $vehiculoname = Vehiculo::findOrFail($vehiculo);
-        /* dd($request); */
-       
-        $cant_actividades_usuario_entre_fechas = DB::table('movilizacions')
+            $username="";
+            $vehiculoname = Vehiculo::findOrFail($vehiculo);
+            $cant_actividades_usuario_entre_fechas = DB::table('movilizacions')
             ->join('actividads','movilizacion_id','=','movilizacions.id')
             ->select('descripcion', DB::raw('count(descripcion) Cant_actividad'))
             ->where('user_id','=',$conductor)
@@ -176,8 +173,6 @@ class MovilizacionController extends Controller
             ->groupBy('descripcion')
 			->havingRaw('count(Cant_actividad) >= ?', [1])
 			->get();
-            
-
             $cant_actividades_vehiculo_entre_fechas = DB::table('movilizacions')
             ->join('actividads','movilizacion_id','=','movilizacions.id')
             ->join('vehiculos','vehiculo_id','=','vehiculos.id')
@@ -189,7 +184,6 @@ class MovilizacionController extends Controller
             ->groupBy('descripcion')
 			->havingRaw('count(Cant_actividad) >= ?', [1])
 			->get();
-            
             $cant_actividades_todosusuario_entre_fechas = DB::table('movilizacions')
             ->join('actividads','movilizacion_id','=','movilizacions.id')
             ->select('descripcion', DB::raw('count(descripcion) Cant_actividad'))
@@ -199,7 +193,82 @@ class MovilizacionController extends Controller
             ->groupBy('descripcion')
 			->havingRaw('count(Cant_actividad) >= ?', [1])
 			->get();
+        }
+        elseif(($vehiculo=='Ninguno')&&($conductor!='Ninguno')){
+            $vehiculo =null;
+            $vehiculoname="";
+            $username = User::findOrFail($conductor);
+            $cant_actividades_usuario_entre_fechas = DB::table('movilizacions')
+            ->join('actividads','movilizacion_id','=','movilizacions.id')
+            ->select('descripcion', DB::raw('count(descripcion) Cant_actividad'))
+            ->where('user_id','=',$conductor)
+            ->whereNull('movilizacions.deleted_at')
+            ->whereBetween('fecha_salida', array($fechaD, $fechaH))
+            ->whereYear('fecha_salida', '=', date('Y'))
+            ->groupBy('descripcion')
+			->havingRaw('count(Cant_actividad) >= ?', [1])
+			->get();
+            $cant_actividades_vehiculo_entre_fechas = DB::table('movilizacions')
+            ->join('actividads','movilizacion_id','=','movilizacions.id')
+            ->join('vehiculos','vehiculo_id','=','vehiculos.id')
+            ->select('descripcion',DB::raw('count(descripcion) Cant_actividad'))
+            ->where('vehiculo_id','=',$vehiculo)
+            ->whereNull('movilizacions.deleted_at')
+            ->whereBetween('fecha_salida', array($fechaD, $fechaH))
+            ->whereYear('fecha_salida', '=', date('Y'))
+            ->groupBy('descripcion')
+			->havingRaw('count(Cant_actividad) >= ?', [1])
+			->get();
+            $cant_actividades_todosusuario_entre_fechas = DB::table('movilizacions')
+            ->join('actividads','movilizacion_id','=','movilizacions.id')
+            ->select('descripcion', DB::raw('count(descripcion) Cant_actividad'))
+            ->whereNull('movilizacions.deleted_at')
+            ->whereBetween('fecha_salida', array($fechaD, $fechaH))
+            ->whereYear('fecha_salida', '=', date('Y'))
+            ->groupBy('descripcion')
+			->havingRaw('count(Cant_actividad) >= ?', [1])
+			->get();
+        }else{
+           
+            $vehiculoname = Vehiculo::findOrFail($vehiculo);
+            $username = User::findOrFail($conductor);
+            $cant_actividades_usuario_entre_fechas = DB::table('movilizacions')
+            ->join('actividads','movilizacion_id','=','movilizacions.id')
+            ->select('descripcion', DB::raw('count(descripcion) Cant_actividad'))
+            ->where('user_id','=',$conductor)
+            ->whereNull('movilizacions.deleted_at')
+            ->whereBetween('fecha_salida', array($fechaD, $fechaH))
+            ->whereYear('fecha_salida', '=', date('Y'))
+            ->groupBy('descripcion')
+			->havingRaw('count(Cant_actividad) >= ?', [1])
+			->get();
+            $cant_actividades_vehiculo_entre_fechas = DB::table('movilizacions')
+            ->join('actividads','movilizacion_id','=','movilizacions.id')
+            ->join('vehiculos','vehiculo_id','=','vehiculos.id')
+            ->select('descripcion',DB::raw('count(descripcion) Cant_actividad'))
+            ->where('vehiculo_id','=',$vehiculo)
+            ->whereNull('movilizacions.deleted_at')
+            ->whereBetween('fecha_salida', array($fechaD, $fechaH))
+            ->whereYear('fecha_salida', '=', date('Y'))
+            ->groupBy('descripcion')
+			->havingRaw('count(Cant_actividad) >= ?', [1])
+			->get();
+            $cant_actividades_todosusuario_entre_fechas = DB::table('movilizacions')
+            ->join('actividads','movilizacion_id','=','movilizacions.id')
+            ->select('descripcion', DB::raw('count(descripcion) Cant_actividad'))
+            ->whereNull('movilizacions.deleted_at')
+            ->whereBetween('fecha_salida', array($fechaD, $fechaH))
+            ->whereYear('fecha_salida', '=', date('Y'))
+            ->groupBy('descripcion')
+			->havingRaw('count(Cant_actividad) >= ?', [1])
+			->get();
+        }   
 		return view("prevencion.entrefechas", compact('vehiculo','conductor','username','tabla','vehiculoname','cant_actividades_todosusuario_entre_fechas','cant_actividades_usuario_entre_fechas','cant_actividades_vehiculo_entre_fechas','fechaD','fechaH'));
+	}
+
+    public function export()
+	{
+		return Excel::download(new MovilizacionsExport, 'consulta_Movilizacion.xlsx');
 	}
 
     public function export1($user,$fechaD,$fechaH)
@@ -217,5 +286,14 @@ class MovilizacionController extends Controller
 		return Excel::download(new ActInspectores_Entre_FechasExport($fechaD,$fechaH), 'consulta_Movilizacion'.$fechaD.'_a_'.$fechaH.'.xlsx');
 	}
 
+    public function grafica()
+    {
+            $movilizacions= Movilizacion::select(DB::raw("Month(fecha_salida) as Mes,count(id) as count"))->whereYear('fecha_salida',date('Y'))->whereNull('deleted_at')->groupBy(DB::raw("Month(fecha_salida)"))->get();
+            return view("/prevencion.grafic",compact("movilizacions"));
+    }
+
+
 	
 }
+
+

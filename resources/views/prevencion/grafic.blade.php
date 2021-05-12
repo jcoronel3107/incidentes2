@@ -16,11 +16,11 @@
 				        <thead>
 				            <tr>
 				                <th class="table-dark">Mes</th>
-				                <th class="table-dark">Comisiones</th>
+				                <th class="table-dark">Movilizaciones</th>
 				            </tr>
 				        </thead>
 				        <tbody>
-				           @foreach ($servicios as $registro)
+				           @foreach ($movilizacions as $registro)
 				            <tr>
 				                <td class="table-warning">{{$registro->Mes}}</td>
 				                <td class="table-warning">{{$registro->count}}</td>
@@ -59,10 +59,10 @@
 		    },
 		    tooltip: {
 		         formatter: function() {
-    			    return 'Mes <b>' + this.x + '</b>, tiene <b>' + this.y + '</b> Comisiones ';
+    			    return 'Mes <b>' + this.x + '</b>, tiene <b>' + this.y + '</b> Movilizaciones ';
    				 }
 		    }
 		});
-	</script>{{-- Container Servicio Mensuales--}}
+	</script>{{-- Container Movilizaciones Mensuales--}}
 @endsection
 @section( "piepagina" ) @endsection
