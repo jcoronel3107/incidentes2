@@ -55,6 +55,7 @@ Route::get('/activitylog',							'ConsultasController@activitylog');
 Route::get('/consultaentrefechas',					'ConsultasController@consultaentrefechas')->name('consultaentrefechas');
 Route::get('/consultaentrefechasmov',	        	'MovilizacionController@consultaentrefechas')->name('consultaentrefechasmov');
 Route::get('/busquedaentrefechas',					'ConsultasController@busquedaentrefechas');
+Route::get('/busquedaentrefechasmov',				'MovilizacionController@busquedaentrefechas');
 
 Route::get('/download/{file}', 						'DownloadsController@download');
 
@@ -117,9 +118,12 @@ Route::get('fugas/export',   						'FugaController@export');
 Route::get('saluds/export',   						'SaludController@export');
 Route::get('derrames/export',   					'DerrameController@export');
 Route::get('servicios/export',   					'ServicioController@export');
-Route::get('prevencion/export',   					'MovilizacionController@export');
+Route::get('prevencions/export',   					'MovilizacionController@export');
 Route::get('estadisticas/export/{id},{f1},{f2}', 	'ConsultasController@export');
 Route::get('estadisticas/export2/{id},{f1},{f2}', 	'ConsultasController@export2');
+Route::get('prevencions/export1/{id},{f1},{f2}', 	'MovilizacionController@export1');
+Route::get('prevencions/export2/{id},{f1},{f2}', 	'MovilizacionController@export2');
+Route::get('prevencions/export3/{f1},{f2}', 	    'MovilizacionController@export3');
 
 //Rutas Creacion de Raporte Grafico
 Route::get('vehiculos/grafic/',						'VehiculoController@grafica');
@@ -132,7 +136,7 @@ Route::get('saluds/grafic/',     					'SaludController@grafica');
 Route::get('fugas/grafic/',     					'FugaController@grafica');
 Route::get('derrames/grafic/',     					'DerrameController@grafica');
 Route::get('servicios/grafic/',    					'ServicioController@grafica');
-Route::get('prevencion/grafic/',    				'MovilizacionController@grafica');
+Route::get('prevencions/grafic/',    				'MovilizacionController@grafica');
 
 //Rutas Creacion de Reportes en Formato PDF
 Route::get('/downloadPDFinundacion/{id}',			'InundacionController@downloadPDF')->middleware('auth');;

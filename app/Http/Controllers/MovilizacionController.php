@@ -2,16 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Actividad;
+
 use Illuminate\Http\Request;
+use App\Actividad;
 use App\Vehiculo;
 use App\User;
-use Illuminate\Support\Facades\Session;
 use App\Movilizacion;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\App;
+use App\Http\Requests\SaveMovilizacionRequest;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ActUsuario_Entre_FechasExport;
+use App\Exports\ActVehiculos_Entre_FechasExport;
+use App\Exports\ActInspectores_Entre_FechasExport;
 
 class MovilizacionController extends Controller
 {
@@ -51,28 +57,28 @@ class MovilizacionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SaveMovilizacionRequest $request)
     {
-
         $datosSolicitud = request()->except(['_token','_method']);
-        //dd($datosSolicitud);
-        Movilizacion::create($datosSolicitud);
-        $id = DB::table('movilizacions')
+        $movilizacion = Movilizacion::create($datosSolicitud);
+
+        /* $id = DB::table('movilizacions')
             ->select(DB::raw('max(id) as id'))
-            ->value('id');
+            ->value('id'); */
         $detalle_filtrado = Arr::where($request->detalle, function ($value, $key) {
             return is_string($value);
         });
         [$keys, $values] = Arr::divide($detalle_filtrado);
-
-       /*  dd($request->actividad); */
         for ($i = 0; $i < count($request->actividad); $i++) {
-
-            $actividad = new Actividad;
+            /* $actividad = new Actividad;
             $actividad->descripcion = $request->actividad[$i];
             $actividad->detalle = $values[$i];
             $actividad->movilizacion_id = $id;
-            $actividad->save();
+            $actividad->save(); */
+            $movilizacion->actividad()->create([
+                'descripcion' => $request->actividad[$i],
+                'detalle' => $values[$i]
+            ]);
         }
         Session::flash('Registro_Almacenado', "Registro Almacenado con Exito!!!");
         return redirect("/prevencion");
@@ -85,8 +91,7 @@ class MovilizacionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        
+    {  
         $movilizacion = Movilizacion::findOrFail( $id );
 		return view( "prevencion.show", compact( "movilizacion" ) );
     }
@@ -122,7 +127,10 @@ class MovilizacionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $movilizacion = Movilizacion::findOrFail( $id );
+            $movilizacion->delete();
+            Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
+            return redirect( "/prevencion" );
     }
 
     public function downloadPDF($id) {
@@ -132,7 +140,7 @@ class MovilizacionController extends Controller
         $dompdf = App::make("dompdf.wrapper");
         $dompdf->loadView('prevencion.pdf', compact('movilizacion','date'));
         return $dompdf->stream();
-      }
+    }
 
       public function consultaentrefechas()	{
 		$vehiculos = Vehiculo::orderBy('codigodis')->where('activo', '1')->get();
@@ -144,18 +152,70 @@ class MovilizacionController extends Controller
 
     public function busquedaentrefechas(Request $request)
 	{
-		
+        if($request)
 		$fechaD = $request->fechaD;
 		$fechaH = $request->fechaH;
-		$busquedaentrefechas = DB::table('movilizacions')
-			->join('actividads', 'actividads.movilizacion_id', '=', 'movilizacions.id')
-			/* ->select('nombre_incidente', DB::raw('count(station_id) salidas')) */
-			->whereYear('fecha', '=', date('Y'))
-			->whereNull('movilizacions.deleted_at')
-			->whereBetween('fecha_salida', array($fechaD, $fechaH))
-			->groupBy('nombre_incidente')
-			->havingRaw('count(station_id) >= ?', [1])
+        $conductor = $request->usuario;
+        $vehiculo = $request->vehiculo;
+        $tabla = "movilizacions";
+        if($conductor=='Ninguno')
+            $conductor = null;
+        if($vehiculo=='Ninguno')
+            $vehiculo = null;
+        $username = User::findOrFail($conductor);
+        $vehiculoname = Vehiculo::findOrFail($vehiculo);
+        /* dd($request); */
+       
+        $cant_actividades_usuario_entre_fechas = DB::table('movilizacions')
+            ->join('actividads','movilizacion_id','=','movilizacions.id')
+            ->select('descripcion', DB::raw('count(descripcion) Cant_actividad'))
+            ->where('user_id','=',$conductor)
+            ->whereNull('movilizacions.deleted_at')
+            ->whereBetween('fecha_salida', array($fechaD, $fechaH))
+            ->whereYear('fecha_salida', '=', date('Y'))
+            ->groupBy('descripcion')
+			->havingRaw('count(Cant_actividad) >= ?', [1])
 			->get();
-		return view("/consulta/entrefechas", compact('tabla','busquedaentrefechas','fechaD','fechaH'));
+            
+
+            $cant_actividades_vehiculo_entre_fechas = DB::table('movilizacions')
+            ->join('actividads','movilizacion_id','=','movilizacions.id')
+            ->join('vehiculos','vehiculo_id','=','vehiculos.id')
+            ->select('descripcion',DB::raw('count(descripcion) Cant_actividad'))
+            ->where('vehiculo_id','=',$vehiculo)
+            ->whereNull('movilizacions.deleted_at')
+            ->whereBetween('fecha_salida', array($fechaD, $fechaH))
+            ->whereYear('fecha_salida', '=', date('Y'))
+            ->groupBy('descripcion')
+			->havingRaw('count(Cant_actividad) >= ?', [1])
+			->get();
+            
+            $cant_actividades_todosusuario_entre_fechas = DB::table('movilizacions')
+            ->join('actividads','movilizacion_id','=','movilizacions.id')
+            ->select('descripcion', DB::raw('count(descripcion) Cant_actividad'))
+            ->whereNull('movilizacions.deleted_at')
+            ->whereBetween('fecha_salida', array($fechaD, $fechaH))
+            ->whereYear('fecha_salida', '=', date('Y'))
+            ->groupBy('descripcion')
+			->havingRaw('count(Cant_actividad) >= ?', [1])
+			->get();
+		return view("prevencion.entrefechas", compact('vehiculo','conductor','username','tabla','vehiculoname','cant_actividades_todosusuario_entre_fechas','cant_actividades_usuario_entre_fechas','cant_actividades_vehiculo_entre_fechas','fechaD','fechaH'));
 	}
+
+    public function export1($user,$fechaD,$fechaH)
+	{
+		return Excel::download(new ActUsuario_Entre_FechasExport($user,$fechaD,$fechaH), 'consulta_Movilizacion'.$fechaD.'_a_'.$fechaH.'.xlsx');
+	}
+
+    public function export2($vehiculo,$fechaD,$fechaH)
+	{
+		return Excel::download(new ActVehiculos_Entre_FechasExport($vehiculo,$fechaD,$fechaH), 'consulta_Movilizacion'.$fechaD.'_a_'.$fechaH.'.xlsx');
+	}
+
+    public function export3($fechaD,$fechaH)
+	{
+		return Excel::download(new ActInspectores_Entre_FechasExport($fechaD,$fechaH), 'consulta_Movilizacion'.$fechaD.'_a_'.$fechaH.'.xlsx');
+	}
+
+	
 }

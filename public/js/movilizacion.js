@@ -29,8 +29,8 @@ $(document).ready(function(){
     if(day < 10)
             day = '0' + day.toString();
     var maxDate = year + '-' + month + '-' + day+'T00:00';
-    $('#fecha_salida').attr('min', maxDate);
-    $('#fecha_retorno').attr('min', maxDate);
+    /* $('#fecha_salida').attr('min', maxDate);
+    $('#fecha_retorno').attr('min', maxDate); */
 
     var max_chars = 1000;
 	$('#max').html(max_chars);

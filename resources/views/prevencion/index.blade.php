@@ -16,12 +16,12 @@
 							<div class="input-group-prepend ml-2">
 								<span title="Export" class="input-group-text"><i class="fas fa-file-export"></i></span>
 							</div>
-								<a class="btn btn-outline-secondary" href="prevencion/export/">Exporta Excel</a>
+								<a class="btn btn-outline-secondary" href="prevencions/export/">Exporta Excel</a>
 							@endcan
 							<div class="input-group-prepend ml-2">
 								<span title="Grafic" class="input-group-text"><i class="fas fa-chart-line"></i></span>
 							</div>
-							<a class="btn btn-outline-info" href="prevencion/grafic/">Grafica</a>
+							<a class="btn btn-outline-info" href="prevencions/grafic/">Grafica</a>
 				</div> 
 			</li>
 		</div>
@@ -48,8 +48,34 @@
 					<td>{{$movilizacion->km_salida}}.Km</td>
 					<td>{{$movilizacion->km_retorno}}.Km</td>
 					<td>
-					@can('edit evento')
-						<a class="btn btn-primary " data-toggle="tooltip" title="Edit" href="{{route('prevencion.edit',$movilizacion->id)}}"><i class="icon-edit"></i></a>
+					@can('delete movement')
+					<button type="button" title="Eliminar" class="btn btn-primary btn-danger" data-toggle="modal" data-target="#exampleModal1"><i class="fa fa-trash" aria-hidden="true"></i></button>
+					<form method="post" action="/prevencion/{{$movilizacion->id}}">
+						{{csrf_field()}}
+						<input type="hidden" name="_method" value="DELETE">
+
+						
+						<!-- Modal -->
+						<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Confirmación</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<p>El registro seleccionado será eliminado. Esta Seguro?...</p>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+										<button type="submit" name="Eliminar" value="Eliminar" class="btn btn-primary">Ok</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>	
 					@endcan
 						<a class="btn btn-outline-secondary" data-toggle="tooltip" title="Ver" href="{{route('prevencion.show',$movilizacion->id)}}" role="button"><i class="icon-list"></i></a>
 					@can('send mail')
@@ -60,12 +86,8 @@
 					@endcan
 					</td>
 				</tr>
-				@endforeach
-				</tr>
-			</tbody>
-		</table>
-		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
+				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
 						<div class="modal-content">
 						<form method="get" action="{{action('MailController@SendMailsPrevencion', $movilizacion->id  )}}" class="form-horizontal">
 							<div class="modal-header">
@@ -88,8 +110,14 @@
 							</div>
 						</form>
 						</div>
-					</div>
-				</div>
+			</div>
+		</div>
+				@endforeach
+				</tr>
+			</tbody>
+		</table>
+		
+		
 		{{ $movilizacions -> appends(['searchText' => $query]) -> links() }}
 	@endsection
  @section( "piepagina" ) @endsection
