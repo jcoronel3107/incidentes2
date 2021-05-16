@@ -182,3 +182,15 @@ Route::put('profile/perfil', 						'ProfileController@update')->name('profile.up
 Route::put('profile/pass', 							'ProfileController@pass')->name('profile.pass')->middleware('auth');
 Route::put('profile/avatar', 						'ProfileController@update_avatar')->name('profile.avatar')->middleware('auth');
 
+/* Rutas SubSistema Reservas de vehiculos
+/*
+/* */
+    Route::get('/solicitud/calendar',       'Reservacion\ReservacionController@chequearcalendario')->middleware('auth');
+    Route::get('/solicitud/asistencia',     'Reservacion\ReservacionController@formasistencia')->middleware('auth');
+    /* Route::get('/miJqueryAjax/{id}',		'Reservacion\AjaxController@index')->middleware('auth'); */
+    Route::resource('solicitud',         	'Reservacion\UserSolicitudsController')->middleware('auth');
+    Route::get('/solicitud/calendar',		'Reservacion\UserSolicitudsController@calendar')->name('user.solicitud.calendar')->middleware('auth');
+    Route::resource('/administrar', 		'Reservacion\AdminReservationsController')->middleware('auth');
+    Route::get('/administrar/grafic/',   	'Reservacion\AdminReservationsController@grafica')->name('admin.solicitud.grafic')->middleware('auth');
+    Route::get('vehiculosdisponibles',      'Reservacion\ReservacionController@VehiculosDisponibles');
+    Route::get('/uath',                     'Reservacion\ReservacionController@index');

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
 	<meta charset="utf-8">
@@ -18,7 +18,13 @@
 	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
-
+	
+	<!-- Custom styles for Calendar-->
+	<link href="/vendor/fullcalendar/daygrid/main.css" rel="stylesheet">
+		<link href="/vendor/fullcalendar/core/main.css" rel="stylesheet">
+		<link href="/vendor/fullcalendar/list/main.css" rel="stylesheet">
+		<link href="/vendor/fullcalendar/timeline/main.css" rel="stylesheet">
+		<link href="/vendor/fullcalendar/timegrid/main.css" rel="stylesheet">
 </head>
 
 <body onload="startTime()" id="page-top">
@@ -32,8 +38,12 @@
 
 	<div class="loader"></div>
 	<!-- Page Wrapper -->
+	<div class="alert alert-warning text-center" role="alert">
+			@include('cookieConsent::index')
+		</div>
 	<div id="wrapper">
 		@yield("cabeza")
+		
 		@include("layouts.sidebar2")
 		<!-- Logout Modal-->
 			<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -47,9 +57,9 @@
 						</div>
 						<div class="modal-body">{!! trans('messages.Select "Logout" below if you are ready to end your current session.') !!}</div>
 						<div class="modal-footer">
-							<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+							<button class="btn btn-outline-secondary" type="button" data-dismiss="modal">Cancel</button>
 
-							<a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault();
+							<a class="btn btn-outline-primary" href="{{ route('logout') }}" onclick="event.preventDefault();
 																document.getElementById('logout-form').submit();">Logout</a>
 						</div>
 					</div>
@@ -153,9 +163,7 @@
 	
 
 
-	<div class="alert alert-warning text-center" role="alert">
-		@include('cookieConsent::index')
-	</div>
+	
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<!-- Bootstrap core JavaScript-->
@@ -173,13 +181,21 @@
 	<script src="/js/geocoder.js"></script>
 	<!-- Carga Loader en cada pagina-->
 	<script src="/js/loader.js"></script>
-
+	<!-- Carga Libreria Moment en cada pagina-->
+	<script src="/js/moment.js" /></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 	<!-- Custom scripts for all pages-->
 	<script src="/js/sb-admin-2.min.js"></script>
 
 	<!-- Page level plugins -->
 	<script src="/vendor/chart.js/Chart.min.js"></script>
-
+	<!-- Page level plugins -->
+	<script src="/vendor/fullcalendar/core/main.js" ></script> <!-- FullCalendar -->
+	<script src="/vendor/fullcalendar/interaction/main.js" ></script> <!-- FullCalendar -->
+	<script src="/vendor/fullcalendar/daygrid/main.js" ></script><!--  FullCalendar -->
+	<script src="/vendor/fullcalendar/list/main.js" ></script> <!-- FullCalendar -->
+	<script src="/vendor/fullcalendar/timegrid/main.js" ></script> <!-- FullCalendar -->
+	<script src="/vendor/fullcalendar/timeline/main.js" ></script><!--  FullCalendar -->
 
 
 	@stack('scripts')

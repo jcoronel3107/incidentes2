@@ -95,4 +95,10 @@ return [
     'another'=>'Otr@s',
     'Prevention Unit'=>'Unidad Prevención',
     'Mobilization'=>'Movilización',
+    'human talent administrative unit'=>'Unidad de Talento Humano',
+    'Reservations'=>'Reservaciones',
+    'Approve'=>'Aprobar',
+    'Request'=>'Solicitud',
+    'Inspection'=>'Inspección',
+    'operations'=>'Operaciones',
 ];

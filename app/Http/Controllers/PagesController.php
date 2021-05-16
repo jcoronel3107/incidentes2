@@ -79,7 +79,12 @@ class PagesController extends Controller
         ->whereYear('fecha', '=', date('Y'))
         ->whereNull('derrames.deleted_at')
         ->get()->count();
-    	return view("welcome",compact("mensualesInundacion","mensualesRescate","mensualesIncendio","mensualesSalud","mensualesTransito","mensualesFuga","mensualesClave","mensualesServicio","mensualesDerrame"/* ,"loggedin_instances" */));
+
+
+            $EventosxIncidente = $mensualesInundacion+$mensualesRescate+$mensualesIncendio+$mensualesSalud+$mensualesTransito+$mensualesFuga+$mensualesDerrame;
+
+
+    	return view("welcome",compact("EventosxIncidente","mensualesInundacion","mensualesRescate","mensualesIncendio","mensualesSalud","mensualesTransito","mensualesFuga","mensualesClave","mensualesServicio","mensualesDerrame"/* ,"loggedin_instances" */));
     }
 
     

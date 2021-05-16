@@ -11,6 +11,7 @@ use App\Imports\UsersImport;
 use Illuminate\Cookie\CookieValuePrefix;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Hash;
 
 
 class UserController extends Controller
@@ -32,6 +33,19 @@ class UserController extends Controller
         }
     }
 
+    protected function store(array $data)
+    {
+
+
+         return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'cargo'=>$data['cargo'],
+            'status'=>$data['status'],
+        ]);
+     
+    }
 
     public function importacion(Request $request)
     {
@@ -124,7 +138,7 @@ class UserController extends Controller
   
           return redirect()->route('profile.index')->with("status", 'Datos actualizados');
         
-      }
+    }
 
       /**
      * Show the form for editing the specified resource.
@@ -132,7 +146,8 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    
+     public function edit($id)
     {
         if ( Auth::check() ) {
             $user = User::findorFail($id);

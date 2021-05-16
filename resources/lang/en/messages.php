@@ -94,5 +94,11 @@ return [
     'another'=>'Another',
     'Prevention Unit'=>'Prevention Unit',
     'Mobilization'=>'Mobilization',
+    'human talent administrative unit'=>'Human Talent Unit',
+    'Reservations'=>'Reservations',
+    'Approve'=>'Approve',
+    'Request'=>'Request',
+    'Inspection'=>'Inspection',
+    'operations'=>'Operations',
 
 ];

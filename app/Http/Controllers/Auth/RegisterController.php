@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
 
 class RegisterController extends Controller
 {
@@ -29,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    //protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -68,20 +69,17 @@ class RegisterController extends Controller
     {
 
 
-        return User::create([
+         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'cargo'=>$data['cargo'],
             'status'=>$data['status'],
         ]);
-
+     
     }
 
-    // public function showRegistrationForm(){
-    //     return redirect('register');
-    // }
-
+  
     
 
 }

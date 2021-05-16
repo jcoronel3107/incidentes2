@@ -1,13 +1,17 @@
 {
     "cSpell.words": [
+        "Humano",
         "actividad",
         "actividads",
         "agregar",
+        "btn",
         "busquedaentrefechas",
+        "cancelar",
         "codigodis",
         "consultaentrefechas",
         "consultar",
         "contenedor",
+        "controller",
         "detalle",
         "digite",
         "entrefechas",
@@ -30,9 +34,14 @@
         "prevencion",
         "pvehiculo",
         "registro",
+        "request",
+        "reservacion",
+        "reservas",
         "salida",
         "selectpicker",
         "servicio",
+        "solicituds",
+        "user",
         "vehiculo",
         "vehiculos"
     ]

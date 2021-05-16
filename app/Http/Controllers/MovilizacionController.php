@@ -46,7 +46,9 @@ class MovilizacionController extends Controller
     public function create()
     {
         $vehiculos = Vehiculo::orderBy('codigodis')->where('activo', '1')->get();
-        $users = User::where('cargo', 'Inspector')
+        $users = User::where('cargo','=','inspector')
+            ->orWhere('cargo','Jefe Prevencion')
+            ->orWhere('cargo','Tecnico Prevencion')
             ->orderBy("name", 'asc')
             ->get();
         return view("/prevencion.crear", compact("vehiculos", "users"));
@@ -146,6 +148,8 @@ class MovilizacionController extends Controller
     public function consultaentrefechas()	{
 		$vehiculos = Vehiculo::orderBy('codigodis')->where('activo', '1')->get();
         $users = User::where('cargo', 'Inspector')
+            ->orWhere('cargo','Jefe Prevencion')
+            ->orWhere('cargo','Tecnico Prevencion')
             ->orderBy("name", 'asc')
             ->get();
         return view("prevencion.consulta", compact("vehiculos", "users"));
