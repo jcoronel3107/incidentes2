@@ -21,7 +21,7 @@
 		</div>
 		@endforeach
 		@endif
-		<form method="post" action="/inundacion">
+		<form method="post" action="{{ route('inundacion.store')}}">
 			<div class="form-row">
 				{{csrf_field()}}
 				<div class="form-group input-group  col-md-4">

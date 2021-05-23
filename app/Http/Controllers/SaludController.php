@@ -36,15 +36,16 @@ class SaludController extends Controller
     {
        if($request)
         {
+          $busq_direccion = trim($request->get('busq_direccion'));
+          $busq_estacion = trim($request->get('busq_estacion'));
+          $busq_fecha = trim($request->get('busq_fecha'));
           $estacion_id = trim($request->get('estacion_id'));
-          $query = trim($request->get('searchText'));
-          $saluds = Salud::where("direccion",'LIKE','%'.$query.'%')
-         
-          ->OrderBy('fecha','desc')
-          ->paginate(15);
-              
-
-          return view( "/salud.index", compact( "saluds","query"));
+          $saluds = Salud::OrderBy('id','desc')
+          ->where("direccion",'LIKE','%'.$busq_direccion.'%')
+          ->where("station_id",'LIKE','%'.$busq_estacion.'%')
+          ->where("fecha",'LIKE','%'.$busq_fecha.'%')
+          ->paginate(10);
+          return view( "/salud.index",  compact( "saluds","busq_direccion","busq_estacion","busq_fecha" ) );
         }
     }
 

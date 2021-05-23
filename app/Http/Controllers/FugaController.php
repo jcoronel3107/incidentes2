@@ -33,13 +33,17 @@ class FugaController extends Controller
     {
         if($request)
         {
-          $estacion_id = trim($request->get('estacion_id'));
-          $query = trim($request->get('searchText'));
-          $fugas = Fuga::where("direccion",'LIKE','%'.$query.'%')
-          /* ->where("station_id", "==", $estacion_id) */
-          ->OrderBy('fecha','desc')
-          ->paginate(15);
-              return view( "/fuga.index", compact( "fugas","query","estacion_id"));
+            $busq_direccion = trim($request->get('busq_direccion'));
+            $busq_estacion = trim($request->get('busq_estacion'));
+            $busq_fecha = trim($request->get('busq_fecha'));
+            $busq_usuarioafectado = trim($request->get('busq_usuarioafectado'));
+          $fugas = Fuga::OrderBy('id','desc')
+          ->where("direccion",'LIKE','%'.$busq_direccion.'%')
+          ->where("station_id",'LIKE','%'.$busq_estacion.'%')
+          ->where("fecha",'LIKE','%'.$busq_fecha.'%')
+          ->where("usuario_afectado",'LIKE','%'.$busq_usuarioafectado.'%')
+          ->paginate(10);
+          return view("fuga.index",compact( "fugas","busq_direccion","busq_estacion","busq_fecha","busq_usuarioafectado" ) );
         }
     }
 
@@ -83,8 +87,6 @@ class FugaController extends Controller
           
           try
           {
-            
-            $validated = $request->validated();
             $fuga = new Fuga;
             
                 $fuga->incidente_id = $request->incidente_id;

@@ -37,6 +37,6 @@ class Paciente extends Model
 
     public function cie()
     {
-        return $this->hasOne(Cie::class);
+        return $this->belongsTo(Cie::class);
     }
 }

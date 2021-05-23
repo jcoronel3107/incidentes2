@@ -18,7 +18,7 @@
 		</li>
 	</ul>
 	<hr style="border:2px;">
-	<form method="post" action="/salud">
+	<form method="post" action="{{ route('salud.store')}}">
 		<div class="form-row">
 			{{csrf_field()}}
 			<div class="form-group input-group  col-md-4">

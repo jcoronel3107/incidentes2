@@ -8,20 +8,24 @@
 		<div class="row nav justify-content-end">
 			<li class="nav-item">
 				<div class="input-group mb-3">
+							@can('create movilizacion')
 							<div class="input-group-prepend">
 								<span title="Nuevo" class="input-group-text"><i class="fas fa-plus"></i></span>
 							</div>
-								<a class="btn btn-primary" href="prevencion/create">Nuevo</a>
+								<a class="btn btn-outline-primary" href="{{ route('prevencion.create')}}">Nuevo</a>
+							@endcan
 							@can('allow export')
 							<div class="input-group-prepend ml-2">
 								<span title="Export" class="input-group-text"><i class="fas fa-file-export"></i></span>
 							</div>
 								<a class="btn btn-outline-secondary" href="prevencions/export/">Exporta Excel</a>
 							@endcan
+							@can('estadistica')
 							<div class="input-group-prepend ml-2">
 								<span title="Grafic" class="input-group-text"><i class="fas fa-chart-line"></i></span>
 							</div>
 							<a class="btn btn-outline-info" href="prevencions/grafic/">Grafica</a>
+							@endcan
 				</div> 
 			</li>
 		</div>
@@ -48,7 +52,7 @@
 					<td>{{$movilizacion->km_salida}}.Km</td>
 					<td>{{$movilizacion->km_retorno}}.Km</td>
 					<td>
-					@can('delete movement')
+					@can('delete movilizacion')
 					<button type="button" title="Eliminar" class="btn btn-primary btn-danger" data-toggle="modal" data-target="#exampleModal1"><i class="fa fa-trash" aria-hidden="true"></i></button>
 					<form method="post" action="/prevencion/{{$movilizacion->id}}">
 						{{csrf_field()}}
@@ -77,7 +81,9 @@
 						</div>
 					</form>	
 					@endcan
+					@can('read movilizacion')
 						<a class="btn btn-outline-secondary" data-toggle="tooltip" title="Ver" href="{{route('prevencion.show',$movilizacion->id)}}" role="button"><i class="icon-list"></i></a>
+					@endcan
 					@can('send mail')
 						<a class="btn btn-outline-info" data-toggle="modal" title="Enviar" data-target="#exampleModal" role="button"><i class="icon-envelope"></i></a>
 					@endcan

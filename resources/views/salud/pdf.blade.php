@@ -93,14 +93,49 @@
 		</tr>
 	</table>
 	<table class="table table-striped">
-		<tr>
-			<th>Usuario Afectado</th>
-			<th>Danos Estimados</th>
-		</tr>
-		<tr>
-			<td>{{$salud->usuario_afectado}}</td>
-			<td>{{$salud->danos_estimados}}</td>
-		</tr>
+	<caption class="text-info text">Pacientes Atendidos</caption>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">cie_id</th>
+								<th scope="col">Paciente</th>
+								<th scope="col">Edad</th>
+								<th scope="col">Genero</th>
+								
+								
+							</tr>
+							@foreach($salud->pacientes as $paciente)
+							<tr>
+								<th scope="row">{{$paciente->id}}</th>
+								<td>{{$paciente->cie_id}}</td>
+								<td>{{$paciente->paciente}}</td>
+								<td>{{$paciente->edad}}</td>
+								<td>{{$paciente->genero}}</td>
+								
+								
+							</tr>
+							
+							<tr>
+								<th scope="col">Presion1</th>
+								<th scope="col">Presion2</th>
+								<th scope="col">Temper</th>
+								<th scope="col">Glasglow</th>
+								<th scope="col">Satur</th>
+								<th scope="col">Hoja Prehosp</th>
+								<th scope="col">CasaSalud</th>
+							</tr>
+							
+							<tr>
+							<td>{{$paciente->presion1}}</td>
+								<td>{{$paciente->presion2}}</td>
+								<td>{{$paciente->temperatura}}</td>
+								<td>{{$paciente->glasglow}}</td>
+								<td>{{$paciente->saturacion}}</td>
+								<td>{{$paciente->hojapre}}</td>
+								<td>{{$paciente->casasalud}}</td>
+
+
+							</tr>
+							@endforeach
 	</table>
 	<table class="table table-striped">
 		<tr>

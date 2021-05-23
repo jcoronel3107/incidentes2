@@ -59,7 +59,7 @@
 						<div class="modal-footer">
 							<button class="btn btn-outline-secondary" type="button" data-dismiss="modal">Cancel</button>
 
-							<a class="btn btn-outline-primary" href="{{ route('logout') }}" onclick="event.preventDefault();
+							<a class="btn btn-outline-danger" href="{{ route('logout') }}" onclick="event.preventDefault();
 																document.getElementById('logout-form').submit();">Logout</a>
 						</div>
 					</div>

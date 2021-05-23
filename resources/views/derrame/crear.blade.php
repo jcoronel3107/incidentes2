@@ -28,7 +28,7 @@
 	</div>
 	@endforeach
 	@endif
-	<form method="post" action="/derrame">
+	<form method="post" action="{{ route('derrame.store')}}">
 		<div class="form-row">
 
 			<div class="form-group input-group justify-content-end  col-md-12">
@@ -327,7 +327,7 @@
 			<input type="hidden" name="token" value="{{csrf_token()}}">
 			<ul class="nav justify-content-end">
 				<li class="nav-item">
-					<a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('inundacion.index')}}"><i class="icon-remove icon-2x"></i>
+					<a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('derrame.index')}}"><i class="icon-remove icon-2x"></i>
 					</a>
 					<button type="submit" id="Enviar" name="Enviar" value="Enviar" data-toggle="tooltip" title="Grabar" class="btn btn-outline-success"><i class="icon-ok icon-2x"></i></button>
 

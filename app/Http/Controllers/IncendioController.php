@@ -35,13 +35,18 @@ class IncendioController extends Controller
     public function index(Request $request) {
         if($request)
         {
+            $busq_direccion = trim($request->get('busq_direccion'));
+            $busq_estacion = trim($request->get('busq_estacion'));
+            $busq_fecha = trim($request->get('busq_fecha'));
+            $busq_usuarioafectado = trim($request->get('busq_usuarioafectado'));
             $estacion_id = trim($request->get('estacion_id'));
-            $query = trim($request->get('searchText'));
-            $incendios = Incendio::where("direccion",'LIKE','%'.$query.'%')
-              /* ->where("station_id", "==", $estacion_id) */
-              ->OrderBy('fecha','desc')
-              ->paginate(15);
-            return view( "/fuego.index", compact( "incendios","query","estacion_id" ) );
+            $incendios = Incendio::OrderBy('id','desc')
+                    ->where("direccion",'LIKE','%'.$busq_direccion.'%')
+                    ->where("station_id",'LIKE','%'.$busq_estacion.'%')
+                    ->where("fecha",'LIKE','%'.$busq_fecha.'%')
+                    ->where("usuario_afectado",'LIKE','%'.$busq_usuarioafectado.'%')
+                    ->paginate(10);
+            return view( "fuego.index", compact( "incendios","busq_direccion","busq_estacion","busq_fecha","busq_usuarioafectado" ) );
         }
     }
 

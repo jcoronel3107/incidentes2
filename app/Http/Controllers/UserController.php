@@ -101,7 +101,7 @@ class UserController extends Controller
         
         $permisos = $request->permissions;
         $rol = Role::findByName($request->Roles);
-        //dd($permisos);
+       
         $rol->syncPermissions([$permisos]);
         Session::flash('Permisos Asignado', "Asignación Permisos con Exito!!!");
         return redirect("/user");
@@ -111,6 +111,7 @@ class UserController extends Controller
     {
         //$user = Auth::user();
         $user = User::find($request->user);
+        /*  dd($user); */
         $user->syncRoles([$request->Roles]);
         Session::flash('Rol Asignado', "Asignación Rol con Exito!!!");
         return redirect("/user");
@@ -155,6 +156,18 @@ class UserController extends Controller
         } else {
             return view( "/auth.login" );
         }
+    }
+
+    protected function createpermiso(Request $request)
+    {
+
+
+        $datospermiso = request()->except(['_token','_method']);
+        
+        Permission::create($datospermiso);
+        return redirect()->route('profile.index')->with("status", 'Datos actualizados');
+        
+     
     }
 
 }

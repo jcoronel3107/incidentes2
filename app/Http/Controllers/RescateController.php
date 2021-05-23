@@ -33,13 +33,17 @@ class RescateController extends Controller
     {
         if($request)
         {
-          $estacion_id = trim($request->get('estacion_id'));
-          $query = trim($request->get('searchText'));
-          $rescates = Rescate::where("direccion",'LIKE','%'.$query.'%')
-          
-          ->OrderBy('fecha','desc')
-          ->paginate(15);
-		      return view( "/rescate.index", compact( "rescates","query", "estacion_id"));
+          $busq_direccion = trim($request->get('busq_direccion'));
+            $busq_estacion = trim($request->get('busq_estacion'));
+            $busq_fecha = trim($request->get('busq_fecha'));
+            $busq_usuarioafectado = trim($request->get('busq_usuarioafectado'));
+          $rescates = Rescate::OrderBy('id','desc')
+          ->where("direccion",'LIKE','%'.$busq_direccion.'%')
+          ->where("station_id",'LIKE','%'.$busq_estacion.'%')
+          ->where("fecha",'LIKE','%'.$busq_fecha.'%')
+          ->where("usuario_afectado",'LIKE','%'.$busq_usuarioafectado.'%')
+          ->paginate(10);
+		      return view( "/rescate.index", compact( "rescates","busq_direccion","busq_estacion","busq_fecha","busq_usuarioafectado" ) );
         }
     }
 

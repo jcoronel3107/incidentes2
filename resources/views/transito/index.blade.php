@@ -8,20 +8,43 @@
 	@section( "cuerpo" )
 	<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">{!! trans('messages.Consult Traffic Accident Information') !!}</h2>
 	@include('transito.messages')
-	<ul class="nav justify-content-end">
+	
+	<div class="row nav justify-content-end">
 		<li class="nav-item">
-			@can('create evento')
-			<a class="btn btn-outline-info" data-toggle="tooltip" title="Nuevo" href="transito/create"><i class="icon-plus icon-2x"></i></a>
-			@endcan
-			@can('allow export')
-			<a class="btn btn-outline-info" data-toggle="tooltip" title="Export" href="transitos/export/"><i class="icon-download-alt icon-2x"></i></a>
-			@endcan
-			@can('allow import')
-			<a class="btn btn-outline-info" data-toggle="tooltip" title="Import" href="/transitos/importar"><i class="icon-cloud-upload icon-2x"></i></a>
-			@endcan
-			<a class="btn btn-outline-info" data-toggle="tooltip" title="Estadistica" href="transitos/grafic/"><i class="icon-filter icon-2x"></i> </a>
+			<div class="input-group mb-3">
+										@can('create event')	
+										<div class="input-group-prepend">
+											<span title="Nuevo" class="input-group-text"><i class="fas fa-plus"></i></span>
+										</div>
+										<a class="btn btn-outline-primary" data-toggle="tooltip" title="Nuevo" href="transito/create">Nuevo</i></a>
+										@endcan
+										@can('allow export')
+										<div class="input-group-prepend ml-2">
+											<span title="Export" class="input-group-text"><i class="fas fa-file-export"></i></span>
+										</div>
+										
+										<a class="btn btn-outline-secondary" data-toggle="tooltip" title="Export" href="transitos/export/">Exportar</i></a>
+										@endcan
+										@can('allow import')
+										<div class="input-group-prepend ml-2">
+											<span title="Import" class="input-group-text"><i class="fas fa-file-import"></i></span>
+										</div>
+										
+										<a class="btn btn-outline-secondary" data-toggle="tooltip" title="Import" href="/transitos/importar">Importar</a>
+										@endcan
+										@can('estadistica')
+										<div class="input-group-prepend ml-2">
+											<span title="Grafic" class="input-group-text"><i class="fas fa-chart-line"></i></span>
+										</div>
+										
+										<a class="btn btn-outline-info" data-toggle="tooltip" title="Estadistica" href="transitos/grafic/">Grafica</a>
+										@endcan
+					
+			</div>
 		</li>
-	</ul>
+	</div>
+	
+	
 	<hr style="border:2px;">
 
 	@include('transito.search')
@@ -33,6 +56,7 @@
 				<th>{!! trans('messages.Station') !!}</th>
 				<th>{!! trans('messages.Date') !!}</th>
 				<th>{!! trans('messages.Address') !!}</th>
+				<th>Usuario_Afectado</th>
 				<th>{!! trans('messages.Options') !!}</th>
 
 			</tr>
@@ -45,17 +69,17 @@
 				<td>{{$transito->station->nombre}}</td>
 				<td>{{$transito->fecha}}</td>
 				<td>{{$transito->direccion}}</td>
+				<td>{{$transito->usuario_afectado}}</td>
 				<td>
-					@can('edit evento')
+					@can('edit event')
 					<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Edit" href="{{route('transito.edit',$transito->id)}}"><i class="icon-edit"></i></a>
 					@endcan
 					@can('allow upload')
 					<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Forms SCI" href="/transitos/carga/{{$transito->id}}"><i class="fa fa-upload" aria-hidden="true"></i></a>
 					@endcan
-					<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Ver" href="{{route('transito.show',$transito->id)}}" role="button"><i class="icon-search"></i></a>
+					<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Ver" href="{{route('transito.show',$transito->id)}}" role="button"><i class="fas fa-binoculars"></i></a>
 					@can('send mail')
 					<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" data-target="#exampleModal" role="button"><i class="icon-envelope"></i></a>
-					<!-- <a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Enviar" href="{{action('MailController@SendMailsTransito', $transito->id)}}" role="button"><i class="icon-envelope"></i></a> -->
 					@endcan
 					@can('create pdf')
 					<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="PDF" href="{{action('TransitoController@downloadPDF', $transito->id)}}" role="button"><i class="icon-file-text"></i></a>
@@ -101,10 +125,11 @@
 				<th>{!! trans('messages.Station') !!}</th>
 				<th>{!! trans('messages.Date') !!}</th>
 				<th>{!! trans('messages.Address') !!}</th>
+				<th>Usuario_Afectado</th>
 				<th>{!! trans('messages.Options') !!}</th>
 			</tr>
 		</tfoot>
 	</table>
-	{{ $transitos -> appends(['searchText' => $query]) -> links() }}
-
+	
+	{{ $transitos -> appends(['busq_direccion' => $busq_direccion ,'busq_estacion' => $busq_estacion ,'busq_fecha'=>$busq_fecha,'busq_usuarioafectado'=>$busq_usuarioafectado])-> links() }}
 	@endsection @section( "piepagina" ) @endsection

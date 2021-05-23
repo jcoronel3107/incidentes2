@@ -57,8 +57,8 @@
               <h2>Foto</h2>
               <hr>
               <div class="row justify-content-center">
-                <div class="col-md-6 te{{ asset('storage/avatar/'.Auth::user()->avatar) }}xt-center mb-2">
-                  <img src="" height="50px" style="max-width: 100%" />
+                <div class="col-md-6 text-center mb-2">
+                  <img src="{{ asset('storage/avatar/'.Auth::user()->avatar) }}" height="50px" style="max-width: 100%" />
                 </div>
               </div><!-- /.row -->
               <hr>

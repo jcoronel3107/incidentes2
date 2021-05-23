@@ -31,7 +31,24 @@
                                 </div>
                                 <input type="text" value="{{ $solicitud->user->name }}" class="form-control" aria-describedby="basic-addon2" readonly>
                             </div>
-                           
+                            <div class="input-group mt-3 mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon2"><strong>Email de Usuario:</strong></span>
+                                </div>
+                                <input type="text" id="email" name="email" value="{{ $solicitud->user->email }}" class="form-control" aria-describedby="basic-addon2" readonly>
+                            </div>
+                            <div class="input-group mt-3 mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon3"><strong>Color:</strong></span>
+                                </div>
+                                <input type="text" name="color" id="color" value="{{ $solicitud->color }}" class="form-control" aria-describedby="basic-addon3" readonly>    
+                             </div>
+                             <div class="input-group mt-3 mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon3"><strong>Text Color:</strong></span>
+                                </div>
+                                <input type="text" name="textColor" id="textColor" value="{{ $solicitud->textColor }}" class="form-control" aria-describedby="basic-addon3" readonly>    
+                             </div>
                             <div class="input-group mt-3 mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon3"><strong>Estado Solicitud:</strong></span>
@@ -42,13 +59,13 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon4"><strong>Fecha de início:</strong></span>
                                 </div>
-                                <input name="start" type="text" value="{{ date('d/m/Y H:i:s', strtotime($solicitud->start)) }}" class="form-control"  aria-describedby="basic-addon4" readonly>
+                                <input name="start" type="text" value="{{$solicitud->start}}" class="form-control"  aria-describedby="basic-addon4" readonly>
                             </div>
                             <div class="input-group mt-3 mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon5"><strong>Fecha fin:</strong></span>
                                 </div>
-                                <input name="end" type="text"  value=" {{ date('d/m/Y H:i:s', strtotime($solicitud->end)) }}" class="form-control"  aria-describedby="basic-addon5" readonly>
+                                <input name="end" type="text"  value="{{$solicitud->end}}" class="form-control"  aria-describedby="basic-addon5" readonly>
                             </div>   
                             <div class="input-group mt-3 mb-3">
                                 <div class="input-group-prepend">
@@ -69,33 +86,26 @@
                                     @endforeach
                                 </select>
                             </div>
+                            
+                            <div class="input-group mt-3 mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon6"><strong>Conductor Asignado:</strong></span>
+                                </div>
+                                <select name="conductor_id" id="conductor_id" class="form-control"  aria-describedby="basic-addon6" required>
+                                    <option></option>
+                                    @foreach($ListConductores as $conductor)
+                                        <option value="{{$conductor->id}}">{{$conductor->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                              <div class="form-group">
-                                    <button class="btn btn-primary btn-block" id="Enviar" data-toggle="modal" data-target="#exampleModal">Salvar</button>
+                                    <button class="btn btn-primary btn-block" id="Enviar" >Salvar</button>
                              </div>
                          </form>
                  </div>
                
             </div>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-                </div>
-            </div>
-            </div>
+            
     @push ('scripts')
                 <script>
                     $(document).ready(function(){

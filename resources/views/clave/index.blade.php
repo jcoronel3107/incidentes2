@@ -56,20 +56,41 @@
 		</div>
 
 		@endif
-		<ul class="nav justify-content-end">
-		  <li class="nav-item">
-		      @can('create evento')
-		      <a class="btn btn-outline-danger" href="clave/create">Nuevo</a>
-		      @endcan
-		      @can('allow export')
-		      <a class="btn btn-outline-success" href="claves/export/">Exporta Excel</a>
-		      @endcan
-		      @can('allow import')
-		      <a class="btn btn-outline-success" href="claves/import/">Importar Excel</a>
-		      @endcan
-		      <a class="btn btn-outline-success" href="claves/grafic/">Grafica</a>
-		    </li>
-		</ul>
+		<div class="row nav justify-content-end">
+			<li class="nav-item">
+				<div class="input-group mb-3">
+									@can('create event')	
+									<div class="input-group-prepend">
+										<span title="Nuevo" class="input-group-text"><i class="fas fa-plus"></i></span>
+									</div>
+									
+									<a class="btn btn-outline-primary" href="clave/create">Nuevo</a>
+									@endcan
+									@can('allow export')
+									<div class="input-group-prepend ml-2">
+										<span title="Export" class="input-group-text"><i class="fas fa-file-export"></i></span>
+									</div>
+									
+									<a class="btn btn-outline-secondary" href="claves/export/">Exporta Excel</a>
+									@endcan
+									@can('allow import')
+									<div class="input-group-prepend ml-2">
+										<span title="Import" class="input-group-text"><i class="fas fa-file-import"></i></span>
+									</div>
+									
+									<a class="btn btn-outline-success" href="claves/import/">Importar Excel</a>
+									@endcan
+									@can('estadistica')
+									<div class="input-group-prepend ml-2">
+										<span title="Grafic" class="input-group-text"><i class="fas fa-chart-line"></i></span>
+									</div>
+									
+									<a class="btn btn-outline-info" href="claves/grafic/">Grafica</a>
+									@endcan
+				
+				</div>
+			</li>
+		</div>
 		<hr style="border:2px;">
 		@include('clave.search')
 		<table class="table p-3 table-hover table-condensed">
@@ -98,7 +119,7 @@
 					<td>{{$clave->user->name}}</td>
 					<td>{{$clave->vehiculo->codigodis}}</td>
 					<td>
-					@can('edit evento')
+					@can('edit event')
 						<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Edit" href="{{route('clave.edit',$clave->id)}}"><i class="icon-edit"></i></a>
 					@endcan
 						<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Ver" href="{{route('clave.show',$clave->id)}}" role="button"><i class="icon-list"></i></a>

@@ -135,8 +135,10 @@
       <div id="collapseEstadistica" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
+          @can('estadistica')
           <a class="collapse-item" href="/consulta">{!! trans('messages.Index') !!}</a>
           <a class="collapse-item" href="/consultaentrefechas">{!! trans('messages.Search between dates') !!}</a>
+          @endcan
         </div>
       </div>
 
@@ -149,12 +151,14 @@
       <div id="collapseParametros" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
+          
           <a class="collapse-item" href="/incidente/"> {!! trans('messages.Incidents') !!}</a>
           <a class="collapse-item" href="/estacion">{!! trans('messages.Firefighter station') !!}</a>
           <a class="collapse-item" href="/gasolinera">{!! trans('messages.Service Station') !!}</a>
           <a class="collapse-item" href="/parroquia">{!! trans('messages.Parishes') !!}</a>
           <a class="collapse-item" href="/vehiculo">{!! trans('messages.Vehicles') !!}</a>
           <a class="collapse-item" href="/cie10/importar">Cie10</a>
+         
         </div>
       </div>
     </li>
@@ -167,9 +171,9 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
             <a class="collapse-item" href="/user">{!! trans('messages.Index') !!}</a>
-            @can('edit permissions')
+            
             <a class="collapse-item" href="/users/roles"> {!! trans('messages.Permissions') !!}</a>
-            @endcan
+            
           </div>
         </div>
       </li>

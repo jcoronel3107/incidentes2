@@ -51,10 +51,11 @@
                         </tbody>
                     </table>
                     <hr>
+                    @can('allow export')
                     <a class="btn btn-info" data-toggle="tooltip" title="Descarga Archivo Excel" role="button" href="estadisticas/export/{{$tabla}},{{$fechaD}},{{$fechaH}}">Descarga Registros</a>
                     <hr>
 		        	<a class="btn btn-info" data-toggle="tooltip" title="Descarga Archivo Excel" role="button" href="estadisticas/export2/{{$tabla}},{{$fechaD}},{{$fechaH}}"></i>Tiempos Respuesta</a>
-		
+                    @endcan
                 </div>
 
             </div>

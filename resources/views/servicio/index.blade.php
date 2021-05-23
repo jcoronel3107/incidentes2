@@ -11,13 +11,12 @@
 		<div class="row nav justify-content-end">
 			<li class="nav-item">
 				<div class="input-group mb-3">
-							
+							@can('create event')
 							<div class="input-group-prepend">
 								<span title="Nuevo" class="input-group-text"><i class="fas fa-plus"></i></span>
 							</div>
-							
 								<a class="btn btn-primary" href="servicio/create">Nuevo</a>
-							
+							@endcan
 							@can('allow export')
 							<div class="input-group-prepend ml-2">
 								<span title="Export" class="input-group-text"><i class="fas fa-file-export"></i></span>
@@ -32,11 +31,13 @@
 							
 							<a class="btn btn-outline-secondary" href="servicios/import/">Importar Excel</a>
 							@endcan
-				
+							@can('estadistica')
 							<div class="input-group-prepend ml-2">
 								<span title="Grafic" class="input-group-text"><i class="fas fa-chart-line"></i></span>
 							</div>
+							
 							<a class="btn btn-outline-info" href="servicios/grafic/">Grafica</a>
+							@endcan
 				</div> 
 				
 				
@@ -72,10 +73,12 @@
 					<td>{{$servicio->km_retorno}}.Km</td>
 					<td>{{$servicio->vehiculo->codigodis}}</td>
 					<td>
-					@can('edit evento')
+					@can('update event')
 						<a class="btn btn-primary " data-toggle="tooltip" title="Edit" href="{{route('servicio.edit',$servicio->id)}}"><i class="icon-edit"></i></a>
 					@endcan
+					@can('read event')
 						<a class="btn btn-outline-secondary" data-toggle="tooltip" title="Ver" href="{{route('servicio.show',$servicio->id)}}" role="button"><i class="icon-list"></i></a>
+					@endcan
 					@can('send mail')
 						<a class="btn btn-outline-info" data-toggle="modal" title="Enviar" data-target="#exampleModal" role="button"><i class="icon-envelope"></i></a>
 					@endcan

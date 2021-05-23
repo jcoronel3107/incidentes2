@@ -23,7 +23,7 @@
 				@endforeach 
 		@endif
 		
-		<form method="post" class="needs-validation" id="f1" action="/prevencion"  novalidate >
+		<form method="post" class="needs-validation" id="f1" action="{{ route('prevencion.store')}}"  novalidate >
 		@csrf
 			<input type="hidden" name="usr_creador" id="usr_creador" value="{{auth()->user()->name}}"/>
 			

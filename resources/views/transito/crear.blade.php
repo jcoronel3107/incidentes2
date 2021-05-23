@@ -14,7 +14,7 @@
 			</a>
 		</li>
 	</ul>
-	<form method="post" action="/transito">
+	<form method="post" action="{{route('transito.store')}}">
 		<div class="form-row">
 			{{csrf_field()}}
 			<div class="form-group input-group  col-md-4">

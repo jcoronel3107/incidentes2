@@ -41,31 +41,40 @@ class AdminReservationsController extends Controller
                 ->whereNotIn('id',DB::table('assignments')->select('vehiculo_id')->where('estado','En Curso'))
                 ->orderByDesc('codigodis')
                 ->get();
-        return view('reservas.admin.edit', compact('solicitud', 'status','ListVehiculosDisponibles'));
+        $ListConductores = DB::table('users')
+                ->select('id','name')
+                ->where('cargo', 'maquinista')
+                ->where('status','Activo')
+                ->whereNull('deleted_at')
+                ->orderByDesc('name')
+                ->get();
+        return view('reservas.admin.edit', compact('solicitud', 'status','ListVehiculosDisponibles','ListConductores'));
     }
 
 
     public function update(AdminReservationsRequest $request)
     {
-            /* Actualiza registro en Tabla Solicituds */
-            $solicitud= Solicitud::findOrFail($request->id);
-           
-            $solicitud->status = $request->status;
-            $solicitud->save();
 
-            $destinatario = auth()->user()->email;
-            $datosSolicitud = request()->except(['_token','_method','uso']);
-           
-            Solicitud::create($datosSolicitud);
-            $subject = "";
-            $estado = $request->status;
-            if ($estado == "Confirmado") {
-                 Mail::to($destinatario,"Sistema Control Vehicular")->send(new ConfirmacionReceived($solicitud));
-            }
-            elseif ($estado == "Cancelado") {
-                Mail::to($destinatario,"Sistema Reservacion")->send(new CancelacionReceived($solicitud));
-            }
-            return back()->with('message', 'Reserva actualizada con Exito!. Se envio la notificacion a: '.$destinatario);
+            
+            /* Actualiza registro en Tabla Solicituds */
+            $solicitud= Solicitud::findOrFail($request->solicitud_id);
+            $solicitud->status ="Confirmado";
+            $solicitud->save();
+/* dd($request); */
+            $solicitud->Assignment()->create([
+                'color' => $request->color,
+                'textColor'=> $request->textColor,
+                'start'=> $request->start,
+                'end' => $request->end,
+                'estado' => "En Curso",
+                'vehiculo_id' => $request->vehiculo_id,
+                'conductor_id' => $request->conductor_id,
+                'solicitud_id' => $request->solicitud_id
+            ]);
+            $destinatario = $request->email;
+            //Mail::to($destinatario,"Sistema Incidentes2 - Modulo Reservación")->send(new ConfirmacionReceived($solicitud));
+          
+            return back()->with('message', 'Solicitud Actualizada con Exito!. Se envio la notificacion a: '.$destinatario);
     }
 
     public function grafica()

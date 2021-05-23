@@ -35,13 +35,18 @@ class TransitoController extends Controller
         //
         if($request)
         {
-          $query = trim($request->get('searchText'));
-            $estacion_id = trim($request->get('estacion_id'));
-          $transitos = Transito::where("direccion",'LIKE','%'.$query.'%')
-          
-          ->OrderBy('fecha','desc')
-          ->paginate(15);
-              return view( "/transito.index", compact( "transitos","query"));
+          $busq_direccion = trim($request->get('busq_direccion'));
+            $busq_estacion = trim($request->get('busq_estacion'));
+            $busq_fecha = trim($request->get('busq_fecha'));
+            $busq_usuarioafectado = trim($request->get('busq_usuarioafectado'));
+          $transitos = Transito::OrderBy('id','desc')
+          ->where("direccion",'LIKE','%'.$busq_direccion.'%')
+          ->where("station_id",'LIKE','%'.$busq_estacion.'%')
+          ->where("fecha",'LIKE','%'.$busq_fecha.'%')
+          ->where("usuario_afectado",'LIKE','%'.$busq_usuarioafectado.'%')
+          ->paginate(10);
+              
+              return view( "transito.index", compact( "transitos","busq_direccion","busq_estacion","busq_fecha","busq_usuarioafectado" ) );
         }
     }
 
@@ -177,7 +182,7 @@ class TransitoController extends Controller
             $maquinistas=User::where('cargo','Maquinista')
             ->orderBy("name",'asc')
             ->get();
-            $incidentes = Incidente::where("tipo_incidente","10_33")
+            $incidentes = Incidente::where("tipo_incidente","10_42")
             ->orderBy("nombre_incidente",'asc')
             ->get();
             $estaciones = Station::all();

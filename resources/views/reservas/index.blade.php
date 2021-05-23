@@ -4,12 +4,14 @@
   <div class="row nav justify-content-end">
                 
                     <li class="nav-item">
+                        @can('create reserva')
                         <div class="input-group mb-3">
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-plus"></i></span>
                           </div>
                           <a class="btn btn-primary btn-sm mr-2" href="{{ route('solicitud.create') }}"> Realizar Solicitud</a>
                         </div>
+                        @endcan
                     </li>
                         
   </div>
@@ -57,10 +59,10 @@
                                      </a>
                                  </td>
                                  <td>
-                                                    <a class="btn btn-outline-secondary btn-sm " data-toggle="tooltip" title="Edit Solicitud" href="{{ route('solicitud.show', $solicitud->id) }}"><i class="fas fa-edit"></i></a>
-                                                    
+                                                    <a class="btn btn-outline-secondary btn-sm " data-toggle="tooltip" title="View Solicitud" href="{{ route('solicitud.show', $solicitud->id) }}"><i class="icon-list"></i></a>
+                                                      @can('delete reserva')
                                                       <button type="button" id="btnCancelar" data-id="{{ $solicitud->id }}" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#exampleModal{{ $solicitud->id }}"><i class="fas fa-trash-alt"></i></button>                                                                  
-                                                      
+                                                      @endcan
                                                       <div class="modal fade" id="exampleModal{{ $solicitud->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                           <div class="modal-content">

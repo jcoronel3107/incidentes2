@@ -45,13 +45,9 @@ class IncidenteController extends Controller
      */
     public function create()
     {
-        //
-		/* if ( Auth::check() ) { */
+       
 			return view( "/incidente.crear" );
-		/* } else {
-			return view( "/auth.login" );
-		} */
-
+		
     }
 
     /**
@@ -62,8 +58,7 @@ class IncidenteController extends Controller
      */
     public function store(CreateIncidenteRequest $request)
     {
-        //
-		/* if ( Auth::check() ) { */
+        
 			$validated = $request->validated();
 			$incidente = new Incidente;
 			$incidente->tipo_incidente = $request->tipo_incidente;
@@ -71,9 +66,7 @@ class IncidenteController extends Controller
 			$incidente->save();
 			Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
 			return redirect( "/incidente" );
-		/* } else {
-			return view( "/auth.login" );
-		} */
+		
     }
 
     /**
@@ -97,13 +90,10 @@ class IncidenteController extends Controller
      */
     public function edit($id)
     {
-        //
-		/* if ( Auth::check() ) { */
+        
 			$incidente = Incidente::findOrFail( $id );
 			return view( "incidente.edit", compact( "incidente" ) );
-		/* } else {
-			return view( "/auth.login" );
-		} */
+		
     }
 
     /**
@@ -115,15 +105,12 @@ class IncidenteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-		/* if ( Auth::check() ) { */
+        
 			$incidente = Incidente::findOrFail( $id );
 			$incidente->update( $request->all() );
 			Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
 			return redirect( "/incidente" );
-		/* } else {
-			return view( "/auth.login" );
-		} */
+		
     }
 
     /**
@@ -134,15 +121,12 @@ class IncidenteController extends Controller
      */
     public function destroy($id)
     {
-        //
-		/* if ( Auth::check() ) { */
+        
 			$incidente = Incidente::findOrFail( $id );
 			$incidente->delete();
 			Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
 			return redirect( "/incidente" );
-		/* } else {
-			return view( "/auth.login" );
-		} */
+		
     }
 
 	public function export()

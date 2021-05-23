@@ -12,8 +12,10 @@
     <div class="row justify-content-right col-lg-12 col-md-12 col-sm-12 ">
         <p>Estimado Usuario {{ $solicitud->user->name }},<br> Miembro del Benemérito Cuerpo de Bomberos Voluntarios de Cuenca</p>
 
-         <p>Usted realizo una Solicitud de Movilización en el sistema del BCBVC, la misma ha sido revisada por el Administrador del sistema para acceder al uso del recurso.</p>
+         <p>Usted realizo una Solicitud de Movilización en el sistema del BCBVC, la misma ha sido aprobada por el Administrador del sistema.</p>
         <ul>
+        <li>Recurso: </li>
+        <li>Conductor: </li>  
           <li>Estado: {{ $solicitud->status }}</li>
           <li>Inicia: {{ $solicitud->start }}</li>
           <li>Fin: {{ $solicitud->end }}</li>

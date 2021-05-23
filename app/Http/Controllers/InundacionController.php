@@ -35,14 +35,18 @@ class InundacionController extends Controller
       
         if($request)
         {
-          
-          $estacion_id = trim($request->get('estacion_id'));
-          $query = trim($request->get('searchText'));
-          $inundaciones = Inundacion::where("direccion",'LIKE','%'.$query.'%')
-         
-          ->OrderBy('fecha','desc')
-          ->paginate(15);
-		      return view("/inundacion.index", compact( "inundaciones","query"));
+            $busq_direccion = trim($request->get('busq_direccion'));
+            $busq_estacion = trim($request->get('busq_estacion'));
+            $busq_fecha = trim($request->get('busq_fecha'));
+            $busq_usuarioafectado = trim($request->get('busq_usuarioafectado'));
+            
+            $inundaciones = Inundacion::OrderBy('id','desc')
+            ->where("direccion",'LIKE','%'.$busq_direccion.'%')
+            ->where("station_id",'LIKE','%'.$busq_estacion.'%')
+            ->where("fecha",'LIKE','%'.$busq_fecha.'%')
+            ->where("usuario_afectado",'LIKE','%'.$busq_usuarioafectado.'%')
+            ->paginate(10);
+		        return view("inundacion.index",compact( "inundaciones","busq_direccion","busq_estacion","busq_fecha","busq_usuarioafectado" ) );
         }
     }
 
@@ -273,6 +277,19 @@ class InundacionController extends Controller
         return Excel::download(new InundacionsExport, 'inundacions.xlsx');
     }
 
+    
+
+    public function grafica()
+    {
+        $inundaciones= Inundacion::select(DB::raw("count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(DB::raw("Month(fecha)"))->pluck('count');
+            return view("/inundacion.grafic",compact("inundaciones"));
+    }
+
+    public function importar() /* Muestra la vista para realizar la importacion de informacion hacia modelo */
+    {
+      return view("/inundacion.import");
+    }
+
     public function importacion(Request $request)
     {
         $file = $request->file('file');
@@ -281,21 +298,11 @@ class InundacionController extends Controller
         return redirect( "/inundacion" );
     }
 
-    public function grafica()
-    {
-        $inundaciones= Inundacion::select(DB::raw("count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(DB::raw("Month(fecha)"))->pluck('count');
-            return view("/inundacion.grafic",compact("inundaciones"));
-    }
-
-    public function importar()
-    {
-      return view("/inundacion.import");
-    }
-
+    
     public function downloadPDF($id) {
       $date = Carbon::now();
       $date = $date->format('l jS \\of F Y ');
-      $incendio = Inundacion::find($id);
+      $inundacion = Inundacion::find($id);
       $dompdf = App::make("dompdf.wrapper");
       $dompdf->loadView('inundacion.pdf', compact('inundacion','date'));
       return $dompdf->stream();

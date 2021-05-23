@@ -16,7 +16,7 @@
 			<a class="btn btn-outline-info" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('fuego.index')}}"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></a>
 		</li>
 	</ul>
-	<form method="post" action="/fuego">
+	<form method="post" action="{{ route('fuego.store')}}">
 		<div class="form-row">
 			{{csrf_field()}}
 			<div class="form-group input-group  col-md-4">

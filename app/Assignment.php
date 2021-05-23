@@ -10,26 +10,29 @@ class Assignment extends Model
     use SoftDeletes;
 
     protected $fillable=[
-        "title",
-        "descripcion",
+        
         "color",
         "textColor",
         "start",
         "end",
-        "user_id",
-        "equipment_id",
-        "status",
-        "admin_comment",
-        "created_at"
+        "reporte_conductor",
+        "estado",
+        "vehiculo_id",
+        "conductor_id",
+        "solicitud_id",
         ];
     //protected $guarded = [];
 
     protected $casts = [
         'start' => 'datetime',
-        'end'   => 'datetime'
+        'end'   => 'datetime',
     ];
 
-    public static $status = ['Solicitado', 'Confirmado', 'Cancelado'];
+    public static $estado = ['En Curso','Finalizado'];
 
+    public function solicitud(){
+		
+		return $this->belongsTo(Solicitud::class);
+	}
    
 }

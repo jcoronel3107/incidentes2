@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Assignment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -11,15 +12,15 @@ use App\Reservation;
 class ConfirmacionReceived extends Mailable
 {
     use Queueable, SerializesModels;
-    public $reservation;
+    public $assignment;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Reservation $reservation)
+    public function __construct(Assignment $assignment)
     {
-        $this->reservation = $reservation;
+        $this->assignment = $assignment;
     }
 
     /**

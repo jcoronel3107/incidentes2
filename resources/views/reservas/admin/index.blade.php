@@ -51,10 +51,14 @@
                                                     </a>
                                                 </td>
                                                 <td>
+                                                    @can('create assignment')
                                                     <a class="btn btn-outline-primary btn-sm " data-toggle="tooltip" title="Crea Asignación" href="{{ route('administrar.edit',$solicitud->id) }}"><i class="fas fa-edit"></i></a>
+                                                    @endcan
+                                                    @can('update reserva')
                                                     <button type="button" class="btn btn-outline-danger"  title="Cancelar Solicitud" data-toggle="modal" data-target="#exampleModal{{$solicitud->id}}">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                     </button>
+                                                    @endcan
                                                     <!-- Modal -->
                                                     <div class="modal fade" id="exampleModal{{$solicitud->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                                     <div class="modal-dialog" role="document">
