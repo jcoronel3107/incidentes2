@@ -29,12 +29,23 @@ class MovilizacionController extends Controller
      */
     public function index(Request $request)
     {
+        $vehiculos = Vehiculo::orderBy('codigodis')->where('activo', '1')->get();
+        $users = User::where('cargo','=','inspector')
+            ->orWhere('cargo','Jefe Prevencion')
+            ->orWhere('cargo','Tecnico Prevencion')
+            ->orderBy("name", 'asc')
+            ->get();
         if ($request) {
-            $query = trim($request->get('searchText'));
-            $movilizacions = Movilizacion::where("created_at", 'LIKE', '%' . $query . '%')
-                ->OrderBy('created_at', 'desc')
-                ->paginate(10);
-            return view("prevencion.index", compact("movilizacions", "query"));
+            $busq_user = trim($request->get('busq_user_id'));
+            $busq_vehiculo = trim($request->get('busq_vehiculo_id'));
+            $busq_fecha = trim($request->get('busq_fecha'));
+        
+            $movilizacions = Movilizacion::OrderBy('id','desc')
+            ->where("user_id",'LIKE','%'.$busq_user.'%')
+            ->where("vehiculo_id",'LIKE','%'.$busq_vehiculo.'%')
+            ->where("fecha_salida",'LIKE','%'.$busq_fecha.'%')
+            ->paginate(10);
+            return view("prevencion.index", compact("users","movilizacions", "vehiculos","busq_user","busq_vehiculo","busq_fecha"));
         }
     }
 

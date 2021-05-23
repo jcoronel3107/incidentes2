@@ -31,7 +31,7 @@
 		</div>
 		<hr style="border:2px;">
 		@include('prevencion.search')
-		<table class="table p-3 table-hover ">
+		<table class="table table-sm table-hover table-condensed">
 			<thead>
 				<tr class="table-info">
 					<td>id</td>
@@ -123,7 +123,7 @@
 			</tbody>
 		</table>
 		
+		{{ $movilizacions -> appends(['busq_user_id'=>$busq_user,'busq_vehiculo_id'=>$busq_vehiculo,'busq_fecha'=>$busq_fecha])-> links() }}
 		
-		{{ $movilizacions -> appends(['searchText' => $query]) -> links() }}
 	@endsection
  @section( "piepagina" ) @endsection

@@ -8,7 +8,7 @@
       </h5>
     </div>
 
-    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+    <div id="collapseOne" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
       <div class="card-body">
 	  <form  method="get" action="fuego" autocomplete="off" role="search" >
 		<div id="search" class="row justify-content-end ">
