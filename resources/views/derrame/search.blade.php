@@ -2,8 +2,8 @@
   <div class="card">
     <div class="card-header" id="headingOne">
       <h5 class="mb-0">
-        <button class="btn btn-outline-info" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Opciones Busqueda
+        <button class="btn btn-outline-info focus-in-expand" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+		{!! trans('messages.search option') !!}
         </button>
       </h5>
     </div>

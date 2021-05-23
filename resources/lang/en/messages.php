@@ -79,7 +79,7 @@ return [
     'Station9'=>'Station 9',
     'New'=>'New',
     'Edit'=>'Edit',
-    'Search between dates' => 'Search between dates',
+    'Search between dates' => 'Searches',
     'Permissions' => 'Permissions',
     'Rols' => 'Rols',
     'name' => 'Name',
@@ -100,5 +100,12 @@ return [
     'Request'=>'Request',
     'Inspection'=>'Inspection',
     'operations'=>'Operations',
+    'search option'=>'Searches Options',
+    'new'=>'New',
+    'export'=>'Export',
+    'grafic'=>'Grafic',
+    'import'=>'Import',
+    'download records'=> 'Download Records',
+    'response times'=>'Response Times'
 
 ];

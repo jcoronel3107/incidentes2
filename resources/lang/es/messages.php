@@ -80,7 +80,7 @@ return [
     'Station9'=>'Estación 9',
     'New'=>'Nuevo',
     'Edit'=>'Edición',
-    'Search between dates'=> 'Busqueda entre fechas',
+    'Search between dates'=> 'Busquedas',
     'Permissions' => 'Permisos',
     'Rols' => 'Roles',
     'name' => 'Nombre',
@@ -101,4 +101,11 @@ return [
     'Request'=>'Solicitud',
     'Inspection'=>'Inspección',
     'operations'=>'Operaciones',
+    'search option'=>'Opciones de Busqueda',
+    'new'=>'Nuevo',
+    'export'=>'Exportar',
+    'grafic'=>'Grafica',
+    'import'=>'Importar',
+    'download records'=> 'Descargar Registros',
+    'response times'=>'Tiempos Respuesta'
 ];

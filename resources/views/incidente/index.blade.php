@@ -46,8 +46,8 @@
 
 			<ul class="nav justify-content-end">
   <li class="nav-item"  >
-  	<a class="btn btn-outline-danger" href="{{route('incidente.create')}}">Nuevo</a>
-    <a class="btn btn-outline-success" href="incidentes/export/">Exporta Excel</a>
+  	<a class="btn btn-outline-danger" href="{{route('incidente.create')}}">{!! trans('messages.new') !!}</a>
+    <a class="btn btn-outline-success" href="incidentes/export/">{!! trans('messages.export') !!}</a>
   </li>
 
 </ul>

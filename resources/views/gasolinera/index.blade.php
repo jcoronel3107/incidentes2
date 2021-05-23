@@ -45,8 +45,8 @@
 		@endif
 		<ul class="nav justify-content-end">
 		 <li class="nav-item">
-		     <a class="btn btn-outline-danger" href="gasolinera/create">Nuevo</a>
-		      <a class="btn btn-outline-success" href="inundacions/export/">Exporta Excel</a>
+		     <a class="btn btn-outline-danger" href="gasolinera/create">{!! trans('messages.new') !!}</a>
+		      <a class="btn btn-outline-success" href="inundacions/export/">{!! trans('messages.export') !!}</a>
 		 </li>
 		</ul>
 		<hr style="border:2px;">

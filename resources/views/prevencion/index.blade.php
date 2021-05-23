@@ -12,19 +12,19 @@
 							<div class="input-group-prepend">
 								<span title="Nuevo" class="input-group-text"><i class="fas fa-plus"></i></span>
 							</div>
-								<a class="btn btn-outline-primary" href="{{ route('prevencion.create')}}">Nuevo</a>
+								<a class="btn btn-outline-primary focus-in-expand" href="{{ route('prevencion.create')}}">{!! trans('messages.new') !!}</a>
 							@endcan
 							@can('allow export')
 							<div class="input-group-prepend ml-2">
 								<span title="Export" class="input-group-text"><i class="fas fa-file-export"></i></span>
 							</div>
-								<a class="btn btn-outline-secondary" href="prevencions/export/">Exporta Excel</a>
+								<a class="btn btn-outline-secondary focus-in-expand" href="prevencions/export/">{!! trans('messages.export') !!}</a>
 							@endcan
 							@can('estadistica')
 							<div class="input-group-prepend ml-2">
 								<span title="Grafic" class="input-group-text"><i class="fas fa-chart-line"></i></span>
 							</div>
-							<a class="btn btn-outline-info" href="prevencions/grafic/">Grafica</a>
+							<a class="btn btn-outline-info focus-in-expand" href="prevencions/grafic/">{!! trans('messages.grafic') !!}</a>
 							@endcan
 				</div> 
 			</li>

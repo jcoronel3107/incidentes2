@@ -15,28 +15,28 @@
 							<div class="input-group-prepend">
 								<span title="Nuevo" class="input-group-text"><i class="fas fa-plus"></i></span>
 							</div>
-								<a class="btn btn-primary" href="servicio/create">Nuevo</a>
+								<a class="btn btn-outline-primary focus-in-expand" href="servicio/create">{!! trans('messages.new') !!}</a>
 							@endcan
 							@can('allow export')
 							<div class="input-group-prepend ml-2">
 								<span title="Export" class="input-group-text"><i class="fas fa-file-export"></i></span>
 							</div>
 							
-								<a class="btn btn-outline-secondary" href="servicios/export/">Exporta Excel</a>
+								<a class="btn btn-outline-secondary focus-in-expand" href="servicios/export/">{!! trans('messages.export') !!}</a>
 							@endcan
 							@can('allow import')
 							<div class="input-group-prepend ml-2">
 								<span title="Import" class="input-group-text"><i class="fas fa-file-import"></i></span>
 							</div>
 							
-							<a class="btn btn-outline-secondary" href="servicios/import/">Importar Excel</a>
+							<a class="btn btn-outline-secondary focus-in-expand" href="servicios/import/">{!! trans('messages.import') !!}</a>
 							@endcan
 							@can('estadistica')
 							<div class="input-group-prepend ml-2">
 								<span title="Grafic" class="input-group-text"><i class="fas fa-chart-line"></i></span>
 							</div>
 							
-							<a class="btn btn-outline-info" href="servicios/grafic/">Grafica</a>
+							<a class="btn btn-outline-info focus-in-expand" href="servicios/grafic/">{!! trans('messages.grafic') !!}</a>
 							@endcan
 				</div> 
 				

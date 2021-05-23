@@ -17,28 +17,28 @@
 										<span title="Nuevo" class="input-group-text"><i class="fas fa-plus"></i></span>
 									</div>
 									
-									<a class="btn btn-outline-primary" data-toggle="tooltip" title="Nuevo" href="derrame/create">Nuevo</a>
+									<a class="btn btn-outline-primary focus-in-expand" data-toggle="tooltip" title="Nuevo" href="derrame/create">{!! trans('messages.new') !!}</a>
 									@endcan
 									@can('allow export')
 									<div class="input-group-prepend ml-2">
 										<span title="Export" class="input-group-text"><i class="fas fa-file-export"></i></span>
 									</div>
 									
-									<a class="btn btn-outline-secondary" data-toggle="tooltip" title="Export" href="derrames/export/">Exportar</a>
+									<a class="btn btn-outline-secondary focus-in-expand" data-toggle="tooltip" title="Export" href="derrames/export/">{!! trans('messages.export') !!}</a>
 									@endcan
 									@can('allow import')
 									<div class="input-group-prepend ml-2">
 										<span title="Import" class="input-group-text"><i class="fas fa-file-import"></i></span>
 									</div>
 									
-									<a class="btn btn-outline-secondary" data-toggle="tooltip" title="Import" href="/derrames/importar">Importar</a>
+									<a class="btn btn-outline-secondary focus-in-expand" data-toggle="tooltip" title="Import" href="/derrames/importar">{!! trans('messages.import') !!}</a>
 									@endcan
 									@can('estadistica')
 									<div class="input-group-prepend ml-2">
 										<span title="Grafic" class="input-group-text"><i class="fas fa-chart-line"></i></span>
 									</div>
 									
-									<a class="btn btn-outline-info" data-toggle="tooltip" title="Estadistica" href="derrames/grafic/">Grafica</a>
+									<a class="btn btn-outline-info focus-in-expand" data-toggle="tooltip" title="Estadistica" href="derrames/grafic/">{!! trans('messages.grafic') !!}</a>
 									@endcan
 				
 				</div>

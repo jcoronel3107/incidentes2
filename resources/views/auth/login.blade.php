@@ -2,8 +2,8 @@
 
 @section( 'cuerpo' )
 
-<main role="main" class="flex-shrink-0">
-	<div class="container">
+<main role="main" class="flex-shrink-0 kenburns-top ">
+	<div class="container ">
 		<div class="row justify-content-center">
 			<div class="col-md-8">
 				<div><br/><br/><br/>

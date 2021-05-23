@@ -52,9 +52,9 @@
                     </table>
                     <hr>
                     @can('allow export')
-                    <a class="btn btn-info" data-toggle="tooltip" title="Descarga Archivo Excel" role="button" href="estadisticas/export/{{$tabla}},{{$fechaD}},{{$fechaH}}">Descarga Registros</a>
+                    <a class="btn btn-info" data-toggle="tooltip" title="Descarga Archivo Excel" role="button" href="estadisticas/export/{{$tabla}},{{$fechaD}},{{$fechaH}}">{!! trans('messages.download records') !!}</a>
                     <hr>
-		        	<a class="btn btn-info" data-toggle="tooltip" title="Descarga Archivo Excel" role="button" href="estadisticas/export2/{{$tabla}},{{$fechaD}},{{$fechaH}}"></i>Tiempos Respuesta</a>
+		        	<a class="btn btn-info" data-toggle="tooltip" title="Descarga Archivo Excel" role="button" href="estadisticas/export2/{{$tabla}},{{$fechaD}},{{$fechaH}}"></i>{!! trans('messages.response times') !!}</a>
                     @endcan
                 </div>
 

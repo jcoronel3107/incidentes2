@@ -15,28 +15,28 @@
 									<div class="input-group-prepend">
 										<span title="Nuevo" class="input-group-text"><i class="fas fa-plus"></i></span>
 									</div>
-									<a class="btn btn-outline-primary" data-toggle="tooltip" title="Nuevo" href="{{ route('inundacion.create')}}">Nuevo</i></a>
+									<a class="btn btn-outline-primary focus-in-expand" data-toggle="tooltip" title="Nuevo" href="{{ route('inundacion.create')}}">Nuevo</i></a>
 									@endcan
 									@can('allow export')
 									<div class="input-group-prepend ml-2">
 										<span title="Export" class="input-group-text"><i class="fas fa-file-export"></i></span>
 									</div>
 									
-									<a class="btn btn-outline-secondary" data-toggle="tooltip" title="Export" href="inundacions/export/">Exportar</i></a>
+									<a class="btn btn-outline-secondary focus-in-expand" data-toggle="tooltip" title="Export" href="inundacions/export/">Exportar</i></a>
 									@endcan
 									@can('allow import')
 									<div class="input-group-prepend ml-2">
 										<span title="Import" class="input-group-text"><i class="fas fa-file-import"></i></span>
 									</div>
 									
-									<a class="btn btn-outline-secondary" data-toggle="tooltip" title="Import" href="/inundacions/importar">Importar</a>
+									<a class="btn btn-outline-secondary focus-in-expand" data-toggle="tooltip" title="Import" href="/inundacions/importar">Importar</a>
 									@endcan
 									@can('estadistica')
 									<div class="input-group-prepend ml-2">
 										<span title="Grafic" class="input-group-text"><i class="fas fa-chart-line"></i></span>
 									</div>
 									
-									<a class="btn btn-outline-info" data-toggle="tooltip" title="Estadistica" href="inundacions/grafic/">Grafica</a>
+									<a class="btn btn-outline-info focus-in-expand" data-toggle="tooltip" title="Estadistica" href="inundacions/grafic/">Grafica</a>
 									@endcan
 				
 				</div>

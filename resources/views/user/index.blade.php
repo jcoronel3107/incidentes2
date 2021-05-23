@@ -14,14 +14,14 @@
 							<div class="input-group-prepend">
 								<span title="Nuevo" class="input-group-text"><i class="fas fa-plus"></i></span>
 							</div>
-								<a class="btn btn-outline-primary" href="{{ route('register') }}">Nuevo</a>
+								<a class="btn btn-outline-primary" href="{{ route('register') }}">{!! trans('messages.new') !!}</a>
 							@endcan
 							
 							@can('allow import')
 							<div class="input-group-prepend ml-2">
 								<span title="Grafic" class="input-group-text"><i class="icon-cloud-upload"></i></span>
 							</div>
-							<a class="btn btn-outline-info" href="/users/importar/">Importar</a>
+							<a class="btn btn-outline-info" href="/users/importar/">{!! trans('messages.import') !!}</a>
 							@endcan
 				</div> 
 			</li>

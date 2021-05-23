@@ -35,9 +35,7 @@ class ConsultasController extends Controller
 
     public function activitylog()
     {
-    	/* $lastActivity = Activity::all()->last();//returns the  logged activity */
-		$lastActivity = Activity::whereIn('causer_id','163','1')->get();
-    	
+    	$lastActivity = Activity::all()->last();//returns the  logged activity
     	return  $lastActivity;
     }
 
@@ -322,8 +320,8 @@ class ConsultasController extends Controller
 
 	public function consultaentrefechas()
 	{
-		$incidentes = Incidente::all();
-		return view("/consulta/consulta",compact('incidentes'));
+		
+		return view("consulta/consulta");
 		
 	}
 
