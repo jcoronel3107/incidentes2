@@ -11,10 +11,11 @@ use App\Salud;
 use App\Incendio;
 use App\Fuga;
 use App\Derrame;
-use App\Incidente;
 use Spatie\Activitylog\Models\Activity;
 use App\Exports\Evento_Entre_FechasExport;
 use App\Exports\TiempoRespuesta_Entre_FechasExport;
+use App\Exports\Evento_Entre_FechasSaludExport;
+use Illuminate\Support\Arr;
 use Maatwebsite\Excel\Facades\Excel;
 
 use Illuminate\Support\Carbon;
@@ -382,12 +383,57 @@ class ConsultasController extends Controller
 		return Excel::download(new Evento_Entre_FechasExport($tabla,$fechaD,$fechaH), 'consulta_'.$tabla.'_'.$fechaD.'_a_'.$fechaH.'.xlsx');
 	}
 
+	public function export3($tabla,$fechaD,$fechaH)
+	{
+		return Excel::download(new Evento_Entre_FechasSaludExport($tabla,$fechaD,$fechaH), 'consulta_'.$tabla.'_'.$fechaD.'_a_'.$fechaH.'.xlsx');
+	}
+
 	public function export2($tabla,$fechaD,$fechaH)
 	{
 		return Excel::download(new TiempoRespuesta_Entre_FechasExport($tabla,$fechaD,$fechaH), 'tiempo_respuesta_'.$tabla.'_'.$fechaD.'_a_'.$fechaH.'.xlsx');
 	}
 
+	public function googlemymapsoptions()
+	{
+		
+		return view("consulta/consultmaps");
+		
+	}
 
+	public function googlemymaps(Request $request)
+	{
+		
+		$tabla= $request->eventos;
+		$fechaD = $request->fechaD;
+		$fechaH = $request->fechaH;
+		$busquedaentrefechas = DB::table($tabla)
+			->join('incidentes', $tabla.'.incidente_id', '=', 'incidentes.id')
+			->join('stations', $tabla.'.station_id', '=', 'stations.id')
+			->select($tabla.'.id','fecha','nombre_incidente','direccion','stations.nombre','geoposicion',
+					'ficha_ecu911','informacion_inicial','detalle_emergencia')
+			//->select('geoposicion')
+			->whereYear('fecha', '=', date('Y'))
+			->whereNull($tabla .'.deleted_at')
+			->whereBetween('fecha', array($fechaD, $fechaH))
+			->get();
+		return view("/consulta/googlemymaps", compact('tabla','busquedaentrefechas','fechaD','fechaH'));
+	}
+
+	public function GetjsonMaps($tabla,$fechaD,$fechaH){
+		
+		 $busquedaentrefechas = DB::table($tabla)
+			->join('incidentes', $tabla.'.incidente_id', '=', 'incidentes.id')
+			->join('stations', $tabla.'.station_id', '=', 'stations.id')
+			->select($tabla.'.id','fecha','nombre_incidente','direccion','stations.nombre','geoposicion',
+					'ficha_ecu911','informacion_inicial','detalle_emergencia')
+			//->select('geoposicion')
+			->whereYear('fecha', '=', date('Y'))
+			->whereNull($tabla .'.deleted_at')
+			->whereBetween('fecha', array($fechaD, $fechaH))
+			->get()->toJson();
+			
+			return $busquedaentrefechas;
+	}
 	
 	
 	

@@ -317,7 +317,9 @@
 		</div>
 	</form>
 	@push ('scripts')
-	{{-- Script para almacenar vehiculos asisten --}}
+	<!-- Geolocalizacion  for all pages-->
+	<script src="/js/geocoder.js"></script>
+	<!-- Script para almacenar vehiculos asisten  -->
 	<script>
 		$(document).ready(function() {
 

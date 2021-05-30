@@ -8,14 +8,14 @@
 @section( "cuerpo" )
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="General-tab" data-toggle="tab" href="#General" role="tab" aria-controls="General" aria-selected="true">General</a>
+        <a class="nav-link active" id="General-tab" data-toggle="tab" href="#General" role="tab" aria-controls="General" aria-selected="true">Generar Maps</a>
     </li>
 </ul>
 
 <div class="tab-content" id="myTabContent">
-    {{-- Contenedor General --}}
+   
     <div class="tab-pane fade show active" id="General" role="tabpanel" aria-labelledby="General-tab">
-        <form method="get" action="/busquedaentrefechas">
+        <form method="get" action="{{route('googlemymaps')}}">
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label text-sm-right">Incidente</label>
                 <div class="col-sm-9">
@@ -67,11 +67,9 @@
             </div>
         </form>
     </div>
-    <div id='resultado' class="col-xl-8 col-lg-8""></div>
+    
 </div>
 
-
-
-
 @endsection
-@section( " piepagina " ) @endsection
+@section( "piepagina" )
+@endsection

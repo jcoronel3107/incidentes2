@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 Route::get('/',										'PagesController@index');
-Route::get('/home',									'HomeController@index');
+Route::get('/home',									'HomeController@index')->middleware('auth');
 Auth::routes();
 /* -----------------------------------------------------------------------------------
 /                                   Cambio de Idioma 
@@ -30,9 +30,19 @@ Route::get('lang/{lang}',							'LanguageController@swap')->name('lang.swap');
 /                                              Modulo C14 
 / --------------------------------------------------------------------------------- 
 */
-Route::resource('clave',							'ClaveController')->middleware('auth')->middleware('role:operador|consultor|supervidor|admin|Super-Admin');
-Route::get('claves/export/',     					'ClaveController@export');
-Route::get('claves/grafic/',     					'ClaveController@grafica');
+Route::resource('clave',							'ClaveController')->middleware('role:operador|consultor|supervidor|admin|Super-Admin');
+/* Route::get('clave',							'ClaveController@index')->name('clave.index')->middleware('role:operador|consultor|supervidor|admin|Super-Admin');
+Route::get('clave/create',		            'ClaveController@create')->name('clave.create')->middleware('role:operador|supervisor|admin|Super-Admin');
+Route::post('clave/store',		            'ClaveController@store')->name('clave.store')->middleware('role:operador|consultor|supervisor|admin|Super-Admin');
+Route::get('clave/show/{id}',	            'ClaveController@show')->name('clave.show')->middleware('role:operador|consultor|supervisor|admin|Super-Admin');
+Route::get('clave/edit/{id}',	            'ClaveController@edit')->name('clave.edit')->middleware('role:operador|supervisor|admin|Super-Admin');
+Route::patch('clave/{id}',                  'ClaveController@update')->name('clave.update')->middleware('role:operador|supervisor|admin|Super-Admin');
+Route::delete('clave/{id}',              	'ClaveController@destroy')->name('clave.destroy')->middleware('role:operador|supervisor|admin|Super-Admin');
+ */
+
+
+Route::get('claves/export/',     					'ClaveController@export')->middleware('auth');
+Route::get('claves/grafic/',     					'ClaveController@grafica')->middleware('auth');
 Route::get('/downloadPDFclave/{id}',				'ClaveController@downloadPDF')->middleware('auth');
 Route::get('/sendReportClave/{id}',					'MailController@SendMailsClave')->middleware('auth');
 /*
@@ -41,9 +51,9 @@ Route::get('/sendReportClave/{id}',					'MailController@SendMailsClave')->middle
 / --------------------------------------------------------------------------------- 
 */
 
-Route::resource('servicio',							'ServicioController')->middleware('auth')->middleware('role:operador|consultor|supervidor|admin|Super-Admin');
-Route::get('servicios/export',   					'ServicioController@export');
-Route::get('servicios/grafic/',    					'ServicioController@grafica');
+Route::resource('servicio',							'ServicioController')->middleware('role:operador|consultor|supervidor|admin|Super-Admin');
+Route::get('servicios/export',   					'ServicioController@export')->middleware('auth');
+Route::get('servicios/grafic/',    					'ServicioController@grafica')->middleware('auth');
 Route::get('/downloadPDFservicio/{id}',				'ServicioController@downloadPDF')->middleware('auth');
 Route::get('/sendReportServicio/{id}',				'MailController@SendMailsServicio')->middleware('auth');
 
@@ -166,7 +176,7 @@ Route::post('transitos/guardaform',					'TransitoController@upload')->middleware
 Route::post('transitos/import/',					'TransitoController@importacion')->middleware('role:admin|Super-Admin');
 Route::get('transitos/importar',					'TransitoController@importar')->middleware('role:admin|Super-Admin');
 Route::get('transitos/export/', 					'TransitoController@export')->middleware('role:operador|consultor|supervisor|admin|Super-Admin');
-Route::get('transitos/grafic/',   					'TransitoController@grafica');
+Route::get('transitos/grafic/',   					'TransitoController@grafica')->middleware('auth');
 Route::get('/downloadPDFtransito/{id}',				'TransitoController@downloadPDF')->middleware('auth');
 Route::get('/sendReportTransito/{id}',				'MailController@SendMailsTransito')->middleware('auth');
 
@@ -188,7 +198,7 @@ Route::post('saluds/guardaform',					'SaludController@upload')->middleware('auth
 Route::post('saluds/import/',						'SaludController@importacion')->middleware('role:admin|Super-Admin');
 Route::get('saluds/importar',						'SaludController@importar')->middleware('role:admin|Super-Admin');
 Route::get('saluds/export',   						'SaludController@export')->middleware('role:operador|consultor|supervisor|admin|Super-Admin');
-Route::get('saluds/grafic/',     					'SaludController@grafica');
+Route::get('saluds/grafic/',     					'SaludController@grafica')->middleware('auth');
 Route::get('/downloadPDFsalud/{id}',				'SaludController@downloadPDF')->middleware('auth');
 Route::get('/sendReportSalud/{id}',					'MailController@SendMailsSalud')->middleware('auth');
 
@@ -209,7 +219,7 @@ Route::post('derrames/guardaform',					'DerrameController@upload')->middleware('
 Route::post('derrames/import/',						'DerrameController@importacion')->middleware('role:admin|Super-Admin');
 Route::get('derrames/importar',						'DerrameController@importar')->middleware('role:admin|Super-Admin');
 Route::get('derrames/export',   					'DerrameController@export')->middleware('role:operador|consultor|supervisor|admin|Super-Admin');
-Route::get('derrames/grafic/',     					'DerrameController@grafica');
+Route::get('derrames/grafic/',     					'DerrameController@grafica')->middleware('auth');
 Route::get('/downloadPDFderrame/{id}',				'DerrameController@downloadPDF')->middleware('auth');
 Route::get('/sendReportDerrame/{id}',				'MailController@SendMailsDerrame')->middleware('auth');
 
@@ -254,7 +264,9 @@ Route::get('users/importar',						'UserController@importar')->middleware('role:a
 
 Route::resource('consulta',							'ConsultasController')->middleware('auth');
 Route::get('/consultaentrefechas',					'ConsultasController@consultaentrefechas')->name('consultaentrefechas');
-
+Route::get('/googlemymapsoptions',			        'ConsultasController@googlemymapsoptions')->name('googlemymapsoptions');
+Route::get('/googlemymaps',		        			'ConsultasController@googlemymaps')->name('googlemymaps')->middleware('auth');
+Route::get('googlemymapsjson/{tabla},{f1},{f2}',    'ConsultasController@GetjsonMaps')->name('jsongooglemymaps')->middleware('auth');
 Route::get('/busquedaentrefechas',					'ConsultasController@busquedaentrefechas')->middleware('auth');
 Route::get('/busquedaentrefechasmov',				'MovilizacionController@busquedaentrefechas')->middleware('auth');
 Route::post('users/import/',						'UserController@importacion')->middleware('role:admin|Super-Admin');
@@ -262,6 +274,7 @@ Route::resource('user',								'UserController')->middleware('auth');
 
 
 Route::get('estadisticas/export/{id},{f1},{f2}', 	'ConsultasController@export')->middleware('role:operador|consultor|supervisor|admin|Super-Admin');
+Route::get('estadisticas/export3/{id},{f1},{f2}', 	'ConsultasController@export3')->middleware('role:operador|consultor|supervisor|admin|Super-Admin');
 Route::get('estadisticas/export2/{id},{f1},{f2}', 	'ConsultasController@export2')->middleware('role:operador|consultor|supervisor|admin|Super-Admin');
 Route::get('/download/{file}', 						'DownloadsController@download');
 
@@ -270,10 +283,10 @@ Route::get('/download/{file}', 						'DownloadsController@download');
 Route::get('prevencion',				    	    'MovilizacionController@index')->name('prevencion.index')->middleware('role:inspector|consultor|admin|Super-Admin');
 Route::get('prevencion/create',			    		'MovilizacionController@create')->name('prevencion.create')->middleware('role:inspector|admin|Super-Admin');
 Route::post('prevencion/store',				    	'MovilizacionController@store')->name('prevencion.store')->middleware('role:inspector|admin|Super-Admin');
-Route::get('prevencion/show/{id}',				    	'MovilizacionController@show')->name('prevencion.show')->middleware('role:inspector|consultor|admin|Super-Admin');
-Route::get('prevencion/edit/{id}',					    'MovilizacionController@edit')->name('prevencion.edit')->middleware('role:inspector|admin|Super-Admin');
+Route::get('prevencion/show/{id}',			    	'MovilizacionController@show')->name('prevencion.show')->middleware('role:inspector|consultor|admin|Super-Admin');
+Route::get('prevencion/edit/{id}',				    'MovilizacionController@edit')->name('prevencion.edit')->middleware('role:inspector|admin|Super-Admin');
 Route::patch('prevencion/{id}',				        'MovilizacionController@update')->name('prevencion.update')->middleware('role:inspector|admin|Super-Admin');
-Route::delete('prevencion/{id}',					    'MovilizacionController@destroy')->name('prevencion.destroy')->middleware('role:inspector|admin|Super-Admin');
+Route::delete('prevencion/{id}',				    'MovilizacionController@destroy')->name('prevencion.destroy')->middleware('role:inspector|admin|Super-Admin');
 Route::get('prevencions/export',   					'MovilizacionController@export')->middleware('role:inspector|admin|Super-Admin');
 Route::get('prevencions/export1/{id},{f1},{f2}', 	'MovilizacionController@export1')->middleware('role:inspector|admin|Super-Admin');
 Route::get('prevencions/export2/{id},{f1},{f2}', 	'MovilizacionController@export2')->middleware('role:inspector|admin|Super-Admin');
@@ -289,15 +302,15 @@ Route::get('/consultaentrefechasmov',	        	'MovilizacionController@consultae
 /
 / ------------------------------------------------------------------------------------------------
 */
-Route::get('/solicitud/calendar',       'Reservacion\ReservacionController@chequearcalendario')->middleware('auth');
-Route::get('/solicitud/asistencia',     'Reservacion\ReservacionController@formasistencia')->middleware('auth');
+Route::get('/solicitud/calendar',       'Reservacion\ReservacionController@chequearcalendario')->middleware('role:employee|assistant|admin|Super-Admin');
+Route::get('/solicitud/asistencia',     'Reservacion\ReservacionController@formasistencia')->middleware('role:employee|assistant|admin|Super-Admin');
 /* Route::get('/miJqueryAjax/{id}',		'Reservacion\AjaxController@index')->middleware('auth'); */
 Route::resource('solicitud',         	'Reservacion\UserSolicitudsController')->middleware('role:employee|assistant|admin|Super-Admin');
 Route::get('/solicitud/calendar',		'Reservacion\UserSolicitudsController@calendar')->name('user.solicitud.calendar')->middleware('role:employee|assistant|admin|Super-Admin');
 Route::resource('/administrar', 		'Reservacion\AdminReservationsController')->middleware('role:assistant|admin|Super-Admin');
-Route::get('/administrar/grafic/',   	'Reservacion\AdminReservationsController@grafica')->name('admin.solicitud.grafic')->middleware('auth');
-Route::get('vehiculosdisponibles',      'Reservacion\ReservacionController@VehiculosDisponibles');
-Route::get('/uath',                     'Reservacion\ReservacionController@index');
+Route::get('/administrar/grafic/',   	'Reservacion\AdminReservationsController@grafica')->name('admin.solicitud.grafic')->middleware('role:employee|assistant|admin|Super-Admin');
+Route::get('vehiculosdisponibles',      'Reservacion\ReservacionController@VehiculosDisponibles')->middleware('role:employee|assistant|admin|Super-Admin');
+Route::get('/uath',                     'Reservacion\ReservacionController@index')->middleware('role:employee|assistant|admin|Super-Admin');
 
 /* ----------------------------------------------------------------------------------------------
 /                                   Rutas Menu Principal

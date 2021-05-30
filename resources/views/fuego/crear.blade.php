@@ -326,7 +326,8 @@
 
 
 	<script src="/js/funciones.js"></script>
-
+	<!-- Geolocalizacion  for all pages-->
+	<script src="/js/geocoder.js"></script>
 
 	@endpush
 

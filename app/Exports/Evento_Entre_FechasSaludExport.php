@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Incendio;
+use App\Salud;
 
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Concerns\Exportable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Support\Responsable;
 
-class Evento_Entre_FechasExport implements FromQuery, Responsable, WithHeadings, ShouldAutoSize
+class Evento_Entre_FechasSaludExport implements FromQuery, Responsable, WithHeadings, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -37,6 +37,7 @@ class Evento_Entre_FechasExport implements FromQuery, Responsable, WithHeadings,
             $downloadbusquedaentrefechas =  DB::table($this->tabla)
             ->join('incidentes', $this->tabla . '.incidente_id', '=', 'incidentes.id')
             ->join('stations', $this->tabla .'.station_id', '=', 'stations.id')
+            ->join('pacientes',$this->tabla .'.id', '=', 'pacientes.salud_id')
             ->select(
                 'fecha',
                 'nombre_incidente',
@@ -46,13 +47,19 @@ class Evento_Entre_FechasExport implements FromQuery, Responsable, WithHeadings,
                 'nombre',
                 'informacion_inicial',
                 'detalle_emergencia',
-                'usuario_afectado',
-                'danos_estimados',
                 'hora_fichaecu911',
                 'hora_salida_a_emergencia',
                 'hora_llegada_a_emergencia',
                 'hora_fin_emergencia',
-                'hora_en_base'
+                'hora_en_base',
+                'paciente',
+                'edad',
+                'genero',
+                'presion1',
+                'presion2',
+                'temperatura',
+                'glasglow',
+                'saturacion','Frecuencia_Cardiaca','Frecuencia_Respiratoria','Glicemia','hojapre','casasalud'
             )
             ->whereYear('fecha', '=', date('Y'))
             ->whereNull($this->tabla . '.deleted_at')
@@ -78,13 +85,19 @@ class Evento_Entre_FechasExport implements FromQuery, Responsable, WithHeadings,
             'Estacion',
             'Informacion_inicial',
             'Detalle_emergencia',
-            'Usuario_afectado',
-            'Danos_estimados',
             'Hora_fichaecu911',
             'Hora_salida_a_emergencia',
             'Hora_llegada_a_emergencia',
             'Hora_fin_emergencia',
-            'Hora_en_base',   
+            'Hora_en_base',  
+            'Paciente',
+                'Edad',
+                'Genero',
+                'Presion1',
+                'Presion2',
+                'Temperatura',
+                'Glasglow',
+                'Saturacion','Frecuencia_Cardiaca','Frecuencia_Respiratoria','Glicemia','Hoja-Prehospitalaria','Casa-salud' 
         ];
     }
 

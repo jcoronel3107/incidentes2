@@ -5,7 +5,7 @@
   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
   
     <div class="sidebar-brand-icon rotate-n-15">
-       <i class="fas fa-ambulance"></i>
+       <i class="fas fa-ambulance vibrate-1"></i>
     </div>
     <div class="sidebar-brand-text mx-3">{!! trans('messages.name_app') !!}<sup>2</sup></div>
   </a>
@@ -46,7 +46,7 @@
         <div id="collapseClave14" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-            <a rel="nofollow noopener noreferrer" class="collapse-item" target="_blank" href="/clave">{!! trans('messages.Index') !!}</a>
+            <a rel="nofollow noopener noreferrer" class="collapse-item" target="_blank" href="{{route('clave.index')}}">{!! trans('messages.Index') !!}</a>
           </div>
         </div>
       </li>
@@ -138,6 +138,10 @@
           @can('estadistica')
           <a class="collapse-item" href="/consulta">{!! trans('messages.Index') !!}</a>
           <a class="collapse-item" href="/consultaentrefechas">{!! trans('messages.Search between dates') !!}</a>
+          <a class="collapse-item" href="{{route('googlemymapsoptions')}}">Mapas</a>
+
+
+          
           @endcan
         </div>
       </div>
@@ -182,7 +186,7 @@
     <hr class="sidebar-divider d-none d-md-block">
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
-      <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      <button class="rounded-circle border-0 vibrate-1" id="sidebarToggle"></button>
     </div>
 
 </ul>

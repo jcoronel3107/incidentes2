@@ -342,6 +342,9 @@
 	</form>
 	@push ('scripts')
 	<!-- Script para almacenar vehiculos asisten-->
+	<!-- Geolocalizacion  for all pages-->
+	<script src="/js/geocoder.js"></script>
+	
 	<script>
 		$(document).ready(function() {
 			$("#bt_add").click(function() {

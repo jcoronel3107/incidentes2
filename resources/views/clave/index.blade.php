@@ -64,7 +64,7 @@
 										<span title="Nuevo" class="input-group-text"><i class="fas fa-plus"></i></span>
 									</div>
 									
-									<a class="btn btn-outline-primary focus-in-expand" href="clave/create">{!! trans('messages.new') !!}</a>
+									<a class="btn btn-outline-primary focus-in-expand" href="{{route('clave.create')}}">{!! trans('messages.new') !!}</a>
 									@endcan
 									@can('allow export')
 									<div class="input-group-prepend ml-2">

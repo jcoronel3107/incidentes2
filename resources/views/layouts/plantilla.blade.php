@@ -178,7 +178,8 @@
 	<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 	<!-- Geolocalizacion  for all pages-->
-	<script src="/js/geocoder.js"></script>
+	<!-- <script src="/js/geocoder.js"></script> -->
+	
 	<!-- Carga Loader en cada pagina-->
 	<script src="/js/loader.js"></script>
 	<!-- Carga Libreria Moment en cada pagina-->
