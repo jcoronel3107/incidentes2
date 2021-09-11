@@ -11,6 +11,7 @@ use App\Salud;
 use App\Incendio;
 use App\Fuga;
 use App\Derrame;
+use App\Gasolinera;
 use Spatie\Activitylog\Models\Activity;
 use App\Exports\Evento_Entre_FechasExport;
 use App\Exports\TiempoRespuesta_Entre_FechasExport;
@@ -67,6 +68,14 @@ class ConsultasController extends Controller
 				->havingRaw('count(station_id) >= ?',[1])
 				->get();
 
+			$Inundacionxestacion2 = DB::table('inundacions')
+				->join('incidentes', 'inundacions.incidente_id', '=', 'incidentes.id')
+				->select('station_id', DB::raw('"inundaciones" as evento, count(station_id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull('inundacions.deleted_at')
+				->groupBy('station_id')
+				->havingRaw('count(station_id) >= ?',[1])
+				->get();
 			$Inundacionxincidente = DB::table('inundacions')
 				->join('incidentes', 'inundacions.incidente_id', '=', 'incidentes.id')
 				->select('nombre_incidente', DB::raw('count(station_id) salidas'))
@@ -104,7 +113,13 @@ class ConsultasController extends Controller
 				->whereNull('rescates.deleted_at')
 				->groupBy('station_id')
 				->havingRaw('count(station_id) >= ?',[1])
-				/*->pluck('salidas','station_id');*/
+				->get();
+			$Rescatexestacion2 = DB::table('rescates')
+				->select('station_id',DB::raw('"rescates" as evento,count(station_id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull('rescates.deleted_at')
+				->groupBy('station_id')
+				->havingRaw('count(station_id) >= ?',[1])
 				->get();
 
 			$Rescatexincidente = DB::table('rescates')
@@ -114,7 +129,6 @@ class ConsultasController extends Controller
 				->whereNull('rescates.deleted_at')
 				->groupBy('nombre_incidente')
 				->havingRaw('count(station_id) >= ?',[1])
-				/*->pluck('salidas','station_id');*/
 				->get();
 
 			/**************************************
@@ -132,6 +146,14 @@ class ConsultasController extends Controller
 			
 			$Transitoxestacion = DB::table('transitos')
 				->select('station_id', DB::raw('count(station_id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull('transitos.deleted_at')
+				->groupBy('station_id')
+				->havingRaw('count(station_id) >= ?',[1])
+				->get();
+
+			$Transitoxestacion2 = DB::table('transitos')
+				->select('station_id', DB::raw('"transitos" as evento,count(station_id) salidas'))
 				->whereYear('fecha', '=', date('Y'))
 				->whereNull('transitos.deleted_at')
 				->groupBy('station_id')
@@ -169,6 +191,14 @@ class ConsultasController extends Controller
 				->havingRaw('count(station_id) >= ?',[1])
 				->get();
 
+			$Saludxestacion2 = DB::table('saluds')
+				->select('station_id', DB::raw('"saluds" as evento,count(station_id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull('saluds.deleted_at')
+				->groupBy('station_id')
+				->havingRaw('count(station_id) >= ?',[1])
+				->get();
+
 			$Saludxincidente = DB::table('saluds')
 				->join('incidentes', 'saluds.incidente_id', '=', 'incidentes.id')
 				->select('nombre_incidente', DB::raw('count(station_id) salidas'))
@@ -193,6 +223,14 @@ class ConsultasController extends Controller
 
 			$Fuegoxestacion = DB::table('incendios')
 				->select('station_id', DB::raw('count(station_id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull('incendios.deleted_at')
+				->groupBy('station_id')
+				->havingRaw('count(station_id) >= ?',[1])
+				->get();
+
+			$Fuegoxestacion2 = DB::table('incendios')
+				->select('station_id', DB::raw('"incendios" as evento,count(station_id) salidas'))
 				->whereYear('fecha', '=', date('Y'))
 				->whereNull('incendios.deleted_at')
 				->groupBy('station_id')
@@ -232,6 +270,14 @@ class ConsultasController extends Controller
 
 			$Gasxestacion = DB::table('fugas')
 				->select('station_id', DB::raw('count(station_id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull('fugas.deleted_at')
+				->groupBy('station_id')
+				->havingRaw('count(station_id) >= ?',[1])
+				->get();
+
+			$Gasxestacion2 = DB::table('fugas')
+				->select('station_id', DB::raw('"fugas" as evento,count(station_id) salidas'))
 				->whereYear('fecha', '=', date('Y'))
 				->whereNull('fugas.deleted_at')
 				->groupBy('station_id')
@@ -292,6 +338,24 @@ class ConsultasController extends Controller
 				->havingRaw('count(station_id) >= ?',[1])
 				->get();
 
+			$Derramexestacion2 = DB::table('derrames')
+				->select('station_id', DB::raw('"derrames" as evento,count(station_id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull('derrames.deleted_at')
+				->groupBy('station_id')
+				->havingRaw('count(station_id) >= ?',[1])
+				->get();
+
+			$Derramexparroquia = DB::table('derrames')
+				->join('parroquias', 'derrames.parroquia_id', '=', 'parroquias.id')
+				->select('parroquias.nombre', DB::raw('count(derrames.id) salidas'))
+				->whereYear('fecha', '=', date('Y'))
+				->whereNull('derrames.deleted_at')
+				->groupBy('parroquias.nombre')
+				->havingRaw('count(derrames.id) >= ?', [1])
+				->get();
+				
+
 			$Derramexincidente = DB::table('derrames')
 				->join('incidentes', 'derrames.incidente_id', '=', 'incidentes.id')
 				->select('nombre_incidente', DB::raw('count(station_id) salidas'))
@@ -315,14 +379,21 @@ class ConsultasController extends Controller
 			$EventosMensuales = $EventosMensuales->merge($mensualesGas);
 			$EventosMensuales = $EventosMensuales->merge($mensualesDerrames);
 
-        	return view("/consulta.estadisticas",compact("mensualesInundacion","Inundacionxestacion","Inundacionxincidente","Inundacionxparroquia","mensualesRescate","Rescatexestacion","Rescatexincidente","mensualesTransito","Transitoxestacion","Transitoxincidente","mensualesSalud","Saludxestacion","Saludxincidente","mensualesFuego","Fuegoxestacion","Fuegoxincidente","Incendiosxparroquia","mensualesGas","Gasxestacion","Gasxincidente", "Gasxparroquia", "GasxTipoCilindro", "GasxColor","now","EventosxIncidente","EventosMensuales"));
+			$EventosxEstaciones = $Inundacionxestacion2->merge($Rescatexestacion2);
+			$EventosxEstaciones = $EventosxEstaciones->merge($Transitoxestacion2);
+			$EventosxEstaciones = $EventosxEstaciones->merge($Saludxestacion2);
+			$EventosxEstaciones = $EventosxEstaciones->merge($Fuegoxestacion2);
+			$EventosxEstaciones = $EventosxEstaciones->merge($Gasxestacion2);
+			$EventosxEstaciones = $EventosxEstaciones->merge($Derramexestacion2);
+			$EventosxEstaciones = $EventosxEstaciones->sortBy('station_id');
+        	return view("/consulta.estadisticas",compact("Derramexparroquia","mensualesDerrames","Derramexestacion","Derramexincidente","mensualesInundacion","Inundacionxestacion","Inundacionxincidente","Inundacionxparroquia","mensualesRescate","Rescatexestacion","Rescatexincidente","mensualesTransito","Transitoxestacion","Transitoxincidente","mensualesSalud","Saludxestacion","Saludxincidente","mensualesFuego","Fuegoxestacion","Fuegoxincidente","Incendiosxparroquia","mensualesGas","Gasxestacion","Gasxincidente", "Gasxparroquia", "GasxTipoCilindro", "GasxColor","now","EventosxIncidente","EventosMensuales","EventosxEstaciones"));
         }
     }
 
 	public function consultaentrefechas()
 	{
-		
-		return view("consulta/consulta");
+		$gastation = Gasolinera::all();
+		return view("consulta/consulta",compact("gastation"));
 		
 	}
 
@@ -376,6 +447,45 @@ class ConsultasController extends Controller
 		
 
 		return view("/consulta/entrefechas", compact('tabla','Busquedaentrefechas_Parroquias','Busquedaentrefechas_Estaciones','busquedaentrefechas','fechaD','fechaH'));
+	}
+
+	public function busquedaentrefechasclave(Request $request)
+	{
+		$tabla= 'claves';
+		$fechaD = $request->fechaDgas;
+		$fechaH = $request->fechaHgas;
+		$gastation = $request->gastation;
+		
+		$busquedaentrefechas_xgasolineras = DB::table($tabla)
+			->join('gasolineras', $tabla . '.gasolinera_id', '=', 'gasolineras.id')
+			->select('razonsocial', DB::raw('count(gasolinera_id) Num_cargas'))
+			->whereYear( $tabla .'.created_at', '=', date('Y'))
+			->whereNull($tabla .'.deleted_at')
+			->whereBetween( $tabla .'.created_at', array($fechaD, $fechaH)) 
+			->groupBy('gasolinera_id')
+			->havingRaw('count(gasolinera_id) >= ?', [1])
+			->get();
+
+		 $Busquedaentrefechas_xcombustible = DB::table($tabla)
+			->select('combustible', DB::raw('count(combustible) NumCargaxCombustible'))
+			->whereYear( $tabla .'.created_at', '=', date('Y'))
+			->whereNull($tabla .'.deleted_at')
+			->whereBetween( $tabla .'.created_at', array($fechaD, $fechaH)) 
+			->groupBy('combustible')
+			->havingRaw('count(combustible) >= ?', [1])
+			->get();
+
+		$Busquedaentrefechas_xvehiculo = DB::table($tabla)
+			->join('vehiculos',  $tabla . '.vehiculo_id', '=', 'vehiculos.id')
+			->select('vehiculos.codigodis', DB::raw('count('.$tabla.'.vehiculo_id) NumCargas'))
+			->whereYear($tabla .'.created_at', '=', date('Y'))
+			->whereNull($tabla . '.deleted_at')
+			->whereBetween($tabla .'.created_at', array($fechaD, $fechaH))
+			->groupBy('vehiculos.codigodis')
+			->havingRaw('count(vehiculos.codigodis) >= ?', [1])
+			->get(); 
+		return $Busquedaentrefechas_xcombustible;
+		/* return view("/consulta/entrefechasclaves", compact('tabla','busquedaentrefechas_xgasolineras','fechaD','fechaH')); */
 	}
 
 	public function export($tabla,$fechaD,$fechaH)

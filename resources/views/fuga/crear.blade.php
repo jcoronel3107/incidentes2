@@ -9,12 +9,19 @@
 	<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Registro Información de Eventos Fugas</h2>
 	<ul class="nav justify-content-end">
 		<li class="nav-item">
-			<a class="btn btn-outline-info" data-toggle="tooltip" title="Whatsapp" role="button" onclick="notificacionWhatsapp();"><i class="icon-comments-alt icon-2x"></i></a>
-			<a class="btn btn-outline-info" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('fuga.index')}}"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i>
-			</a>
-
+			<div class="input-group mb-3">	
+				<div class="input-group-prepend">
+					<span title="Notificar x Whatsapp" class="input-group-text"><i class="icon-comments-alt"></i></span>
+				</div>
+				<a class="btn btn-outline-info" data-toggle="tooltip" title="Notificar x Whatsapp" role="button" onclick="notificacionWhatsapp();">Whatsapp</a>
+				<div class="input-group-prepend">
+					<span title="Regresar" class="input-group-text"><i class="fa fa-arrow-left" aria-hidden="true"></i></span>
+				</div>
+				<a class="btn btn-outline-secondary" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('fuga.index')}}">Regresar</a>
+			</div>
 		</li>
 	</ul>
+	
 	<form method="post" action="{{ route('fuga.store')}}">
 		<div class="form-row">
 			{{csrf_field()}}
@@ -345,16 +352,22 @@
 
 		<div class="form-group py-3 " id="divguardar">
 			<input type="hidden" name="token" value="{{csrf_token()}}">
-			<ul class="nav justify-content-end">
+			<div class="row nav justify-content-end">
 				<li class="nav-item">
-					<a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('fuga.index')}}"><i class="icon-remove icon-2x"></i>
-					</a>
-					<button type="submit" id="Enviar" name="Enviar" value="Enviar" data-toggle="tooltip" title="Grabar" class="btn btn-outline-success"><i class="icon-ok icon-2x"></i></button>
-
-					<a class="btn btn-outline-info" type="reset" name="Borrar" value="Borrar" data-toggle="tooltip" title="Borrar" role="button"><i class="icon-eraser icon-2x"></i>
-					</a>
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span title="Grabar" class="input-group-text"><i class="fas fa-check"></i></span>
+						</div>						
+						<button type="submit" id="Enviar" name="Enviar" value="Enviar" data-toggle="tooltip" title="Grabar"  class="btn btn-outline-success">{!! trans('messages.to register') !!}</button>
+						<div class="input-group-prepend">
+							<span title="Regresar" class="input-group-text"><i class="fas fa-arrow-left"></i></span>
+						</div>
+						<a class="btn btn-outline-secondary" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('fuga.index')}}">Regresar</a>
+						
+					</div>				
 				</li>
-			</ul>
+			</div>
+			
 		</div>
 
 	</form>

@@ -11,11 +11,20 @@
 	<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Registro Información de Eventos Incendios</h2>
 	<ul class="nav justify-content-end">
 		<li class="nav-item">
-
-			<a class="btn btn-outline-info" data-toggle="tooltip" title="Whatsapp" role="button" onclick="notificacionWhatsapp();"><i class="icon-comments-alt icon-2x"></i></a>
-			<a class="btn btn-outline-info" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('fuego.index')}}"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></a>
+			<div class="input-group mb-3">
+				
+				<div class="input-group-prepend">
+					<span title="Notificar x Whatsapp" class="input-group-text"><i class="icon-comments-alt"></i></span>
+				</div>
+				<a class="btn btn-outline-info" data-toggle="tooltip" title="Notificar x Whatsapp" role="button" onclick="notificacionWhatsapp();">Whatsapp</a>
+				<div class="input-group-prepend">
+					<span title="Regresar" class="input-group-text"><i class="fa fa-arrow-left" aria-hidden="true"></i></span>
+				</div>
+				<a class="btn btn-outline-secondary" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('fuego.index')}}">Regresar</a>
+			</div>
 		</li>
 	</ul>
+	
 	<form method="post" action="{{ route('fuego.store')}}">
 		<div class="form-row">
 			{{csrf_field()}}
@@ -244,7 +253,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Llegada A Emergencia</span>
 				</div>
-				<input type="text" class="form-control" required="" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm:ss" onblur="CheckTime(this);" value="{{old('hora_llegada_a_emergencia')}}">
+				<input type="text" class="form-control" required name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm:ss" onblur="CheckTime(this);" value="{{old('hora_llegada_a_emergencia')}}">
 				<div class="input-group-append">
 					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual1" id="horactual1"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 				</div>
@@ -256,7 +265,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Fin Emergencia</span>
 				</div>
-				<input type="text" class="form-control" required="" name="hora_fin_emergencia" id="hora_fin_emergencia" placeholder="hh:mm:ss" onblur="CheckTime(this);" value="{{old('hora_fin_emergencia')}}">
+				<input type="text" class="form-control" required name="hora_fin_emergencia" id="hora_fin_emergencia" placeholder="hh:mm:ss" onblur="CheckTime(this);" value="{{old('hora_fin_emergencia')}}">
 				<div class="input-group-append">
 					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual2" id="horactual2"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 				</div>
@@ -265,7 +274,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora En Base</span>
 				</div>
-				<input type="text" class="form-control" required="" name="hora_en_base" id="hora_en_base" placeholder="hh:mm:ss" onblur="CheckTime(this);" value="{{old('hora_en_base')}}">
+				<input type="text" class="form-control" required name="hora_en_base" id="hora_en_base" placeholder="hh:mm:ss" onblur="CheckTime(this);" value="{{old('hora_en_base')}}">
 				<div class="input-group-append">
 					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual3" id="horactual3"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 				</div>
@@ -278,7 +287,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Detalle Emergencia</span>
 				</div>
-				<textarea class="form-control Text-uppercase" maxlength="3000" id="detalle_emergencia" name="detalle_emergencia" aria-label="With textarea" required="">{{old('danos_estimados')}}</textarea>
+				<textarea class="form-control" maxlength="3000" id="detalle_emergencia" name="detalle_emergencia" aria-label="With textarea" required="">{{old('danos_estimados')}}</textarea>
 			</div>
 		</div>
 		<!--Detalle Emergencia-->
@@ -288,7 +297,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Ciud. Afectado</span>
 				</div>
-				<input onkeyup="mayus(this);" type="text" maxlength="250" class="form-control" required="" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado')}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia">
+				<input maxlength="191"  type="text"  class="form-control" required name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado')}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia">
 			</div>
 		</div>{{--Usuario Afectado--}}
 		<div class="form-row">
@@ -296,23 +305,28 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDaños">Daños Estimados</span>
 				</div>
-				<textarea class="form-control Text-uppercase" maxlength="2000" id="danos_estimados" name="danos_estimados" aria-label="With textarea" required="">{{old('danos_estimados')}}</textarea>
+				<textarea class="form-control" aria-multiline="true"  id="danos_estimados" name="danos_estimados" aria-label="With textarea" required>{{old('danos_estimados')}}</textarea>
 
 			</div>
 		</div>{{-- Danos Estimados --}}
 
 		<div class="form-group py-3 " id="divguardar">
 			<input type="hidden" name="token" value="{{csrf_token()}}">
-			<ul class="nav justify-content-end">
+			<div class="row nav justify-content-end">
 				<li class="nav-item">
-					<a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('fuego.index')}}"><i class="icon-remove icon-2x"></i>
-					</a>
-					<button type="submit" id="Enviar" name="Enviar" value="Enviar" data-toggle="tooltip" title="Grabar" class="btn btn-outline-success"><i class="icon-ok icon-2x"></i></button>
-
-					<a class="btn btn-outline-info" type="reset" name="Borrar" value="Borrar" data-toggle="tooltip" title="Borrar" role="button"><i class="icon-eraser icon-2x"></i>
-					</a>
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span title="Grabar" class="input-group-text"><i class="fas fa-check"></i></span>
+						</div>						
+						<button type="submit" id="Enviar" name="Enviar" value="Enviar" data-toggle="tooltip" title="Grabar"  class="btn btn-outline-success">{!! trans('messages.to register') !!}</button>
+						<div class="input-group-prepend">
+							<span title="Regresar" class="input-group-text"><i class="fas fa-arrow-left"></i></span>
+						</div>
+						<a class="btn btn-outline-secondary" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('fuego.index')}}">Regresar</a>
+					</div>				
 				</li>
-			</ul>
+			</div>
+			
 		</div>
 
 

@@ -107,5 +107,6 @@ return [
     'grafic'=>'Grafica',
     'import'=>'Importar',
     'download records'=> 'Descargar Registros',
-    'response times'=>'Tiempos Respuesta'
+    'response times'=>'Tiempos Respuesta',
+    'Monthly Fuel Consumption'=>'Consumo Mensual Combustible',
 ];

@@ -8,9 +8,15 @@
 	@section( "cuerpo" )
 	<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">{!! trans('messages.Edit Hazmat Event Information') !!}</h2>
 	<ul class="nav justify-content-end">
+		
 		<li class="nav-item">
-			<a class="btn btn-outline-info" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('derrame.index')}}"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i>
-			</a>
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span title="Regresar" class="input-group-text"><i class="fa fa-arrow-left" aria-hidden="true"></i></span>
+				</div>				
+				<a class="btn btn-outline-secondary" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('derrame.index')}}">Regresar
+				</a>
+			</div>
 		</li>
 	</ul>
 	<hr style="border:2px;">
@@ -302,13 +308,22 @@
 			</div>
 		</div>
 		<hr>
+		
 		<div class="form-group py-3 " id="divguardar">
 			<input type="hidden" name="token" value="{{csrf_token()}}">
 			<ul class="nav justify-content-end">
 				<li class="nav-item">
-					<button type="submit" id="Enviar" name="Enviar" value="Enviar" data-toggle="tooltip" title="Grabar" class="btn btn-outline-success"><i class="icon-ok icon-2x"></i></button>
-					<a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('derrame.index')}}"><i class="icon-remove icon-2x"></i>
-					</a>
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span title="Grabar" class="input-group-text"><i class="icon-ok"></i></span>
+						</div>				
+						<button type="submit" id="Enviar" name="Enviar" value="Enviar" data-toggle="tooltip" title="Grabar" class="btn btn-outline-success">Registrar</button>
+						<div class="input-group-prepend">
+							<span title="Regresar" class="input-group-text"><i class="fa fa-arrow-left" aria-hidden="true"></i></span>
+						</div>
+						<a class="btn btn-outline-secondary" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('derrame.index')}}">Regresar
+						</a>
+					</div>
 				</li>
 			</ul>
 		</div>{{-- Botones --}}
@@ -317,8 +332,12 @@
 	<form method="post" action="/derrame/{{$derrame->id}}">
 		{{csrf_field()}}
 		<input type="hidden" name="_method" value="DELETE">
-
-		<button type="button" title="Eliminar" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
+		<div class="input-group mb-3 justify-content-end">
+			<div class="input-group-prepend">
+				<span title="Eliminar" class="input-group-text"><i class="fa fa-trash" aria-hidden="true"></i></span>
+			</div>
+			<button type="button" title="Eliminar" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal">Eliminar</button>
+		</div>
 		<!-- Modal -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog">

@@ -23,6 +23,8 @@ class CreateInundacionVehiculoTable extends Migration
             $table->foreign('inundacion_id')->references('id')->on('inundacions');
             $table->foreign('vehiculo_id')->references('id')->on('vehiculos');
         });
+
+        
     }
 
     /**

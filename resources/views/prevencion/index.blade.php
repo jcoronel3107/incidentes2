@@ -34,7 +34,7 @@
 		<table class="table table-sm table-hover table-condensed">
 			<thead>
 				<tr class="table-info">
-					<td>id</td>
+					
 					<td>{!! trans('messages.departure date') !!}</td>
 					<td>{!! trans('messages.return_date') !!}</td>
 					<td>{!! trans('messages.Vehicle') !!}</td>
@@ -45,7 +45,7 @@
 			<tbody>
 				@foreach($movilizacions as $movilizacion)
 				<tr>
-					<td>{{$movilizacion->id}}</td>
+					
 					<td>{{$movilizacion->fecha_salida}}</td>
 					<td>{{$movilizacion->fecha_retorno}}</td>
 					<td>{{$movilizacion->vehiculo->codigodis}}</td>
@@ -53,7 +53,7 @@
 					<td>{{$movilizacion->km_retorno}}.Km</td>
 					<td>
 					@can('delete movilizacion')
-					<button type="button" title="Eliminar" class="btn btn-primary btn-danger" data-toggle="modal" data-target="#exampleModal1"><i class="fa fa-trash" aria-hidden="true"></i></button>
+					<button type="button" title="Eliminar" class="btn btn-outline-secondary  btn-sm" data-toggle="modal" data-target="#exampleModal1"><i class="fa fa-trash" aria-hidden="true"></i></button>
 					<form method="post" action="/prevencion/{{$movilizacion->id}}">
 						{{csrf_field()}}
 						<input type="hidden" name="_method" value="DELETE">
@@ -73,7 +73,7 @@
 										<p>El registro seleccionado será eliminado. Esta Seguro?...</p>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
 										<button type="submit" name="Eliminar" value="Eliminar" class="btn btn-primary">Ok</button>
 									</div>
 								</div>
@@ -82,13 +82,13 @@
 					</form>	
 					@endcan
 					@can('read movilizacion')
-						<a class="btn btn-outline-secondary" data-toggle="tooltip" title="Ver" href="{{route('prevencion.show',$movilizacion->id)}}" role="button"><i class="icon-list"></i></a>
+						<a class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" title="Ver" href="{{route('prevencion.show',$movilizacion->id)}}" role="button"><i class="fas fa-binoculars"></i></a>
 					@endcan
 					@can('send mail')
-						<a class="btn btn-outline-info" data-toggle="modal" title="Enviar" data-target="#exampleModal" role="button"><i class="icon-envelope"></i></a>
+						<a class="btn btn-outline-secondary btn-sm" data-toggle="modal" title="Enviar" data-target="#exampleModal" role="button"><i class="fas fa-envelope"></i></a>
 					@endcan
 					@can('create pdf')
-						<a class="btn btn-outline-info" data-toggle="tooltip" title="Pdf" href="{{action('MovilizacionController@downloadPDF', $movilizacion->id)}}" role="button"><i class="fas fa-file-pdf"></i></a>
+						<a class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" title="Pdf" href="{{action('MovilizacionController@downloadPDF', $movilizacion->id)}}" role="button"><i class="fas fa-file-pdf"></i></a>
 					@endcan
 					</td>
 				</tr>

@@ -106,6 +106,7 @@ return [
     'grafic'=>'Grafic',
     'import'=>'Import',
     'download records'=> 'Download Records',
-    'response times'=>'Response Times'
+    'response times'=>'Response Times',
+    'Monthly Fuel Consumption'=>'Monthly Fuel Consumption',
 
 ];

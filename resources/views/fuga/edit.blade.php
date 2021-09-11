@@ -9,6 +9,17 @@
 	<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Editar Información de Eventos Fugas</h2>
 	<ul class="nav justify-content-end">
 		<li class="nav-item">
+			<div class="input-group mb-3">	
+				
+				<div class="input-group-prepend">
+					<span title="Regresar" class="input-group-text"><i class="fa fa-arrow-left" aria-hidden="true"></i></span>
+				</div>
+				<a class="btn btn-outline-secondary" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('fuga.index')}}">Regresar</a>
+			</div>
+		</li>
+	</ul>
+	<ul class="nav justify-content-end">
+		<li class="nav-item">
 			<a class="btn btn-outline-info" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('fuga.index')}}"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i>
 			</a>
 		</li>

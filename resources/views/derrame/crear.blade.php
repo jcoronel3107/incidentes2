@@ -8,18 +8,32 @@
 	@section( "cuerpo" )
 
 	<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">{!! trans('messages.Hazmat Event Information Record') !!}</h2>
+	/* ------------------------------ 
+	   Menu Superior Opciones
+	   -----------------------------*/
 	<ul class="nav justify-content-end">
 		<li class="nav-item">
-
-			<a rel="nofollow noopener noreferrer" href="{{asset('files/hazmat.pdf')}}" target="_blank" role="button" data-toggle="tooltip" title="Ver Guia MatPel" class="btn btn-outline-info"><i class="icon-file icon-2x"></i></a>
-
-			<a rel="nofollow noopener noreferrer" href="/download/hazmat.pdf" target="_blank" role="button" data-toggle="tooltip" title="Descargar Guia MatPel" class="btn btn-outline-info"><i class="icon-cloud-download icon-2x"></i></a>
-
-			<a class="btn btn-outline-info" data-toggle="tooltip" title="Whatsapp" role="button" onclick="notificacionWhatsapp();"><i class="icon-comments-alt icon-2x"></i></a>
-
-			<a class="btn btn-outline-info" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('derrame.index')}}"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></a>
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span title="Ver Guia MatPel" class="input-group-text"><i class="icon-file"></i></span>
+				</div>
+				<a rel="nofollow noopener noreferrer" href="{{asset('files/hazmat.pdf')}}" target="_blank" role="button" data-toggle="tooltip" title="Ver Guia MatPel" class="btn btn-outline-info">Ver</a>
+				<div class="input-group-prepend">
+					<span title="Descargar Guia MatPel" class="input-group-text"><i class="icon-cloud-download"></i></span>
+				</div>
+				<a rel="nofollow noopener noreferrer" href="/download/hazmat.pdf" target="_blank" role="button" data-toggle="tooltip" title="Descargar Guia MatPel" class="btn btn-outline-info">Descargar</a>
+				<div class="input-group-prepend">
+					<span title="Notificar x Whatsapp" class="input-group-text"><i class="icon-comments-alt"></i></span>
+				</div>
+				<a class="btn btn-outline-info" data-toggle="tooltip" title="Notificar x Whatsapp" role="button" onclick="notificacionWhatsapp();">Whatsapp</a>
+				<div class="input-group-prepend">
+					<span title="Regresar" class="input-group-text"><i class="fa fa-arrow-left" aria-hidden="true"></i></span>
+				</div>
+				<a class="btn btn-outline-secondary" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('derrame.index')}}">Regresar</a>
+			</div>
 		</li>
-	</ul>
+	</ul> 
+	//Fin Menu Superior Opciones
 	<hr style="border:2px;">
 	@if(count($errors)>0)
 	@foreach($errors->all() as $error)
@@ -325,16 +339,25 @@
 
 		<div class="form-group py-3 " id="divguardar">
 			<input type="hidden" name="token" value="{{csrf_token()}}">
-			<ul class="nav justify-content-end">
+			
+			<div class="row nav justify-content-end">
 				<li class="nav-item">
-					<a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('derrame.index')}}"><i class="icon-remove icon-2x"></i>
-					</a>
-					<button type="submit" id="Enviar" name="Enviar" value="Enviar" data-toggle="tooltip" title="Grabar" class="btn btn-outline-success"><i class="icon-ok icon-2x"></i></button>
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span title="Grabar" class="input-group-text"><i class="fas fa-check"></i></span>
+						</div>
+						<button type="submit" name="Enviar" value="Enviar" data-toggle="tooltip" title="Grabar"  class="btn btn-success">{!! trans('messages.to register') !!}</button>	
 
-					<a class="btn btn-outline-info" type="reset" name="Borrar" value="Borrar" data-toggle="tooltip" title="Borrar" role="button"><i class="icon-eraser icon-2x"></i>
-					</a>
+						<div class="input-group-prepend">
+							<span title="Regresar" class="input-group-text"><i class="fas fa-arrow-left"></i></span>
+						</div>
+						<a class="btn btn-outline-secondary" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('derrame.index')}}">Regresar</a>
+						
+					</div>				
 				</li>
-			</ul>
+			</div>
+			
+			
 		</div>
 	</form>
 	

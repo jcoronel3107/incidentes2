@@ -72,10 +72,12 @@ chkcomision.addEventListener( 'change', function() {
 	if(this.checked) {
 		
 		document.getElementById("textcomision").readOnly = false;
+		document.getElementById("textcomision").placeholder = "Digite Dirección ";
 	}
 	else{
 		$('#textcomision').val("");
 		document.getElementById("textcomision").readOnly = true;
+		document.getElementById("textcomision").placeholder = "";
 	}
 });
 					
@@ -84,10 +86,12 @@ chkdenuncia.addEventListener( 'change', function() {
 	if(this.checked) {
 		/* alert('checkbox esta seleccionado'); */
 		document.getElementById("textdenuncia").readOnly = false;
+		document.getElementById("textdenuncia").placeholder = "Digite Dirección ";
 	}
 	else{
 		$('#textdenuncia').val(null);
 		document.getElementById("textdenuncia").readOnly = true;
+		document.getElementById("textdenuncia").placeholder = "";
 	}
 });
 
@@ -95,10 +99,12 @@ chkhabitabilidad.addEventListener( 'change', function() {
 	if(this.checked) {
 		/* alert('checkbox esta seleccionado'); */
 		document.getElementById("texthabitabilidad").readOnly = false;
+		document.getElementById("texthabitabilidad").placeholder = "Digite Dirección ";
 	}
 	else{
 		$('#texthabitabilidad').val("");
 		document.getElementById("texthabitabilidad").readOnly = true;
+		document.getElementById("texthabitabilidad").placeholder = "";
 	}
 });
 					
@@ -106,10 +112,12 @@ chkgas.addEventListener( 'change', function() {
 	if(this.checked) {
 		/* alert('checkbox esta seleccionado'); */
 		document.getElementById("textgas").readOnly = false;
+		document.getElementById("textgas").placeholder = "Digite Dirección ";
 	}
 	else{
 		$('#textgas').val("");
 		document.getElementById("textgas").readOnly = true;
+		document.getElementById("textgas").placeholder = "";
 	}
 });
 
@@ -117,10 +125,12 @@ chkinvestigacion.addEventListener( 'change', function() {
 	if(this.checked) {
 		/* alert('checkbox esta seleccionado'); */
     	document.getElementById("textinvestigacion").readOnly = false;
+		document.getElementById("textinvestigacion").placeholder = "Digite Dirección ";
 	}
 	else{
 		$('#textinvestigacion').val("");
 		document.getElementById("textinvestigacion").readOnly = true;
+		document.getElementById("textinvestigacion").placeholder = "";
 	}
 });
 
@@ -128,10 +138,12 @@ chklocales.addEventListener( 'change', function() {
 	if(this.checked) {
 		/* alert('checkbox esta seleccionado'); */
 		document.getElementById("textlocales").readOnly = false;
+		document.getElementById("textlocales").placeholder = "Digite Dirección ";
 	}
 	else{
 		$('#textlocales').val("");
 		document.getElementById("textlocales").readOnly = true;
+		document.getElementById("textlocales").placeholder = "";
 	}
 });
 
@@ -139,10 +151,12 @@ chkotros.addEventListener( 'change', function() {
 	if(this.checked) {
 		/* alert('checkbox esta seleccionado,\nIngrese Detalle'); */
     	document.getElementById("textotros").readOnly = false;
+		document.getElementById("textotros").placeholder = "Digite Dirección ";
 	}
 	else{
 		$('#textotros').val("");
 		document.getElementById("textotros").readOnly = true;
+		document.getElementById("textotros").placeholder = "";
 	}
 });
 

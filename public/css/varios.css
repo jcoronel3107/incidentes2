@@ -36,6 +36,7 @@
   flex: 1 1 auto;
   padding: 1.25rem;
 }
+
 .card {
   position: relative;
   display: -webkit-box;
@@ -98,18 +99,12 @@
 
 #topbar {
   
-  font-size: 20px;
+  font-size: 15px;
   color: white;
   padding: 2px;
 }
 
-input,
-button {
-  font-family: 'Zilla Slab', sans-serif;
-  font-weight: bold;
-  font-size: 16px;
-  color: white;
-}
+
 
 #searchbox {
   padding: 10px;
@@ -126,10 +121,10 @@ button {
 }
 
 #searchbox button {
-  height: 31px;
+  height: 28px;
   background-color: #111;
-  border: 3px solid #43d8c9;
-  width: 80px;
+  border: 3px solid #d17171;
+  width: 70px;
 }
 
 #topbar #searchicon {
@@ -137,16 +132,17 @@ button {
 }
 
 #city {
-  font-size: 30px;
+  font-size: 18px;
   text-align: left;
-  padding-top: 40px;
   padding-left: 30px;
+  padding-left: 15px;
+  padding-top: 20px;
 }
 
 #mainbody img {
   float: right;
   padding-right: 20px;
-  font-size: 15px;
+  font-size: 18px;
 }
 
 #mainbody {
@@ -161,16 +157,18 @@ button {
 
 #temp {
   float: right;
-  font-size: 25px;
+  font-size: 15px;
   padding-right: 15px;
   font-weight: bold;
+  padding-left: 15px;
+  padding-top: 20px;
 }
 
 #cond {
   float: left;
-  font-size: 20px;
+  font-size: 15px;
   padding-left: 15px;
-  padding-top: 8px;
+  padding-top: 20px;
 }
 
 #wind {
@@ -178,7 +176,7 @@ button {
 }
 
 #label {
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 200;
   padding: 2px;
   text-align: center;
@@ -278,3 +276,5 @@ button {
     opacity: 1;
   }
 }
+
+

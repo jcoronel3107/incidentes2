@@ -9,8 +9,12 @@
 	<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Editar Información de Eventos Incendio</h2>
 	<ul class="nav justify-content-end">
 		<li class="nav-item">
-			<a class="btn btn-outline-info" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('fuego.index')}}"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i>
-			</a>
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span title="Regresar" class="input-group-text"><i class="fa fa-arrow-left" aria-hidden="true"></i></span>
+				</div>
+				<a class="btn btn-outline-secondary" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('fuego.index')}}">Regresar</a>
+			</div>
 		</li>
 	</ul>
 	<hr style="border:2px;">
@@ -301,13 +305,22 @@
 
 		<div class="form-group py-3 " id="divguardar">
 			<input type="hidden" name="token" value="{{csrf_token()}}">
-			<ul class="nav justify-content-end">
+			<div class="row nav justify-content-end">
 				<li class="nav-item">
-					<button type="submit" id="Enviar" name="Enviar" value="Enviar" data-toggle="tooltip" title="Grabar" class="btn btn-outline-success"><i class="icon-ok icon-2x"></i></button>
-					<a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('fuego.index')}}"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i>
-					</a>
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span title="Grabar" class="input-group-text"><i class="fas fa-check"></i></span>
+						</div>						
+						<button type="submit" id="Enviar" name="Enviar" value="Enviar" data-toggle="tooltip" title="Grabar"  class="btn btn-outline-success">{!! trans('messages.to register') !!}</button>
+						<div class="input-group-prepend">
+							<span title="Regresar" class="input-group-text"><i class="fas fa-arrow-left"></i></span>
+						</div>
+						<a class="btn btn-outline-secondary" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('fuego.index')}}">Regresar</a>
+						
+					</div>				
 				</li>
-			</ul>
+			</div>
+			
 		</div>{{-- Botones --}}
 	</form>
 	<form method="post" action="/fuego/{{$incendio->id}}">
@@ -315,7 +328,12 @@
 		<input type="hidden" name="_method" value="DELETE">
 		<ul class="nav justify-content-end">
 			<li class="nav-item">	
-				<button type="button" class="btn btn-outline-danger" data-toggle="modal" title="Eliminar" data-target="#exampleModal"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span title="Eliminar" class="input-group-text"><i class="fa fa-trash" aria-hidden="true"></i></span>
+					</div>
+					<button type="button" class="btn btn-outline-danger" data-toggle="modal" title="Eliminar" data-target="#exampleModal">Eliminar</button>
+				</div>
 			</li>
 		</ul>
 		<!-- Modal -->

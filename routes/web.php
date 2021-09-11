@@ -268,6 +268,7 @@ Route::get('/googlemymapsoptions',			        'ConsultasController@googlemymapsop
 Route::get('/googlemymaps',		        			'ConsultasController@googlemymaps')->name('googlemymaps')->middleware('auth');
 Route::get('googlemymapsjson/{tabla},{f1},{f2}',    'ConsultasController@GetjsonMaps')->name('jsongooglemymaps')->middleware('auth');
 Route::get('/busquedaentrefechas',					'ConsultasController@busquedaentrefechas')->middleware('auth');
+Route::get('/busquedaentrefechasclave',					'ConsultasController@busquedaentrefechasclave')->middleware('auth');
 Route::get('/busquedaentrefechasmov',				'MovilizacionController@busquedaentrefechas')->middleware('auth');
 Route::post('users/import/',						'UserController@importacion')->middleware('role:admin|Super-Admin');
 Route::resource('user',								'UserController')->middleware('auth');

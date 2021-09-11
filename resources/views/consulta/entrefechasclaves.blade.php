@@ -14,7 +14,7 @@
 </ul>
 
 <div class="tab-content" id="myTabContent">
-    {{-- Contenedor General --}}
+    <!-- Contenedor General  -->
     <ul class="nav justify-content-end">
 		<li class="nav-item">
 			<a class="btn btn-outline-info" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('consultaentrefechas')}}"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></a>
@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col-xl-8 col-lg-8">
 
-                <p style="text-align: center;" class="text-info" id="fch1">Fecha Desde: {{$fechaD}} &nbsp;&nbsp; Fecha Hasta: {{$fechaH}}</p>
+                <p style="text-align: center;" class="text-info" id="fch1">Fecha Desde: {{$fechaDgas}} &nbsp;&nbsp; Fecha Hasta: {{$fechaHgas}}</p>
                 <p style="text-transform: uppercase; text-align: center;" class="text-info" id="incidente">{{$tabla}}</p>
                 <div class="py-2 " id="container0"></div>
 
@@ -33,20 +33,20 @@
             <div class="col-xl-4 col-lg-4">
                 
                 <p style="text-transform: uppercase; text-align: center;" class="text-info" id="incidente">{{$tabla}}</p>
-                <p class="text-info"> Busqueda entre Fechas</p>
+                <p class="text-info">Busqueda entre Fechas</p>
                 <div class="py-2 " id="table0.1">
                     <table class="table table-sm" id="datatable0.1">
                         <thead>
                             <tr>
-                                <th class="table-dark">Incidente</th>
+                                <th class="table-dark">razonsocial</th>
                                 <th class="table-dark">Asistencias</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($busquedaentrefechas as $registro)
+                            @foreach ($Busquedaentrefechas_xcombustible as $registro)
                             <tr>
-                                <td class="table-light">{{($registro->nombre_incidente)}}</td>
-                                <td class="table-light">{{$registro->salidas}}</td>
+                                <td class="table-light">{{($registro->codigodis)}}</td>
+                                <td class="table-light">{{$registro->NumCargas}}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -67,72 +67,7 @@
         </div>
         <hr>
         
-        <div class="row">
-                <div class="col-xl-8 col-lg-8">
-
-                    <p style="text-align: center;" class="text-info" id="fch1">Fecha Desde: {{$fechaD}} &nbsp;&nbsp; Fecha Hasta: {{$fechaH}}</p>
-                    <div class="py-2 " id="container0.2"></div>
-
-                </div>
-
-                <div class="col-xl-4 col-lg-4">
-                    <p class="text-info">Asistencia por Estaciones</p>
-                    <div class="py-2 " id="table0.2">
-                        <table class="table table-sm" id="datatable0.2">
-                            <thead>
-                                <tr>
-                                    <th class="table-dark">Estación</th>
-                                    <th class="table-dark">Asistencias</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($Busquedaentrefechas_Estaciones as $registro)
-                                <tr>
-                                    <td class="table-light">{{($registro->nombre)}}</td>
-                                    <td class="table-light">{{$registro->salidas}}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
-        </div>
-
-       
-        <hr>
-       
-        <div class="row">
-                <div class="col-xl-8 col-lg-8">
-
-                    <p style="text-align: center;" class="text-info" id="fch1">Fecha Desde: {{$fechaD}} &nbsp;&nbsp; Fecha Hasta: {{$fechaH}}</p>
-                    <div class="py-2 " id="container0.3"></div>
-
-                </div>
-
-                <div class="col-xl-4 col-lg-4">
-                    <p class="text-info">Incidentes en Parroquias</p>
-                    <div class="py-2 " id="table0.3">
-                        <table class="table table-sm" id="datatable0.3">
-                            <thead>
-                                <tr>
-                                    <th class="table-dark">Parroquia</th>
-                                    <th class="table-dark">incidentes</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($Busquedaentrefechas_Parroquias as $registro)
-                                <tr>
-                                    <td class="table-light">{{($registro->nombre)}}</td>
-                                    <td class="table-light">{{$registro->salidas}}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
-        </div>
+        
 
         
     </div>

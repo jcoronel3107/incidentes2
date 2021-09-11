@@ -11,7 +11,7 @@ function cargaPagina() {
 	var btn3 = document.getElementById("horactual3").addEventListener("click", hractual);
 }
 
-
+vagrant 
 $(document).ready(function(){
 	var dtToday = new Date();
 	var month = dtToday.getMonth() + 1;     // getMonth() is zero-based
@@ -90,9 +90,6 @@ $(document).ready(function(){
 	        }
 	    });
 	$("#Enviar").hide();
-	
-
-	
 });
 		
 
