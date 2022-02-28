@@ -34,16 +34,16 @@ class RescateController extends Controller
         if($request)
         {
           $busq_direccion = trim($request->get('busq_direccion'));
-            $busq_estacion = trim($request->get('busq_estacion'));
-            $busq_fecha = trim($request->get('busq_fecha'));
-            $busq_usuarioafectado = trim($request->get('busq_usuarioafectado'));
+          $busq_estacion = trim($request->get('busq_estacion'));
+          $busq_fecha = trim($request->get('busq_fecha'));
+          $busq_usuarioafectado = trim($request->get('busq_usuarioafectado'));
           $rescates = Rescate::OrderBy('id','desc')
           ->where("direccion",'LIKE','%'.$busq_direccion.'%')
           ->where("station_id",'LIKE','%'.$busq_estacion.'%')
           ->where("fecha",'LIKE','%'.$busq_fecha.'%')
           ->where("usuario_afectado",'LIKE','%'.$busq_usuarioafectado.'%')
           ->paginate(10);
-		      return view( "/rescate.index", compact( "rescates","busq_direccion","busq_estacion","busq_fecha","busq_usuarioafectado" ) );
+		      return view( "rescate.index", compact( "rescates","busq_direccion","busq_estacion","busq_fecha","busq_usuarioafectado" ) );
         }
     }
 
@@ -52,27 +52,24 @@ class RescateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create(){
         $now = Carbon::now();
         $estaciones = Station::all();
         $parroquias = Parroquia::all();
         $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
-        $bomberos = DB::table('users')->where([
-          ['cargo','=','Bombero'],
-        ])
-        ->orWhere('cargo','=','Paramedico')
+        $maquinistas = User::where("cargo","Maquinista")
         ->orderBy("name",'asc')
         ->get();
-        $maquinistas = User::where("cargo","Maquinista")
+        $users = DB::table('users')->where([
+          ['cargo','=','Bombero']
+        ])
+        ->orWhere('cargo','=','Paramedico')
         ->orderBy("name",'asc')
         ->get();
     		$incidentes = Incidente::where("tipo_incidente","10_33")
             ->orderBy("nombre_incidente",'asc')
             ->get();
-
-    	
-    			return view( "/rescate.crear", compact( "incidentes","now","estaciones","bomberos","maquinistas", "parroquias","vehiculos" ) );
+        return view( "rescate/crear", compact( "incidentes","now","estaciones","users","maquinistas", "parroquias","vehiculos" ) );
     	
     }
 
@@ -84,15 +81,10 @@ class RescateController extends Controller
      */
     public function store(SaveRescateRequest $request)
     {
-  		
-          
           try
           {
-          
-             
               $rescate = new Rescate;
-              
-    	        $rescate->incidente_id = $request->incidente_id;
+     	        $rescate->incidente_id = $request->incidente_id;
               $rescate->tipo_escena = $request->tipo_escena;
     			    $rescate->station_id = $request->station_id;
       			  $rescate->fecha = $request->fecha;
@@ -110,30 +102,50 @@ class RescateController extends Controller
     			    $rescate->usuario_afectado = $request->usuario_afectado;
     			    $rescate->danos_estimados = $request->danos_estimados;
     			    $rescate->usr_creador = auth()->user()->name;
+
     			    $rescate->save();
+
               $id = DB::table('rescates')
                   ->select(DB::raw('max(id) as id'))
-                  ->value('id');
-              $maqui = User::findOrFail($request->conductor_id);
-              $maqui->rescates()->attach($id);
-              $jefe = User::findOrFail($request->jefeguardia_id);
-              $jefe->rescates()->attach($id);
-              $bomb = User::findOrFail($request->bombero_id);
-              $bomb->rescates()->attach($id);
+                  ->first();
+              /*
+                Sentencias para guardar Los personal que asisten al incidente
+                */  
+                
+                $cont=0;
+                $nombresstaff = $request->get('bomberman_id');
+                
+                while ($cont < count($nombresstaff)) {
+                    $maqui = User::findOrFail($nombresstaff[$cont]);
+                   
+                    $maqui->rescates()->attach($id);
+                    $cont+=1;
+                }
 
-              //para almacenar kilimetrajes por vehiculos asistentes al evento
-              $cont=0;
-              $nombrevehiculo = $request->get('vehiculo_id');
-              $kmsalidavehiculo = $request->get('km_salida');
-              $kmllegadavehiculo = $request->get('km_llegada');
-              while ($cont < count($nombrevehiculo)) {
-                  
+                /*
+                Sentencias para guardar Los vehiculos que asisten al incidente
+                */
+
+                $cont=0;
+                $nombrevehiculo = $request->get('vehiculo_id');
+                $kmsalidavehiculo = $request->get('km_salida');
+                $kmllegadavehiculo = $request->get('km_llegada');
+                $driver_id= $request->get('driver_id');
+                
+                while ($cont < count($nombrevehiculo)) {
+                   
                   $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);
+                  $maqui = User::findOrFail($driver_id[$cont]);
+                  
                   $carro->rescates()->attach(
-                    $id , [
-                      'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
+                      $id , [
+                        'km_salida' => $kmsalidavehiculo[$cont],
+                        'km_llegada' => $kmllegadavehiculo[$cont],
+                        'driver_id' => $maqui->id]);
                   $cont=$cont+1;
-              }
+                }
+
+              
               Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
               return redirect( "/rescate" );
           }

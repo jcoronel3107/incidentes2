@@ -66,7 +66,7 @@
 					<td>{{$derrame->incidente->nombre_incidente}}</td>
 					<td>{{$derrame->station->nombre}}</td>
 					<td>{{$derrame->fecha}}</td>
-					<td align="left">{{$derrame->address}}</td>
+					<td align="left">{{$derrame->direccion}}</td>
 					<td>{{$derrame->usuario_afectado}}</td>
 					<td>
 						@can('edit event')

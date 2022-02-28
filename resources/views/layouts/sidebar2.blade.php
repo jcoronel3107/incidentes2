@@ -135,14 +135,9 @@
       <div id="collapseEstadistica" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-          @can('estadistica')
           <a class="collapse-item" href="/consulta">{!! trans('messages.Index') !!}</a>
           <a class="collapse-item" href="/consultaentrefechas">{!! trans('messages.Search between dates') !!}</a>
           <a class="collapse-item" href="{{route('googlemymapsoptions')}}">Mapas</a>
-
-
-          
-          @endcan
         </div>
       </div>
 

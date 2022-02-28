@@ -41,7 +41,9 @@
 				<div class="py-2 " id="container0"></div>
 
 			</div>
+			
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 200"><path fill="#f3f4f5" fill-opacity="1" d="M0,128L60,122.7C120,117,240,107,360,96C480,85,600,75,720,96C840,117,960,171,1080,186.7C1200,203,1320,181,1380,170.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+
 			<div class="col-xl-3 col-lg-3 " hidden style="overflow-y: auto; width: 200px;">
 
 				<div class="py-2"  id="table0.1">
@@ -79,18 +81,23 @@
 					<table class="table table-sm" id="datatable0.10">
 						<thead>
 							<tr>
+							
 							<th class="table-dark">Evento</th>
-							<th class="table-dark">Asistencias</th>	
 							<th class="table-dark">Estación</th>
+							<th class="table-dark">Asistencias</th>	
+							
+							
 							
 							</tr>
 						</thead>
 						<tbody>
 							@foreach ($EventosxEstaciones as $registro)
 							<tr>
+						
 							<td class="table-light">{{($registro->evento)}}</td>
-							<td class="table-light">{{$registro->salidas}}</td>
 							<td class="table-light">{{($registro->station_id)}}</td>
+							<td class="table-light">{{$registro->salidas}}</td>
+							
 							
 							
 							
@@ -905,10 +912,8 @@
 					name: 'Incidentes'
 				},
 				chart: {
-					plotBackgroundColor: null,
-					plotBorderWidth: null,
-					plotShadow: false,
-					type: 'bar'
+					
+					type: 'column'
 				},
 				title: {
 					text: 'Incidentes Por Estacion (Anual)'
@@ -916,27 +921,40 @@
 				subtitle: {
 					text: 'Grafica'
 				},
+				
 				yAxis: {
-					allowDecimals: false,
+					min: 0,
+					threshold: 0,
 					title: {
-						text: 'Asistencias'
-					}
-				},
-				xAxis: {
+						text: 'Total incidentes'
+					},
 					
 				},
-
 				tooltip: {
-					formatter: function () {
-						return '<b>' + this.series.name + '</b><br/>' +
-							this.point.y + ' ' + this.point.name.toLowerCase();
-					}
+					
+					pointFormat: '{series.name}: {point.y}'
 				},
 				plotOptions: {
 					column: {
-						stacking: 'normal'
+						stacking: 'normal',
+						dataLabels: {
+							enabled: true
+						}
 					}
-    			},
+				},
+				legend: {
+					align: 'right',
+					x: -30,
+					verticalAlign: 'top',
+					y: 25,
+					floating: true,
+					backgroundColor:
+						Highcharts.defaultOptions.legend.backgroundColor || 'white',
+					borderColor: '#CCC',
+					borderWidth: 1,
+					shadow: false
+				},
+				
 			});
 		</script>
 		<!-- Pestaña Inundaciones  -->

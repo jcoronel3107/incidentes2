@@ -6,7 +6,7 @@
 	<div class="container ">
 		<div class="row justify-content-center">
 			
-			<div id="particles-js" class="card col-xl-9 col-lg-9 col-md-9">
+			<div id="particles-js"  class="card col-xl-9 col-lg-9 col-md-9">
 					<div class="card-header">{!! trans('messages.login') !!}<!-- {{ __('Login') }} --></div>
 					<div class="card-body">
 						<form method="POST" action="{{ route('login') }}">
@@ -73,7 +73,7 @@
 </main>
 	<!-- count particles -->
 	<div hidden class="count-particles">
-		<span class="js-count-particles">--</span> 
+		<span class="js-count-particles"></span> 
 	</div>
 	@push('scripts')
 	<!-- scripts -->

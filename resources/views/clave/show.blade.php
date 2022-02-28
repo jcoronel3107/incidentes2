@@ -38,33 +38,41 @@
 		</div>
 		<hr>
 		<div class="row p-3">
-			<div class="col 4">
+			<div class="col-lg-4 col-md-6 col-sm-12">
 				<span class="bg-gray font-weight-bold">km_salida:</span>
 				<p class="text-info">{{$clave->km_salida}} Km</p>
 			</div>
-			<div class="col-4">
+			<div class="col-lg-4 col-md-6 col-sm-12">
 				<span class="bg-gray font-weight-bold">km_gasolinera:</span>
 				<p class="text-info">{{$clave->km_gasolinera}} Km</p>
 			</div>
-			<div class="col-4">
+			<div class="col-lg-4 col-md-6 col-sm-12">
 				<span class="bg-gray font-weight-bold">km_llegada:</span>
 				<p class="text-info">{{$clave->km_llegada}} Km</p>
 			</div>
 		</div>
 		<div class="row p-3">
 
-			<div class="col-4">
+			<div class="col-lg-4 col-md-6 col-sm-12">
 				<span class="bg-gray font-weight-bold">Dolares:</span>
 				 <p class="text-info">USD $.{{$clave->dolares}}</p>
 				</div>
 
-			<div class="col-4">
+			<div class="col-lg-4 col-md-6 col-sm-12">
 				<span class="bg-gray font-weight-bold">Galones: </span>
 				<p class="text-info">{{$clave->galones}} Glns</p>
 			</div>
-			<div class="col-4">
-				<span class="bg-gray font-weight-bold">combustible:</span>
+			<div class="col-lg-4 col-md-6 col-sm-12">
+				<span class="bg-gray font-weight-bold">Combustible:</span>
 				<p class="text-info">{{$clave->combustible}}</p>
+			</div>
+			<div class="col-lg-4 col-md-6 col-sm-12">
+				<span class="bg-gray font-weight-bold">Nro Factura:</span>
+				<p class="text-info">{{$clave->factura}}</p>
+			</div>
+			<div class="col-lg-4 col-md-6 col-sm-12">
+				<span class="bg-gray font-weight-bold">Nro Orden:</span>
+				<p class="text-info">{{$clave->Orden}}</p>
 			</div>
 		</div>
 		<hr>

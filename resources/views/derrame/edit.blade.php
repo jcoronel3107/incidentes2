@@ -27,18 +27,18 @@
 	</div>
 	@endforeach
 	@endif
-	<form method="post" action="/derrame/{{$derrame->id}}">
+	<form id="formulario" method="post" action="/derrame/{{$derrame->id}}">
 		@csrf @method('PATCH')
-		<div class="form-row">
+		<div class="form-row"><!--Div Fecha-->
 			<div class="form-group input-group  col-md-4">
 				<div class="input-group-prepend">
 					<span class="input-group-text">{!! trans('messages.Date') !!}</span>
 				</div>
-				<input required="" type="date" name="fecha" class="form-control" placeholder="AA-MM-DD" value="{{old('fecha',$derrame->fecha)}}">
+				<input required type="date" name="fecha" class="form-control" placeholder="AA-MM-DD" value="{{old('fecha',$derrame->fecha)}}">
 			</div>
 		</div>
-		<!--Div Fecha-->
-		<div class="form-row ">
+		
+		<div class="form-row "><!--Div Informacion ECU911-->
 			<div class='col-md-4'>
 				<div class="form-group">
 					<div class="input-group">
@@ -59,7 +59,10 @@
 					</div>
 				</div>
 			</div>
-			<div class='col-md-4'>
+			
+		</div>
+		<div class="form-row">
+			<div class='col-md-12'>
 				<div class="form-group">
 					<div class="input-group date" id="datetimepicker3">
 						<div class="input-group-prepend">
@@ -70,8 +73,8 @@
 				</div>
 			</div>
 		</div>
-		<!--Div Informacion ECU911-->
-		<div class="form-row">
+		
+		<div class="form-row"><!--Div Tipo Evento-->
 			<div class="form-group input-group col-md-5">
 				<div class="input-group-prepend">
 					<span class="input-group-text">{!! trans('messages.Incident') !!}</span>
@@ -108,17 +111,17 @@
 				</select>
 			</div>
 		</div>
-		<!--Div Tipo Evento-->
-		<div class="form-row">
-			<div class="form-group input-group col-md-4">
+		
+		<div class="form-row"><!--Div Ubicacion Evento-->
+			<div class="form-group input-group col-md-6">
 				<div class="input-group-prepend">
 					<span class="input-group-text">{!! trans('messages.Address') !!}</span>
 				</div>
-				<textarea required="" onkeyup="mayus(this);" class="form-control" id="pdireccion" name="address" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$derrame->address)}}</textarea>
+				<textarea required="" onkeyup="mayus(this);" class="form-control" id="pdireccion" name="address" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('address',$derrame->direccion)}}</textarea>
 				<input type="button" value="Encode" onclick="codeAddress()">
 			</div>
-			<div class="form-group input-group input-group-prepend col-md-4">
-				<div>
+			<div class="form-group input-group col-md-4">
+				<div class="input-group-prepend">
 					<span class="input-group-text">{!! trans('messages.Parishes') !!}</span>
 				</div>
 				<select required class="selectpicker form-control" data-live-search="true" name="parroquia_id">
@@ -129,18 +132,20 @@
 				</select>
 				<a rel="nofollow noopener noreferrer" href="{{asset('files/MapaCuenca.pdf')}}" target="_blank" role="button" data-toggle="tooltip" title="Mapa" class="btn btn-outline-info"><i class="icon-file icon-2x"></i></a>
 			</div>
-			<div class="form-group input-group col-md-4">
+		</div>
+		<div class="form-row">
+			<div class="form-group input-group col-md-8">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputAddress">Geoposicion</span>
 				</div>
 				<textarea required="" class="form-control" id="pgeoposicion" name="geoposicion" aria-label="With textarea">{{old('geoposicion',$derrame->geoposicion)}}</textarea>
 			</div>
 		</div>
-		<!--Div Ubicacion Evento-->
+		
 		<div onload="initMap()" id="map" style="width: 100%; height: 280px;"></div>
 		<hr>
-		<div class="form-row">
-			<div class="form-group input-group col-md-4">
+		<div class="form-row"><!--Div Personal que asiste Evento-->
+			<div class="form-group input-group col-md-6">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Jefe Guardia</span>
 				</div>
@@ -155,7 +160,7 @@
 					@endforeach
 				</select>
 			</div>
-			<div class="form-group input-group col-md-4">
+			<div class="form-group input-group col-md-6">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Bombero</span>
 				</div>
@@ -170,7 +175,7 @@
 					@endforeach
 				</select>
 			</div>
-			<div class="form-group input-group col-md-4">
+			<div class="form-group input-group col-md-6">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Conductor</span>
 				</div>
@@ -186,35 +191,35 @@
 				</select>
 			</div>
 		</div>
-		<!--Div Personal que asiste Evento-->
-		<div class="form-row">
-			<div class="form-group  input-group col-md-4">
+		
+		<div class="form-row"><!-- Div Horas Evento -->
+			<div class="form-group  input-group col-md-6">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Salida A Emergencia</span>
 				</div>
-				<input required="" type="text" class="form-control" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" value="{{old('hora_salida_a_emergencia',$derrame->hora_salida_a_emergencia)}}" placeholder="hh:mm:ss">
+				<input required type="time" class="form-control" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" value="{{old('hora_salida_a_emergencia',$derrame->hora_salida_a_emergencia)}}" placeholder="hh:mm:ss">
 			</div>
-			<div class="form-group  input-group col-md-4">
+			<div class="form-group  input-group col-md-6">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Llegada A Emergencia</span>
 				</div>
-				<input type="text" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm:ss" value="{{old('hora_llegada_a_emergencia',$derrame->hora_llegada_a_emergencia)}}">
+				<input required type="time" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm:ss" value="{{old('hora_llegada_a_emergencia',$derrame->hora_llegada_a_emergencia)}}">
 			</div>
-		</div>{{--Div Horas Evento--}}
+		</div>
 		<div class="form-row">
 			<div class="form-group  input-group col-md-6">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Fin Emergencia</span>
 				</div>
-				<input required="" type="text" class="form-control" name="hora_fin_emergencia" id="hora_fin_emergencia" placeholder="hh:mm:ss" value="{{old('hora_fin_emergencia',$derrame->hora_fin_emergencia)}}">
+				<input required type="time" class="form-control" name="hora_fin_emergencia" id="hora_fin_emergencia" placeholder="hh:mm:ss" value="{{old('hora_fin_emergencia',$derrame->hora_fin_emergencia)}}">
 			</div>
 			<div class="form-group  input-group col-md-6">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora En Base</span>
 				</div>
-				<input type="text" class="form-control" name="hora_en_base" id="hora_en_base" placeholder="hh:mm:ss" value="{{old('hora_en_base',$derrame->hora_en_base)}}">
+				<input required type="time" class="form-control" name="hora_en_base" id="hora_en_base" placeholder="hh:mm:ss" value="{{old('hora_en_base',$derrame->hora_en_base)}}">
 			</div>
-		</div>{{--Div Horas Evento--}}
+		</div>
 		<div class="form-row">
 			<div class="col-lg-12 col-md-12 col-sm-12">
 				<div class="form-group input-group">
@@ -365,11 +370,14 @@
 	<script src="/js/geocoder.js"></script>
 	
 	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			document.getElementById("formulario").addEventListener('submit', validarHorasFormulario); 
+		});
 		$(document).ready(function() {
-			$("#bt_add").click(function() {
+			$("#bt_add").on('click',function(){
 				agregar();
 			});
-			$("#bt_addpaciente").click(function() {
+			$("#bt_addpaciente").on('click',function(){
 				agregarpaciente();
 			});
 
@@ -377,7 +385,7 @@
 			var max_chars1 = 3000;
 			$('#max').html(max_chars);
 
-			$("#pinformacion_inicial").keyup(function() {
+			$("#pinformacion_inicial").on('keyup',function(){
 				var chars = $("#pinformacion_inicial").val().length;
 				var diff = max_chars - chars;
 				var leyenda = "Caracteres Permitidos 2000 - Digitados: ";
@@ -406,6 +414,12 @@
 				}
 			});
 
+			
+			
+			$("#").change(function(){
+				alert($("hora_en_base").val());
+			});
+			
 		});
 
 		//total=0;
@@ -456,6 +470,25 @@
 
 		function mayus(e) {
 			e.value = e.value.toUpperCase();
+		}
+
+		function validarHorasFormulario(evento) {
+			evento.preventDefault();
+			var h1 = document.getElementById('hora_salida_a_emergencia').value;
+			var h2 = document.getElementById('hora_llegada_a_emergencia').value;
+			var h3 = document.getElementById('hora_fin_emergencia').value;
+			var h4 = document.getElementById('hora_en_base').value;
+			console.log(h1,h2,h3,h4);
+			if((h4>h3)&&(h3>h2)&&(h2>h1))
+			{
+				this.submit();
+			}
+			else
+			{
+				alert("Errores en las horas digitadas....Revise!!!");
+				return;
+			}
+			
 		}
 	</script>
 	@endpush

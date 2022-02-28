@@ -21,19 +21,21 @@
 </ul>
 <hr>
 <div class="row">
-    <div class=" col-8 input-group">
+    <div class=" col-lg-8 col-md-8 col-sm-12 input-group">
         <div class="input-group-prepend">
             <input class="form-control text-capitalize font-weight-bold"  value="Incidente" readonly>
         </div>
         <input class="form-control text-capitalize text-info" type="text" id="incidente" value="{{$tabla}}" readonly>
     </div>
-    <div class=" col-5 input-group">
+</div>
+<div class="row">
+    <div class=" col-lg-4 col-md-4 col-sm-12 input-group">
         <div class="input-group-prepend">
             <input class="form-control  text-capitalize font-weight-bold" value="Fecha-Desde" readonly>
         </div>
         <input class="form-control text-info" type="text" id="fechad" value="{{$fechaD}}" readonly>
     </div>
-    <div class=" col-5 input-group">
+    <div class=" col-lg-4 col-md-4 col-sm-12 input-group">
         <div class="input-group-prepend">
             <input class="form-control text-capitalize font-weight-bold" value="Fecha-Hasta" readonly>
         </div>

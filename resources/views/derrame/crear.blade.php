@@ -221,7 +221,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Geoposicion</span>
 				</div>
-				<textarea class="form-control" id="pgeoposicion" placeholder="Formato:. -2.56985, -79.23658" name="geoposicion" aria-label="With textarea"></textarea>
+				<textarea required class="form-control" id="pgeoposicion" placeholder="Formato:. -2.56985, -79.23658" name="geoposicion" aria-label="With textarea"></textarea>
 			</div>
 		</div>
 		<!--Div Ubicacion Evento-->

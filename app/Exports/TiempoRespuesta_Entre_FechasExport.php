@@ -46,7 +46,7 @@ class TiempoRespuesta_Entre_FechasExport implements FromQuery, Responsable, With
                 'hora_salida_a_emergencia',
                 'hora_llegada_a_emergencia',
                  DB::raw('TIMESTAMPDIFF(second, Hora_salida_a_emergencia, Hora_llegada_a_emergencia) as Tiempo_Respuesta'))
-            ->whereYear('fecha', '=', date('Y'))
+            
             ->whereNull($this->tabla . '.deleted_at')
             ->whereNotNull($this->tabla . '.hora_llegada_a_emergencia')
             ->whereNotNull($this->tabla . '.hora_fin_emergencia')

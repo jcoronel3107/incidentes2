@@ -2,17 +2,20 @@
  Funciones Generales
 */
 window.addEventListener("load", cargaPagina);
+document.addEventListener("DOMContentLoaded", function() {
+	document.getElementById("formulario").addEventListener('submit', validarFormulario); 
+});
+
 function cargaPagina() {
     
 	var btn = document.getElementById("horactual").addEventListener("click", hractual);
-	/* var btn0 = document.getElementById("horactual0").addEventListener("click", hractual); */
 	var btn1 = document.getElementById("horactual1").addEventListener("click", hractual);
 	var btn2 = document.getElementById("horactual2").addEventListener("click", hractual);
 	var btn3 = document.getElementById("horactual3").addEventListener("click", hractual);
 }
 
-vagrant 
-$(document).ready(function(){
+
+$(document).on('ready',function(){
 	var dtToday = new Date();
 	var month = dtToday.getMonth() + 1;     // getMonth() is zero-based
 	var day = dtToday.getDate();
@@ -35,32 +38,36 @@ $(document).ready(function(){
 	
 	
 	
-	$("#bt_add").click(function () {
+	$("#bt_add").on('click',function(){
 		agregar();
 	});
-	$("#bt_addpaciente").click(function () {
+
+	$("#bt_addperson").on('click',function(){
+		agregarbombero();
+	});
+	$("#bt_addpaciente").on('click',function(){
 		agregarpaciente();
 	});
 
 
-	$("#horactual").click(function () {
+	$("#horactual").on('click',function(){
 		hractual(this);
 	});
 
-	$("#horactual1").click(function () {
+	$("#horactual1").on('click',function(){
 		hractual(this);
 	});
 
-	$("#horactual2").click(function () {
+	$("#horactual2").on('click',function(){
 		hractual(this);
 	});
 
-	$("#horactual3").click(function () {
+	$("#horactual3").on('click',function(){
 		hractual(this); 
 	});
 
 
-    $("#pinformacion_inicial").keyup(function() {
+    $("#pinformacion_inicial").on('keyup',function(){
 	        var chars = $("#pinformacion_inicial").val().length;
 	        var diff = max_chars - chars;
 	        var leyenda = "Caracteres Permitidos 2000 - Digitados: ";
@@ -75,7 +82,7 @@ $(document).ready(function(){
 	         }
 	    });
 	    
-	$("#detalle_emergencia").keyup(function() {
+	$("#detalle_emergencia").on('keyup',function(){
 	        var chars = $("#detalle_emergencia").val().length;
 	        var diff = max_chars1 - chars;
 	        var leyenda = "Caracteres Permitidos 3000 - Digitados: ";
@@ -89,7 +96,7 @@ $(document).ready(function(){
 	           $("#detalle_emergencia").removeClass('error');
 	        }
 	    });
-	$("#Enviar").hide();
+	/* $("#Enviar").hide(); */
 });
 		
 
@@ -98,7 +105,59 @@ var jqkm_salida=0;
 var jqkm_llegada=0;
 var jqvehiculo_id="";
 var jqvehiculo="";
+var jqdriver_id="";
+var jqdriver="";
+var jqid_bomberman="";
+var jqbomberman="";
+var asistentes = parseFloat($("#nropersonas").val());
 
+function agregarbombero() {
+	jqid_bomberman=$("#pbombero_id").val();
+	jqbomberman=$('#pbombero_id').find('option:selected').text();
+			 
+
+	
+	if(jqbomberman.length!=0){
+		if (checkId(jqid_bomberman)) {
+			return alert('El ID ya está siendo usado');
+		}
+		var filabomberman = '<tr class="selected" id="filabomber'+cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminarbomberman('+cont+')" type="button">X</button></td><td for="id">'+jqid_bomberman+'</td><td><input type=hidden id="bomberman_id[]" name="bomberman_id[]" value="'+jqid_bomberman+'">'+jqbomberman+'</td></tr>';
+		cont++;
+		$('#persontable').append(filabomberman);
+		
+	}
+	else	
+		alert("Seleccione Bomberos Primero");
+}
+
+function eliminarbomberman(index){
+	$("#filabomber"+index).remove();
+	
+}
+
+function checkId (id) {
+	let ids = document.querySelectorAll('#persontable td[for="id"]');
+
+  return [].filter.call(ids, td => {
+	  return td.textContent === id;
+  }).length === 1;
+}
+
+function checkIdconductor (id) {
+	let ids = document.querySelectorAll('#detalles td[for="idc"]');
+
+  return [].filter.call(ids, td => {
+	  return td.textContent === id;
+  }).length === 1;
+}
+
+function checkIdvehiculo (id) {
+	let ids = document.querySelectorAll('#detalles td[for="id"]');
+
+  return [].filter.call(ids, td => {
+	  return td.textContent === id;
+  }).length === 1;
+}
 
 function agregar() {
 	// body...
@@ -106,73 +165,76 @@ function agregar() {
 	jqkm_llegada=$("#pkm_llegada").val();
 	jqvehiculo=$("#pvehiculo_id").val();
 	jqvehiculo_id=$('#pvehiculo_id').find('option:selected').text();
+	jqdriver_id=$('#pconductor_id').val();
+	jqdriver=$('#pconductor_id').find('option:selected').text();
 	
-				 
-	console.log(jqvehiculo_id);
-	if(jqkm_salida!="" && jqkm_salida>=0 && jqkm_llegada>=0 && jqkm_llegada!=""  && jqvehiculo!="")
+	if(jqkm_salida!="" && parseInt(jqkm_salida)>=0 && parseInt(jqkm_llegada)>=0 && jqkm_llegada!="" && parseInt(jqkm_llegada)>parseInt(jqkm_salida) && jqvehiculo!="" && jqdriver_id!="")
 	{
-		if((jqkm_salida==0)||(jqkm_salida==null))
-			jqkm_salida=0;
-		if((jqkm_llegada==0)||(jqkm_llegada==null))
-			jqkm_llegada=0;
-		
-		var fila = '<tr class = "selected" id="fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminar('+cont+')" type="button">X</button></td><td><input required type="hidden" name="vehiculo_id[]" value="'+jqvehiculo+'">'+jqvehiculo_id+'</td><td><input type="number" required class="form-control"  name="km_salida[]" value="'+jqkm_salida+'"></td><td><input type="number" required class="form-control" name="km_llegada[]" value="'+jqkm_llegada+'"></td></tr>';
+		if (checkIdvehiculo(jqvehiculo_id)) {
+			return alert('El ID vehiculo ya está siendo usado');
+		}
+		if (checkIdconductor(jqdriver)) {
+			return alert('El ID conductor ya está siendo usado');
+		}
+		var fila = '<tr id="fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminar('+cont+')" type="button">X</button></td><td for="id"><input type="hidden" name="vehiculo_id[]" value="'+jqvehiculo+'">'+jqvehiculo_id+'</td><td><input type="hidden" class="form-control"  name="km_salida[]" value="'+jqkm_salida+'">'+jqkm_salida+'</td><td><input type="hidden" class="form-control" name="km_llegada[]" value="'+jqkm_llegada+'">'+jqkm_llegada+'</td><td for="idc"><input type="hidden" class="form-control" name="driver_id[]" value="'+jqdriver_id+'">'+jqdriver+'</td></tr>';
 		cont++;
-		limpiar();
-		evaluar();
 		$('#detalles').append(fila);
-	}else{
-		alert("Error al ingresar el detalle de vehiculos,revise los datos!!!");
+		limpiar();
 	}
-}
-
-function conservarinfo(){
-	
+	else{
+		
+		alert("Error al Ingresar Información de Vehiculo,\nRevise los Datos!!!");
+	}
 }
 
 function limpiar(){
 	$("#pkm_salida").val("");
 	$("#pkm_llegada").val("");
+	
+	$('#pconductor_id').val("");
+	$('#pvehiculo_id').val("");
+	$("#pvehiculo_id").prop('selectedIndex', 0);
+	$("#pconductor_id").attr('selectedIndex', 0);
+
 }
+
 function evaluar(){
-	if(jqkm_llegada>=jqkm_salida){
-		$("#divguardar").show();
-		$("#Enviar").show();
-	}
+	
+	
 	
 	if(document.title=="Derrame"){
 		jqtitle = jqvehiculo_id +" - Derrame - BCBVC";
-		//console.log(jqtitle);
+		
 		document.title =jqtitle;
 	}
 	if(document.title=="Transito"){
 		jqtitle = jqvehiculo_id +" - Transito - BCBVC";
-		//console.log(jqtitle);
+		
 		document.title =jqtitle;
 	}
 	if(document.title=="Salud"){
 		jqtitle = jqvehiculo_id +" - Salud - BCBVC";
-		//console.log(jqtitle);
+		
 		document.title =jqtitle;
 	}
 	if(document.title=="Rescate"){
 		jqtitle = jqvehiculo_id +" - Rescate - BCBVC";
-		//console.log(jqtitle);
+		
 		document.title =jqtitle;
 	}
 	if(document.title=="Inundacion"){
 		jqtitle = jqvehiculo_id +" - Inundacion - BCBVC";
-		//console.log(jqtitle);
+		
 		document.title =jqtitle;
 	}
 	if(document.title=="Incendio"){
 		jqtitle = jqvehiculo_id +" - Incendio - BCBVC";
-		//console.log(jqtitle);
+		
 		document.title =jqtitle;
 	}
 	if(document.title=="Fuga"){
 		jqtitle = jqvehiculo_id +" - Fuga - BCBVC";
-		//console.log(jqtitle);
+		
 		document.title =jqtitle;
 	}
 	
@@ -287,9 +349,29 @@ function CheckTime(str)
 	} 
 } 
 
+function validarFormulario(evento) {
+	evento.preventDefault();
+	var h1 = document.getElementById('hora_salida_a_emergencia').value;
+	var h2 = document.getElementById('hora_llegada_a_emergencia').value;
+	var h3 = document.getElementById('hora_fin_emergencia').value;
+	var h4 = document.getElementById('hora_en_base').value;
+	var rowCountdetalles = $("#detalles tr").length;
+         console.log(rowCountdetalles);
+	var rowCountpersontable = $("#persontable tr").length;
+		console.log(rowCountpersontable);
+	if((h4>h3)&&(h3>h2)&&(h2>h1)&&(rowCountdetalles>1)&&(rowCountpersontable>1))
+	{
+		this.submit();
+	}
+	else
+	{
+		alert("Errores en el Formulario....\n - Revise Horas - \n - Revise Personal en la Emergencia - \n - Vehículos en la Emergencia -");
+		return;
+	}
+	
+}
 
-
-/*{{-- Script para almacenar pacientes atendidos --}}*/
+/* Script para almacenar pacientes atendidos  */
 
 var contpac=0;
 var jqnombres="";
@@ -307,7 +389,7 @@ var jqfrcardiaca=0;
 var jqfrrespiratoria=0;
 var jqglicemia=0
 subtotal=[];
-//$("#Enviar").hide();
+
 
 function agregarpaciente() {
 				// body...
@@ -393,4 +475,11 @@ function eliminar2(index){
 	$("#filapaciente"+index).remove();
 	evaluar();
 }
+
+$("textarea").each(function () {
+	this.setAttribute("style", "height:" + (this.scrollHeight) + "px;overflow-y:hidden;");
+  }).on("input", function () {
+	this.style.height = "auto";
+	this.style.height = (this.scrollHeight) + "px";
+  });
 	

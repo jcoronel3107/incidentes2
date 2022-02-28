@@ -166,6 +166,7 @@
 								<th scope="col">Marca</th>
 								<th scope="col">Km_Salida</th>
 								<th scope="col">Km_Llegada</th>
+								<th scope="col">Conductor</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -177,6 +178,7 @@
 								<td>{{$vehiculo->marca}}</td>
 								<td>{{$vehiculo->pivot->km_salida}}</td>
 								<td>{{$vehiculo->pivot->km_llegada}}</td>
+								<td>{{$vehiculo->pivot->driver_id}}</td>
 							</tr>
 							@endforeach
 						</tbody>

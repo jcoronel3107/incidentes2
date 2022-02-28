@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Cie;
+use App\Salud;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;

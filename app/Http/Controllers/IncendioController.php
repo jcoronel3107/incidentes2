@@ -68,18 +68,15 @@ class IncendioController extends Controller
         ->orderBy("name",'asc')
         ->get();
         $users = DB::table('users')->where([
-          ['cargo','=','Bombero'],
+          ['cargo','=','Bombero']
         ])
         ->orWhere('cargo','=','Paramedico')
         ->orderBy("name",'asc')
-        ->get();
-
-        if ( Auth::check() ) {
-            return view( "/fuego.crear",compact("vehiculos","users","incidentes","now","estaciones","parroquias","maquinistas") );
-        } else {
-            return view( "/auth.login" );
-        }
-    }
+        ->get();        
+        return view( "fuego.crear",compact("vehiculos","users","incidentes","now","estaciones","parroquias","maquinistas"));
+        
+     }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -110,16 +107,25 @@ class IncendioController extends Controller
                 $incendio->usuario_afectado = $request->usuario_afectado;
                 $incendio->danos_estimados = $request->danos_estimados;
                 $incendio->usr_creador = auth()->user()->name;
+                
                 $incendio->save();
+
                 $id = DB::table('incendios')
                          ->select(DB::raw('max(id) as id'))
                          ->first();
-                $maqui = User::findOrFail($request->conductor_id);
-                $maqui->incendios()->attach($id);
-                $jefe = User::findOrFail($request->jefeguardia_id);
-                $jefe->incendios()->attach($id);
-                $bomb = User::findOrFail($request->bombero_id);
-                $bomb->incendios()->attach($id);
+                /*
+                Sentencias para guardar Los personal que asisten al incidente
+                */
+                $cont=0;
+                $nombresstaff = $request->get('bomberman_id');
+                
+                while ($cont < count($nombresstaff)) {
+                    $maqui = User::findOrFail($nombresstaff[$cont]);
+                   
+                    $maqui->incendios()->attach($id);
+                    $cont+=1;
+                         }
+                
                 /*
                 Sentencias para guardar Los vehiculos que asisten al incidente
                 */
@@ -127,16 +133,22 @@ class IncendioController extends Controller
                 $nombrevehiculo = $request->get('vehiculo_id');
                 $kmsalidavehiculo = $request->get('km_salida');
                 $kmllegadavehiculo = $request->get('km_llegada');
+                $driver_id= $request->get('driver_id');
+                
                 while ($cont < count($nombrevehiculo)) {
                    
                   $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);
+                  $maqui = User::findOrFail($driver_id[$cont]);
+                  
                   $carro->incendios()->attach(
                       $id , [
-                        'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
+                        'km_salida' => $kmsalidavehiculo[$cont],
+                        'km_llegada' => $kmllegadavehiculo[$cont],
+                        'driver_id' => $maqui->id]);
                   $cont=$cont+1;
                 }
                 Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
-                return redirect( "/fuego" );
+                return redirect( "fuego" );
             }
             catch(\Exception $e)
             {
@@ -170,21 +182,11 @@ class IncendioController extends Controller
 
     function edit($id) 
     {
-        if ( Auth::check() ) {
-            $conductor_id = DB::table('users')
-            ->where('id', $id)
-            ->value('name');
-            $bombero_id = DB::table('users')
-            ->where('id', $id)
-            ->value('name');
+        
+           
             $incendio = Incendio::findOrFail( $id );
             $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
-            $bomberos = DB::table('users')->where([
-              ['cargo','=','Bombero'],
-            ])
-            ->orWhere('cargo','=','Paramedico')
-            ->orderBy("name",'asc')
-            ->get();
+            
             $maquinistas=User::where('cargo','Maquinista')
             ->orderBy("name",'asc')
             ->get();
@@ -193,13 +195,17 @@ class IncendioController extends Controller
             ->get();
             $estaciones = Station::all();
             $parroquias = Parroquia::all();
+
+            $usuarios = DB::table('users')->where([
+                ['cargo','=','Bombero'],
+              ])
+              ->orWhere('cargo','=','Paramedico')
+              ->orderBy("name",'asc')
+              ->get();
             
-            return view( "fuego.edit", compact("incendio","vehiculos","bomberos","maquinistas","incidentes","estaciones","parroquias"));
-        } 
-        else 
-        {
-            return view( "/auth.login" );
-        }
+              $nropersonas = count($incendio->users);
+            return view( "fuego.edit", compact("nropersonas","usuarios","incendio","vehiculos","maquinistas","incidentes","estaciones","parroquias"));
+        
     }
 
     /**
@@ -213,9 +219,8 @@ class IncendioController extends Controller
 
     function update( SaveIncendioRequest $request , $id ) 
     {
-       
             try
-            {         
+            {       
                 $incendio = Incendio::findOrFail( $id );
                 $incendio->update([
                                    'incidente_id' => $request->incidente_id,
@@ -237,27 +242,46 @@ class IncendioController extends Controller
                                    'danos_estimados' => $request->danos_estimados,
                                    'usr_editor' => auth()->user()->name ]);
 
-                $incendio->users()->detach();
-                $jefeguardia = User::findOrFail($request->jefeguardia_id);
-                $jefeguardia->incendios()->attach($id);
-                $bombero = User::findOrFail($request->bombero_id);
-                $bombero->incendios()->attach($id);
-                $maqui = User::findOrFail($request->conductor_id);
-                $maqui->incendios()->attach($id);
+               
+                $id = DB::table('incendios')
+                         ->select(DB::raw('max(id) as id'))
+                         ->first();
+                /*
+                Sentencias para guardar Los personal que asisten al incidente
+                */
+                $cont=0;
+                $nombresstaff = $request->get('bomberman_id');
+                
+                while ($cont < count($nombresstaff)) {
+                    $maqui = User::findOrFail($nombresstaff[$cont]);
+                   
+                    $maqui->incendios()->attach($id);
+                    $cont=$cont+1;
+                         }
+                
+                /*
+                Sentencias para guardar Los vehiculos que asisten al incidente
+                */
                 $cont=0;
                 $nombrevehiculo = $request->get('vehiculo_id');
                 $kmsalidavehiculo = $request->get('km_salida');
                 $kmllegadavehiculo = $request->get('km_llegada');
-                $incendio->vehiculos()->detach();
+                $driver_id= $request->get('driver_id');
+                
                 while ($cont < count($nombrevehiculo)) {
-                    $carro = Vehiculo::findOrFail($nombrevehiculo[$cont]);
-                    $carro->incendios()->attach(
-                    $id , [
-                         'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
-                    $cont=$cont+1;
+                   
+                  $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);
+                  $maqui = User::findOrFail($driver_id[$cont]);
+                  
+                  $carro->incendios()->attach(
+                      $id , [
+                        'km_salida' => $kmsalidavehiculo[$cont],
+                        'km_llegada' => $kmllegadavehiculo[$cont],
+                        'driver_id' => $maqui->id]);
+                  $cont=$cont+1;
                 }
                 Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
-                return redirect( "/fuego" );
+                return redirect( "fuego" );
             }
             catch(\Exception $e)
             {
@@ -281,7 +305,7 @@ class IncendioController extends Controller
             $incendio = Incendio::findOrFail( $id );
             $incendio->delete();
             Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
-            return redirect( "/fuego" );
+            return redirect( "fuego" );
        
     }
 
@@ -321,7 +345,7 @@ class IncendioController extends Controller
 
     public function cargar($id)
     {
-      return view("/fuego.carga",compact('id'));
+      return view("fuego.carga",compact('id'));
     }
 
     public function upload(Request $request)
@@ -352,12 +376,12 @@ class IncendioController extends Controller
         if ($exists&&$exists1&&$exists2) 
         {
             Session::flash('Carga_Correcta',"Formularios Subidos con Exito!!!");
-            return redirect( "/fuego" );
+            return redirect( "fuego" );
         } 
         else 
         {
           Session::flash('Carga_Incorrecta',"Evento Tiene Formularios Cargados con Anterioridad.!!!");
-          return redirect( "/fuego" );
+          return redirect( "fuego" );
         }
     }
 
@@ -383,7 +407,7 @@ class IncendioController extends Controller
             ->get();
             $estaciones = Station::all();
             $parroquias = Parroquia::all();
-            return view( "/fuego.inspeccion", compact("incendio","vehiculos","bomberos","maquinistas","incidentes","estaciones","parroquias"));
+            return view( "fuego.inspeccion", compact("incendio","vehiculos","bomberos","maquinistas","incidentes","estaciones","parroquias"));
       
         
     }

@@ -37,7 +37,7 @@ class ActUsuario_Entre_FechasExport implements FromQuery, Responsable, WithHeadi
             ->where('user_id','=',$this->user)
             ->whereNull('movilizacions.deleted_at')
             ->whereBetween('fecha_salida', array($this->fechaD, $this->fechaH))
-            ->whereYear('fecha_salida', '=', date('Y'))
+            
             ->orderByDesc('fecha_salida');
             //dd($cant_actividades_usuario_entre_fechas);
             return $cant_actividades_usuario_entre_fechas;

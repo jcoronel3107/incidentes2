@@ -35,7 +35,7 @@
 		</div>
 
 	@endif
-		@if(Session::has('Registro_Actualizado'))
+	@if(Session::has('Registro_Actualizado'))
 		<div class="alert alert-success alert-dismissible fade show" role="alert">
 			{{session('Registro_Actualizado')}}
 			<button type="button"
@@ -46,8 +46,8 @@
 			</button>
 		</div>
 
-		@endif
-		@if(Session::has('Registro_Almacenado'))
+	@endif
+	@if(Session::has('Registro_Almacenado'))
 		<div class="alert alert-success alert-dismissible fade show" role="alert">
 			{{session('Registro_Almacenado')}}
 			<button type="button"
@@ -58,8 +58,8 @@
 			</button>
 		</div>
 
-		@endif
-		@if(Session::has('Carga_Correcta'))
+	@endif
+	@if(Session::has('Carga_Correcta'))
 		<div class="alert alert-success alert-dismissible fade show" role="alert">
 			{{session('Carga_Correcta')}}
 			<button type="button"
@@ -70,8 +70,8 @@
 			</button>
 		</div>
 
-		@endif
-		@if(Session::has('Carga_Incorrecta'))
+	@endif
+	@if(Session::has('Carga_Incorrecta'))
 		<div class="alert alert-danger alert-dismissible fade show" role="alert">
 			{{session('Carga_Incorrecta')}}
 			<button type="button"
@@ -82,8 +82,8 @@
 			</button>
 		</div>
 
-		@endif
-		@if(Session::has('Tamaño_Excedido'))
+	@endif
+	@if(Session::has('Tamaño_Excedido'))
 		<div class="alert alert-danger alert-dismissible fade show" role="alert">
 			{{session('Tamaño_Excedido')}}
 			<button type="button"
@@ -94,5 +94,4 @@
 			</button>
 		</div>
 
-		@endif
-		
+	@endif

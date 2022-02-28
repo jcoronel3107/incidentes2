@@ -20,7 +20,7 @@ class CreateInundacionsTable extends Migration
 			$table->string("tipo_escena");
 			$table->unsignedBigInteger("station_id");
 			$table->date("fecha");
-			$table->string("address");
+			$table->string("direccion");
 			$table->unsignedBigInteger("parroquia_id");
 			$table->string("geoposicion")->nullable();
 			$table->string("ficha_ecu911");

@@ -38,9 +38,9 @@ class ActVehiculos_Entre_FechasExport implements FromQuery, Responsable, WithHea
             ->where('vehiculo_id','=',$this->vehiculo)
             ->whereNull('movilizacions.deleted_at')
             ->whereBetween('fecha_salida', array($this->fechaD, $this->fechaH))
-            ->whereYear('fecha_salida', '=', date('Y'))
+            
             ->orderByDesc('fecha_salida');
-            //dd($cant_actividades_usuario_entre_fechas);
+           
             return $cant_actividades_vehiculo_entre_fechas;
         
     }

@@ -1,22 +1,37 @@
-	@extends( "layouts.plantilla" )
+@extends( "layouts.plantilla" )
 
-	@section( "cabeza" )
+@section( "cabeza" )
 
-	<title>Clave - Edición - BCBVC</title>
-	@endsection
+		<title>Clave - Edición - BCBVC</title>
+@endsection
 
-	@section( "cuerpo" )
+@section( "cuerpo" )
 		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Editar Información de Clave_14</h2>
-		<ul class="nav justify-content-end">
-		  <li class="nav-item">
-		    <a class="btn btn-outline-info"  data-toggle="tooltip" title="Regresar" role="button" href="{{ route('clave.index')}}"><i class="fa fa-arrow-left fa-2x"  aria-hidden="true"></i>
-						</a>
-		  </li>
-		</ul>
+		
+		
 		<hr style="border:2px;">
-
+		@if(count($errors)>0) 
+			@foreach($errors->all() as $error)
+				<div class="alert alert-danger" role="alert">
+					{{$error}}
+				</div>
+			@endforeach 
+		@endif
 		<form method="post" action="/clave/{{$claves->id}}">
 			@csrf @method('PATCH')
+			<div class="form-row ">
+			<div class="input-group mb-3 justify-content-end">
+                     <div class="input-group-prepend">
+                            	<span class="input-group-text"><i class="fa fa-check" aria-hidden="true"></i></span>
+                     </div>
+					 <button type="submit" title="Actualizar" name="Enviar" value="Enviar" class="btn btn-success">Actualizar</button>
+					 
+                     <div class="input-group-prepend ml-2">
+                            	<span class="input-group-text"><i class="fa fa-arrow-left"  aria-hidden="true"></i></i></span>
+                     </div>
+					 <a class="btn btn-outline-secondary"  data-toggle="tooltip" title="Cancelar" role="button" href="{{ route('clave.index')}}">Cancelar</a>
+             </div>
+		</div>
 			<div class="form-row">
 				<div class="form-group input-group  col-md-8">
 					<div class="input-group-prepend">
@@ -28,6 +43,13 @@
 						<option value="{{$gasolinera->id}}">{{$gasolinera->razonsocial}}</option>
 						@endforeach
 					</select>
+				</div>
+				<div class="form-group input-group  col-md-4">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Fecha</span>
+					</div>
+					<input type="text" maxlength="19" name="created_at" value="{{old('created_at',$claves->created_at)}}" placeholder="Km. Salida Vehìculo de Estaciòn" class="form-control"> {{csrf_field()}}
+
 				</div>
 			</div>
 			<div class="form-row">
@@ -112,30 +134,34 @@
 						@endforeach
 					</select>
 				</div>
-
+			</div>
+			<div class="form-row">
 				<div class="form-group input-group  col-md-4">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Orden</span>
 					</div>
-					<input type="text" name="Orden" class="form-control" id="Orden" value="{{old('Orden',$claves->Orden)}}" placeholder="#Orden Fisica">
+					<input required type="number" min="0" name="Orden" value="{{old('Orden',$claves->Orden)}}" class="form-control" id="Orden" placeholder="Nro Orden Física">
 				</div>
-
+				<div class="form-group input-group  col-md-6">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Nro. Factura</span>
+					</div>
+					<input required type="text" name="factura" value="{{old('factura',$claves->factura)}}" class="form-control" id="factura" placeholder="Digite Nro. Factura 000-000-000000">
+				</div>
 			</div>
-
-			<div class="form-group">
-				<button type="submit" title="Actualizar" name="Enviar" value="Enviar" class="btn btn-success"><i class="fa fa-check-square fa-2x" aria-hidden="true"></i></button>
-
-				<a class="btn btn btn-primary" title="Cancel" role="button"
-					href="{{ route('clave.index')}}"><i class="fa fa-ban fa-2x" aria-hidden="true"></i></a>
-			</div>
+			
 
 		</form>
 
 		<form method="post" action="/clave/{{$claves->id}}">
 			{{csrf_field()}}
 			<input type="hidden" name="_method" value="DELETE">
-
-			<button type="button" title="Eliminar" class="btn btn-primary btn-danger" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
+			<div class="form-group input-group  col justify-content-end">
+				<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fa fa-trash" aria-hidden="true"></i></span>
+				</div>
+				<button type="button" title="Eliminar" class="btn btn-primary btn-danger" data-toggle="modal" data-target="#exampleModal">Eliminar</button>
+			</div>
 			<!-- Modal -->
 			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  <div class="modal-dialog">
@@ -151,20 +177,15 @@
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			        <button  type="submit" name="Eliminar" value="Eliminar" class="btn btn-primary">Ok</button>
+			        <button  type="submit" name="Eliminar" value="Eliminar" class="btn btn-danger">Ok</button>
 			      </div>
 			    </div>
 			  </div>
 			</div>
 		</form>
-		@if(count($errors)>0) @foreach($errors->all() as $error)
-		<div class="alert alert-danger" role="alert">
-			{{$error}}
-		</div>
-		@endforeach @endif
-	@endsection
+		
+@endsection
 
-	@section( "piepagina" )
+@section( "piepagina" )
 
-
-	@endsection
+@endsection

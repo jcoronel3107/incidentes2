@@ -84,8 +84,6 @@ class InundacionController extends Controller
      */
     public function store(SaveInundacionRequest $request)
     {
-  		
-          
           try
           {
             $inundacion = new Inundacion;
@@ -112,25 +110,28 @@ class InundacionController extends Controller
             $id = DB::table('inundacions')
                 ->select(DB::raw('max(id) as id'))
                 ->value('id');
-            
-            $maqui = User::findOrFail($request->conductor_id);
-            $maqui->inundacions()->attach($id);
-            $jefe = User::findOrFail($request->jefeguardia_id);
-            $jefe->inundacions()->attach($id);
-            $bomb = User::findOrFail($request->bombero_id);
-            $bomb->inundacions()->attach($id);
+            $cont=0;
+            $nombresstaff = $request->get('bomberman_id');
+            while ($cont < count($nombresstaff)) {
+              $maqui = User::findOrFail($nombresstaff[$cont]);
+              $maqui->inundacions()->attach($id);
+              $cont=$cont+1;
+            }
             //para almacenar kilimetrajes por vehiculos asistentes al evento
             $cont=0;
             $nombrevehiculo = $request->get('vehiculo_id');
             $kmsalidavehiculo = $request->get('km_salida');
             $kmllegadavehiculo = $request->get('km_llegada');
+            $driver_id= $request->get('driver_id');
             while ($cont < count($nombrevehiculo)) {
                 
                 $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);
-                
+                $maqui = User::findOrFail($driver_id[$cont]);
                 $carro->inundacions()->attach(
                   $id , [
-                    'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
+                    'km_salida' => $kmsalidavehiculo[$cont],
+                    'km_llegada' => $kmllegadavehiculo[$cont],
+                    'driver_id' => $maqui->id]);
                 $cont=$cont+1;
               }
               Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");

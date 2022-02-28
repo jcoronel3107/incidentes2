@@ -12,7 +12,7 @@ class Gasolinera extends Model
 	use SoftDeletes;
 	use LogsActivity;
 
-	protected $fillable=["razonsocial","ruc","direccion","email"];
+	protected $fillable=["razonsocial","ruc","direccion","email","monto_contrato"];
 	protected static $logFillable = true;
 	
 	public function clave(){

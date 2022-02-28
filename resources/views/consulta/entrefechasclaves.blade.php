@@ -13,24 +13,35 @@
    
 </ul>
 
-<div class="tab-content" id="myTabContent">
-    <!-- Contenedor General  -->
-    <ul class="nav justify-content-end">
-		<li class="nav-item">
-			<a class="btn btn-outline-info" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('consultaentrefechas')}}"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></a>
-		</li>
-	</ul>
+<div class="tab-content" id="myTabContent"><!-- Contenedor General  -->
+    
+    <div class="input-group mt-2 justify-content-end">
+            <div class="input-group-prepend">
+					<span title="Regresar" class="input-group-text"><i class="fa fa-arrow-left" aria-hidden="true"></i></span>
+			</div>	
+			<a class="btn btn-outline-secondary" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('consultaentrefechas')}}">Regresar</a>
+    </div>
     <div class="tab-pane fade show active" id="General" role="tabpanel" aria-labelledby="General-tab">
-        <div class="row">
-            <div class="col-xl-8 col-lg-8">
-
+        <div class="row"><!-- Vehiculos abastecidos -->
+            <div class="col-xl-12 col-lg-12">
+            <p style="text-align: center;" class="text-info" id="fch1">{{$gastationname->razonsocial}}</p>
                 <p style="text-align: center;" class="text-info" id="fch1">Fecha Desde: {{$fechaDgas}} &nbsp;&nbsp; Fecha Hasta: {{$fechaHgas}}</p>
-                <p style="text-transform: uppercase; text-align: center;" class="text-info" id="incidente">{{$tabla}}</p>
-                <div class="py-2 " id="container0"></div>
-
+                
+                <div class="py-2 " id="container0.1"></div>
             </div>
-
-            <div class="col-xl-4 col-lg-4">
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-xl-6 col-lg-6"><!-- Abastecimientos x combustible -->
+                <div class="py-2 " id="container0.2"></div>
+            </div>
+            <div class="col-xl-6 col-lg-6"><!-- Abastecimientos x gasolinera -->
+                <div class="py-2 " id="container0.3"></div>
+            </div>
+        </div>
+      
+        <div hidden class="row">
+            <div hidden class="col-xl-4 col-lg-4">
                 
                 <p style="text-transform: uppercase; text-align: center;" class="text-info" id="incidente">{{$tabla}}</p>
                 <p class="text-info">Busqueda entre Fechas</p>
@@ -43,7 +54,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($Busquedaentrefechas_xcombustible as $registro)
+                            @foreach ($Busquedaentrefechas_xvehiculo as $registro)
                             <tr>
                                 <td class="table-light">{{($registro->codigodis)}}</td>
                                 <td class="table-light">{{$registro->NumCargas}}</td>
@@ -53,22 +64,61 @@
                     </table>
                     <hr>
                     @can('allow export')
-                        @if($tabla=="saluds")
-                                <a class="btn btn-info" data-toggle="tooltip" title="Descarga Archivo Excel" role="button" href="estadisticas/export3/{{$tabla}},{{$fechaD}},{{$fechaH}}">{!! trans('messages.download records') !!}</a>
-                        @else
-                                <a class="btn btn-info" data-toggle="tooltip" title="Descarga Archivo Excel" role="button" href="estadisticas/export/{{$tabla}},{{$fechaD}},{{$fechaH}}">{!! trans('messages.download records') !!}</a>
-                        @endif
-                    <hr>
-		        	<a class="btn btn-info" data-toggle="tooltip" title="Descarga Archivo Excel" role="button" href="estadisticas/export2/{{$tabla}},{{$fechaD}},{{$fechaH}}"></i>{!! trans('messages.response times') !!}</a>
+                    <a class="btn btn-info" data-toggle="tooltip" title="Descarga Archivo Excel" role="button" href="estadisticas/export4/{{$tabla}},{{$fechaDgas}},{{$fechaHgas}}">{!! trans('messages.download records') !!}</a>
                     @endcan
                 </div>
 
             </div>
-        </div>
-        <hr>
-        
-        
+            <div  class="col-xl-4 col-lg-4">
+                <p style="text-transform: uppercase; text-align: center;" class="text-info" id="incidente">{{$tabla}}</p>
+                <p class="text-info">Busqueda entre Fechas</p>
+                <div class="py-2 " id="table0.2">
+                    <table class="table table-sm" id="datatable0.2">
+                        <thead>
+                            <tr>
+                                <th class="table-dark">Combustible</th>
+                                <th class="table-dark">NumCargaxCombustible</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($Busquedaentrefechas_xcombustible as $registro)
+                            <tr>
+                                <td class="table-light">{{($registro->combustible)}}</td>
+                                <td class="table-light">{{$registro->NumCargaxCombustible}}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    
+                </div>
 
+            </div>
+            <div  class="col-xl-4 col-lg-4">
+                <p style="text-transform: uppercase; text-align: center;" class="text-info" id="incidente">{{$tabla}}</p>
+                <p class="text-info">Busqueda entre Fechas</p>
+                <div class="py-2 " id="table0.3">
+                    <table class="table table-sm" id="datatable0.3">
+                        <thead>
+                            <tr>
+                                <th class="table-dark">Combustible</th>
+                                <th class="table-dark">Abastecimientos x Gasolinera</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($busquedaentrefechas_xgasolineras as $registro)
+                            <tr>
+                                <td class="table-light">{{($registro->razonsocial)}}</td>
+                                <td class="table-light">{{$registro->Num_cargas}}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <hr>
+                    
+                </div>
+
+            </div>
+        </div>
         
     </div>
    
@@ -81,9 +131,12 @@
 <script src="https://code.highcharts.com/modules/data.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-{{-- Pestaña General --}}
-<script>
-    Highcharts.chart('container0', {
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+<script src="https://code.highcharts.com/cylinder.js"></script>
+
+<script>/* Vehiculos abastecidos */
+    Highcharts.chart('container0.1', {
         data: {
             table: 'datatable0.1',
             name: 'Incidentes',
@@ -95,7 +148,7 @@
             type: 'pie'
         },
         title: {
-            text: 'Incidentes'
+            text: 'Vehiculos Abastecidos'
         },
         subtitle: {
             text: 'Grafica'
@@ -112,20 +165,24 @@
         }
     });
 </script>
-<script>
+<script>/* Abastecimientos x combustible */
     Highcharts.chart('container0.2', {
         data: {
             table: 'datatable0.2',
             name: 'Incidentes',
         },
         chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'bar'
+            type: 'column'
+            
+        },
+        plotOptions: {
+            series: {
+            depth: 25,
+            colorByPoint: true
+            }
         },
         title: {
-            text: 'Estaciones Asistencia'
+            text: 'Abastecimientos x Combustible'
         },
         subtitle: {
             text: 'Grafica'
@@ -137,12 +194,12 @@
             }
         },
         tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}#</b>',
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
 
         }
     });
 </script>
-<script>
+<script>/* Abastecimientos x gasolinera */
     Highcharts.chart('container0.3', {
         data: {
             table: 'datatable0.3',
@@ -155,7 +212,7 @@
             type: 'pie'
         },
         title: {
-            text: 'Incidentes en Parroquias'
+            text: 'Abastecimiento por Gasolinera'
         },
         subtitle: {
             text: 'Grafica'

@@ -11,7 +11,7 @@ return [
     'transit' => 'Transito',
     'Health' => 'Salud',
     'fire' => 'Fuego',
-    'Hazmat' => 'Hazmat',
+    'Hazmat' => 'Hazmat/Aeronautico',
     'Clave14' => 'Clave14',
     'Services'=> 'Servicios',
     'login' => 'Iniciar sesión',
@@ -109,4 +109,5 @@ return [
     'download records'=> 'Descargar Registros',
     'response times'=>'Tiempos Respuesta',
     'Monthly Fuel Consumption'=>'Consumo Mensual Combustible',
+    'staff in the emergency'=>'Personal en la Emergencia',
 ];

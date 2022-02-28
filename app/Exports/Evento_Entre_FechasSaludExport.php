@@ -61,7 +61,7 @@ class Evento_Entre_FechasSaludExport implements FromQuery, Responsable, WithHead
                 'glasglow',
                 'saturacion','Frecuencia_Cardiaca','Frecuencia_Respiratoria','Glicemia','hojapre','casasalud'
             )
-            ->whereYear('fecha', '=', date('Y'))
+            
             ->whereNull($this->tabla . '.deleted_at')
             ->whereBetween('fecha', array($this->fechaD, $this->fechaH))
             ->orderByDesc('fecha');

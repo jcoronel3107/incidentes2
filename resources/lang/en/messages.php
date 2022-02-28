@@ -11,7 +11,7 @@ return [
     'transit' => 'Transit',
     'Health' => 'Health',
     'fire' => 'Fire',
-    'Hazmat' => 'Hazmat',
+    'Hazmat' => 'Hazmat/Aeronautics',
     'Clave14' => 'Clave14',
     'Services'=> 'Services',
     'login' => 'Login',
@@ -108,5 +108,6 @@ return [
     'download records'=> 'Download Records',
     'response times'=>'Response Times',
     'Monthly Fuel Consumption'=>'Monthly Fuel Consumption',
+    'staff in the emergency'=>'Staff in the Emergency',
 
 ];

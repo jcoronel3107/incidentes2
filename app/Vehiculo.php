@@ -58,43 +58,43 @@ class Vehiculo extends Model
 	public function inundacions(){
         return $this->belongsToMany(Inundacion::class)
         ->withTimestamps()
-        ->withPivot('km_salida','km_llegada');
+        ->withPivot('km_salida','km_llegada','driver_id');
     }
 
     public function incendios(){
         return $this->belongsToMany(Incendio::class)
         ->withTimestamps()
-        ->withPivot('km_salida','km_llegada');
+        ->withPivot('km_salida','km_llegada','driver_id');
     }
 
     public function rescates(){
         return $this->belongsToMany(Rescate::class)
         ->withTimestamps()
-        ->withPivot('km_salida','km_llegada');
+        ->withPivot('km_salida','km_llegada','driver_id');
     }
 
     public function saluds(){
         return $this->belongsToMany(Salud::class)
         ->withTimestamps()
-        ->withPivot('km_salida','km_llegada');
+        ->withPivot('km_salida','km_llegada','driver_id');
     }
 
     public function fugas(){
         return $this->belongsToMany(Fuga::class)
         ->withTimestamps()
-        ->withPivot('km_salida','km_llegada');
+        ->withPivot('km_salida','km_llegada','driver_id');
     }
 
     public function transitos(){
         return $this->belongsToMany(Transito::class)
         ->withTimestamps()
-        ->withPivot('km_salida','km_llegada');
+        ->withPivot('km_salida','km_llegada','driver_id');
     }
 
     public function derrames(){
         return $this->belongsToMany(Derrame::class)
         ->withTimestamps()
-        ->withPivot('km_salida','km_llegada');
+        ->withPivot('km_salida','km_llegada','driver_id');
     }
 
 

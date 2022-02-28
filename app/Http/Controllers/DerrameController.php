@@ -37,7 +37,7 @@ class DerrameController extends Controller
           $busq_fecha = trim($request->get('busq_fecha'));
           $busq_usuarioafectado = trim($request->get('busq_usuarioafectado'));
           $derrames = Derrame::OrderBy('id','desc')
-          ->where("address",'LIKE','%'.$busq_direccion.'%')
+          ->where("direccion",'LIKE','%'.$busq_direccion.'%')
           ->where("station_id",'LIKE','%'.$busq_estacion.'%')
           ->where("fecha",'LIKE','%'.$busq_fecha.'%')
           ->where("usuario_afectado",'LIKE','%'.$busq_usuarioafectado.'%')
@@ -85,7 +85,7 @@ class DerrameController extends Controller
             $derrame->tipo_escena = $request->tipo_escena;
             $derrame->station_id = $request->station_id;
             $derrame->fecha = $request->fecha;
-            $derrame->address = $request->address;
+            $derrame->direccion = $request->address;
             $derrame->parroquia_id = $request->parroquia_id;
             $derrame->geoposicion = $request->geoposicion;
             $derrame->ficha_ecu911 = $request->ficha_ecu911;
@@ -186,7 +186,7 @@ class DerrameController extends Controller
                                 'tipo_escena' => $request->tipo_escena,
                                 'station_id' => $request->station_id,
                                 'fecha' => $request->fecha,
-                                'address' => $request->address,
+                                'direccion' => $request->address,
                                 'parroquia_id' => $derrame->parroquia->id,
                                 'geoposicion' => $request->geoposicion,
                                 'ficha_ecu911' => $request->ficha_ecu911,

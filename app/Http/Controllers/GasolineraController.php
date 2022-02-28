@@ -15,24 +15,17 @@ class GasolineraController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-   /*  public function __construct(){
-        $this->middleware('auth');
-
-    } */
+  
     public function index(Request $request)
     {
-        //
         if($request)
         {
           $query = trim($request->get('searchText'));
-        //
         $gasolineras = Gasolinera::where("razonsocial",'LIKE','%'.$query.'%')
           ->OrderBy('created_at','asc')
           ->paginate(5);
           return view( "/gasolinera.index", compact( "gasolineras","query" ) );
         }
-
-
     }
 
     /**
@@ -42,12 +35,7 @@ class GasolineraController extends Controller
      */
     public function create()
     {
-        //
-		/* if ( Auth::check() ) { */
 			return view( "/gasolinera.crear");
-		/* } else {
-			return view( "/auth.login" );
-		} */
     }
 
     /**
@@ -58,20 +46,17 @@ class GasolineraController extends Controller
      */
     public function store(CreateGasolineraRequest $request)
     {
-        //
-		/* if ( Auth::check() ) { */
 			$validated = $request->validated();
 			$gasolinera = new Gasolinera;
 			$gasolinera->razonsocial = $request->razonsocial;
 			$gasolinera->ruc = $request->ruc;
 			$gasolinera->direccion = $request->direccion;
 			$gasolinera->email = $request->email;
+      $gasolinera->monto_contrato = $request->monto_contrato;
 			$gasolinera->save();
 			Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
 			return redirect( "/gasolinera" );
-		/* } else {
-			return view( "/auth.login" );
-		} */
+		
     }
 
     /**
@@ -82,7 +67,6 @@ class GasolineraController extends Controller
      */
     public function show($id)
     {
-        //
 		$gasolinera = Gasolinera::findOrFail( $id );
 		return view( "gasolinera.show", compact( "gasolinera" ) );
     }
@@ -113,15 +97,10 @@ class GasolineraController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-		/* if ( Auth::check() ) { */
 			$gasolinera = Gasolinera::findOrFail( $id );
 			$gasolinera->update( $request->all() );
 			Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
 			return redirect( "/gasolinera" );
-		/* } else {
-			return view( "/auth.login" );
-		} */
     }
 
     /**
@@ -132,14 +111,9 @@ class GasolineraController extends Controller
      */
     public function destroy($id)
     {
-        //
-		/* if ( Auth::check() ) { */
 			$gasolinera = Gasolinera::findOrFail( $id );
 			$gasolinera->delete();
 			Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
 			return redirect( "/gasolinera" );
-		/* } else {
-			return view( "/auth.login" );
-		} */
     }
 }

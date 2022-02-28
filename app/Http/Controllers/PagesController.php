@@ -80,21 +80,13 @@ class PagesController extends Controller
         ->whereNull('derrames.deleted_at')
         ->get()->count();
 
-        $SumaValClaves= Clave::whereMonth('created_at', $mes)
-        ->whereYear('created_at', '=', date('Y'))
-        ->whereNull('claves.deleted_at')
-        ->sum('dolares');
         
-        $CountClaves= Clave::whereMonth('created_at', $mes)
-        ->whereYear('created_at', '=', date('Y'))
-        ->whereNull('claves.deleted_at')
-        ->count('id');
 
-
+       
             $EventosxIncidente = $mensualesInundacion+$mensualesRescate+$mensualesIncendio+$mensualesSalud+$mensualesTransito+$mensualesFuga+$mensualesDerrame;
 
 
-    	return view("welcome",compact("CountClaves","SumaValClaves","EventosxIncidente","mensualesInundacion","mensualesRescate","mensualesIncendio","mensualesSalud","mensualesTransito","mensualesFuga","mensualesClave","mensualesServicio","mensualesDerrame"/* ,"loggedin_instances" */));
+    	return view("welcome",compact("EventosxIncidente","mensualesInundacion","mensualesRescate","mensualesIncendio","mensualesSalud","mensualesTransito","mensualesFuga","mensualesClave","mensualesServicio","mensualesDerrame"/* ,"loggedin_instances" */));
     }
 
     

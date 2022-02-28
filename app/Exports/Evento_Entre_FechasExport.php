@@ -54,7 +54,7 @@ class Evento_Entre_FechasExport implements FromQuery, Responsable, WithHeadings,
                 'hora_fin_emergencia',
                 'hora_en_base'
             )
-            ->whereYear('fecha', '=', date('Y'))
+            
             ->whereNull($this->tabla . '.deleted_at')
             ->whereBetween('fecha', array($this->fechaD, $this->fechaH))
             ->orderByDesc('fecha');
