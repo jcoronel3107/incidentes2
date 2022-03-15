@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\User;
 
 class RolesAndPermissionsSeeder extends Seeder
 {
@@ -44,45 +45,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $role10 = Role::create(['name' => 'Super-Admin']);
         $role10->givePermissionTo(Permission::all());
         // create demo users
-        $user = Factory(App\User::class)->create([
-            'name' => 'Juan Fernando Coronel',
-            'email' => 'jcoronel@bomberos.gob.ec',
-            'cargo' => 'Analista 2 Sistemas',
-            'password' => Hash::make('K@rin@2018')
-        ]);
+        $user  = User::findOrFail(2);
         $user->assignRole($role10);
-
-        
-        $user = Factory(App\User::class)->create([
-            'name'=> 'Severo Regalado',
-            'email'=> 'sregalado@bomberos.gob.ec',
-            'cargo'=> 'operador',
-            'password'=> Hash::make('secret')
-        ]);
-        $user->assignRole($role4);
-
-        $user = Factory(App\User::class)->create([
-            'name'=> 'Freddy Romero',
-            'email'=> 'fromero@bomberos.gob.ec',
-            'cargo'=> 'operador',
-            'password'=> Hash::make('secret')
-        ]);
-        $user->assignRole($role6);
-
-        $user = Factory(App\User::class)->create([
-            'name'=> 'Renato Fernandez Cordova',
-            'email'=> 'rfernandezcordova@bomberos.gob.ec',
-            'cargo'=> 'operador',
-            'password'=> Hash::make('secret')
-        ]);
-        $user->assignRole($role6);
-
-        $user = Factory(App\User::class)->create([
-            'name'=> 'Patricio Bravo',
-            'email'=> 'pbravo@bomberos.gob.ec',
-            'cargo'=> 'operador',
-            'password'=> Hash::make('secret')
-        ]);
-        $user->assignRole($role6);
     }
 }

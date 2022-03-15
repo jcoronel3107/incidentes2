@@ -18,9 +18,11 @@ class CreateSaludVehiculo extends Migration
             $table->unsignedBigInteger('vehiculo_id');
             $table->unsignedBigInteger('km_salida')->nullable();
             $table->unsignedBigInteger('km_llegada')->nullable();
+            $table->unsignedBigInteger('driver_id');
             $table->timestamps();
             $table->foreign('salud_id')->references('id')->on('saluds');
             $table->foreign('vehiculo_id')->references('id')->on('vehiculos');
+            $table->foreign('driver_id')->references('id')->on('users');
         });
     }
 

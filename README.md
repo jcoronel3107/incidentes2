@@ -5,24 +5,27 @@ System for the Control and Registration of Incidents to which a Firefighters Ins
 Fully responsive system, that is, it works on mobiles, tablets and computers
 
 ## Features
+-php            ^7.2
 
 -Icons FontAwesome
 
--Activity Log 	spatie/laravel-activitylog": "^3.16
+-Activity Log 	spatie/laravel-activitylog    ^3.16
 
 -Geocoder		javascript
 
--Translate		laravel-lang/lang": "~7.0
+-laravel/framework  ^8.0,
+
+-Translate		laravel-lang/lang    ~7.0
 
 -Send Mail		smtp
 
--PDF export		barryvdh/laravel-dompdf": "^0.8.6
+-PDF export		barryvdh/laravel-dompdf    ^0.8.6
 
--PDF import		barryvdh/laravel-dompdf": "^0.8.6
+-PDF import		barryvdh/laravel-dompdf    ^0.8.6
 
--Excel export	maatwebsite/excel": "^3.1
+-Excel export	maatwebsite/excel          ^3.1
 
--Excel import	maatwebsite/excel": "^3.1
+-Excel import	maatwebsite/excel          ^3.1
 
 -Bootstrap		Fully responsive system, that is, it works on mobiles, tablets and computers
 ### Images
