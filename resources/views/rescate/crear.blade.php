@@ -24,7 +24,7 @@
 	</div>
 	@endforeach
 	@endif
-	<form method="post" action="{{ route('rescate.store')}}">
+	<form id="formulario" method="post" action="{{ route('rescate.store')}}">
 		<div class="form-row"><!--Div Fecha-->
 			{{csrf_field()}}
 			<div class="form-group input-group  col-md-4">
@@ -237,7 +237,7 @@
 				</div>
 				<div class="row">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<table id="persontable" class="table table-sm table-responsive table-hover table-striped table-condensed">
+							<table id="persontable" class="table table-sm table-hover table-striped table-condensed">
 								<thead>
 									<td>Eliminar</td>
 									<td>id</td>

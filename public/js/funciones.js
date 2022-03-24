@@ -45,6 +45,9 @@ $(document).on('ready',function(){
 	$("#bt_addperson").on('click',function(){
 		agregarbombero();
 	});
+	$("#bt_addpersonedit").on('click',function(){
+		variarbomberos();
+	});
 	$("#bt_addpaciente").on('click',function(){
 		agregarpaciente();
 	});
@@ -96,7 +99,6 @@ $(document).on('ready',function(){
 	           $("#detalle_emergencia").removeClass('error');
 	        }
 	    });
-	/* $("#Enviar").hide(); */
 });
 		
 
@@ -109,10 +111,12 @@ var jqdriver_id="";
 var jqdriver="";
 var jqid_bomberman="";
 var jqbomberman="";
+var jqnropersonas=0;
 var asistentes = parseFloat($("#nropersonas").val());
 
 function agregarbombero() {
 	jqid_bomberman=$("#pbombero_id").val();
+	
 	jqbomberman=$('#pbombero_id').find('option:selected').text();
 			 
 
@@ -130,9 +134,28 @@ function agregarbombero() {
 		alert("Seleccione Bomberos Primero");
 }
 
+function variarbomberos() {
+	jqid_bomberman=$("#pbombero_id").val();
+	jqnropersonas=$("#nropersonas").val();
+	jqbomberman=$('#pbombero_id').find('option:selected').text();
+			 
+	if(jqbomberman.length!=0){
+		if (checkId(jqid_bomberman)) {
+			return alert('El ID ya está siendo usado');
+		}
+		if(jqnropersonas>=0)
+		{
+			jqnropersonas =  parseInt(jqnropersonas)+1;
+			var filabomberman = '<tr class="success" id="filabomber'+jqnropersonas+'"><td><button type="button" class="btn btn-warning" onclick="eliminarbomberman('+jqnropersonas+')" type="button">X</button></td><td for="id">'+jqid_bomberman+'</td><td><input type=hidden id="bomberman_id[]" name="bomberman_id[]" value="'+jqid_bomberman+'">'+jqbomberman+'</td></tr>';
+			$('#persontable').append(filabomberman);
+		}
+	}
+	else	
+		alert("Seleccione Bomberos Primero");
+}
+
 function eliminarbomberman(index){
 	$("#filabomber"+index).remove();
-	
 }
 
 function checkId (id) {
@@ -243,7 +266,6 @@ function evaluar(){
 function eliminar(index){
 	
 	$("#fila"+index).remove();
-	evaluar();
 }
 
 
@@ -473,7 +495,6 @@ function evaluarpaciente(){
 
 function eliminar2(index){
 	$("#filapaciente"+index).remove();
-	evaluar();
 }
 
 $("textarea").each(function () {

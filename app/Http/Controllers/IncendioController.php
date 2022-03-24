@@ -272,7 +272,7 @@ class IncendioController extends Controller
                    
                   $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);
                   $maqui = User::findOrFail($driver_id[$cont]);
-                  
+                  $carro->
                   $carro->incendios()->attach(
                       $id , [
                         'km_salida' => $kmsalidavehiculo[$cont],
