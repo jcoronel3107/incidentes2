@@ -8,10 +8,8 @@
 	@section( "cuerpo" )
 
 	<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">{!! trans('messages.Hazmat Event Information Record') !!}</h2>
-	/* ------------------------------ 
-	   Menu Superior Opciones
-	   -----------------------------*/
-	<ul class="nav justify-content-end">
+	
+	<ul class="nav justify-content-end">{{-- Menu Superior Opciones --}}
 		<li class="nav-item">
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
@@ -33,24 +31,16 @@
 			</div>
 		</li>
 	</ul> 
-	//Fin Menu Superior Opciones
 	<hr style="border:2px;">
 	@if(count($errors)>0)
-	@foreach($errors->all() as $error)
-	<div class="alert alert-danger" role="alert">
-		{{$error}}
-	</div>
-	@endforeach
-	@endif
-	<form method="post" action="{{ route('derrame.store')}}">
-		<div class="form-row">
-
-			<div class="form-group input-group justify-content-end  col-md-12">
-
+		@foreach($errors->all() as $error)
+			<div class="alert alert-danger" role="alert">
+				{{$error}}
 			</div>
-		</div>
-		<!--Div Fecha-->
-		<div class="form-row">
+		@endforeach
+	@endif
+	<form id="formulario" method="post" action="{{ route('derrame.store')}}">
+		<div class="form-row"><!--Div Fecha-->
 			{{csrf_field()}}
 			<div class="form-group input-group  col-md-4">
 				<div class="input-group-prepend">
@@ -60,8 +50,8 @@
 			</div>
 
 		</div>
-		<!--Div Fecha-->
-		<div class="form-row ">
+		
+		<div class="form-row "><!--Div Informacion ECU911-->
 			<div class='col-md-6'>
 				<div class="form-group">
 					<div class="input-group">
@@ -84,26 +74,41 @@
 				</div>
 			</div>
 		</div>
-		<!--Div Informacion ECU911-->
+		
 		<hr>
-		<div class="card">
-			<div class="card-header">{!! trans('messages.Vehicles in the Emergency') !!}</div>
+		<div class="card"><!-- Ingreso Vehiculos Detalle -->
+			<div class="card-header">
+				{!! trans('messages.Vehicles in the Emergency') !!}
+			</div>
 			<div class="card-body">
-				<div class="row">
-					<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
+				<div class="row d-flex">
+					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 						<div class="form-group input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text">{!! trans('messages.Vehicles') !!}</span>
 							</div>
-							<select class="form-control selectpicker" data-live-search="true" name="pvehiculo_id" id="pvehiculo_id" >
-								
+							<select class="form-control"   name="pvehiculo_id" id="pvehiculo_id">
+								<option value=""></option>
 								@foreach($vehiculos as $vehiculo)
-									<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>
+								<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>
 								@endforeach
 							</select>
 						</div>
 					</div>
-					<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+							<div class="form-group  input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="inputDetalle">Conductor</span>
+								</div>
+								<select class=" form-control"  name="pconductor_id" id="pconductor_id">
+									<option value=""></option>
+									@foreach($maquinistas as $maquinista)
+									<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
+					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
 						<div class="form-group  input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text">Km.Salida</span>
@@ -111,7 +116,7 @@
 							<input type="number" class="form-control" name="km_salida" id="pkm_salida" placeholder="Digite Valor">
 						</div>
 					</div>
-					<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
 						<div class="form-group  input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="inputDetalle">Km.Llegada</span>
@@ -119,29 +124,25 @@
 							<input type="number" class="form-control" id="pkm_llegada" name="km_llegada" placeholder="Digite Valor">
 						</div>
 					</div>
-					<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2">
-						<button type="button" id="bt_add" class="btn btn-primary">{!! trans('messages.add') !!}</button>
+					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mb-2 ">
+						<button type="button" id="bt_add" class="btn btn-primary btn-block">{!! trans('messages.add') !!}</button>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-						<table id="detalles" class="table table-striped table bordered table condensed table-hover">
-							<thead style="background-color: #A9D0F5 ">
-								<th>Opciones</th>
-								<th>Vehiculo</th>
-								<th>Km.Salida</th>
-								<th>Km.Llegada</th>
-							</thead>
-							<tfoot></tfoot>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<tbody></tbody>
-
-						</table>
-					</div>
-				</div>
+				<div class="row d-flex ">
+						<div class="col-lg-10 col-sm-10 col-md-10 col-xs-10">
+							<table id="detalles" class="table table-sm table-hover table-striped table-condensed">
+								<thead style="background-color: #A9D0F5 ">
+									<th>Opciones</th>
+									<th>Vehiculo</th>
+									<th>Km.Salida</th>
+									<th>Km.Llegada</th>
+									<th>Conductor</th>
+								</thead>
+								<tbody></tbody>
+								<tfoot></tfoot>
+							</table>
+						</div>
+				 </div>
 			</div>
 		</div>
 		<hr>
@@ -155,11 +156,11 @@
 						<textarea class="form-control Text-uppercase" maxlength="2000" id="pinformacion_inicial" name="informacion_inicial" aria-label="With textarea" required=""></textarea>
 					</div>
 				</div>
-				<p class="text-sm-left" id="pcounter">0</p>
+				<p class="text-sm-left" id="pcounter"></p>
 			</div>
 		</div>
 
-		<div class="form-row">
+		<div class="form-row"><!--Div Tipo Evento-->
 			<div class="form-group input-group col-md-5">
 				<div class="input-group-prepend">
 					<span class="input-group-text">{!! trans('messages.Incident') !!}</span>
@@ -188,7 +189,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">{!! trans('messages.Station') !!}</span>
 				</div>
-				<select class="selectpicker form-control" data-live-search="true" name="station_id"   required>
+				<select class="form-control" name="station_id"   required>
 					<option value="" selected>{{old('station_id')}}</option>
 					@foreach($estaciones as $estacion)
 					<option value="{{$estacion->id}}">{{$estacion->nombre}}</option>
@@ -196,8 +197,9 @@
 				</select>
 			</div>
 		</div>
-		<!--Div Tipo Evento-->
-		<div class="form-row">
+		
+		<div class="form-row"><!--Div Ubicacion Evento-->
+
 			<div class="form-group input-group col-md-7">
 				<div class="input-group-prepend">
 					<span class="input-group-text">{!! trans('messages.Address') !!}</span>
@@ -224,50 +226,49 @@
 				<textarea required class="form-control" id="pgeoposicion" placeholder="Formato:. -2.56985, -79.23658" name="geoposicion" aria-label="With textarea"></textarea>
 			</div>
 		</div>
-		<!--Div Ubicacion Evento-->
-
+		
 		<div onload="initMap()" id="map" style="width: 100%; height: 280px;"></div>
 		<hr>
-		<div class="form-row">
-			<div class="form-group input-group col-md-4">
-				<div class="input-group-prepend">
-					<span class="input-group-text">C.I.</span>
-				</div>
-				<select class="selectpicker form-control" data-live-search="true" name="jefeguardia_id" required>
-					<option selected>{{old('jefeguardia_id')}}</option>
-					@foreach($users as $user)
-					<option value="{{$user->id}}">{{$user->name}}</option>
-					@endforeach
-				</select>
-				@error('jefeguardia_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
+		<div class="card"><!-- Div Personal en Emergencia -->
+			<div class="card-header">
+				{!! trans('messages.staff in the emergency') !!}
 			</div>
-			<div class="form-group input-group col-md-4">
-				<div class="input-group-prepend">
-					<span class="input-group-text">Bombero</span>
+			<div class="card-body">
+				
+				<div class="form-row">
+					<div class="form-group input-group col-lg-12 col-md-12 col-sm-12 col.xs-12 mr-4">
+						<div class="input-group-prepend">
+							<span class="input-group-text">Bombero</span>
+						</div>
+						<select class="selectpicker form-control" data-live-search="true" id="pbombero_id" name="bombero_id">
+							<option selected >{{old('bombero_id')}}</option>
+							@foreach($users as $user)
+							<option value="{{$user->id}}">{{$user->name}}</option>
+							@endforeach
+						</select>	
+					</div>
+					<button type="button" id="bt_addperson" class="btn btn-primary btn-block ml-4 mr-4 mb-4">{!! trans('messages.add') !!}</button>
+					
 				</div>
-				<select class="selectpicker form-control" data-live-search="true" name="bombero_id" required>
-					<option selected>{{old('bombero_id')}}</option>
-					@foreach($users as $user)
-					<option value="{{$user->id}}">{{$user->name}}</option>
-					@endforeach
-				</select>
-				@error('bombero_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
-			</div>
-			<div class="form-group input-group col-md-4">
-				<div class="input-group-prepend">
-					<span class="input-group-text">Conductor</span>
-				</div>
-				<select class="selectpicker form-control" data-live-search="true"  name="conductor_id" required>
-					<option selected>{{old('conductor_id')}}</option>
-					@foreach($maquinistas as $maquinista)
-					<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>
-					@endforeach
-				</select>
-				@error('conductor_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
+				<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<table id="persontable" class="table table-sm table-hover table-striped table-condensed">
+								<thead>
+									<td>Eliminar</td>
+									<td>id</td>
+									<td>Nombres_Completos</td>
+								</thead>
+								<tbody></tbody>
+								<tfoot></tfoot>
+							</table>
+						</div>
+				 </div>
+				 
 			</div>
 		</div>
-		<!--Div Personal que asiste Evento-->
-		<div class="form-row">
+		<hr>
+		
+		<div class="form-row"><!--Div Horas Evento-->
 			<div class="form-group input-group col-md-6">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Salida A Emerg.</span>
@@ -287,7 +288,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="form-row">
+		<div class="form-row"><!--Div Horas Evento-->
 			<div class="form-group  input-group col-md-6">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Fin Emerg.</span>
@@ -307,8 +308,8 @@
 				</div>
 			</div>
 		</div>
-		<!--Div Horas Evento-->
-		<div class="form-row">
+		
+		<div class="form-row"><!--Detalle Emergencia-->
 			<div class="form-group input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Detalle Emergencia</span>
@@ -316,17 +317,17 @@
 				<textarea onkeyup="mayus(this);" class="form-control Text-uppercase" maxlength="3000" id="detalle_emergencia" name="detalle_emergencia" aria-label="With textarea" required="">{{old('detalle_emergencia')}}</textarea>
 			</div>
 		</div>
-		<!--Detalle Emergencia-->
-		<p class="text-sm-left" id="pcounter1">0</p>
-		<div class="form-row">
+		
+		<p class="text-sm-left" id="pcounter1"></p>
+		<div class="form-row">{{--Usuario Afectado--}}
 			<div class="form-group input-group  col-md-8">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Ciud. Afectado</span>
 				</div>
 				<input onkeyup="mayus(this);" type="text" maxlength="83" class="form-control" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado')}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia" required="">
 			</div>
-		</div>{{--Usuario Afectado--}}
-		<div class="form-row">
+		</div>
+		<div class="form-row">{{-- Danos Estimados --}}
 			<div class="form-group input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDaños">Daños Estimados</span>
@@ -334,10 +335,10 @@
 				<textarea onkeyup="mayus(this);" class="form-control Text-uppercase" maxlength="2000" id="danos_estimados" name="danos_estimados" aria-label="With textarea" required="">{{old('danos_estimados')}}</textarea>
 
 			</div>
-		</div>{{-- Danos Estimados --}}
+		</div>
 
 
-		<div class="form-group py-3 " id="divguardar">
+		<div class="form-group py-3" id="divguardar">
 			<input type="hidden" name="token" value="{{csrf_token()}}">
 			
 			<div class="row nav justify-content-end">
@@ -363,7 +364,7 @@
 	
 	@push ('scripts')
 
-
+	<!-- Functions for all pages-->
 	<script src="/js/funciones.js"></script>
 	<!-- Geolocalizacion  for all pages-->
 	<script src="/js/geocoder.js"></script>

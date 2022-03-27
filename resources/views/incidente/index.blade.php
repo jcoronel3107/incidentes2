@@ -7,80 +7,55 @@
 
 	@section( "cuerpo" )
 		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Consultar Información de Incidentes</h2>
-		@if(Session::has('Registro_Borrado'))
-		<div class="alert alert-danger alert-dismissible fade show" role="alert">
-			{{session('Registro_Borrado')}}
-			<button type="button"
-				class="close"
-				data-dismiss="alert"
-				aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
+		@include('incidente.messages')
 
-		@endif
-		@if(Session::has('Registro_Actualizado'))
-		<div class="alert alert-success alert-dismissible fade show" role="alert">
-			{{session('Registro_Actualizado')}}
-			<button type="button"
-				class="close"
-				data-dismiss="alert"
-				aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
+		<ul class="nav justify-content-end">
+			<li class="nav-item"  >
+				<a class="btn btn-outline-danger" href="{{route('incidente.create')}}">{!! trans('messages.new') !!}</a>
+				<a class="btn btn-outline-success" href="incidentes/export/">{!! trans('messages.export') !!}</a>
+			</li>
 
-		@endif
-		@if(Session::has('Registro_Almacenado'))
-		<div class="alert alert-primary alert-dismissible fade show" role="alert">
-			{{session('Registro_Almacenado')}}
-			<button type="button"
-				class="close"
-				data-dismiss="alert"
-				aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-
-		@endif
-
-			<ul class="nav justify-content-end">
-  <li class="nav-item"  >
-  	<a class="btn btn-outline-danger" href="{{route('incidente.create')}}">{!! trans('messages.new') !!}</a>
-    <a class="btn btn-outline-success" href="incidentes/export/">{!! trans('messages.export') !!}</a>
-  </li>
-
-</ul>
-<hr style="border:2px;">
-@include('/incidente.search')
-		<table class="table table-hover">
+		</ul>
+		<hr>
+		@include('incidente.search')
+		<table class="table table-hover table-responsive">
 			<thead>
-				<tr>
+				<tr class="table-info">
 					<td>Id</td>
 					<td>Tipo_Incidente</td>
 					<td>Nombre_Incidente</td>
 					<td>created_at</td>
-					<td>updated_at</td>
 					<td>Opciones</td>
 				</tr>
 			</thead>
 			<tbody>
 				@foreach($incidentes as $incidente)
-				<tr>
-					<td>{{$incidente->id}}</td>
-					<td>{{$incidente->tipo_incidente}}</td>
-					<td>{{$incidente->nombre_incidente}}</td>
-					<td>{{$incidente->created_at}}</td>
-					<td>{{$incidente->updated_at}}</td>
-					<td>
-						<a class="btn btn-outline-danger btn-sm" href="{{route('incidente.edit',$incidente->id)}}" role="button">Edit</a>
-						{{-- <a class="btn btn-outline-info btn-sm" href="{{route('incidente.show',$incidente->id)}}" role="button">Ver</a> --}}
-					</td>
-
-				</tr>
+					<tr>
+						<td>{{$incidente->id}}</td>
+						<td>{{$incidente->tipo_incidente}}</td>
+						<td>{{$incidente->nombre_incidente}}</td>
+						<td>{{$incidente->created_at}}</td>
+						<td>
+							<a class="btn btn-outline-danger btn-sm" href="{{route('incidente.edit',$incidente->id)}}" role="button">Edit</a>
+						</td>
+					</tr>
 				@endforeach
-
 			</tbody>
+			<tfoot>
+				<tr class="table-info">
+					<td>Id</td>
+					<td>Tipo_Incidente</td>
+					<td>Nombre_Incidente</td>
+					<td>created_at</td>
+					<td>Opciones</td>
+				</tr>
+			</tfoot>
 		</table>
-		{{ $incidentes -> appends(['searchText' => $query]) -> links() }}
-	@endsection @section( "piepagina" )@endsection
+		<div class="row">
+			{{ $incidentes -> appends(['searchText' => $query]) -> links() }}
+		</div>	
+		
+		
+	@endsection 
+	@section( "piepagina" )
+	@endsection

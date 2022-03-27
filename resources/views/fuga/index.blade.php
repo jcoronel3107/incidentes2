@@ -12,7 +12,7 @@
 			<li class="nav-item">
 				<div class="input-group mb-3">
 									@can('create event')	
-									<div class="input-group-prepend">
+									<div class="input-group-prepend ml-2">
 										<span title="Nuevo" class="input-group-text"><i class="fas fa-plus"></i></span>
 									</div>
 									<a class="btn btn-outline-primary focus-in-expand" data-toggle="tooltip" title="Nuevo" href="fuga/create">{!! trans('messages.new') !!}</i></a>
@@ -47,7 +47,7 @@
 		<hr style="border:2px;">
 
 		@include('fuga.search')
-		<table class="table table-hover table-condensed">
+		<table class="table table-hover table-condensed table-responsive">
 			<thead>
 				<tr class="table-info">
 					<th>id</th>

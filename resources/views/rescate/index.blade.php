@@ -7,6 +7,7 @@
 @section( "cuerpo" )
 <h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">{!! trans('messages.Consult Rescue Information') !!}</h2>
 @include('rescate.messages')
+
 <div class="row nav justify-content-end">   <!--Menu Opciones -->
 	<li class="nav-item">
 		<div class="input-group mb-3">
@@ -44,7 +45,8 @@
 
 <hr style="border:2px;">
 @include('rescate.search')
-		<table id="dataTable" class="table table-hover table-striped table-responsive mt-2" role="grid" aria-describedby="dataTable_info">
+
+<table id="dataTable" class="table table-hover table-striped table-responsive mt-2" role="grid" aria-describedby="dataTable_info">
 			<thead>
 				<tr role="row" class="table-info">
 					<th>id</th>
@@ -123,6 +125,7 @@
 					<th>{!! trans('messages.Options') !!}</th>
 				</tr>
 			</tfoot>
-		</table>
+</table>
+
 {{ $rescates -> appends(['busq_direccion' => $busq_direccion ,'busq_estacion' => $busq_estacion ,'busq_fecha'=>$busq_fecha])-> links() }}
 @endsection @section( "piepagina" ) @endsection

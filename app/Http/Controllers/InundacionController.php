@@ -174,9 +174,14 @@ class InundacionController extends Controller
             ->value('name');
             $inundacion = Inundacion::findOrFail( $id );
             $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
-            $bomberos=User::where('cargo','bombero')
+            $usuarios = DB::table('users')->where([
+              ['cargo','=','Bombero'],
+            ])
+            ->orWhere('cargo','=','Paramedico')
             ->orderBy("name",'asc')
             ->get();
+          
+            $nropersonas = count($inundacion->users);
             $maquinistas=User::where('cargo','Maquinista')
             ->orderBy("name",'asc')
             ->get();
@@ -186,7 +191,7 @@ class InundacionController extends Controller
             $estaciones = Station::all();
             $parroquias = Parroquia::all();
 
-            return view( "inundacion.edit", compact("inundacion","vehiculos","bomberos","maquinistas","incidentes","estaciones","parroquias"));
+            return view( "inundacion.edit", compact("nropersonas","inundacion","vehiculos","usuarios","maquinistas","incidentes","estaciones","parroquias"));
         
     }
     /**
@@ -221,39 +226,51 @@ class InundacionController extends Controller
                                 'danos_estimados' => $request->danos_estimados,
                                 'usr_editor' => auth()->user()->name]);
                                 
-            $inundacion->users()->detach();
-          
-
-            $jefeguardia = User::findOrFail($request->jefeguardia_id);
-            $jefeguardia->inundacions()->attach($id);
-           
-            $bombero = User::findOrFail($request->bombero_id);
-            $bombero->inundacions()->attach($id);
-
-            $maqui = User::findOrFail($request->conductor_id);
-            $maqui->inundacions()->attach($id);
-            $cont=0;
-            $nombrevehiculo = $request->get('vehiculo_id');
-            $kmsalidavehiculo = $request->get('km_salida');
-            
-            $kmllegadavehiculo = $request->get('km_llegada');
-            $inundacion->vehiculos()->detach();
-            while ($cont < count($nombrevehiculo)) {
-                    $carro = Vehiculo::findOrFail($nombrevehiculo[$cont]);
+                                $inundacion->users()->detach();
+                                $inundacion->vehiculos()->detach();
+                                /*
+                                    Sentencias para guardar Los personal que asisten al incidente
+                                */
+                                $cont=0;
+                                $nombresstaff = $request->get('bomberman_id');   
+                                
+                                while ($cont < count($nombresstaff)) {
+                                        $bombero = User::findOrFail($nombresstaff[$cont]);
+                                     
+                                        $bombero->inundacions()->attach($id);
+                                        $cont=$cont+1;
+                                }
+                               
+                                /*
+                                    Sentencias para guardar Los vehiculos que asisten al incidente
+                                */
+                                $cont=0;
+                                $nombrevehiculo = $request->get('vehiculo_id');
+                                $kmsalidavehiculo = $request->get('km_salida');
+                                $kmllegadavehiculo = $request->get('km_llegada');
+                                $driver_id= $request->get('driver_id');
+                                
+                                while ($cont < count($nombrevehiculo)) {
+                                       
+                                      $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);
+                                      // $maqui = User::findOrFail($driver_id[$cont]);
+                                      
+                                      $carro->inundacions()->attach(
+                                          $id , [
+                                            'km_salida' => $kmsalidavehiculo[$cont],
+                                            'km_llegada' => $kmllegadavehiculo[$cont],
+                                            'driver_id' => $driver_id[$cont]]);
+                                      $cont=$cont+1;
+                                }
                     
-                    $carro->inundacions()->attach(
-                    $id , [
-                         'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
-                    $cont=$cont+1;
-            }
-            Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
-            return redirect( "/inundacion" );
-          }
-          catch(\Exception $e)
-          {
-              
-              
-          }
+                                Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
+                                return redirect( "inundacion" );
+                              }
+                              catch(\Exception $e)
+                              {
+                                 dd($e);
+                                
+                              }
         
     }
 

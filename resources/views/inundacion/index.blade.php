@@ -45,7 +45,7 @@
 		
 		<hr style="border:2px;">
 		@include('inundacion.search')
-		<table class="table table-hover table-condensed">
+		<table class="table table-hover table-condensed table-responsive">
 			<thead>
 				<tr class="table-info">
 					<th>id</th>

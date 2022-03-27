@@ -95,7 +95,7 @@ return [
     'another'=>'Otr@s',
     'Prevention Unit'=>'Unidad Prevención',
     'Mobilization'=>'Movilización',
-    'human talent administrative unit'=>'Unidad de Talento Humano',
+    'administrative unit'=>'Unidad Servicios',
     'Reservations'=>'Reservaciones',
     'Approve'=>'Aprobar',
     'Request'=>'Solicitud',

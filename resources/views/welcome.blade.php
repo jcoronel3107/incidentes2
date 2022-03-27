@@ -16,7 +16,7 @@
 			</ol>
 			<div class="carousel-inner">
 				<div class="carousel-item active ">
-					<img src="/images/logotipo-05.jpg" class="d-block w-100" alt="BCBVC">
+					<img style="opacity: 0.3; width: 70%; height: auto;" src="/images/logotipo-05.jpg" class="d-block" alt="BCBVC">
 				</div>
 				<div class="carousel-item">
 					<!-- Div Clima -->

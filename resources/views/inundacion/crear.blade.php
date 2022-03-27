@@ -64,80 +64,7 @@
 					</div>
 				</div>
 			</div>
-			
-			<hr>
-			<div class="card"><!--Div Detalle Vehiculos-->
-				<div class="card-header">{!! trans('messages.Vehicles in the Emergency') !!}</div>
-				<div class="card-body">
-					<div class="row d-flex">
-						<div class="col-lg-6 col-sm-12 col-md-6 col-xs-12">
-							<div class="form-group input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text">{!! trans('messages.Vehicles') !!}</span>
-								</div>
-								<select class="form-control selectpicker " data-live-search="true" name="pvehiculo_id" id="pvehiculo_id">
-								<option selected>{{old('pvehiculo_id')}}</option>
-									@foreach($vehiculos as $vehiculo)
-									<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>
-									@endforeach
-								</select>
-							</div>
-						</div>
-						<div class="col-lg-6 col-sm-12 col-md-6 col-xs-12">
-							<div class="form-group  input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text" id="inputDetalle">Conductor</span>
-								</div>
-								<select class="selectpicker form-control" data-live-search="true" name="pconductor_id" id="pconductor_id">
-									<option selected>{{old('pconductor_id')}}</option>
-									@foreach($maquinistas as $maquinista)
-									<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>
-									@endforeach
-								</select>
-							</div>
-						</div>
-						<div class="col-lg-4 col-sm-12 col-md-4 col-xs-12">
-							<div class="form-group  input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text">Km.Salida</span>
-								</div>
-								<input type="number" class="form-control" name="km_salida" id="pkm_salida" placeholder="Digite Valor">
-							</div>
-						</div>
-						<div class="col-lg-4 col-sm-12 col-md-4 col-xs-12">
-							<div class="form-group  input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text" id="inputDetalle">Km.Llegada</span>
-								</div>
-								<input type="number" class="form-control" id="pkm_llegada" name="km_llegada" placeholder="Digite Valor">
-							</div>
-						</div>
-						
-						<div class="col-lg-4 col-sm-12 col-md-4 col-xs-12 mb-2">
-							<button type="button" id="bt_add" class="btn btn-block btn-primary">{!! trans('messages.add') !!}</button>
-						</div>
-					</div>
-					<div class="row d-flex ">
-						<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-							<table id="detalles" class="table table-responsive table-striped   table-hover">
-								<thead style="background-color: #A9D0F5 ">
-									<th>Opciones</th>
-									<th>Vehiculo</th>
-									<th>Km.Salida</th>
-									<th>Km.Llegada</th>
-									<th>Conductor</th>
-								</thead>
-								<tbody></tbody>
-								<tfoot></tfoot>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 200"><path fill="#f3f4f5" fill-opacity="1" d="M0,128L60,122.7C120,117,240,107,360,96C480,85,600,75,720,96C840,117,960,171,1080,186.7C1200,203,1320,181,1380,170.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
-		
-			<hr>
-			<div class="form-row">
+			<div class="form-row"><!--Div Informacion ECU911-->
 				<div class='col-md-12'>
 					<div class="form-group">
 						<div class="input-group date">
@@ -150,6 +77,81 @@
 					<p class="text-sm-left" id="pcounter"></p>
 				</div>
 			</div>
+			<hr>
+			<div class="card"><!-- Ingreso Vehiculos Detalle -->
+				<div class="card-header">
+					{!! trans('messages.Vehicles in the Emergency') !!}
+				</div>
+				<div class="card-body">
+					<div class="row d-flex">
+						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+							<div class="form-group input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">{!! trans('messages.Vehicles') !!}</span>
+								</div>
+								<select class="form-control"   name="pvehiculo_id" id="pvehiculo_id">
+									<option value=""></option>
+									@foreach($vehiculos as $vehiculo)
+									<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+								<div class="form-group  input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputDetalle">Conductor</span>
+									</div>
+									<select class=" form-control"  name="pconductor_id" id="pconductor_id">
+										<option value=""></option>
+										@foreach($maquinistas as $maquinista)
+										<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>
+										@endforeach
+									</select>
+								</div>
+							</div>
+						<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+							<div class="form-group  input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Km.Salida</span>
+								</div>
+								<input type="number" class="form-control" name="km_salida" id="pkm_salida" placeholder="Digite Valor">
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+							<div class="form-group  input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="inputDetalle">Km.Llegada</span>
+								</div>
+								<input type="number" class="form-control" id="pkm_llegada" name="km_llegada" placeholder="Digite Valor">
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mb-2 ">
+							<button type="button" id="bt_add" class="btn btn-primary btn-block">{!! trans('messages.add') !!}</button>
+						</div>
+					</div>
+					<div class="row d-flex ">
+							<div class="col-lg-10 col-sm-10 col-md-10 col-xs-10">
+								<table id="detalles" class="table table-sm table-hover table-striped table-condensed">
+									<thead style="background-color: #A9D0F5 ">
+										<th>Opciones</th>
+										<th>Vehiculo</th>
+										<th>Km.Salida</th>
+										<th>Km.Llegada</th>
+										<th>Conductor</th>
+									</thead>
+									<tbody></tbody>
+									<tfoot></tfoot>
+								</table>
+							</div>
+					</div>
+				</div>
+			</div>
+			<hr>
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 200"><path fill="#f3f4f5" fill-opacity="1" d="M0,128L60,122.7C120,117,240,107,360,96C480,85,600,75,720,96C840,117,960,171,1080,186.7C1200,203,1320,181,1380,170.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+		
+			<hr>
+			
 			<div class="form-row"><!--Div Tipo Evento-->
 				<div class="form-group input-group col-md-5">
 					<div class="input-group-prepend">
@@ -243,8 +245,8 @@
 						
 					</div>
 					<div class="row">
-							<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-								<table id="persontable" class="table table-hover table-striped">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<table id="persontable" class="table table-sm table-hover table-striped table-condensed">
 									<thead>
 										<td>Eliminar</td>
 										<td>id</td>
@@ -353,6 +355,7 @@
 		</form>
 		
 		@push ('scripts')
+		<!-- Funciones for all pages-->
 		<script src="/js/funciones.js"></script>
 		<!-- Geolocalizacion  for all pages-->
 		<script src="/js/geocoder.js"></script>

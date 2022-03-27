@@ -84,38 +84,39 @@ class IncendioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SaveIncendioRequest $request) {
-       
-            try
-            {
-                $incendio = new Incendio;
-                $incendio->incidente_id = $request->incidente_id;
-                $incendio->tipo_escena = $request->tipo_escena;
-                $incendio->station_id = $request->station_id;
-                $incendio->fecha = $request->fecha;
-                $incendio->direccion = $request->direccion;
-                $incendio->parroquia_id = $request->parroquia_id;
-                $incendio->geoposicion = $request->geoposicion;
-                $incendio->ficha_ecu911 = $request->ficha_ecu911;
-                $incendio->hora_fichaecu911 = $request->hora_fichaecu911;
-                $incendio->hora_salida_a_emergencia = $request->hora_salida_a_emergencia;
-                $incendio->hora_llegada_a_emergencia = $request->hora_llegada_a_emergencia;
-                $incendio->hora_fin_emergencia = $request->hora_fin_emergencia;
-                $incendio->hora_en_base = $request->hora_en_base;
-                $incendio->informacion_inicial = $request->informacion_inicial;
-                $incendio->detalle_emergencia = $request->detalle_emergencia;
-                $incendio->usuario_afectado = $request->usuario_afectado;
-                $incendio->danos_estimados = $request->danos_estimados;
-                $incendio->usr_creador = auth()->user()->name;
-                
-                $incendio->save();
+    public function store(SaveIncendioRequest $request)
+    {
+          try
+          {
+              $incendio = new Incendio();
+     	        $incendio->incidente_id = $request->incidente_id;
+              $incendio->tipo_escena = $request->tipo_escena;
+    			    $incendio->station_id = $request->station_id;
+      			  $incendio->fecha = $request->fecha;
+    			    $incendio->direccion = $request->direccion;
+    			    $incendio->parroquia_id = $request->parroquia_id;
+    			    $incendio->geoposicion = $request->geoposicion;
+    			    $incendio->ficha_ecu911 = $request->ficha_ecu911;
+    			    $incendio->hora_fichaecu911 = $request->hora_fichaecu911;
+              $incendio->hora_salida_a_emergencia = $request->hora_salida_a_emergencia;
+    			    $incendio->hora_llegada_a_emergencia = $request->hora_llegada_a_emergencia;
+    			    $incendio->hora_fin_emergencia = $request->hora_fin_emergencia;
+    			    $incendio->hora_en_base = $request->hora_en_base;
+    			    $incendio->informacion_inicial = $request->informacion_inicial;
+    			    $incendio->detalle_emergencia = $request->detalle_emergencia;
+    			    $incendio->usuario_afectado = $request->usuario_afectado;
+    			    $incendio->danos_estimados = $request->danos_estimados;
+    			    $incendio->usr_creador = auth()->user()->name;
 
-                $id = DB::table('incendios')
-                         ->select(DB::raw('max(id) as id'))
-                         ->first();
-                /*
+    			    $incendio->save();
+
+              $id = DB::table('incendios')
+                  ->select(DB::raw('max(id) as id'))
+                  ->first();
+              /*
                 Sentencias para guardar Los personal que asisten al incidente
-                */
+                */  
+                
                 $cont=0;
                 $nombresstaff = $request->get('bomberman_id');
                 
@@ -124,11 +125,12 @@ class IncendioController extends Controller
                    
                     $maqui->incendios()->attach($id);
                     $cont+=1;
-                         }
-                
+                }
+
                 /*
                 Sentencias para guardar Los vehiculos que asisten al incidente
                 */
+
                 $cont=0;
                 $nombrevehiculo = $request->get('vehiculo_id');
                 $kmsalidavehiculo = $request->get('km_salida');
@@ -147,14 +149,17 @@ class IncendioController extends Controller
                         'driver_id' => $maqui->id]);
                   $cont=$cont+1;
                 }
-                Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
-                return redirect( "fuego" );
-            }
-            catch(\Exception $e)
-            {
-         
-            }
-        
+
+              
+              Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
+              return redirect( "fuego" );
+          }
+          catch(\Exception $e)
+          {
+              
+             
+          }
+  		
     }
 
     /**
@@ -163,11 +168,8 @@ class IncendioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public
-
-    function show( $id ) 
+    public function show( $id ) 
     {
-        //
         $incendio = Incendio::findOrFail( $id );
         return view( "fuego.show", compact( "incendio" ) );
     }
@@ -178,35 +180,34 @@ class IncendioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public
+    public function edit($id) {
+       
+      $incendio = Incendio::findOrFail( $id );
+      $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
+      
+      $maquinistas=User::where('cargo','Maquinista')
+      ->orderBy("name",'asc')
+      ->get();
+      
+      $incidentes = Incidente::where("tipo_incidente","10_70")
+      ->orderBy("nombre_incidente",'asc')
+      ->get();
+      
+      $usuarios = DB::table('users')->where([
+        ['cargo','=','Bombero'],
+      ])
+      ->orWhere('cargo','=','Paramedico')
+      ->orderBy("name",'asc')
+      ->get();
+    
+      $nropersonas = count($incendio->users);
+      $estaciones = Station::all();
+      $parroquias = Parroquia::all();
 
-    function edit($id) 
-    {
-        
-           
-            $incendio = Incendio::findOrFail( $id );
-            $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
-            
-            $maquinistas=User::where('cargo','Maquinista')
-            ->orderBy("name",'asc')
-            ->get();
-            $incidentes = Incidente::where('tipo_incidente','=','10_70')
-            ->orderBy("nombre_incidente",'asc')
-            ->get();
-            $estaciones = Station::all();
-            $parroquias = Parroquia::all();
+      return view( "fuego.edit", compact("nropersonas","incendio","vehiculos","usuarios","maquinistas","incidentes","estaciones","parroquias"));
+    
 
-            $usuarios = DB::table('users')->where([
-                ['cargo','=','Bombero'],
-              ])
-              ->orWhere('cargo','=','Paramedico')
-              ->orderBy("name",'asc')
-              ->get();
-            
-              $nropersonas = count($incendio->users);
-            return view( "fuego.edit", compact("nropersonas","usuarios","incendio","vehiculos","maquinistas","incidentes","estaciones","parroquias"));
-        
-    }
+}
 
     /**
      * Update the specified resource in storage.
@@ -215,81 +216,78 @@ class IncendioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public
-
-    function update( SaveIncendioRequest $request , $id ) 
-    {
-            try
-            {       
-                $incendio = Incendio::findOrFail( $id );
-                $incendio->update([
-                                   'incidente_id' => $request->incidente_id,
-                                   'tipo_escena' => $request->tipo_escena,
-                                   'station_id' => $request->station_id,
-                                   'fecha' => $request->fecha,
-                                   'direccion' => $request->direccion,
-                                   'parroquia_id' => $request->parroquia_id,
-                                   'geoposicion' => $request->geoposicion,
-                                   'ficha_ecu911' => $request->ficha_ecu911,
-                                   'hora_fichaecu911' => $request->hora_fichaecu911,
-                                   'hora_salida_a_emergencia' => $request->hora_salida_a_emergencia,
-                                   'hora_llegada_a_emergencia' => $request->hora_llegada_a_emergencia,
-                                   'hora_fin_emergencia' => $request->hora_fin_emergencia,
-                                   'hora_en_base' => $request->hora_en_base,
-                                   'informacion_inicial' => $request->informacion_inicial,
-                                   'detalle_emergencia' => $request->detalle_emergencia,
-                                   'usuario_afectado' => $request->usuario_afectado,
-                                   'danos_estimados' => $request->danos_estimados,
-                                   'usr_editor' => auth()->user()->name ]);
-
+    public function update(SaveIncendioRequest $request , $id )
+    {  
+      try
+      {
+        $incendio = Incendio::findOrFail( $id );
+        $incendio->update([
+                            'incidente_id' => $request->incidente_id,
+                            'tipo_escena' => $request->tipo_escena,
+                            'station_id' => $request->station_id,
+                            'fecha' => $request->fecha,
+                            'direccion' => $request->direccion,
+                            'parroquia_id' => $request->parroquia_id,
+                            'geoposicion' => $request->geoposicion,
+                            'ficha_ecu911' => $request->ficha_ecu911,
+                            'hora_fichaecu911' => $request->hora_fichaecu911,
+                            'hora_salida_a_emergencia' => $request->hora_salida_a_emergencia,
+                            'hora_llegada_a_emergencia' => $request->hora_llegada_a_emergencia,
+                            'hora_fin_emergencia' => $request->hora_fin_emergencia,
+                            'hora_en_base' => $request->hora_en_base,
+                            'informacion_inicial' => $request->informacion_inicial,
+                            'detalle_emergencia' => $request->detalle_emergencia,
+                            'usuario_afectado' => $request->usuario_afectado,
+                            'danos_estimados' => $request->danos_estimados,
+                            'usr_editor' => auth()->user()->name
+                         ]);
+        $incendio->users()->detach();
+        $incendio->vehiculos()->detach();
+        /*
+            Sentencias para guardar Los personal que asisten al incidente
+        */
+        $cont=0;
+        $nombresstaff = $request->get('bomberman_id');   
+        
+        while ($cont < count($nombresstaff)) {
+                $bombero = User::findOrFail($nombresstaff[$cont]);
+             
+                $bombero->incendios()->attach($id);
+                $cont=$cont+1;
+        }
+       
+        /*
+            Sentencias para guardar Los vehiculos que asisten al incidente
+        */
+        $cont=0;
+        $nombrevehiculo = $request->get('vehiculo_id');
+        $kmsalidavehiculo = $request->get('km_salida');
+        $kmllegadavehiculo = $request->get('km_llegada');
+        $driver_id= $request->get('driver_id');
+        
+        while ($cont < count($nombrevehiculo)) {
                
-                $id = DB::table('incendios')
-                         ->select(DB::raw('max(id) as id'))
-                         ->first();
-                /*
-                Sentencias para guardar Los personal que asisten al incidente
-                */
-                $cont=0;
-                $nombresstaff = $request->get('bomberman_id');
-                
-                while ($cont < count($nombresstaff)) {
-                    $maqui = User::findOrFail($nombresstaff[$cont]);
-                   
-                    $maqui->incendios()->attach($id);
-                    $cont=$cont+1;
-                         }
-                
-                /*
-                Sentencias para guardar Los vehiculos que asisten al incidente
-                */
-                $cont=0;
-                $nombrevehiculo = $request->get('vehiculo_id');
-                $kmsalidavehiculo = $request->get('km_salida');
-                $kmllegadavehiculo = $request->get('km_llegada');
-                $driver_id= $request->get('driver_id');
-                
-                while ($cont < count($nombrevehiculo)) {
-                   
-                  $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);
-                  $maqui = User::findOrFail($driver_id[$cont]);
-                  $carro->
-                  $carro->incendios()->attach(
-                      $id , [
-                        'km_salida' => $kmsalidavehiculo[$cont],
-                        'km_llegada' => $kmllegadavehiculo[$cont],
-                        'driver_id' => $maqui->id]);
-                  $cont=$cont+1;
-                }
-                Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
-                return redirect( "fuego" );
-            }
-            catch(\Exception $e)
-            {
+              $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);
+              // $maqui = User::findOrFail($driver_id[$cont]);
               
-              
-            }
-      
-    }
+              $carro->incendios()->attach(
+                  $id , [
+                    'km_salida' => $kmsalidavehiculo[$cont],
+                    'km_llegada' => $kmllegadavehiculo[$cont],
+                    'driver_id' => $driver_id[$cont]]);
+              $cont=$cont+1;
+        }
+
+        Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
+        return redirect( "fuego" );
+      }
+      catch(\Exception $e)
+      {
+         
+        
+      }
+  
+}
 
     /**
      * Remove the specified resource from storage.

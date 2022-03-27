@@ -48,7 +48,7 @@
 	<hr style="border:2px;">
 
 	@include('transito.search')
-	<table class="table table-hover table-condensed">
+	<table class="table table-hover table-responsive table-condensed">
 		<thead>
 			<tr class="table-info">
 				<th>id</th>

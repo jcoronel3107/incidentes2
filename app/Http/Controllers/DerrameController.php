@@ -37,7 +37,7 @@ class DerrameController extends Controller
           $busq_fecha = trim($request->get('busq_fecha'));
           $busq_usuarioafectado = trim($request->get('busq_usuarioafectado'));
           $derrames = Derrame::OrderBy('id','desc')
-          ->where("direccion",'LIKE','%'.$busq_direccion.'%')
+          ->where("address",'LIKE','%'.$busq_direccion.'%')
           ->where("station_id",'LIKE','%'.$busq_estacion.'%')
           ->where("fecha",'LIKE','%'.$busq_fecha.'%')
           ->where("usuario_afectado",'LIKE','%'.$busq_usuarioafectado.'%')
@@ -62,8 +62,8 @@ class DerrameController extends Controller
             ->get();
         $maquinistas = User::where("cargo","Maquinista")
             ->orderBy("name",'asc')
-         ->get();
-        $incidentes = Incidente::where("tipo_incidente","Hazmat")
+            ->get();
+        $incidentes = Incidente::where("tipo_incidente","Derrame")
             ->orderBy("nombre_incidente",'asc')
             ->get();
                      return view( "/derrame.crear", compact( "incidentes","now","estaciones","users","maquinistas", "parroquias","vehiculos" ) );
@@ -77,57 +77,80 @@ class DerrameController extends Controller
      */
     public function store(SaveDerrameRequest $request)
     {
-       
-        try
+          try
           {
-            $derrame = new Derrame;
-            $derrame->incidente_id = $request->incidente_id;
-            $derrame->tipo_escena = $request->tipo_escena;
-            $derrame->station_id = $request->station_id;
-            $derrame->fecha = $request->fecha;
-            $derrame->direccion = $request->address;
-            $derrame->parroquia_id = $request->parroquia_id;
-            $derrame->geoposicion = $request->geoposicion;
-            $derrame->ficha_ecu911 = $request->ficha_ecu911;
-            $derrame->hora_fichaecu911 = $request->hora_fichaecu911;
-            $derrame->hora_salida_a_emergencia = $request->hora_salida_a_emergencia;
-            $derrame->hora_llegada_a_emergencia = $request->hora_llegada_a_emergencia;
-            $derrame->hora_fin_emergencia = $request->hora_fin_emergencia;
-            $derrame->hora_en_base = $request->hora_en_base;
-            $derrame->informacion_inicial = $request->informacion_inicial;
-            $derrame->detalle_emergencia = $request->detalle_emergencia;
-            $derrame->usuario_afectado = $request->usuario_afectado;
-            $derrame->danos_estimados = $request->danos_estimados;
-            $derrame->usr_creador = auth()->user()->name;
-            $derrame->save();
-            $id = DB::table('derrames')
+              $rescate = new Derrame;
+              
+     	        $rescate->incidente_id = $request->incidente_id;
+              $rescate->tipo_escena = $request->tipo_escena;
+    			    $rescate->station_id = $request->station_id;
+      			  $rescate->fecha = $request->fecha;
+    			    $rescate->address = $request->address;
+    			    $rescate->parroquia_id = $request->parroquia_id;
+    			    $rescate->geoposicion = $request->geoposicion;
+    			    $rescate->ficha_ecu911 = $request->ficha_ecu911;
+    			    $rescate->hora_fichaecu911 = $request->hora_fichaecu911;
+              $rescate->hora_salida_a_emergencia = $request->hora_salida_a_emergencia;
+    			    $rescate->hora_llegada_a_emergencia = $request->hora_llegada_a_emergencia;
+    			    $rescate->hora_fin_emergencia = $request->hora_fin_emergencia;
+    			    $rescate->hora_en_base = $request->hora_en_base;
+    			    $rescate->informacion_inicial = $request->informacion_inicial;
+    			    $rescate->detalle_emergencia = $request->detalle_emergencia;
+    			    $rescate->usuario_afectado = $request->usuario_afectado;
+    			    $rescate->danos_estimados = $request->danos_estimados;
+    			    $rescate->usr_creador = auth()->user()->name;
+    			    $rescate->save();
+              
+              $id = DB::table('derrames')
                   ->select(DB::raw('max(id) as id'))
                   ->first();
-            $maqui = User::findOrFail($request->conductor_id);
-            $maqui->derrames()->attach($id);
-            $jefe = User::findOrFail($request->jefeguardia_id);
-            $jefe->derrames()->attach($id);
-            $bomb = User::findOrFail($request->bombero_id);
-            $bomb->derrames()->attach($id);
-            //para almacenar kilimetrajes por vehiculos asistentes al evento
-            $cont=0;
-            $nombrevehiculo = $request->get('vehiculo_id');
-            $kmsalidavehiculo = $request->get('km_salida');
-            $kmllegadavehiculo = $request->get('km_llegada');
-            
-            while ($cont < count($nombrevehiculo)) {
-                $carro = Vehiculo::findOrFail($nombrevehiculo[$cont]);
-                $carro->derrames()->attach(
-                    $id , ['km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
-                $cont=$cont+1;
-            }
+              /*
+                Sentencias para guardar Los personal que asisten al incidente
+              */  
+                
+                $cont=0;
+                $nombresstaff = $request->get('bomberman_id');
+                
+                while ($cont < count($nombresstaff)) {
+                    $maqui = User::findOrFail($nombresstaff[$cont]);
+                   
+                    $maqui->derrames()->attach($id);
+                    $cont+=1;
+                }
+
+                /*
+                Sentencias para guardar Los vehiculos que asisten al incidente
+                */
+
+                $cont=0;
+                $nombrevehiculo = $request->get('vehiculo_id');
+                $kmsalidavehiculo = $request->get('km_salida');
+                $kmllegadavehiculo = $request->get('km_llegada');
+                $driver_id= $request->get('driver_id');
+                
+                while ($cont < count($nombrevehiculo)) {
+                   
+                  $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);
+                  $maqui = User::findOrFail($driver_id[$cont]);
+                  
+                  $carro->derrames()->attach(
+                      $id , [
+                        'km_salida' => $kmsalidavehiculo[$cont],
+                        'km_llegada' => $kmllegadavehiculo[$cont],
+                        'driver_id' => $maqui->id]);
+                  $cont=$cont+1;
+                }
+
+              
               Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
-              return redirect( "/derrame" );
+              return redirect( "derrame" );
           }
           catch(\Exception $e)
           {
-              
+              dd($e);
+             
           }
+  		
     }
 
     /**
@@ -148,25 +171,34 @@ class DerrameController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {     
-            $derrame = Derrame::findOrFail( $id );
-            $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
-            $bomberos=User::where('cargo','bombero')
-            ->orderBy("name",'asc')
-            ->get();
-            $maquinistas=User::where('cargo','Maquinista')
-            ->orderBy("name",'asc')
-            ->get();
-            
-            $incidentes = Incidente::where("tipo_incidente","Hazmat")
-            ->orderBy("nombre_incidente",'asc')
-            ->get();
-            $estaciones = Station::all();
-            $parroquias = Parroquia::all();
+    function edit($id) {
+       
+      $derrame = Derrame::findOrFail( $id );
+      $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
+      
+      $maquinistas=User::where('cargo','Maquinista')
+      ->orderBy("name",'asc')
+      ->get();
+      
+      $incidentes = Incidente::where("tipo_incidente","Derrame")
+      ->orderBy("nombre_incidente",'asc')
+      ->get();
+      
+      $usuarios = DB::table('users')->where([
+        ['cargo','=','Bombero'],
+      ])
+      ->orWhere('cargo','=','Paramedico')
+      ->orderBy("name",'asc')
+      ->get();
+    
+      $nropersonas = count($derrame->users);
+      $estaciones = Station::all();
+      $parroquias = Parroquia::all();
 
-            return view( "derrame.edit", compact("derrame","vehiculos","bomberos","maquinistas","incidentes","estaciones","parroquias"));
-    }
+      return view( "derrame.edit", compact("nropersonas","derrame","vehiculos","usuarios","maquinistas","incidentes","estaciones","parroquias"));
+    
+
+}
 
     /**
      * Update the specified resource in storage.
@@ -175,63 +207,78 @@ class DerrameController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SaveDerrameRequest $request , $id)
-    {
+    function update(SaveDerrameRequest $request , $id ) {
+     
+          
+      try
+      {
+        $derrame = Derrame::findOrFail( $id );
+        $derrame->update([
+                            'incidente_id' => $request->incidente_id,
+                            'tipo_escena' => $request->tipo_escena,
+                            'station_id' => $request->station_id,
+                            'fecha' => $request->fecha,
+                            'address' => $request->address,
+                            'parroquia_id' => $request->parroquia_id,
+                            'geoposicion' => $request->geoposicion,
+                            'ficha_ecu911' => $request->ficha_ecu911,
+                            'hora_fichaecu911' => $request->hora_fichaecu911,
+                            'hora_salida_a_emergencia' => $request->hora_salida_a_emergencia,
+                            'hora_llegada_a_emergencia' => $request->hora_llegada_a_emergencia,
+                            'hora_fin_emergencia' => $request->hora_fin_emergencia,
+                            'hora_en_base' => $request->hora_en_base,
+                            'informacion_inicial' => $request->informacion_inicial,
+                            'detalle_emergencia' => $request->detalle_emergencia,
+                            'usuario_afectado' => $request->usuario_afectado,
+                            'danos_estimados' => $request->danos_estimados,
+                            'usr_editor' => auth()->user()->name
+                         ]);
+        $derrame->users()->detach();
+        $derrame->vehiculos()->detach();
+        /*
+            Sentencias para guardar Los personal que asisten al incidente
+        */
+        $cont=0;
+        $nombresstaff = $request->get('bomberman_id');   
         
-        try
-          { 
-            $derrame = Derrame::findOrFail( $id );
-            $derrame->update([
-                                'incidente_id' => $request->incidente_id,
-                                'tipo_escena' => $request->tipo_escena,
-                                'station_id' => $request->station_id,
-                                'fecha' => $request->fecha,
-                                'direccion' => $request->address,
-                                'parroquia_id' => $derrame->parroquia->id,
-                                'geoposicion' => $request->geoposicion,
-                                'ficha_ecu911' => $request->ficha_ecu911,
-                                'hora_fichaecu911' => $request->hora_fichaecu911,
-                                'hora_salida_a_emergencia' => $request->hora_salida_a_emergencia,
-                                'hora_llegada_a_emergencia' => $request->hora_llegada_a_emergencia,
-                                'hora_fin_emergencia' => $request->hora_fin_emergencia,
-                                'hora_en_base' => $request->hora_en_base,
-                                'informacion_inicial' => $request->informacion_inicial,
-                                'detalle_emergencia' => $request->detalle_emergencia,
-                                'usuario_afectado' => $request->usuario_afectado,
-                                'danos_estimados' => $request->danos_estimados,
-                                'usr_editor' => auth()->user()->name ]);
-            $derrame->users()->detach();
-            $jefeguardia = User::findOrFail($request->jefeguardia_id);
-            $jefeguardia->derrames()->attach($id);
-           
-            $bombero = User::findOrFail($request->bombero_id);
-            $bombero->derrames()->attach($id);
-
-            $maqui = User::findOrFail($request->conductor_id);
-            $maqui->derrames()->attach($id);
-
-            $cont=0;
-            $nombrevehiculo = $request->get('vehiculo_id');
-            $kmsalidavehiculo = $request->get('km_salida');
-            $kmllegadavehiculo = $request->get('km_llegada');
-            $derrame->vehiculos()->detach();
-            while ($cont < count($nombrevehiculo)) {
-                $carro = Vehiculo::findOrFail($nombrevehiculo[$cont]);
-                $carro->derrames()->attach(
-                  $id , [
-                    'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
-                $cont=$cont+1;
-            }
-            Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
-            return redirect( "/derrame" );
-        }
-        catch(\Exception $e)
-          {
+        while ($cont < count($nombresstaff)) {
+                $bombero = User::findOrFail($nombresstaff[$cont]);
              
-              
-          }
+                $bombero->derrames()->attach($id);
+                $cont=$cont+1;
+        }
        
-    }
+        /*
+            Sentencias para guardar Los vehiculos que asisten al incidente
+        */
+        $cont=0;
+        $nombrevehiculo = $request->get('vehiculo_id');
+        $kmsalidavehiculo = $request->get('km_salida');
+        $kmllegadavehiculo = $request->get('km_llegada');
+        $driver_id= $request->get('driver_id');
+        
+        while ($cont < count($nombrevehiculo)) {
+               
+              $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);
+              // $maqui = User::findOrFail($driver_id[$cont]);
+              
+              $carro->derrames()->attach(
+                  $id , [
+                    'km_salida' => $kmsalidavehiculo[$cont],
+                    'km_llegada' => $kmllegadavehiculo[$cont],
+                    'driver_id' => $driver_id[$cont]]);
+              $cont=$cont+1;
+        }
+
+        Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
+        return redirect( "derrame" );
+      }
+      catch(\Exception $e)
+      {
+        dd($e);
+      }
+  
+}
 
     /**
      * Remove the specified resource from storage.

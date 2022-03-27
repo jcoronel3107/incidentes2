@@ -151,7 +151,7 @@ class RescateController extends Controller
           }
           catch(\Exception $e)
           {
-              
+              dd($e);
              
           }
   		
@@ -279,7 +279,7 @@ class RescateController extends Controller
           }
           catch(\Exception $e)
           {
-             
+             dd($e);
             
           }
       

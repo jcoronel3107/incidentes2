@@ -1,11 +1,11 @@
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-secondary  sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
   <!-- Sidebar - Brand -->
   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
   
     <div class="sidebar-brand-icon rotate-n-15">
-       <i class="fas fa-ambulance vibrate-1"></i>
+       <i class="fas fa-ambulance"></i>
     </div>
     <div class="sidebar-brand-text mx-3">{!! trans('messages.name_app') !!}<sup>2</sup></div>
   </a>
@@ -98,7 +98,7 @@
   </li>
   <hr class="sidebar-divider"><!--   Divider --> 
   <div class="sidebar-heading"><!-- Heading Menu Talento Humano -->
-      {!! trans('messages.human talent administrative unit') !!}
+      {!! trans('messages.administrative unit') !!}
   </div>
     
   <hr class="sidebar-divider"><!-- Divider -->

@@ -47,7 +47,7 @@
 
 		<hr style="border:2px;">
 		@include('derrame.search')
-		<table class="table table-hover table-condensed">
+		<table class="table table-hover table-condensed table-responsive">
 			<thead>
 				<tr class="table-info">
 					<th>id</th>
@@ -66,7 +66,7 @@
 					<td>{{$derrame->incidente->nombre_incidente}}</td>
 					<td>{{$derrame->station->nombre}}</td>
 					<td>{{$derrame->fecha}}</td>
-					<td align="left">{{$derrame->direccion}}</td>
+					<td align="left">{{$derrame->address}}</td>
 					<td>{{$derrame->usuario_afectado}}</td>
 					<td>
 						@can('edit event')
