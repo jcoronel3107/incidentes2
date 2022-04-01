@@ -296,9 +296,7 @@ class SaludController extends Controller
             
             while ($cont < count($nombrevehiculo)) {
                    
-                  $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);
-                  // $maqui = User::findOrFail($driver_id[$cont]);
-                  
+                  $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);  
                   $carro->saluds()->attach(
                       $id , [
                         'km_salida' => $kmsalidavehiculo[$cont],
@@ -309,6 +307,7 @@ class SaludController extends Controller
             /*
                 Sentencias para guardar personal atendido en incidente
             */
+            $salud->pacientes()->detach();
             $cont=0;
             $frid = $request->get('frid');
             $frpaciente = $request->get('frpaciente');   
@@ -327,9 +326,13 @@ class SaludController extends Controller
             
 
             while ($cont < count($frpaciente)) {
-                    $paciente = Paciente::findOrFail($frpaciente[$cont]);
-                    $paciente->saluds()->attach($id);
-                    $cont=$cont+1;
+                    
+                      $salud->pacientes()->attach();
+                      $id , [
+                        'km_salida' => $kmsalidavehiculo[$cont],
+                        'km_llegada' => $kmllegadavehiculo[$cont],
+                        'driver_id' => $driver_id[$cont]]);
+                  $cont=$cont+1;
             }
 
             Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
