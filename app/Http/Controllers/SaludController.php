@@ -75,7 +75,7 @@ class SaludController extends Controller
             ->get();
 
          
-                return view( "/salud.crear", compact( "incidentes","now","estaciones","users","maquinistas", "parroquias","vehiculos","cies" ) );
+                return view( "salud.crear", compact( "incidentes","now","estaciones","users","maquinistas", "parroquias","vehiculos","cies" ) );
            
     }
 
@@ -111,31 +111,38 @@ class SaludController extends Controller
             $salud->detalle_emergencia = $request->detalle_emergencia;
             $salud->usr_creador = auth()->user()->name;
             $salud->save();
-            //para almacenar Bomberos asistentes al evento
             $id = DB::table('saluds')
-                ->select(DB::raw('max(id) as id'))
-                ->value('id');
-            $maqui = User::findOrFail($request->conductor_id);
-            $maqui->saluds()->attach($id);
-            $jefe = User::findOrFail($request->jefeguardia_id);
-            $jefe->saluds()->attach($id);
-            $bomb = User::findOrFail($request->bombero_id);
-            $bomb->saluds()->attach($id);
-
-            //para almacenar kilimetrajes por vehiculos asistentes al evento
+                  ->select(DB::raw('max(id) as id'))
+                  ->first();
+            /*
+                Sentencias para guardar Los personal que asisten al incidente
+            */  
+                
+            $cont=0;
+            $nombresstaff = $request->get('bomberman_id');            
+            while ($cont < count($nombresstaff)) {
+              $maqui = User::findOrFail($nombresstaff[$cont]);             
+              $maqui->saluds()->attach($id);
+              $cont+=1;
+            }
+            /*
+                Sentencias para guardar Los vehiculos que asisten al incidente
+            */
             $cont=0;
             $nombrevehiculo = $request->get('vehiculo_id');
             $kmsalidavehiculo = $request->get('km_salida');
             $kmllegadavehiculo = $request->get('km_llegada');
-            while ($cont < count($nombrevehiculo)) {
-                
-                $carro = Vehiculo::findOrFail($nombrevehiculo[$cont]);
-                $carro->saluds()->attach(
-                  $id , [
-                    'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
-                $cont=$cont+1;
-              }
-
+            $driver_id= $request->get('driver_id');    
+            while ($cont < count($nombrevehiculo)) {       
+                  $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);
+                  $maqui = User::findOrFail($driver_id[$cont]);
+                  $carro->saluds()->attach(
+                      $id , [
+                        'km_salida' => $kmsalidavehiculo[$cont],
+                        'km_llegada' => $kmllegadavehiculo[$cont],
+                        'driver_id' => $maqui->id]);
+                  $cont=$cont+1;
+                }
             //para almacenar personas asistidas en emergencia
             $cont=0;
             $cie10 = $request->get('frcie10');
@@ -153,13 +160,10 @@ class SaludController extends Controller
             $frrespiratoria = $request->get('frrespiratoria');
             $frcardiaca = $request->get('frcardiaca');
             $glicemia = $request->get('frglicemia');
+                
             while ($cont < count($cie10)) {
-                $paciente->salud_id = $id;
-                 $cie_id = DB::table('cies')
-                  ->where('codigo',$cie10[$cont])
-                  ->value('id');
-
-                $paciente->cie_id = $cie_id;
+                $paciente->salud_id = $id->id;
+                $paciente->cie_id = $cie10[$cont];
                 $paciente->paciente = $usuariof[$cont];
                 $paciente->edad = $edad[$cont];
                 $paciente->genero = $genero[$cont];
@@ -173,15 +177,16 @@ class SaludController extends Controller
                 $paciente->Frecuencia_Cardiaca = $frcardiaca[$cont];
                 $paciente->Frecuencia_Respiratoria = $frrespiratoria[$cont];
                 $paciente->Glicemia = $glicemia[$cont];
+                
                 $paciente->save();
                 $cont=$cont+1;
               }
               Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
-              return redirect( "/salud" );
+              return redirect( "salud" );
           }
           catch(\Exception $e)
           {
-              
+              dd($e);
           }
        
     }
@@ -206,13 +211,12 @@ class SaludController extends Controller
      */
     public function edit($id)
     {
-        if ( Auth::check() ) {
-            
+       
             $salud = Salud::findOrFail( $id );
            
 
             $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
-            $bomberos = DB::table('users')->where([
+            $usuarios = DB::table('users')->where([
               ['cargo','=','Bombero'],
             ])
             ->orWhere('cargo','=','Paramedico')
@@ -225,13 +229,13 @@ class SaludController extends Controller
             $incidentes = Incidente::where("tipo_incidente","10_38")
             ->orderBy("nombre_incidente",'asc')
             ->get();
+            $cies = Cie::where('nivel','=','3')->get();
             $estaciones = Station::all();
             $parroquias = Parroquia::all();
-           
-            return view( "salud.edit", compact("salud","vehiculos","bomberos","maquinistas","incidentes","estaciones","parroquias"));
-        } else {
-            return view( "/auth.login" );
-        }
+            $nropersonas = count($salud->users);
+            
+            return view( "salud.edit", compact("cies","nropersonas","salud","vehiculos","usuarios","maquinistas","incidentes","estaciones","parroquias"));
+        
     }
 
     /**
@@ -243,8 +247,6 @@ class SaludController extends Controller
      */
     public function update(SaveSaludRequest $request, $id)
     {
-        
-         
           try
           {
             $salud = Salud::findOrFail( $id );
@@ -266,39 +268,77 @@ class SaludController extends Controller
                                 'detalle_emergencia' => $request->detalle_emergencia,
                                 'usuario_afectado' => $request->usuario_afectado,
                                 'danos_estimados' => $request->danos_estimados,
-                                'usr_editor' => auth()->user()->name ]);
+                                'usr_editor' => auth()->user()->name
+                             ]);
             $salud->users()->detach();
-          
-
-            $jefeguardia = User::findOrFail($request->jefeguardia_id);
-            $jefeguardia->saluds()->attach($id);
-          
-            $bombero = User::findOrFail($request->bombero_id);
-            $bombero->saluds()->attach($id);
-          
-            $maqui = User::findOrFail($request->conductor_id);
-            $maqui->saluds()->attach($id);
-          
+            $salud->vehiculos()->detach();
+            /*
+                Sentencias para guardar Los personal que asisten al incidente
+            */
+            $cont=0;
+            $nombresstaff = $request->get('bomberman_id');   
+            
+            while ($cont < count($nombresstaff)) {
+                    $bombero = User::findOrFail($nombresstaff[$cont]);
+                 
+                    $bombero->saluds()->attach($id);
+                    $cont=$cont+1;
+            }
+           
+            /*
+                Sentencias para guardar Los vehiculos que asisten al incidente
+            */
             $cont=0;
             $nombrevehiculo = $request->get('vehiculo_id');
             $kmsalidavehiculo = $request->get('km_salida');
             $kmllegadavehiculo = $request->get('km_llegada');
-            $salud->vehiculos()->detach();
+            $driver_id= $request->get('driver_id');
+            
             while ($cont < count($nombrevehiculo)) {
-                
-                $carro = Vehiculo::findOrFail($nombrevehiculo[$cont]);
-                $carro->saluds()->attach(
-                  $id , [
-                    'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
-                $cont=$cont+1;
+                   
+                  $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);
+                  // $maqui = User::findOrFail($driver_id[$cont]);
+                  
+                  $carro->saluds()->attach(
+                      $id , [
+                        'km_salida' => $kmsalidavehiculo[$cont],
+                        'km_llegada' => $kmllegadavehiculo[$cont],
+                        'driver_id' => $driver_id[$cont]]);
+                  $cont=$cont+1;
             }
+            /*
+                Sentencias para guardar personal atendido en incidente
+            */
+            $cont=0;
+            $frid = $request->get('frid');
+            $frpaciente = $request->get('frpaciente');   
+            $fredad = $request->get('fredad');
+            $frgenero = $request->get('frgenero');
+            $frpresion1 = $request->get('frpresion1');
+            $frpresion2 = $request->get('frpresion2');
+            $frtemperatura = $request->get('frtemperatura');
+            $frglasglow = $request->get('frglasglow');
+            $frsaturacion = $request->get('frsaturacion');
+            $frcardiaca = $request->get('frcardiaca');
+            $frrespiratoria = $request->get('frrespiratoria');
+            $frglicemia = $request->get('frglicemia');
+            $frcasasalud = $request->get('frcasasalud');
+            $frcie10 = $request->get('frcie10');
+            
+
+            while ($cont < count($frpaciente)) {
+                    $paciente = Paciente::findOrFail($frpaciente[$cont]);
+                    $paciente->saluds()->attach($id);
+                    $cont=$cont+1;
+            }
+
             Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
-            return redirect( "/salud" );
+            return redirect( "salud" );
           }
           catch(\Exception $e)
           {
-             
-              
+             dd($e);
+            
           }
         
     }

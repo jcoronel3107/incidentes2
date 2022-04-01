@@ -7,13 +7,19 @@
 
 	@section( "cuerpo" )
 	<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">{!! trans('messages.Event Information Record 10-42') !!}</h2>
-	<ul class="nav justify-content-end">
-		<li class="nav-item">
-			<a class="btn btn-outline-info" data-toggle="tooltip" title="Whatsapp" role="button" onclick="notificacionWhatsapp();"><i class="icon-comments-alt icon-2x"></i></a>
-			<a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{route('transito.index')}}"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i>
-			</a>
-		</li>
-	</ul>
+	
+	<div class="form-row ">
+		<div class="input-group mb-3 justify-content-end">
+				 <div class="input-group-prepend">
+					<span title="Envia ubicaciòn a WhastApp" class="input-group-text"><i class="icon-comments-alt"></i></span>
+				 </div>
+				 <a class="btn btn-outline-info" data-toggle="tooltip" title="Whatsapp" role="button" onclick="notificacionWhatsapp();">WhatsApp</a>
+				 <div class="input-group-prepend ml-2">
+					<span class="input-group-text"><i class="fas fa-arrow-left"></i></span>
+				 </div>
+				 <a class="btn btn-outline-secondary" title="Regresar" role="button" href="{{ route('salud.index')}}">Regresar</a>   
+		 </div>
+	</div>
 	@if(count($errors)>0)
 		@foreach($errors->all() as $error)
 			<div class="alert alert-danger" role="alert">{{$error}}</div>

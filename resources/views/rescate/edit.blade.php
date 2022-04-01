@@ -171,8 +171,6 @@
 										<td>Nombres_Completos</td>
 									</thead>
 									
-									
-										
 										@foreach($rescate->users as $users)
 										<tr id="filabomber{{$cont = $cont + 1}}">
 											
@@ -244,7 +242,7 @@
 					<div class="row d-flex ">
 							<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
 								<table id="detalles" class="table table-hover">
-									<thead style="background-color: #A9D0F5 ">
+									<thead class="table-info">
 										<th>Opciones</th>
 										<th>Vehiculo</th>
 										<th>Km.Salida</th>
@@ -254,16 +252,14 @@
 									<tbody>
 										{{$cont = 0}}
 										@foreach($rescate->vehiculos as $items)
-										{{$cont = $cont + 1}}
-										<tr id="fila{{$cont}}">
-										<td><button type="button" class="btn btn-warning" onclick="eliminar('{{$cont}}')" type="button">X</button></td>
-										<td><input type="hidden" readonly class="form-control" name="vehiculo_id[]" value="{{$items->id}}">{{$items->codigodis}}</td>
-										<td><input type="text" readonly class="form-control" name="km_salida[]" value="{{$items->pivot->km_salida}}"></td>
-										<td><input type="text" readonly class="form-control" name="km_llegada[]" value="{{$items->pivot->km_llegada}}"></td>
-										<td><input type="hidden" readonly class="form-control" name="driver_id[]" value="{{$items->pivot->driver_id}}">{{$items->pivot->driver_id}}</td>
-										
-										</tr>
-										
+											{{$cont = $cont + 1}}
+											<tr id="fila{{$cont}}">
+											<td><button type="button" class="btn btn-warning" onclick="eliminar('{{$cont}}')" type="button">X</button></td>
+											<td><input type="text" readonly class="form-control" name="vehiculo_id[]" value="{{$items->id}}"></td>
+											<td><input type="text" readonly class="form-control" name="km_salida[]" value="{{$items->pivot->km_salida}}"></td>
+											<td><input type="text" readonly class="form-control" name="km_llegada[]" value="{{$items->pivot->km_llegada}}"></td>
+											<td><input type="text" readonly class="form-control" name="driver_id[]" value="{{$items->pivot->driver_id}}"></td>
+											</tr>
 										@endforeach
 									</tbody>
 									

@@ -9,14 +9,19 @@
 
 
 		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Registro Información de Eventos Rescate</h2>
-		<ul class="nav justify-content-end">
-			<li class="nav-item">
-
-				<a class="btn btn-outline-info" data-toggle="tooltip" title="Whatsapp" role="button" onclick="notificacionWhatsapp();"><i class="icon-comments-alt icon-2x"></i></a>
-
-				<a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('rescate.index')}}"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></a>
-			</li>
-		</ul>
+		
+		<div class="form-row ">
+			<div class="input-group mb-3 justify-content-end">
+                     <div class="input-group-prepend">
+                        <span title="Envia ubicaciòn a WhastApp" class="input-group-text"><i class="icon-comments-alt"></i></span>
+                     </div>
+					 <a class="btn btn-outline-info" data-toggle="tooltip" title="Whatsapp" role="button" onclick="notificacionWhatsapp();">WhatsApp</a>
+                     <div class="input-group-prepend ml-2">
+                        <span class="input-group-text"><i class="fas fa-arrow-left"></i></span>
+                     </div>
+					 <a class="btn btn-outline-secondary" title="Regresar" role="button" href="{{ route('rescate.index')}}">Regresar</a>   
+             </div>
+		</div>
 		@if(count($errors)>0)
 		@foreach($errors->all() as $error)
 		<div class="alert alert-danger" role="alert">
@@ -27,7 +32,7 @@
 		<form id="formulario" method="post" action="{{ route('rescate.store')}}">
 			<div class="form-row"><!--Div Fecha-->
 				{{csrf_field()}}
-				<div class="form-group input-group  col-md-4">
+				<div class="form-group input-group  col-md-6">
 					<div class="input-group-prepend">
 						<span class="input-group-text">{!! trans('messages.Date') !!}</span>
 					</div>
@@ -36,7 +41,7 @@
 			</div>
 			
 			<div class="form-row "><!--Div Informacion ECU911-->
-				<div class='col-md-4'>
+				<div class='col-md-10'>
 					<div class="form-group">
 						<div class="input-group">
 							<div class="input-group-prepend">
@@ -47,7 +52,7 @@
 						</div>
 					</div>
 				</div>
-				<div class='col-md-4'>
+				<div class='col-md-12'>
 					<div class="form-group">
 						<div class="input-group">
 							<div class="input-group-prepend">
@@ -67,7 +72,7 @@
 				</div>
 				<div class="card-body">
 					<div class="row d-flex">
-						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<div class="form-group input-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text">{!! trans('messages.Vehicles') !!}</span>
@@ -80,7 +85,7 @@
 								</select>
 							</div>
 						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<div class="form-group  input-group">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="inputDetalle">Conductor</span>
@@ -93,7 +98,7 @@
 									</select>
 								</div>
 							</div>
-						<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
 							<div class="form-group  input-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text">Km.Salida</span>
@@ -101,7 +106,7 @@
 								<input type="number" class="form-control" name="km_salida" id="pkm_salida" placeholder="Digite Valor">
 							</div>
 						</div>
-						<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
 							<div class="form-group  input-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="inputDetalle">Km.Llegada</span>
@@ -109,12 +114,12 @@
 								<input type="number" class="form-control" id="pkm_llegada" name="km_llegada" placeholder="Digite Valor">
 							</div>
 						</div>
-						<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mb-2 ">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-2 ">
 							<button type="button" id="bt_add" class="btn btn-primary btn-block">{!! trans('messages.add') !!}</button>
 						</div>
 					</div>
 					<div class="row d-flex ">
-							<div class="col-lg-10 col-sm-10 col-md-10 col-xs-10">
+							<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
 								<table id="detalles" class="table table-sm table-hover table-striped table-condensed">
 									<thead style="background-color: #A9D0F5 ">
 										<th>Opciones</th>
@@ -146,7 +151,7 @@
 
 			<div class="counter" id="pcounter"></div>
 			<div class="form-row"><!--Div Tipo Evento-->
-				<div class="form-group input-group col-md-5">
+				<div class="form-group input-group col-md-12">
 					<div class="input-group-prepend">
 						<span class="input-group-text">{!! trans('messages.Incident') !!}</span>
 					</div>
@@ -158,7 +163,7 @@
 					</select>
 				</div>
 
-				<div class="form-group input-group col-md-3">
+				<div class="form-group input-group col-md-6">
 					<div class="input-group-prepend">
 						<span class="input-group-text">{!! trans('messages.scene') !!}</span>
 					</div>
@@ -170,7 +175,7 @@
 						<option value="Tipo 4">Tipo 4</option>
 					</select>
 				</div>
-				<div class="form-group input-group col-md-4">
+				<div class="form-group input-group col-md-6">
 					<div class="input-group-prepend">
 						<span class="input-group-text">{!! trans('messages.Station') !!}</span>
 					</div>
@@ -185,14 +190,14 @@
 			
 			<div class="form-row"><!--Div Ubicacion Evento-->
 
-				<div class="form-group input-group col-md-4">
+				<div class="form-group input-group col-md-12">
 					<div class="input-group-prepend">
 						<span class="input-group-text">{!! trans('messages.Address') !!}</span>
 					</div>
 					<textarea class="form-control" id="pdireccion" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion')}}</textarea>
 					<input type="button" value="Encode" onclick="codeAddress()">
 				</div>
-				<div class="form-group input-group input-group-prepend col-md-4">
+				<div class="form-group input-group input-group-prepend col-md-6">
 					<div>
 						<span class="input-group-text">{!! trans('messages.Parishes') !!}</span>
 					</div>
@@ -204,7 +209,7 @@
 					</select>
 					<a rel="nofollow noopener noreferrer" href="{{asset('files/MapaCuenca.pdf')}}" target="_blank" role="button" data-toggle="tooltip" title="Mapa" class="btn btn-outline-info"><i class="icon-file icon-2x"></i></a>
 				</div>
-				<div class="form-group input-group col-md-4">
+				<div class="form-group input-group col-md-6">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputAddress">Geoposicion</span>
 					</div>
@@ -253,7 +258,7 @@
 			</div>
 			<hr>
 			<div class="form-row"><!--Div Horas Evento-->
-				<div class="form-group  input-group col-md-6">
+				<div class="form-group  input-group col-md-12">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Salida A Emergencia</span>
 					</div>
@@ -262,7 +267,7 @@
 						<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual" id="horactual"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 					</div>
 				</div>
-				<div class="form-group  input-group col-md-6">
+				<div class="form-group  input-group col-md-12">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Llegada A Emergencia</span>
 					</div>
@@ -274,7 +279,7 @@
 			</div>
 			
 			<div class="form-row"><!--Div Horas Evento-->
-				<div class="form-group  input-group col-md-6">
+				<div class="form-group  input-group col-md-12">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora Fin Emergencia</span>
 					</div>
@@ -283,7 +288,7 @@
 						<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual2" id="horactual2"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 					</div>
 				</div>
-				<div class="form-group  input-group col-md-6">
+				<div class="form-group  input-group col-md-12">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputDetalle">Hora En Base</span>
 					</div>

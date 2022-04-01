@@ -24,7 +24,8 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {		
-		  return $request->session()->all();
+		//   return $request->session()->all();
+        redirect("/");
     }
 
     

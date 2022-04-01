@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 Route::get('/',										'PagesController@index');
-Route::get('/home',									'HomeController@index')->middleware('auth');
+Route::get('/home',									'PagesController@index');
 Auth::routes();
 /* -----------------------------------------------------------------------------------
 /                                   Cambio de Idioma 

@@ -7,27 +7,24 @@
 @endsection
 
 @section( "cuerpo" )
-	<div class="row mb-3 d-flex justify-content-center">
-		<div id="carouselExampleCaptions" class="carousel slide " data-ride="carousel">
-			<ol class="carousel-indicators">
-				<li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-				<li data-target="#carouselExampleCaptions" data-slide-to="1" ></li>
-				<li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-			</ol>
+	<div class="row mb-3 justify-content-center">
+		<div id="carouselExampleSlidesOnly" class="carousel slide " data-ride="carousel">
+			
 			<div class="carousel-inner">
 				<div class="carousel-item active ">
-					<img style="opacity: 0.3; width: 70%; height: auto;" src="/images/logotipo-05.jpg" class="d-block" alt="BCBVC">
+					<img style="opacity: 0.3; width: 70%; height: auto;" src="/images/logotipo-05.jpg" class="dd-block w-100" alt="BCBVC">
 				</div>
 				<div class="carousel-item">
 					<!-- Div Clima -->
-						<div class="card">
-							<h6 class="card-header text-white bg-secondary">
-								<div id="topbar">Clima<span id="searchicon">🔍</span></div>
+						<div class="card d-block w-100">
+							<h4 class="card-header text-white bg-secondary">
+							
 								<div id="searchbox">
-									<input type="text" id="search" placeholder="Digite Nombre Ciudad">
+									<input type="text" id="search" placeholder="Digite Ciudad">
 									<button>Search</button>
 								</div>
-							</h6>
+								<div id="topbar">Clima<span id="searchicon">🔍</span></div>
+							</h4>
 							<div class="card-body">
 								<center>
 									<div id="mainbody">
@@ -66,14 +63,7 @@
 						</div>
 				</div>
 			</div>
-			<a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				<span class="sr-only">Previous</span>
-			</a>
-			<a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-				<span class="carousel-control-next-icon" aria-hidden="true"></span>
-				<span class="sr-only">Next</span>
-			</a>
+			
 		</div>
 	</div>
 	

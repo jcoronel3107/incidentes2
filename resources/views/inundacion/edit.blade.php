@@ -24,7 +24,7 @@
 	<form method="post" action="/inundacion/{{$inundacion->id}}">
 		@csrf @method('PATCH')
 		<div class="form-row"><!--Div Fecha-->
-			<div class="form-group input-group  col-md-6">
+			<div class="form-group input-group  col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text">{!! trans('messages.Date') !!}</span>
 				</div>
@@ -33,7 +33,7 @@
 		</div>
 		
 		<div class="form-row "><!--Div Informacion ECU911-->
-			<div class='col-md-4'>
+			<div class='col-md-12'>
 				<div class="form-group">
 					<div class="input-group">
 						<div class="input-group-prepend">
@@ -43,7 +43,7 @@
 					</div>
 				</div>
 			</div>
-			<div class='col-md-4'>
+			<div class='col-md-12'>
 				<div class="form-group">
 					<div class="input-group">
 						<div class="input-group-prepend">
@@ -69,11 +69,11 @@
 			</div>
 		</div>
 		<div class="form-row"><!--Div Tipo Evento-->
-			<div class="form-group input-group col-md-5">
+			<div class="form-group input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text">{!! trans('messages.Incident') !!}</span>
 				</div>
-				<select class="selectpicker form-control" data-live-search="true" name="incidente_id" id="incidente_id">
+				<select class="form-control"  name="incidente_id" id="incidente_id">
 					<option value="{{$inundacion->incidente->id}}" selected>{{old('incidente_id',$inundacion->incidente->nombre_incidente)}}</option>
 					@foreach($incidentes as $incidente)
 					<option value="{{$incidente->id}}">{{$incidente->nombre_incidente}}</option>
@@ -81,11 +81,11 @@
 				</select>
 			</div>
 
-			<div class="form-group input-group col-md-3">
+			<div class="form-group input-group col-md-6">
 				<div class="input-group-prepend">
 					<span class="input-group-text">{!! trans('messages.scene') !!}</span>
 				</div>
-				<select class="selectpicker form-control" data-live-search="true" name="tipo_escena">
+				<select class="form-control"  name="tipo_escena">
 					<option selected>{{old('tipo_escena',$inundacion->tipo_escena)}}</option>
 					<option value="Tipo 1">Tipo 1</option>
 					<option value="Tipo 2">Tipo 2</option>
@@ -93,11 +93,11 @@
 					<option value="Tipo 4">Tipo 4</option>
 				</select>
 			</div>
-			<div class="form-group input-group col-md-4">
+			<div class="form-group input-group col-md-6">
 				<div class="input-group-prepend">
 					<span class="input-group-text">{!! trans('messages.Station') !!}</span>
 				</div>
-				<select class="selectpicker form-control" data-live-search="true" name="station_id">
+				<select class="form-control"  name="station_id">
 					<option value="{{$inundacion->station->id}}" selected>{{old('estacion_id',$inundacion->station->nombre)}}</option>
 					@foreach($estaciones as $estacion)
 					<option value="{{$estacion->id}}">{{$estacion->nombre}}</option>
@@ -107,18 +107,18 @@
 		</div>
 		
 		<div class="form-row"><!--Div Ubicacion Evento-->
-			<div class="form-group input-group col-md-4">
+			<div class="form-group input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text">{!! trans('messages.Address') !!}</span>
 				</div>
 				<textarea class="form-control" id="pdireccion" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$inundacion->direccion)}}</textarea>
 				<input type="button" value="Encode" onclick="codeAddress()">
 			</div>
-			<div class="form-group input-group input-group-prepend col-md-4">
+			<div class="form-group input-group input-group-prepend col-md-12">
 				<div>
 					<span class="input-group-text">{!! trans('messages.Parishes') !!}</span>
 				</div>
-				<select class="selectpicker form-control" data-live-search="true" name="parroquia_id" >
+				<select class="form-control" name="parroquia_id" >
 					<option selected>{{old('parroquia_id',$inundacion->parroquia->nombre)}}</option>
 					@foreach($parroquias as $parroquia)
 					<option>{{$parroquia->nombre}}</option>
@@ -126,7 +126,7 @@
 				</select>
 				<a rel="nofollow noopener noreferrer" href="{{asset('files/MapaCuenca.pdf')}}" target="_blank" role="button" data-toggle="tooltip" title="Mapa" class="btn btn-outline-info"><i class="icon-file icon-2x"></i></a>
 			</div>
-			<div class="form-group input-group col-md-4">
+			<div class="form-group input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputAddress">Geoposicion</span>
 				</div>
@@ -188,35 +188,47 @@
 			</div>
 		</div>
 		<hr>
-		<!--Div Personal que asiste Evento-->
-		<div class="form-row">
-			<div class="form-group  input-group col-md-4">
+		<div class="form-row"><!--Div Horas Evento-->
+			<div class="form-group  input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Salida A Emergencia</span>
 				</div>
-				<input type="text" class="form-control" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" value="{{old('hora_salida_a_emergencia',$inundacion->hora_salida_a_emergencia)}}" placeholder="hh:mm:ss">
+				<input type="text" class="form-control" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" value="{{old('hora_salida_a_emergencia',$inundacion->hora_salida_a_emergencia)}}" onblur="CheckTime(this);" placeholder="hh:mm:ss" required="">
+				<div class="input-group-append">
+					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual" id="horactual"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+				</div>
 			</div>
-			<div class="form-group  input-group col-md-4">
+			<div class="form-group  input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Llegada A Emergencia</span>
 				</div>
-				<input type="text" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm:ss" value="{{old('hora_llegada_a_emergencia',$inundacion->hora_llegada_a_emergencia)}}">
+				<input type="text" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" value="{{old('hora_llegada_a_emergencia',$inundacion->hora_llegada_a_emergencia)}}" placeholder="hh:mm:ss" onblur="CheckTime(this);" required="">
+				<div class="input-group-append">
+					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual1" id="horactual1"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+				</div>
 			</div>
-		</div>{{--Div Horas Evento--}}
-		<div class="form-row">
-			<div class="form-group  input-group col-md-6">
+		</div>
+		
+		<div class="form-row"><!--Div Horas Evento-->
+			<div class="form-group  input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Fin Emergencia</span>
 				</div>
-				<input type="text" class="form-control" name="hora_fin_emergencia" id="hora_fin_emergencia" placeholder="hh:mm:ss" value="{{old('hora_fin_emergencia',$inundacion->hora_fin_emergencia)}}">
+				<input type="text" class="form-control" name="hora_fin_emergencia" value="{{old('hora_fin_emergencia',$inundacion->hora_fin_emergencia)}}" id="hora_fin_emergencia" onblur="CheckTime(this);" placeholder="hh:mm:ss">
+				<div class="input-group-append">
+					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual2" id="horactual2"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+				</div>
 			</div>
-			<div class="form-group  input-group col-md-6">
+			<div class="form-group  input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora En Base</span>
 				</div>
-				<input type="text" class="form-control" name="hora_en_base" id="hora_en_base" placeholder="hh:mm:ss" value="{{old('hora_en_base',$inundacion->hora_en_base)}}">
+				<input type="text" class="form-control" name="hora_en_base" value="{{old('hora_en_base',$inundacion->hora_en_base)}}" id="hora_en_base" onblur="CheckTime(this);" placeholder="hh:mm:ss">
+				<div class="input-group-append">
+					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual3" id="horactual3"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+				</div>
 			</div>
-		</div>{{--Div Horas Evento--}}
+		</div>
 		<div class="form-row">
 			<div class="col-lg-12 col-md-12 col-sm-12">
 				<div class="form-group input-group">
@@ -246,7 +258,7 @@
 			</div>
 		</div>{{-- Daños Estimados --}}
 
-		{{--Vehiculos asisten emergencia --}}
+		
 		<hr>
 			<div class="card  mb-2"><!-- Ingreso Vehiculos Detalle -->
 				<div class="card-header">

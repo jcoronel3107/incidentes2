@@ -19,7 +19,7 @@ use App\Exports\RescatesExport;
 use App\Imports\RescatesImport;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\ItemNotFoundException;
 
 class RescateController extends Controller
 {
@@ -199,10 +199,8 @@ class RescateController extends Controller
             $nropersonas = count($rescate->users);
             $estaciones = Station::all();
             $parroquias = Parroquia::all();
-
+              
             return view( "rescate.edit", compact("nropersonas","rescate","vehiculos","usuarios","maquinistas","incidentes","estaciones","parroquias"));
-          
-     
     }
     /**
      * Update the specified resource in storage.

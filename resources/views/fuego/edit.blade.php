@@ -142,59 +142,58 @@
 		<div onload="initMap()" id="map" style="width: 100%; height: 280px;"></div>
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="0.1" d="M0,224L48,192C96,160,192,96,288,106.7C384,117,480,203,576,208C672,213,768,139,864,128C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,224L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z" style="--darkreader-inline-fill: #3d86b6;" data-darkreader-inline-fill=""></path></svg>
 		
+		<hr>
+
 		<div class="card"><!-- Div Personal en Emergencia -->
-			<div class="card-header">
-				{!! trans('messages.staff in the emergency') !!}
-			</div>
-			<div class="card-body">
-				
-				<div class="form-row">
-					<div class="form-group input-group col-lg-12 col-md-12 col-sm-12 col.xs-12 mr-4">
-						<div class="input-group-prepend">
-							<span class="input-group-text">Bombero</span>
-						</div>
-						<select class="selectpicker form-control" data-live-search="true" id="pbombero_id" name="bombero_id">
-							<option selected >{{old('bombero_id')}}</option>
-							@foreach($usuarios as $user)
-							
-							<option value="{{$user->id}}">{{$user->name}}</option>
-							@endforeach
-						</select>	
-					</div>
-					<button type="button" id="bt_addperson" class="btn btn-primary btn-block ml-4 mr-4 mb-4">{!! trans('messages.add') !!}</button>
+				<div class="card-header">
+					{!! trans('messages.staff in the emergency') !!}
 				</div>
-				<div class="row">
-						<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-						<input id="nropersonas" type="hidden" value="{{$nropersonas}}"># Pers{{$cont = 0}}nas:. {{$nropersonas}}
-						<table id="persontable" class="table table-hover table-striped">
-						
-							<thead>
-									<td>Eliminar</td>
-									<td>#</td>
-									<td>id</td>
-									<td>Nombres_Completos</td>
-								</thead>
-								<tbody></tbody>
+				<div class="card-body">
+					
+					<div class="form-row">
+						<div class="form-group input-group col-lg-12 col-md-12 col-sm-12 col.xs-12 mr-4">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Bombero</span>
+							</div>
+							<select class="selectpicker form-control" data-live-search="true" id="pbombero_id" name="bombero_id">
+								<option selected >{{old('bombero_id')}}</option>
+								@foreach($usuarios as $user)
 								
-									
-									@foreach($incendio->users as $users)
-									<tr id="fila{{$cont = $cont + 1}}">
-										
-										<td><button type="button" class="btn btn-warning" onclick="eliminar('{{$cont}}')" type="button">X</button></td>
-										<td>{{$cont}}</td>
-										<td><input type="hidden" class="form-control" name="user_id[]" value="{{$users->id}}">{{$users->id}}</td>
-										<td><input type="hidden" class="form-control" name="user_name[]" value="{{$users->name}}">{{$users->name}}</td>
-									</tr>
-									
-									@endforeach
-							</table>
+								<option value="{{$user->id}}">{{$user->name}}</option>
+								@endforeach
+							</select>	
 						</div>
-				 </div>
-				 
-			</div>
+						<button type="button" id="bt_addpersonedit" class="btn btn-primary btn-block ml-4 mr-4 mb-4">{!! trans('messages.add') !!}</button>
+					</div>
+					<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<input id="nropersonas" type="hidden" value="{{$nropersonas}}"># Pers{{$cont = 0}}nas:. {{$nropersonas}}
+							<table id="persontable" class="table table-hover">
+							
+								<thead>
+										<td>Eliminar</td>
+										<td>id</td>
+										<td>Nombres_Completos</td>
+									</thead>
+									
+									
+										
+										@foreach($incendio->users as $users)
+										<tr id="filabomber{{$cont = $cont + 1}}">
+											
+											<td><button type="button" class="btn btn-warning" onclick="eliminarbomberman('{{$cont}}')" type="button">X</button></td>
+											<td for="id"><input type="hidden" class="form-control" id="bomberman_id[]" name="bomberman_id[]" value="{{$users->id}}">{{$users->id}}</td>
+											<td><input type="hidden" class="form-control" id="bomberman_name[]" name="bomberman_name[]" value="{{$users->name}}">{{$users->name}}</td>
+										</tr>
+										
+										@endforeach
+								</table>
+							</div>
+					</div>
+					
+				</div>
 		</div>
 		<hr>
-		
 		
 		
 		<div class="form-row"><!--Div Horas Evento-->
