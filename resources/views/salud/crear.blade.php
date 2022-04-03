@@ -503,7 +503,7 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-						<table id="detallespaciente" class="table table-responsive table-hover">
+						<table id="detallespaciente" class="table table-sm table-responsive table-hover">
 							<thead class="table-info">
 								<th>Opciones</th>
 								<th>Nombres</th>
@@ -548,16 +548,15 @@
 
 		<div class="form-group py-3 " id="divguardar">
 			<input type="hidden" name="token" value="{{csrf_token()}}">
-			<ul class="nav justify-content-end">
-				<li class="nav-item">
-					<a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('salud.index')}}"><i class="icon-remove icon-2x"></i>
-					</a>
+				<div class="input-group mb-3 justify-content-end">
+					<div class="input-group-prepend ml-2">
+						<span class="input-group-text"><i class="fas fa-arrow-left"></i></span>
+					 </div>
+					<a class="btn btn-outline-secondary" title="Regresar" role="button" href="{{ route('salud.index')}}">Regresar</a>   
+					
 					<button type="submit" id="Enviar" name="Enviar" value="Enviar" data-toggle="tooltip" title="Grabar" class="btn btn-outline-success"><i class="icon-ok icon-2x"></i></button>
-
-					<a class="btn btn-outline-info" type="reset" name="Borrar" value="Borrar" data-toggle="tooltip" title="Borrar" role="button"><i class="icon-eraser icon-2x"></i>
 					</a>
-				</li>
-			</ul>
+				</div>
 		</div>
 	</form>
 	

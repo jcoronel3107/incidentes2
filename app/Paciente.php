@@ -27,7 +27,8 @@ class Paciente extends Model
 			"casasalud",
 			"Frecuencia_Cardiaca",
 			"Frecuencia_Respiratoria",
-			"Glicemia"
+			"Glicemia",
+			"hojapre"
 		];
 	protected static $logFillable = true;
 

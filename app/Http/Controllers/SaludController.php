@@ -87,11 +87,8 @@ class SaludController extends Controller
      */
     public function store(SaveSaludRequest $request)
     {
-       
-         
           try
           {
-          
             $salud = new Salud;
             $paciente = new Paciente;
             $salud->incidente_id = $request->incidente_id;
@@ -141,12 +138,15 @@ class SaludController extends Controller
                         'km_salida' => $kmsalidavehiculo[$cont],
                         'km_llegada' => $kmllegadavehiculo[$cont],
                         'driver_id' => $maqui->id]);
-                  $cont=$cont+1;
-                }
+                  $cont+=1;
+            }
             //para almacenar personas asistidas en emergencia
             $cont=0;
+            $id=DB::table('saluds')
+                  ->select('id')
+                  ->latest('created_at')
+                  ->first();
             $cie10 = $request->get('frcie10');
-            
             $usuariof = $request->get('frpaciente');
             $edad = $request->get('fredad');
             $genero = $request->get('frgenero');
@@ -160,27 +160,33 @@ class SaludController extends Controller
             $frrespiratoria = $request->get('frrespiratoria');
             $frcardiaca = $request->get('frcardiaca');
             $glicemia = $request->get('frglicemia');
+            $id = $id->id;
+            
+            while ($cont < count($usuariof)) {
                 
-            while ($cont < count($cie10)) {
-                $paciente->salud_id = $id->id;
-                $paciente->cie_id = $cie10[$cont];
-                $paciente->paciente = $usuariof[$cont];
-                $paciente->edad = $edad[$cont];
-                $paciente->genero = $genero[$cont];
-                $paciente->presion1 = $presion1[$cont];
-                $paciente->presion2 = $presion2[$cont];
-                $paciente->temperatura = $temperatura[$cont];
-                $paciente->glasglow = $glasglow[$cont];
-                $paciente->saturacion = $saturacion[$cont];
-                $paciente->hojapre = $hoja[$cont];
-                $paciente->casasalud = $casasalud[$cont];
-                $paciente->Frecuencia_Cardiaca = $frcardiaca[$cont];
-                $paciente->Frecuencia_Respiratoria = $frrespiratoria[$cont];
-                $paciente->Glicemia = $glicemia[$cont];
                 
+                $paciente= new paciente([
+                  'salud_id' => $id,
+                  'cie_id' => $cie10[$cont],
+                  'paciente' => $usuariof[$cont],
+                  'edad' => $edad[$cont],
+                  'genero' => $genero[$cont],
+                  'presion1' => $presion1[$cont],
+                  'presion2' => $presion2[$cont],
+                  'temperatura' => $temperatura[$cont],
+                  'glasglow' => $glasglow[$cont],
+                  'saturacion' => $saturacion[$cont],
+                  'hojapre' => $hoja[$cont],
+                  'casasalud' => $casasalud[$cont],
+                  'Frecuencia_Cardiaca' => $frcardiaca[$cont],
+                  'Frecuencia_Respiratoria' => $frrespiratoria[$cont],
+                  'Glicemia' => $glicemia[$cont]
+                ]);
+                $cont+=1;
                 $paciente->save();
-                $cont=$cont+1;
-              }
+            }
+              
+              
               Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
               return redirect( "salud" );
           }
@@ -307,33 +313,50 @@ class SaludController extends Controller
             /*
                 Sentencias para guardar personal atendido en incidente
             */
-            $salud->pacientes()->detach();
             $cont=0;
             $frid = $request->get('frid');
-            $frpaciente = $request->get('frpaciente');   
-            $fredad = $request->get('fredad');
-            $frgenero = $request->get('frgenero');
-            $frpresion1 = $request->get('frpresion1');
-            $frpresion2 = $request->get('frpresion2');
-            $frtemperatura = $request->get('frtemperatura');
-            $frglasglow = $request->get('frglasglow');
-            $frsaturacion = $request->get('frsaturacion');
-            $frcardiaca = $request->get('frcardiaca');
-            $frrespiratoria = $request->get('frrespiratoria');
-            $frglicemia = $request->get('frglicemia');
-            $frcasasalud = $request->get('frcasasalud');
-            $frcie10 = $request->get('frcie10');
+            $cieid = $request->get('frcie10');
+            $pacienteid= $request->get('frpaciente');
+            $edad = $request->get('fredad');
+            $genero = $request->get('frgenero');
+            $presion1 = $request->get('frpresion1');
+            $presion2 = $request->get('frpresion2');
+            $temperatura = $request->get('frtemperatura');
+            $glasglow = $request->get('frglasglow');
+            $saturacion = $request->get('frsaturacion');
+            $Frecuencia_Cardiaca = $request->get('frcardiaca');
+            $Frecuencia_Respiratoria = $request->get('frrespiratoria');
+            $Glicemia = $request->get('frglicemia');
+            $casasalud = $request->get('frcasasalud');
+            $hoja = $request->get('frhoja');
+            
+            while ($cont < count($frid)) {
+              
+              $paciente = paciente::findOrFail($frid[$cont]);
+              
+              $paciente->update([
+                'salud_id' => $id, 
+                'cie_id' => $cieid[$cont],
+                'paciente' => $pacienteid[$cont],
+                'edad' => $edad[$cont],
+                'genero' => $genero[$cont],
+                'presion1' => $presion1[$cont],
+                '$presion2' => $presion2[$cont],
+                'temperatura' => $temperatura[$cont],
+                'glasglow' => $glasglow[$cont],
+                'saturacion' => $saturacion[$cont],
+                'Frecuencia_Cardiaca' => $Frecuencia_Cardiaca[$cont],
+                'Frecuencia_Respiratoria' => $Frecuencia_Respiratoria[$cont],
+                'Glicemia' => $Glicemia[$cont],
+                'hojapre' => $hoja[$cont],
+                'casasalud' => $casasalud[$cont],
+
+              ]);
+              $cont=$cont+1;
+            }
             
 
-            while ($cont < count($frpaciente)) {
-                    
-                      $salud->pacientes()->attach();
-                      $id , [
-                        'km_salida' => $kmsalidavehiculo[$cont],
-                        'km_llegada' => $kmllegadavehiculo[$cont],
-                        'driver_id' => $driver_id[$cont]]);
-                  $cont=$cont+1;
-            }
+            
 
             Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
             return redirect( "salud" );

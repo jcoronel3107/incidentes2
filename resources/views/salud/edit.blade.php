@@ -317,14 +317,14 @@
 		</div>
 		<hr>
 
-		<div class="card mb-2">{{--Usuarios atendidos emergencia --}}
+		{{-- <div class="card mb-2">
 			<div class="card-header">
 				Edite Usuario Atendidos
 			</div>
 			<div class="card-body">
 
 				<div class="row">
-					<div class="col-lg-6 col-sm-12 col-md-12 col-xs-12">{{-- # Hoja Prehosp --}}
+					<div class="col-lg-6 col-sm-12 col-md-12 col-xs-12">
 						<div class="form-group  input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text"># Hoja Prehosp</span>
@@ -332,7 +332,7 @@
 							<input type="number" class="form-control" value="{{old('hoja')}}" name="hoja" id="phoja" placeholder="Digite Valor">
 						</div>
 					</div>
-					<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">{{-- Nombres y Apellidos --}}
+					<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
 						<div class="form-group  input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="inputDetalle">Nombres y Apellidos</span>
@@ -493,7 +493,7 @@
 				<hr>
 				
 			</div>
-		</div>
+		</div> --}}
 		<div class="card mb-2">{{--Usuarios atendidos emergencia --}}
 			<div class="card-header">
 				Usuario Atendidos
@@ -524,7 +524,10 @@
 								<tr id="filapaciente{{$cont = $cont + 1}}">
 									<td ><button type="button" class="btn btn-warning" onclick="eliminar2('+contpac+')" type="button">X</button></td>
 									
-									<td><input type="text" name="frpaciente[]" maxlength="50" required value="{{$pacient->paciente}}"></td>
+									<td>
+										<input type="text" name="frpaciente[]" maxlength="50" required value="{{$pacient->paciente}}">
+										<input type="hidden" name="frid[]" value="{{$pacient->id}}">
+									</td>
 									<td><input type="number" name="fredad[]" required value="{{$pacient->edad}}"></td>
 									<td>
 										<select name="frgenero[]" required>
