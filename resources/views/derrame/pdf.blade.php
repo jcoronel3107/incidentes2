@@ -14,143 +14,154 @@
 </head>
 
 <body>
-	<img src="images/encabezado.png" alt="encabezadopdf" width="500" height="90">
-	<div class="container">
-
-		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Consultar Información de Evento Derrame</h2>
-		<p align="right" class="text-info text">Cuenca, {{$date}}</p>
-		<h3>Registro Nro.{{$derrame->id}}</h3>
-		<span class="bg-gray font-weight-bold">Cod_Incidente:</span>
-		<p class="text-info">{{$derrame->incidente->nombre_incidente}}</p>
-		<span class="bg-gray font-weight-bold">Tipo_Escena:</span>
-		<p class=" text-info">{{$derrame->tipo_escena}}</p>
-		<span class="bg-gray font-weight-bold">Cod_{!! trans('messages.Station') !!}:</span>
-		<p class=" text-info">{{$derrame->station_id}}</p>
-		<hr>
-
-		<span class="bg-gray font-weight-bold">Fecha:</span>
-		<p class="text-info">{{$derrame->fecha}}</p>
-		<span class="bg-gray font-weight-bold">Ficha_Ecu911:</span>
-		<p class="text-info">{{$derrame->ficha_ecu911}}</p>
-		<span class="bg-gray font-weight-bold">Hora_FichaEcu911:</span>
-		<p class="text-info">{{$derrame->hora_fichaecu911}}</p>
-		<hr>
-		<span class="bg-gray font-weight-bold">{!! trans('messages.Address') !!}:</span>
-		<p class="text-info">{{$derrame->address}}</p>
-		<span class="bg-gray font-weight-bold">Parroquia: </span>
-		<p class="text-info">{{$derrame->parroquia->nombre}}</p><br />
-		<hr>
-		<span class="bg-gray font-weight-bold">Hora Salida a Emergencia:</span>
-		<p class="text-info">{{$derrame->hora_salida_a_emergencia}}</p><br />
-		<span class="bg-gray font-weight-bold">Hora Llegada A Emergencia:</span>
-		<p class="text-info">{{$derrame->hora_llegada_a_emergencia}}</p><br />
-		<hr>
-		<span class="bg-gray font-weight-bold">Hora Fin Emergencia:</span>
-		<p class="text-info">{{$derrame->hora_fin_emergencia}}</p>
-		<span class="bg-gray font-weight-bold">Hora En Base:</span>
-		<p class="text-info">{{$derrame->hora_en_base}}</p>
-		<span class="bg-gray font-weight-bold">Informacion Inicial:</span>
-		<p class="text-info text-wrap text-break">{{$derrame->informacion_inicial}}</p>
-		<span class="bg-gray font-weight-bold">Detalle Emergencia:</span>
-		<p class="text-info text-wrap text-break">{{$derrame->detalle_emergencia}}</p>
-
-		<hr>
-		<span class="bg-gray font-weight-bold">Usuario Afectado:</span>
-		<p class="text-info">{{$derrame->usuario_afectado}}</p>
-		<span class="bg-gray font-weight-bold"> Danos Estimados:</span>
-		<p class="text-info text-wrap text-break">{{$derrame->danos_estimados}}</p>
-		<hr>
-		<span class="bg-gray font-weight-bold"> Usuario Elabora:</span>
-		<p class="text-info">{{$derrame->usr_creador}}</p>
-		<span class="bg-gray font-weight-bold"> Usuario Edición:</span>
-		<p class="text-info">{{$derrame->usr_editor}}</p>
-		<span class="bg-gray font-weight-bold"> Fechas Edición:</span>
-		<p class="text-info">{{$derrame->updated_at}}</p>
-		<hr><br /><br />
-		<div class="row p-3 border-left-secondary">
-			<div class="col-sm-12 col-md-12 col-lg-12">
+	<img class="img-fluid" alt="Responsive image" src="images/encabezado.png" alt="encabezadopdf" width="550" height="70">
+	<hr>
+	<p align="right" class="text-info text">Cuenca, {{$date}}</p>
+	<h3>Consulta Información de Evento Incendios (Hazmat)</h3>
+	<table class="table table-striped">
+		<caption class="text-info text">Registro Nro.{{$derrame->id}}</caption>
+		<tr>
+			<th>Fecha</th>
+			<th>Hora_Ficha_Ecu911</th>
+			<th>Ficha_Ecu911</th>
+		</tr>
+		<tr>
+			<td>{{$derrame->fecha}}</td>
+			<td>{{$derrame->hora_fichaecu911}}</td>
+			<td>{{$derrame->ficha_ecu911}}</td>
+		</tr>
+	</table>
+	<table class="table table-striped">
+		<tr>
+			<th>Cod_Incidente</th>
+			<th>Tipo_Escena</th>
+			<th>Cod_Estacion</th>
+			
+		</tr>
+		<tr>
+			<td>{{$derrame->incidente->nombre_incidente}}</td>
+			<td>{{$derrame->tipo_escena}}</td>
+			<td>{{$derrame->station_id}}</td>
+		
+		</tr>
+		<tr>
+			<th colspan="2">{!! trans('messages.Address') !!}</th>
+			<th>Parroquia</th>
+		</tr>
+		<tr>
+			<td colspan="2">{{$derrame->direccion}}</td>
+			<td>{{$derrame->parroquia->nombre}}</td>
+		</tr>
+	</table>
+	<table class="table table-striped">
+		<tr>
+			<th>Georeferencia</th>
+		</tr>
+		<tr>
+			<td>{{$derrame->geoposicion}}</td>
+		</tr>
+	</table>
+	<table class="table table-striped">
+		<tr>
+			<th>Hora Salida a Emergencia</th>
+			<th>Hora Llegada A Emergencia</th>
+			<th>Hora Fin Emergencia</th>
+			<th>Hora En Base</th>
+		</tr>
+		<tr>
+			<td>{{$derrame->hora_salida_a_emergencia}}</td>
+			<td>{{$derrame->hora_llegada_a_emergencia}}</td>
+			<td>{{$derrame->hora_fin_emergencia}}</td>
+			<td>{{$derrame->hora_en_base}}</td>
+		</tr>
+	</table>
+	<hr>
+	<table class="table table-striped">
+		<tr>
+			<th>Informacion Inicial</th>
+		</tr>
+		<tr>
+			<td>{{$derrame->informacion_inicial}}</td>
+		</tr>
+	</table>
+	<table class="table table-striped">
+		<tr>
+			<th>Detalle Emergencia</th>
+		</tr>
+		<tr>
+			<td>{{$derrame->detalle_emergencia}}</td>
+		</tr>
+	</table>
+	<br>
+	<table class="table table-striped">
+		<tr>
+			<th>Usuario Afectado</th>
+			<th>Danos Estimados</th>
+		</tr>
+		<tr>
+			<td>{{$derrame->usuario_afectado}}</td>
+			<td>{{$derrame->danos_estimados}}</td>
+		</tr>
+	</table>
+	<table class="table table-striped">
+		<tr>
+			<th>Usuario Elabora</th>
+			<th>Usuario Edición</th>
+			<th>Fechas Edición</th>
+		</tr>
+		<tr>
+			<td>{{$derrame->usr_creador}}</td>
+			<td>{{$derrame->usr_editor}}</td>
+			<td>{{$derrame->updated_at}}</td>
+		</tr>
+	</table>
+	<table class="table table-striped">
+		<caption class="text-info text">Personal Asiste</caption>
+		<tr>
+			<th>#</th>
+			<th>Nombre</th>
+			<th>FCargo</th>
+		</tr>
+		@foreach($derrame->users as $user)
+		<tr>
+			<td>{{$user->id}}</td>
+			<td>{{$user->name}}</td>
+			<td>{{$user->cargo}}</td>
+		</tr>
+		@endforeach
+	</table>
+	<table class="table table-striped">
+		<caption class="text-info text">Vehiculos En Incidente</caption>
+		<tr>
+			<th>#</th>
+			<th>Codigo</th>
+			<th>Placa</th>
+			<th>Marca</th>
+			<th>KM.Salida</th>
+			<th>KM.Llegada</th>
+			<th>Conductor</th>
+		</tr>
+		@foreach($derrame->vehiculos as $vehiculo)
+			<tr>
+				<td>{{$vehiculo->id}}</td>
+				<td>{{$vehiculo->codigodis}}</td>
+				<td>{{$vehiculo->placa}}</td>
+				<td>{{$vehiculo->marca}}</td>
+				<td>{{$vehiculo->pivot->km_salida}}</td>
+				<td>{{$vehiculo->pivot->km_llegada}}</td>
+				<td>{{$vehiculo->pivot->driver_id}}</td>
+			</tr>
+		@endforeach
+	</table>
+	<div class="col-sm-12 col-md-12 col-lg-12">
 				<p class="text-center">
-				<h4>Personal Asiste</h4>
-				</p>
-				<table class="table table-sm table-hover">
-					<thead>
-						<tr>
-							<th scope="col">#</th>
-							<th scope="col">Nombre</th>
-							<th scope="col">Cargo</th>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach($derrame->users as $user)
-						<tr>
-							<th scope="row">{{$user->id}}</th>
-							<td>{{$user->name}}</td>
-							<td>{{$user->cargo}}</td>
-						</tr>
-						@endforeach
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<hr>
-		<div class="row p-3 border-left-primary">
-			<div class="col-sm-12 col-md-12 col-lg-12">
-				<p class="text-center">
-				<h4>Vehiculos En Incidente</h4>
-				</p>
-				<table class="table table-sm table-hover">
-					<thead>
-						<tr>
-							<th scope="col">#</th>
-							<th scope="col">Codigo</th>
-							<th scope="col">Placa</th>
-							<th scope="col">Marca</th>
-							<th scope="col">KM.Salida</th>
-							<th scope="col">KM.Llegada</th>
-						</tr>
-					</thead>
-					<tbody>
-						@if($derrame->vehiculos->isNotEmpty())
-						{
-							@foreach($derrame->vehiculos as $vehiculo)
-							<tr>
-								<th scope="row">{{$vehiculo->id}}</th>
-								<td>{{$vehiculo->codigodis}}</td>
-								<td>{{$vehiculo->placa}}</td>
-								<td>{{$vehiculo->marca}}</td>
-								<td>{{$vehiculo->pivot->km_salida}}</td>
-								<td>{{$vehiculo->pivot->km_llegada}}</td>
-							</tr>
-							@endforeach
-						}else
-						{
-							<tr>
-								<th scope="row"></th>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						
-						}@endif
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<hr>
-		<div>
-			<div class="col-sm-12 col-md-12 col-lg-12">
-				<p class="text-center">
-				<h4>Firmas</h4>
+				<h5>Firmas</h5>
 				</p><br><br>
-				<p class="text-info">{{$derrame->usr_creador}}</p>
-				<span class="bg-gray font-weight-bold"> Usuario Elaborador</span>
-			</div>
-		</div>
+				<p class="bg-gray font-weight-bold">{{$derrame->usr_creador}}<br/>
+				<span >Usuario Elaborador</span></p>
 	</div>
-	</div>
-
+	
+	
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>

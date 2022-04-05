@@ -301,8 +301,8 @@
 										<tr id="fila{{$cont}}">
 										<td><button type="button" class="btn btn-warning" onclick="eliminar('{{$cont}}')" type="button">X</button></td>
 										<td><input type="hidden" readonly class="form-control" name="vehiculo_id[]" value="{{$items->id}}">{{$items->codigodis}}</td>
-										<td><input type="text" readonly class="form-control" name="km_salida[]" value="{{$items->pivot->km_salida}}"></td>
-										<td><input type="text" readonly class="form-control" name="km_llegada[]" value="{{$items->pivot->km_llegada}}"></td>
+										<td><input type="number" required class="form-control" name="km_salida[]" value="{{$items->pivot->km_salida}}"></td>
+										<td><input type="number" required class="form-control" name="km_llegada[]" value="{{$items->pivot->km_llegada}}"></td>
 										<td><input type="hidden" readonly class="form-control" name="driver_id[]" value="{{$items->pivot->driver_id}}">{{$items->pivot->driver_id}}</td>
 										
 										</tr>

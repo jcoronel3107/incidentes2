@@ -21,27 +21,27 @@
 		</div>
 		<div class="card-body">
 			<div class="row p-3">
-				<div class="col-2">
+				<div class="col-10">
 					<span class="bg-gray font-weight-bold">Cod_Incidente:</span>
 					<p class="text-info">{{$incendio->incidente->nombre_incidente}}</p>
 				</div>
-				<div class="col-2">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Tipo_Escena:</span>
 					<p class=" text-info">{{$incendio->tipo_escena}}</p>
 				</div>
-				<div class="col-2">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Cod_{!! trans('messages.Station') !!}:</span>
-					<p class=" text-info">{{$incendio->station_id}}</p>
+					<p class=" text-info">{{$incendio->station->nombre}}</p>
 				</div>
-				<div class="col-2">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">{!! trans('messages.Date') !!}:</span>
 					<p class="text-info">{{$incendio->fecha}}</p>
 				</div>
-				<div class="col-2">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Ficha_Ecu911:</span>
 					<p class="text-info">{{$incendio->ficha_ecu911}}</p>
 				</div>
-				<div class="col-2">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Hora_FichaEcu911:</span>
 					<p class="text-info">{{$incendio->hora_fichaecu911}}</p>
 				</div>
@@ -49,16 +49,16 @@
 			<hr>
 			<div class="row p-3">
 
-				<div class="col-4">
+				<div class="col-12">
 					<span class="bg-gray font-weight-bold">{!! trans('messages.Address') !!}:</span>
 					<p class="text-info">{{$incendio->direccion}}</p>
 				</div>
 
-				<div class="col-4">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Parroquia: </span>
 					<p class="text-info">{{$incendio->parroquia->nombre}}</p>
 				</div>
-				<div class="col-4">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Geoposición:</span>
 					<p class="text-info">{{$incendio->geoposicion}}</p>
 				</div>
@@ -66,30 +66,30 @@
 			<hr>
 			<div class="row p-3">
 
-				<div class="col-3">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Hora Salida a Emergencia:</span>
 					<p class="text-info">{{$incendio->hora_salida_a_emergencia}}</p>
 				</div>
-				<div class="col-3">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Hora Llegada A Emergencia:</span>
 					<p class="text-info">{{$incendio->hora_llegada_a_emergencia}}</p>
 				</div>
-				<div class="col-3">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Hora Fin Emergencia:</span>
 					<p class="text-info">{{$incendio->hora_fin_emergencia}}</p>
 				</div>
-				<div class="col-3">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Hora En Base:</span>
 					<p class="text-info">{{$incendio->hora_en_base}}</p>
 				</div>
 			</div>
 			<div class="row p-3">
 
-				<div class="col-6">
+				<div class="col-12">
 					<span class="bg-gray font-weight-bold">Informacion Inicial:</span>
 					<p class="text-info text-wrap text-break">{{$incendio->informacion_inicial}}</p>
 				</div>
-				<div class="col-6">
+				<div class="col-12">
 					<span class="bg-gray font-weight-bold">Detalle Emergencia:</span>
 					<p class="text-info text-wrap text-break">{{$incendio->detalle_emergencia}}</p>
 				</div>
@@ -97,11 +97,11 @@
 			<hr>
 			<div class="row p-3">
 
-				<div class="col-6">
+				<div class="col-12">
 					<span class="bg-gray font-weight-bold">Usuario Afectado:</span>
 					<p class="text-info">{{$incendio->usuario_afectado}}</p>
 				</div>
-				<div class="col-6">
+				<div class="col-12">
 					<span class="bg-gray font-weight-bold"> Danos Estimados:</span>
 					<p class="text-info text-wrap text-break">{{$incendio->danos_estimados}}</p>
 				</div>
@@ -117,7 +117,7 @@
 					<span class="bg-gray font-weight-bold"> Usuario Edición:</span>
 					<p class="text-info">{{$incendio->usr_editor}}</p>
 				</div>
-				<div class="col-4">
+				<div class="col-8">
 					<span class="bg-gray font-weight-bold"> Fechas Creación:</span>
 					<p class="text-info">{{$incendio->created_at}}</p>
 					<span class="bg-gray font-weight-bold"> Fechas Edición:</span>
@@ -157,7 +157,7 @@
 					<p class="text-center">
 					<h4>Vehiculos En Incidente</h4>
 					</p>
-					<table class="table table-sm table-hover">
+					<table class="table table-sm table-hover table-responsive">
 						<thead>
 							<tr>
 								<th scope="col">#</th>

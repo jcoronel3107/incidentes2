@@ -19,27 +19,27 @@
 	</div>
 	<div class="card-body">
 		<div class="row p-3">
-			<div class="col-2">
+			<div class="col-6">
 				<span class="bg-gray font-weight-bold">Cod_Incidente:</span>
 				<p class="text-info">{{$transito->incidente->nombre_incidente}}</p>
 			</div>
-			<div class="col-2">
+			<div class="col-6">
 				<span class="bg-gray font-weight-bold">Tipo_Escena:</span>
 				<p class=" text-info">{{$transito->tipo_escena}}</p>
 			</div>
-			<div class="col-2">
+			<div class="col-6">
 				<span class="bg-gray font-weight-bold">Estación:</span>
 				<p class=" text-info">{{$transito->station_id}}</p>
 			</div>
-			<div class="col-2">
+			<div class="col-6">
 				<span class="bg-gray font-weight-bold">{!! trans('messages.Date') !!}:</span>
 				<p class="text-info">{{$transito->fecha}}</p>
 			</div>
-			<div class="col-2">
+			<div class="col-6">
 				<span class="bg-gray font-weight-bold"># Ficha E911:</span>
 				<p class="text-info">{{$transito->ficha_ecu911}}</p>
 			</div>
-			<div class="col-2">
+			<div class="col-6">
 				<span class="bg-gray font-weight-bold">H. FichaEcu911:</span>
 				<p class="text-info">{{$transito->hora_fichaecu911}}</p>
 			</div>
@@ -47,16 +47,16 @@
 		<hr>
 		<div class="row p-3">
 
-			<div class="col-4">
+			<div class="col-12">
 				<span class="bg-gray font-weight-bold">{!! trans('messages.Address') !!}:</span>
 				<p class="text-info">{{$transito->direccion}}</p>
 			</div>
 
-			<div class="col-4">
+			<div class="col-6">
 				<span class="bg-gray font-weight-bold">Parroquia: </span>
 				<p class="text-info">{{$transito->parroquia->nombre}}</p>
 			</div>
-			<div class="col-4">
+			<div class="col-6">
 				<span class="bg-gray font-weight-bold">Geoposición:</span>
 				<p class="text-info">{{$transito->geoposicion}}</p>
 			</div>
@@ -64,30 +64,30 @@
 		<hr>
 		<div class="row p-3">
 
-			<div class="col-3">
+			<div class="col-6">
 				<span class="bg-gray font-weight-bold">Hora Salida a Emergencia:</span>
 				<p class="text-info">{{$transito->hora_salida_a_emergencia}}</p>
 			</div>
-			<div class="col-3">
+			<div class="col-6">
 				<span class="bg-gray font-weight-bold">Hora Llegada A Emergencia:</span>
 				<p class="text-info">{{$transito->hora_llegada_a_emergencia}}</p>
 			</div>
-			<div class="col-3">
+			<div class="col-6">
 				<span class="bg-gray font-weight-bold">Hora Fin Emergencia:</span>
 				<p class="text-info">{{$transito->hora_fin_emergencia}}</p>
 			</div>
-			<div class="col-3">
+			<div class="col-6">
 				<span class="bg-gray font-weight-bold">Hora En Base:</span>
 				<p class="text-info">{{$transito->hora_en_base}}</p>
 			</div>
 		</div>
 		<div class="row p-3">
 
-			<div class="col-6">
+			<div class="col-12">
 				<span class="bg-gray font-weight-bold">Informacion Inicial:</span>
 				<p class="text-info text-wrap text-break">{{$transito->informacion_inicial}}</p>
 			</div>
-			<div class="col-6">
+			<div class="col-12">
 				<span class="bg-gray font-weight-bold">Detalle Emergencia:</span>
 				<p class="text-info text-wrap text-break">{{$transito->detalle_emergencia}}</p>
 			</div>
@@ -95,11 +95,11 @@
 		<hr>
 		<div class="row p-3">
 
-			<div class="col-6">
+			<div class="col-12">
 				<span class="bg-gray font-weight-bold">Usuario Afectado:</span>
 				<p class="text-info">{{$transito->usuario_afectado}}</p>
 			</div>
-			<div class="col-6">
+			<div class="col-12">
 				<span class="bg-gray font-weight-bold"> Danos Estimados:</span>
 				<p class="text-info text-wrap text-break">{{$transito->danos_estimados}}</p>
 			</div>

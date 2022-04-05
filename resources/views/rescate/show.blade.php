@@ -21,27 +21,27 @@
 		</div>
 		<div class="card-body">
 			<div class="row p-3">
-				<div class="col-2">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Cod_Incidente:</span>
 					<p class="text-info">{{$rescate->incidente->nombre_incidente}}</p>
 				</div>
-				<div class="col-2">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Tipo_Escena:</span>
 					<p class=" text-info">{{$rescate->tipo_escena}}</p>
 				</div>
-				<div class="col-2">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Cod_Estacion:</span>
 					<p class=" text-info">{{$rescate->station_id}}</p>
 				</div>
-				<div class="col-2">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">{!! trans('messages.Date') !!}:</span>
 					<p class="text-info">{{$rescate->fecha}}</p>
 				</div>
-				<div class="col-2">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Ficha_Ecu911:</span>
 					<p class="text-info">{{$rescate->ficha_ecu911}}</p>
 				</div>
-				<div class="col-2">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Hora_FichaEcu911:</span>
 					<p class="text-info">{{$rescate->hora_fichaecu911}}</p>
 				</div>
@@ -49,16 +49,16 @@
 			<hr>
 			<div class="row p-3">
 
-				<div class="col-4">
+				<div class="col-12">
 					<span class="bg-gray font-weight-bold">{!! trans('messages.Address') !!}:</span>
 					<p class="text-info">{{$rescate->direccion}}</p>
 				</div>
 
-				<div class="col-4">
+				<div class="col-12">
 					<span class="bg-gray font-weight-bold">Parroquia: </span>
 					<p class="text-info">{{$rescate->parroquia->nombre}}</p>
 				</div>
-				<div class="col-4">
+				<div class="col-12">
 					<span class="bg-gray font-weight-bold">Geoposición:</span>
 					<p class="text-info">{{$rescate->geoposicion}}</p>
 				</div>
@@ -66,30 +66,30 @@
 			<hr>
 			<div class="row p-3">
 
-				<div class="col-3">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Hora Salida a Emergencia:</span>
 					<p class="text-info">{{$rescate->hora_salida_a_emergencia}}</p>
 				</div>
-				<div class="col-3">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Hora Llegada A Emergencia:</span>
 					<p class="text-info">{{$rescate->hora_llegada_a_emergencia}}</p>
 				</div>
-				<div class="col-3">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Hora Fin Emergencia:</span>
 					<p class="text-info">{{$rescate->hora_fin_emergencia}}</p>
 				</div>
-				<div class="col-3">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Hora En Base:</span>
 					<p class="text-info">{{$rescate->hora_en_base}}</p>
 				</div>
 			</div>
 			<div class="row p-3">
 
-				<div class="col-6">
+				<div class="col-12">
 					<span class="bg-gray font-weight-bold">Informacion Inicial:</span>
 					<p class="text-info text-wrap text-break">{{$rescate->informacion_inicial}}</p>
 				</div>
-				<div class="col-6">
+				<div class="col-12">
 					<span class="bg-gray font-weight-bold">Detalle Emergencia:</span>
 					<p class="text-info text-wrap text-break">{{$rescate->detalle_emergencia}}</p>
 				</div>
@@ -97,11 +97,11 @@
 			<hr>
 			<div class="row p-3">
 
-				<div class="col-6">
+				<div class="col-12">
 					<span class="bg-gray font-weight-bold">Usuario Afectado:</span>
 					<p class="text-info">{{$rescate->usuario_afectado}}</p>
 				</div>
-				<div class="col-6">
+				<div class="col-12">
 					<span class="bg-gray font-weight-bold"> Danos Estimados:</span>
 					<p class="text-info text-wrap text-break">{{$rescate->danos_estimados}}</p>
 				</div>

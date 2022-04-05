@@ -20,83 +20,83 @@
 		</div>
 		<div class="card-body">
 			<div class="row p-3 border-left-primary">
-				<div class="col-2">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Cod_Incidente:</span>
 					<p class="text-info">{{$inundacion->incidente->nombre_incidente}}</p>
 				</div>
-				<div class="col-2">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Tipo_Escena:</span>
 					<p class=" text-info">{{$inundacion->tipo_escena}}</p>
 				</div>
-				<div class="col-2">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Cod_Estacion:</span>
 					<p class=" text-info">{{$inundacion->station_id}}</p>
 				</div>
-				<div class="col-2">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">{!! trans('messages.Date') !!}:</span>
 					<p class="text-info">{{$inundacion->fecha}}</p>
 				</div>
-				<div class="col-2">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Ficha_Ecu911:</span>
 					<p class="text-info">{{$inundacion->ficha_ecu911}}</p>
 				</div>
-				<div class="col-2">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Hora_FichaEcu911:</span>
 					<p class="text-info">{{$inundacion->hora_fichaecu911}}</p>
 				</div>
 			</div>
 			<hr>
 			<div class="row p-3 border-left-secondary">
-				<div class="col-4">
+				<div class="col-12">
 					<span class="bg-gray font-weight-bold">{!! trans('messages.Address') !!}:</span>
 					<p class="text-info">{{$inundacion->direccion}}</p>
 
 				</div>
-				<div class="col-4">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Parroquia: </span>
 					<p class="text-info">{{$inundacion->parroquia->nombre}}</p>
 				</div>
-				<div class="col-4">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Geoposición:</span>
 					<p class="text-info">{{$inundacion->geoposicion}}</p>
 				</div>
 			</div>
 			<hr>
 			<div class="row p-3 border-left-primary">
-				<div class="col-3">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Hora Salida a Emergencia:</span>
 					<p class="text-info">{{$inundacion->hora_salida_a_emergencia}}</p>
 				</div>
-				<div class="col-3">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Hora Llegada A Emergencia:</span>
 					<p class="text-info">{{$inundacion->hora_llegada_a_emergencia}}</p>
 				</div>
-				<div class="col-3">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Hora Fin Emergencia:</span>
 					<p class="text-info">{{$inundacion->hora_fin_emergencia}}</p>
 				</div>
-				<div class="col-3">
+				<div class="col-6">
 					<span class="bg-gray font-weight-bold">Hora En Base:</span>
 					<p class="text-info">{{$inundacion->hora_en_base}}</p>
 				</div>
 			</div>
 			<div class="row p-3 border-left-primary">
-				<div class="col-6">
+				<div class="col-12">
 					<span class="bg-gray font-weight-bold">Informacion Inicial:</span>
 					<p class="text-info text-wrap text-break">{{$inundacion->informacion_inicial}}</p>
 				</div>
-				<div class="col-6">
+				<div class="col-12">
 					<span class="bg-gray font-weight-bold">Detalle Emergencia:</span>
 					<p class="text-info text-wrap text-break">{{$inundacion->detalle_emergencia}}</p>
 				</div>
 			</div>
 			<hr>
 			<div class="row p-3 border-left-secondary">
-				<div class="col-6">
+				<div class="col-12">
 					<span class="bg-gray font-weight-bold">Usuario Afectado:</span>
 					<p class="text-info">{{$inundacion->usuario_afectado}}</p>
 				</div>
-				<div class="col-6">
+				<div class="col-12">
 					<span class="bg-gray font-weight-bold"> Danos Estimados:</span>
 					<p class="text-info text-wrap text-break">{{$inundacion->danos_estimados}}</p>
 				</div>
