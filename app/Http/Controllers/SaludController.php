@@ -145,7 +145,8 @@ class SaludController extends Controller
             $id=DB::table('saluds')
                   ->select('id')
                   ->latest('created_at')
-                  ->first();
+                  ->value('id');
+           
             $cie10 = $request->get('frcie10');
             $usuariof = $request->get('frpaciente');
             $edad = $request->get('fredad');
@@ -160,7 +161,7 @@ class SaludController extends Controller
             $frrespiratoria = $request->get('frrespiratoria');
             $frcardiaca = $request->get('frcardiaca');
             $glicemia = $request->get('frglicemia');
-            $id = $id->id;
+            $id = $id;
             
             while ($cont < count($usuariof)) {
                 

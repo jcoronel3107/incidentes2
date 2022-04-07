@@ -107,7 +107,7 @@ class RescateController extends Controller
 
               $id = DB::table('rescates')
                   ->select(DB::raw('max(id) as id'))
-                  ->first();
+                  ->value('id');
               /*
                 Sentencias para guardar Los personal que asisten al incidente
                 */  

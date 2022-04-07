@@ -113,7 +113,7 @@ class FugaController extends Controller
 
           $id = DB::table('fugas')
               ->select(DB::raw('max(id) as id'))
-              ->first();
+              ->value('id');
           /*
             Sentencias para guardar Los personal que asisten al incidente
             */  

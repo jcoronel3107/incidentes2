@@ -111,9 +111,10 @@ class TransitoController extends Controller
             $transito->danos_estimados = $request->danos_estimados;
             $transito->usr_creador = auth()->user()->name;
             $transito->save();
-              $id = DB::table('rescates')
+              $id = DB::table('transitos')
                   ->select(DB::raw('max(id) as id'))
-                  ->first();
+                  ->value('id');
+              
               /*
                 Sentencias para guardar Los personal que asisten al incidente
                 */  
@@ -123,35 +124,35 @@ class TransitoController extends Controller
                 
                 while ($cont < count($nombresstaff)) {
                     $maqui = User::findOrFail($nombresstaff[$cont]);
-                   
                     $maqui->transitos()->attach($id);
                     $cont+=1;
                 }
-
+            
                 /*
                 Sentencias para guardar Los vehiculos que asisten al incidente
                 */
 
                 $cont=0;
+             
                 $nombrevehiculo = $request->get('vehiculo_id');
                 $kmsalidavehiculo = $request->get('km_salida');
                 $kmllegadavehiculo = $request->get('km_llegada');
                 $driver_id= $request->get('driver_id');
-                
+                  
+
                 while ($cont < count($nombrevehiculo)) {
-                   
+                  
                   $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);
-                  $maqui = User::findOrFail($driver_id[$cont]);
                   
                   $carro->transitos()->attach(
-                      $id , [
-                        'km_salida' => $kmsalidavehiculo[$cont],
-                        'km_llegada' => $kmllegadavehiculo[$cont],
-                        'driver_id' => $maqui->id]);
-                  $cont=$cont+1;
-                }
-
-              
+                        $id, [
+                          'km_salida' => $kmsalidavehiculo[$cont],
+                          'km_llegada' => $kmllegadavehiculo[$cont],
+                          'driver_id' => $driver_id[$cont]
+                        ]
+                      );
+                        $cont+=1;
+                }              
               Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
               return redirect( "transito" );
           }
