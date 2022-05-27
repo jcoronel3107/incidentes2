@@ -2,7 +2,7 @@
 
 	@section( "cabeza" )
 
-	<title>Servicio - Crear - BCBVC</title>
+	<title>Servicio</title>
 	@endsection
 
 	@section( "cuerpo" )
@@ -41,7 +41,6 @@
 					<select class="form-control selectpicker" id="unidad" name="unidad" data-live-search="true" required>
 						<option selected></option>
 						<option>Bodega</option>
-						<option>Dirección Administrativa Financiera</option>
 						<option>Jefatura</option>
 						<option>Mantenimiento</option>
 						<option>Sala Situacional</option>
@@ -59,14 +58,13 @@
 					</div>
 					<select class="form-control selectpicker" id="delegante" name="delegante" data-live-search="true" required>
 						<option selected></option>
-						<option>Ab. Cristian Martinez</option>
+						<option>Psic. Santiago Zamora</option>
 						<option>Cptn. S.Heras</option>
 						<option>Econ. Johana Parra</option>
-						<option>Econ. T.Segarra</option>
 						<option>Ing. Carlos Chaca</option>
 						<option>Ing. Efrain Gomez</option>
 						<option>Sala Situacional</option>
-						<option>Tnte.Crnl. P.Lucero</option>
+						<option>Supervisor Operativo</option>
 					</select>
 					<div class="invalid-feedback">
 						Please select a value.
@@ -149,82 +147,8 @@
 		
 		
 		@push ('scripts')
-			<script>
-				
-				$(document).ready(function(){
-					var max_chars = 1000;
-					$('#max').html(max_chars);
-					$("#asunto").keyup(function() {
-					var chars = $("#asunto").val().length;
-					var diff = max_chars - chars;
-					var leyenda = "Caracteres Permitidos 1000 Cant:";
-					var res = leyenda.concat(chars);
-					$("#pcounter").html(res);
-					if(chars > 1000){
-					$("#asunto").addClass('error');
-					$("#asunto").addClass('error');
-					}else{
-						$("#asunto").removeClass('error');
-						$("#asunto").removeClass('error');
-					}
-				});
-				});
-			
-				
-			</script>
-			<script type="text/javascript">
-					$(document).ready(function(){
-						var dtToday = new Date();
-						var month = dtToday.getMonth() + 1;     // getMonth() is zero-based
-						var day = dtToday.getDate();
-						var year = dtToday.getFullYear();
-						if(month < 10)
-							month = '0' + month.toString();
-						if(day < 10)
-							day = '0' + day.toString();
-						var maxDate = year + '-' + month + '-' + day+'T00:00';
-						$('#fecha_salida').attr('min', maxDate);
-						$('#fecha_retorno').attr('min', maxDate);
-					});
-
-					function compruebaKM(){
-						kmsalida = $('#km_salida').val();
-						console.log(kmsalida);
-						kmretorno = $('#km_retorno').val();
-						if(kmretorno<=kmsalida){
-							alert("KM_Retorno tiene que ser > a KM_Salida");
-							//selecciono el texto 
-							$( "#km_salida" ).select(); 
-							//coloco otra vez el foco 
-							$( "#km_salida" ).focus();
-							$( "#km_retorno" ).addClass('has-error');
-						}
-						else
-						{
-							$( "#km_retorno" ).removeClass('has-error');
-						}
-					}
-			</script>
-			<script>
-				// Example starter JavaScript for disabling form submissions if there are invalid fields
-				(function() {
-				'use strict';
-				window.addEventListener('load', function() {
-					// Fetch all the forms we want to apply custom Bootstrap validation styles to
-					var forms = document.getElementsByClassName('needs-validation');
-					// Loop over them and prevent submission
-					var validation = Array.prototype.filter.call(forms, function(form) {
-					form.addEventListener('submit', function(event) {
-						if (form.checkValidity() === false) {
-						event.preventDefault();
-						event.stopPropagation();
-						}
-						form.classList.add('was-validated');
-					}, false);
-					});
-				}, false);
-				})();
-			</script>
+			<!-- Funciones for all pages-->
+			<script src="/js/funciones_servicio.js"></script>
 		@endpush
 
 @endsection @section( "piepagina" ) @endsection

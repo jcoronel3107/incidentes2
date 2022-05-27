@@ -297,16 +297,40 @@ Route::get('/consultaentrefechasmov',	        	'MovilizacionController@consultae
 /                                   Rutas SubSistema Reservas de vehiculos
 /
 / ------------------------------------------------------------------------------------------------
-*/
-Route::get('/solicitud/calendar',       'Reservacion\ReservacionController@chequearcalendario')->middleware('role:employee|assistant|admin|Super-Admin');
-Route::get('/solicitud/asistencia',     'Reservacion\ReservacionController@formasistencia')->middleware('role:employee|assistant|admin|Super-Admin');
-/* Route::get('/miJqueryAjax/{id}',		'Reservacion\AjaxController@index')->middleware('auth'); */
-Route::resource('solicitud',         	'Reservacion\UserSolicitudsController')->middleware('role:employee|assistant|admin|Super-Admin');
-Route::get('/solicitud/calendar',		'Reservacion\UserSolicitudsController@calendar')->name('user.solicitud.calendar')->middleware('role:employee|assistant|admin|Super-Admin');
-Route::resource('/administrar', 		'Reservacion\AdminReservationsController')->middleware('role:assistant|admin|Super-Admin');
-Route::get('/administrar/grafic/',   	'Reservacion\AdminReservationsController@grafica')->name('admin.solicitud.grafic')->middleware('role:employee|assistant|admin|Super-Admin');
-Route::get('vehiculosdisponibles',      'Reservacion\ReservacionController@VehiculosDisponibles')->middleware('role:employee|assistant|admin|Super-Admin');
-Route::get('/uath',                     'Reservacion\ReservacionController@index')->middleware('role:employee|assistant|admin|Super-Admin');
+
+
+Route::controller(Reservacion\AdminReservationsController::class)->group(function(){
+    Route::get('/administrar/grafic/','grafica')->name('admin.solicitud.grafic')->middleware('role:employee|assistant|admin|Super-Admin');
+});
+
+Route::controller(Reservacion\ReservacionController::class)->group(function(){
+    Route::get('vehiculosdisponibles','VehiculosDisponibles')->middleware('role:employee|assistant|admin|Super-Admin');
+    Route::get('/solicitud/asistencia','formasistencia')->middleware('role:employee|assistant|admin|Super-Admin');
+    Route::get('/solicitud/calendar','chequearcalendario')->middleware('role:employee|assistant|admin|Super-Admin');
+    Route::get('/serv_institucional','index')->middleware('role:employee|assistant|admin|Super-Admin');
+});
+
+Route::controller(Reservacion\UserSolicitudsController::class)->group(function () {
+    Route::get('applicationclosed','application_closed')->name('user.solicitud.closed')->middleware('role:employee|assistant|admin|Super-Admin');
+    Route::get('/solicitud/calendar', 'calendar')->name('user.solicitud.calendar')->middleware('role:employee|assistant|admin|Super-Admin');
+});
+
+Route::resource('solicitud',      	'Reservacion\UserSolicitudsController')->middleware('role:employee|assistant|admin|Super-Admin');
+Route::resource('administrar', 		'Reservacion\AdminReservationsController')->middleware('role:assistant|admin|Super-Admin');
+
+
+/* ----------------------------------------------------------------------------------------------
+/                                   Rutas SubSistema Taller_Mantenimiento
+/
+/ ------------------------------------------------------------------------------------------------
+
+
+Route::controller(TallerController::class)->group(function(){
+    Route::get('/taller','index')->middleware('role:employee|assistant|admin|Super-Admin');
+});
+
+
+
 
 /* ----------------------------------------------------------------------------------------------
 /                                   Rutas Menu Principal

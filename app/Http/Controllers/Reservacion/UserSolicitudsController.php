@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Reservacion;
 
+use App\Assignment;
 use App\Http\Requests\UserSolicitudsRequest;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
 use App\Mail\SolicitudReceived;
-use App\MAil\ConfirmacionReceived;
+use App\Mail\ConfirmacionReceived;
 use App\Mail\CancelacionReceived;
 use App\Solicitud;
 use Illuminate\Http\Request;
@@ -62,7 +63,6 @@ class UserSolicitudsController extends Controller
 
     public function destroy($id){
         $solicitud = Solicitud::findOrFail($id);
-        /* $solicitud->delete(); */
         $solicitud->status = "Cancelado";
         $solicitud->save();
         return redirect()
@@ -70,19 +70,11 @@ class UserSolicitudsController extends Controller
        ->with('message', 'Solicitud Cancelada!.');
     }
 
-    
-
-    public function store_asoc_cond_vehic(Request $request)
-    {
+    public function application_closed(){
         
-       /*  $datosasociacion = request()->except(['_token','_method']);
-       
-        DB::table('user_vehiculo')->insert($datosasociacion);
-      
-        return redirect()
-       ->route('admin.conductor')
-       ->with('message', 'Asociación Realizada!.'); */
+        $user_id = auth()->user()->id;
+        $assignment = Assignment::findOrFail($user_id);
+        
+        return view('reservas.conductor',compact('user_id','assignment'));
     }
-
-    
 }

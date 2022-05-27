@@ -14,9 +14,10 @@ class AdminReservationsRequest extends FormRequest
     public function rules()
     {
         return [
-            /* 'admin_comment' => 'required|string|max:255', */
+            
            
-            'vehiculo_id' => 'required'
+            'vehiculo_id' => 'required',
+            'conductor_id'=> 'required'
         ];
     }
 
@@ -24,7 +25,8 @@ class AdminReservationsRequest extends FormRequest
     {
         return [
             
-            'vehiculo_id.required' => 'Campo Recurso a Asignar Solicitud Requerido'
+            'vehiculo_id.required' => 'Campo Vehiculo a Asignar Requerido',
+            'conductor_id.required' => 'Campo Conductor a Asignar Requerido'
         ];
     }
 }

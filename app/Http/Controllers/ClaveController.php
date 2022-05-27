@@ -37,7 +37,7 @@ class ClaveController extends Controller {
         {
 	        $query = trim($request->get('searchText'));
 	        //
-	        $claves = Clave::where("created_at",'LIKE','%'.$query.'%')
+	        $claves = Clave::where("Orden",'LIKE','%'.$query.'%')
 	          ->OrderBy('created_at','desc')
 	          ->paginate(10);
 

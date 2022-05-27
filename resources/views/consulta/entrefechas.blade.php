@@ -22,16 +22,13 @@
     </div>
     
     <div class="tab-pane fade show active" id="General" role="tabpanel" aria-labelledby="General-tab">
-        <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 
                 <p style="text-align: center;" class="text-secondary" id="fch1">Fecha Desde: {{$fechaD}} &nbsp;&nbsp; Fecha Hasta: {{$fechaH}}</p>
                 <p style="text-transform: uppercase; text-align: center;" class="text-info" id="incidente">{{$tabla}}</p>
                 <div class="py-2 " id="container0"></div>
 
-            </div>
-
-            
         </div>
         <hr>
         <div class="row mb-2 mt-2 justify-content-center ">
@@ -142,7 +139,7 @@
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/highcharts-3d.js"></script>
-<script src="https://code.highcharts.com/cylinder.js"></script>
+
 {{-- Pestaña General --}}
 <script>
     Highcharts.chart('container0', {
@@ -172,9 +169,19 @@
             }
         },
         tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+            pointFormat: 'Porcentaje: <b>{point.percentage:.1f}%</b></br>Cantidad: <b>{point.y:.1f}</b>',
 
+        },
+        plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b></br>Porcentaje:<b> {point.percentage:.1f} %</b></br>Cantidad: <b>{point.y:.1f}</b>'
+            }
         }
+    },
     });
 </script>
 <script>
@@ -187,7 +194,7 @@
             plotBackgroundColor: null,
             plotBorderWidth: null,
             plotShadow: false,
-            type: 'bar',
+            type: 'areaspline',
             style: {
             fontFamily: 'serif'
             }
@@ -198,23 +205,30 @@
         subtitle: {
             text: 'Grafica'
         },
+        // Enable for x-axis
         yAxis: {
             allowDecimals: false,
             title: {
                 text: 'Units'
-            }
+            },
+            crosshair: true
         },
         tooltip: {
             pointFormat: '{series.name}: <b>{point.y}</b>',
 
+        },
+        // Enable for x-axis
+        xAxis: {
+            crosshair: true
         }
+        
     });
 </script>
 <script>
     Highcharts.chart('container0.3', {
         data: {
             table: 'datatable0.3',
-            name: 'Incidentes',
+            name: 'Incidentes'
         },
         chart: {
             plotBackgroundColor: null,
@@ -237,7 +251,17 @@
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
 
+        },
+        plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b></br>Incidentes: <b>{point.y}</b>'
+            }
         }
+    },
     });
 </script>
 

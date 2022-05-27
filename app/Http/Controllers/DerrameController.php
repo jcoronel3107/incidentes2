@@ -63,7 +63,7 @@ class DerrameController extends Controller
         $maquinistas = User::where("cargo","Maquinista")
             ->orderBy("name",'asc')
             ->get();
-        $incidentes = Incidente::where("tipo_incidente","Derrame")
+        $incidentes = Incidente::where("tipo_incidente","Hazmat")
             ->orderBy("nombre_incidente",'asc')
             ->get();
                      return view( "/derrame.crear", compact( "incidentes","now","estaciones","users","maquinistas", "parroquias","vehiculos" ) );
@@ -180,7 +180,7 @@ class DerrameController extends Controller
       ->orderBy("name",'asc')
       ->get();
       
-      $incidentes = Incidente::where("tipo_incidente","Derrame")
+      $incidentes = Incidente::where("tipo_incidente","Hazmat")
       ->orderBy("nombre_incidente",'asc')
       ->get();
       

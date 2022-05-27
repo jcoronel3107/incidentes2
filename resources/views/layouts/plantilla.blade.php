@@ -181,14 +181,13 @@
 	<!-- Carga Loader en cada pagina-->
 	<script src="/js/loader.js"></script>
 	<!-- Carga Libreria Moment en cada pagina-->
-	<script src="/js/moment.js" /></script>
+	<script src="/js/moment.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 	<!-- Custom scripts for all pages-->
 	<script src="/js/sb-admin-2.min.js"></script>
 
 	<!-- Page level plugins -->
 	<script src="/vendor/chart.js/Chart.min.js"></script>
-	<!-- Page level plugins -->
 	<script src="/vendor/fullcalendar/core/main.js" ></script> <!-- FullCalendar -->
 	<script src="/vendor/fullcalendar/interaction/main.js" ></script> <!-- FullCalendar -->
 	<script src="/vendor/fullcalendar/daygrid/main.js" ></script><!--  FullCalendar -->

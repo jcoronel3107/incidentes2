@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Mail\ConfirmacionReceived;
 use App\Mail\CancelacionReceived;
 use App\Solicitud;
+use Illuminate\Database\QueryException;
 use App\Http\Controllers\Controller;
 
 
@@ -55,12 +56,12 @@ class AdminReservationsController extends Controller
     public function update(AdminReservationsRequest $request)
     {
 
-            
+        try{    
             /* Actualiza registro en Tabla Solicituds */
             $solicitud= Solicitud::findOrFail($request->solicitud_id);
             $solicitud->status ="Confirmado";
             $solicitud->save();
-/* dd($request); */
+         
             $solicitud->Assignment()->create([
                 'color' => $request->color,
                 'textColor'=> $request->textColor,
@@ -69,12 +70,16 @@ class AdminReservationsController extends Controller
                 'estado' => "En Curso",
                 'vehiculo_id' => $request->vehiculo_id,
                 'conductor_id' => $request->conductor_id,
-                'solicitud_id' => $request->solicitud_id
+                'solicitud_id' => $solicitud->id
             ]);
             $destinatario = $request->email;
             //Mail::to($destinatario,"Sistema Incidentes2 - Modulo Reservación")->send(new ConfirmacionReceived($solicitud));
-          
+           
             return back()->with('message', 'Solicitud Actualizada con Exito!. Se envio la notificacion a: '.$destinatario);
+        }
+        catch(QueryException $e){
+            dd($e->getMessage());
+        }
     }
 
     public function grafica()

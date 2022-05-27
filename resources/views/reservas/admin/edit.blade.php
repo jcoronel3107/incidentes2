@@ -8,14 +8,15 @@
                     <p>Información de Solicitud</p>
                     <a class="btn btn-outline-secondary btn-sm" href="{{ route('administrar.index') }}">Regresar</a>
                 </div>    
-                <div class="card-body">
-                    @if ($errors->any())
+                @if ($errors->any())
                     <div class="alert alert-danger">
                             @foreach ($errors->all() as $error)
                                 <p>{{ $error }}</p>
                             @endforeach
                     </div>
                     @endif  
+                <div class="card-body">
+                    
                     <form class="form" method="post" action="{{ route('administrar.update', $solicitud) }}">
                             @method('PATCH')
                             @csrf
@@ -80,7 +81,7 @@
                                     <span class="input-group-text" id="basic-addon6"><strong>Recurso a Asignar:</strong></span>
                                 </div>
                                 <select name="vehiculo_id" id="vehiculo_id" class="form-control"  aria-describedby="basic-addon6" required>
-                                    <option></option>
+                                    <option value="">Seleccione...</option>
                                     @foreach($ListVehiculosDisponibles as $vehiculodisponible)
                                         <option value="{{$vehiculodisponible->id}}">{{$vehiculodisponible->codigodis . " --> " . $vehiculodisponible->placa}}</option>
                                     @endforeach
@@ -92,7 +93,7 @@
                                     <span class="input-group-text" id="basic-addon6"><strong>Conductor Asignado:</strong></span>
                                 </div>
                                 <select name="conductor_id" id="conductor_id" class="form-control"  aria-describedby="basic-addon6" required>
-                                    <option></option>
+                                    <option value="">Seleccione...</option>
                                     @foreach($ListConductores as $conductor)
                                         <option value="{{$conductor->id}}">{{$conductor->name}}</option>
                                     @endforeach

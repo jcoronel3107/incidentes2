@@ -26,6 +26,7 @@ class CreateClavesTable extends Migration
 			$table->unsignedBigInteger("user_id");
 			$table->unsignedBigInteger("vehiculo_id");
             $table->string("Orden");
+            $table->string("factura");
             $table->timestamps();
             $table->foreign('gasolinera_id')->references('id')->on('gasolineras')
             ->constrained()

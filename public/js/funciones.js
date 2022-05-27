@@ -23,6 +23,7 @@ $(document).on('ready',function(){
 
 	var max_chars = 2000;
 	var max_chars1 = 3000;
+	var max_charser = 1000;
 	$('#max').html(max_chars);
 
 	
@@ -36,7 +37,9 @@ $(document).on('ready',function(){
 	$('#fecha').attr('min', maxDate);
 	$('#fecha').attr('value', maxDate);
 	
-	
+	$( ".vehiculo_id" ).change(function() {
+		tituloventana();
+	  });
 	
 	$("#bt_add").on('click',function(){
 		agregar();
@@ -69,6 +72,22 @@ $(document).on('ready',function(){
 		hractual(this); 
 	});
 
+	
+	$('#max').html(max_charser);
+	$("#asunto").on('keyup',function() {
+		var chars = $("#asunto").val().length;
+		var diff = max_charser - chars;
+		var leyenda = "Caracteres Permitidos 1000 Cant:";
+		var res = leyenda.concat(chars);
+		$("#pcounter").html(res);
+		if(chars > 1000){
+							$("#asunto").addClass('error');
+							$("#asunto").addClass('error');
+					}else{
+						$("#asunto").removeClass('error');
+						$("#asunto").removeClass('error');
+					}
+	});
 
     $("#pinformacion_inicial").on('keyup',function(){
 	        var chars = $("#pinformacion_inicial").val().length;
@@ -259,7 +278,7 @@ function tituloventana(){
 			jqtitle = jqvehiculo_id +" - Fuga - BCBVC";
 			
 			document.title =jqtitle;
-		}
+		}	
 	}
 }
 
@@ -497,6 +516,24 @@ function evaluarpaciente(){
 
 function eliminar2(index){
 	$("#filapaciente"+index).remove();
+}
+
+function compruebaKM(){
+	kmsalida = $('#km_salida_serv').val();
+	console.log(kmsalida);
+	kmretorno = $('#km_retorno_serv').val();
+	if(kmretorno<=kmsalida){
+		alert("KM_Retorno tiene que ser > a KM_Salida");
+		//selecciono el texto 
+		$( "#km_salida_serv" ).select(); 
+		//coloco otra vez el foco 
+		$( "#km_salida_serv" ).focus();
+		$( "#km_retorno_serv" ).addClass('has-error');
+	}
+	else
+	{
+		$( "#km_retorno_serv" ).removeClass('has-error');
+	}
 }
 
 $("textarea").each(function () {
