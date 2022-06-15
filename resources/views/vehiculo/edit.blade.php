@@ -194,9 +194,9 @@
 									</div>
 									<select class="form-control" name="estado">
 										<option selected>{{$vehiculo->estado}}</option>
-										<option>Bueno</option>
-										<option>Regular</option>
-										<option>Malo</option>
+										<option>OPERATIVO</option>
+										<option>MANTENIMIENTO</option>
+										<option>REPARACION</option>
 									</select>
 								</div>
 								<div class="form-group input-group col-md-4">

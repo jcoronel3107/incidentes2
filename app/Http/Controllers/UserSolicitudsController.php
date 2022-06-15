@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Reservacion;
+namespace App\Http\Controllers;
 
 use App\Assignment;
 use App\Http\Requests\UserSolicitudsRequest;
@@ -11,7 +11,7 @@ use App\Mail\ConfirmacionReceived;
 use App\Mail\CancelacionReceived;
 use App\Solicitud;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+
 
 
 class UserSolicitudsController extends Controller

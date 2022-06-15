@@ -47,8 +47,8 @@
 			@yield("cabeza")
 			
 			@include("layouts.sidebar2")
-			<!-- Logout Modal-->
-				<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			
+				<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"><!-- Logout Modal Logout-->
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -68,6 +68,60 @@
 					</div>
 				</div>
 
+				<div class="modal fade" id="climaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"><!-- Clima Modal -->
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Consulte Clima</h5>
+								<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<div class="col"><!-- Div Clima -->
+						
+									<div class="card">
+										<h4 class="card-header text-white bg-secondary">
+										
+											<div id="searchbox">
+												<input type="text" id="search" placeholder="Digite Ciudad">
+												<button>Search</button>
+											</div>
+											<div id="topbar">Clima<span id="searchicon">🔍</span></div>
+										</h4>
+										<div class="card-body">
+												<div id="mainbody">
+													<img>
+													<span id="city"></span>
+													<span id="temp"></span>
+													<span id="cond"></span>
+													<hr>
+													<div id="more">
+														<span id="label">Humedad: </span><span id="humidity"></span>
+													</div>
+													<div id="more">
+														<span id="label">Viento: </span><span id="wind"></span>
+													</div>
+													<div id="more">
+														<span id="label">Dirección Viento: </span><span id="direction"></span>
+													</div>
+													<div>
+														<span id="label">Sensación Térmica: </span><span id="feel"></span>
+													</div>								
+													<span style="font-size: 8px;">Ultima Actualización: </span><span style="font-size: 8px;" id="update"></span>
+												</div>
+											
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button class="btn btn-outline-secondary" type="button" data-dismiss="modal">Cancel</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
 			
 				<div id="content-wrapper" class="d-flex flex-column">
 
@@ -82,16 +136,30 @@
 									<i class="fa fa-bars"></i>
 								</button>
 								<!-- Topbar Navbar -->
-								<ul class="navbar-nav ml-auto">
-									<div class="topbar-divider d-none d-sm-block">
-									</div>
+								<ul class="navbar-nav ml"><!-- Div Logo -->
+							 	 	<div class="d-flex justify-content-start ">
+										<img style="opacity: 0.3; width: 190px; height: 40px;" src="/images/logotipo-05.jpg" alt="BCBVC">
+									</div> 
+								</ul>
+								<ul class="navbar-nav ml-auto"><!-- Div Reloj -->
+										<div id="clockdate">
+												<div class="clockdate-wrapper">
+													<div id="clock"></div>
+													<div id="date"></div>
+												</div>
+											
+										</div>
+									
+								</ul>
+								<ul class="navbar-nav"><!-- Topbar NavItem Lenguaje -->
+									<div class="topbar-divider d-none d-sm-block"></div>
 									<!--Comprobamos si el status esta a true y existe más de un lenguaje-->
 									@if (config('locale.status') && count(config('locale.languages')) > 1)
 									<div class="top-right links">
 										@foreach (array_keys(config('locale.languages')) as $lang)
 										@if ($lang != App::getLocale())
-										<a href="{!! route('lang.swap', $lang) !!}" title="{!! trans('messages.language') !!}">
-											<i class="fa fa-language fa-lg" aria-hidden="true">&nbsp;{{$lang}}</i>
+										<a class="nav-link" href="{!! route('lang.swap', $lang) !!}" title="{!! trans('messages.language') !!}">
+											<i class="fa fa-language fa-lg"></i>{{$lang}}
 										</a>
 										@endif
 										@endforeach
@@ -102,20 +170,16 @@
 								<ul class="navbar-nav">
 									<div class="topbar-divider d-none d-sm-block">
 									</div>
-									<div class="top-right links">
-										<li class="nav-item dropdown no-arrow">
-									
-										</li>
-									</div>
 								</ul>
-								
+								<ul class="navbar-nav">
+									<a class="nav-link" data-toggle="modal" data-target="#climaModal">
+										<i class="fa fa-cloud-sun"></i>
+										Clima
+									</a>
+								</ul>
 								<ul class="navbar-nav ml-right ">
-									<div class="topbar-divider d-none d-sm-block">
-									
-									</div>
-
+									<div class="topbar-divider d-none d-sm-block"></div>
 									<!-- Authentication Links -->
-
 									@guest
 										<li class="nav-item dropdown no-arrow">
 											<a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -194,6 +258,8 @@
 	<script src="/vendor/fullcalendar/list/main.js" ></script> <!-- FullCalendar -->
 	<script src="/vendor/fullcalendar/timegrid/main.js" ></script> <!-- FullCalendar -->
 	<script src="/vendor/fullcalendar/timeline/main.js" ></script><!--  FullCalendar -->
+	<script src="/js/Clima.js"></script>
+	<script src="/js/clock.js"></script>
 	@stack('scripts')
 </body>
 

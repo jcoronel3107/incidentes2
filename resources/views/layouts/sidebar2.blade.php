@@ -101,7 +101,7 @@
         {!! trans('messages.administrative unit') !!}
     </div>
     
-    <hr class="sidebar-divider"><!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block"><!-- Divider -->
 
     <li class="nav-item"><!-- Nav Item - Utilities Collapse Menu Servicios Institucionales-->
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUath" aria-expanded="true" aria-controls="collapseUath">
@@ -113,45 +113,41 @@
           <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
          
             <a rel="nofollow noopener noreferrer" class="collapse-item" href="/serv_institucional">{!! trans('messages.Index') !!}</a>         
-            <a title="Registre Solicitud de Movilizacion" class="collapse-item" href="solicitud">{!! trans('messages.Request') !!}</a>
-          
+            <a title="Registre Solicitud de Movilizacion" class="collapse-item" href="solicitud">{!! trans('messages.Request') !!}</a> 
             <a title="Apruebe Solicitudes de Movilizacion" class="collapse-item" href="administrar">{!! trans('messages.Approve') !!}</a>
             <a title="Cierre de Movilizacion"  class="collapse-item" href={{route('user.solicitud.closed')}}>Closed</a>  
         
         </div>
       </div>
     </li>
-
-    <hr class="sidebar-divider d-none d-md-block"><!--   Divider --> 
-    <div class="sidebar-heading"><!-- Heading Menu Mantenimiento Automotriz -->
-      Mantenimiento Automotriz
-    </div>
-    
-    <hr class="sidebar-divider"><!-- Divider -->
-
     <li class="nav-item"><!-- Nav Item - Utilities Collapse Menu Taller Automotriz-->
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTaller" aria-expanded="true" aria-controls="collapseUath">
         <i class="fas fa-clipboard-check"></i>
-        <span>Mantenimiento Vehicular</span>
+        <span>Mant.Vehicular</span>
       </a>
       <div id="collapseTaller" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
          
-            <a title="Registre Estado Disponibilidad" rel="nofollow noopener noreferrer" class="collapse-item" href="/taller">Disponibilidad</a>         
+            <a title="Estado Disponibilidad" rel="nofollow noopener noreferrer" class="collapse-item" href="/taller">Disponibilidad</a>  
+            <a title="Bitacora" rel="nofollow noopener noreferrer" class="collapse-item" href="/show">Bitacora</a>                
             
         
         </div>
       </div>
     </li>
+    
+    
+    <hr class="sidebar-divider d-none d-md-block"><!-- Divider -->
 
+    
 
-
-    <hr class="sidebar-divider d-none d-md-block"><!--   Divider -->
     <div class="sidebar-heading"><!--  Heading -->
       Addons
     </div>
+
     <hr class="sidebar-divider d-none d-md-block"><!--   Divider -->
+
     <li class="nav-item"><!--          Nav Item - Pages Collapse Menu estadisticas-->
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEstadistica" aria-expanded="true" aria-controls="collapseEstadistica">
         <i class="fas fa-fw fa-filter"></i>
@@ -167,6 +163,7 @@
       </div>
 
     </li>
+
     <li class="nav-item"><!--         Nav Item - Pages Collapse Menu parametrizacion-->
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseParametros" aria-expanded="true" aria-controls="collapseParametros">
         <i class="fas fa-fw fa-cogs"></i>
@@ -186,6 +183,7 @@
         </div>
       </div>
     </li>
+
     <li class="nav-item"><!--       Nav Item - Pages Collapse Menu Users -->
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="true" aria-controls="collapseUsers">
           <i class="fas fa-users-cog"></i>

@@ -15,9 +15,9 @@
     </li>
 </ul>
 
-<div class="tab-content" id="myTabContent">
-    <!-- Contenedor General !-->
-    <div class="tab-pane fade show active" id="General" role="tabpanel" aria-labelledby="General-tab">
+<div class="tab-content" id="myTabContent"><!-- Contenedor General !-->
+    
+    <div class="tab-pane fade show active" id="General" role="tabpanel" aria-labelledby="General-tab"><!-- Contenedor Incidentes !-->
         <form method="get" action="/busquedaentrefechas">
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label text-sm-right">Incidente</label>
@@ -42,7 +42,7 @@
                 <div class="col-sm-9">
                     <div class=" col-xl-8 col-lg-8">
 
-                        <input type="date" required="" id="fechaD" name="fechaD" min="2021-01-01" class="form-control">
+                        <input type="datetime-local" required="" id="fechaD" name="fechaD" min="2021-01-01" class="form-control">
                     </div>
                 </div>
             </div>
@@ -50,7 +50,7 @@
                 <label class="col-sm-3 col-form-label text-sm-right">Fecha Hasta</label>
                 <div class="col-sm-9">
                     <div class=" col-xl-8 col-lg-8">
-                        <input type="date" required="" id="fechaH" name="fechaH" class="form-control">
+                        <input type="datetime-local" required id="fechaH" name="fechaH" class="form-control">
                     </div>
                 </div>
             </div>
@@ -103,14 +103,14 @@
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label text-sm-right">Fecha Desde</label>
                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
-                        <input type="date" required id="fechaDvehicle" name="fechaDvehicle" min="2021-01-01" class="form-control">
+                        <input type="datetime-local" required id="fechaDvehicle" name="fechaDvehicle" min="2021-01-01" class="form-control">
                     </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label text-sm-right">Fecha Hasta</label>
                 
                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
-                        <input type="date" required id="fechaHvehicle" name="fechaHvehicle" class="form-control">
+                        <input type="datetime-local" required id="fechaHvehicle" name="fechaHvehicle" class="form-control">
                     </div>
             </div>
             <div class="form-group" id="divguardarvehicle">
@@ -130,8 +130,8 @@
         </form>
     </div>
 
-    <!-- Contenedor Clave14 !-->
-    <div class="tab-pane fade" id="Claves" role="tabpanel" aria-labelledby="Claves-tab">
+    
+    <div class="tab-pane fade" id="Claves" role="tabpanel" aria-labelledby="Claves-tab"><!-- Contenedor Clave14 !-->
         <form method="get" action="/busquedaentrefechasclave">
             <div class="form-group row mt-2">
                 <label class="col-sm-3 col-form-label text-sm-right">Proveedor</label>
@@ -150,14 +150,14 @@
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label text-sm-right">Fecha Desde</label>
                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
-                        <input type="date" required id="fechaDgas" name="fechaDgas" min="2021-01-01" class="form-control">
+                        <input type="datetime-local" required id="fechaDgas" name="fechaDgas" min="2021-01-01" class="form-control">
                     </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label text-sm-right">Fecha Hasta</label>
                 
                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
-                        <input type="date" required id="fechaHgas" name="fechaHgas" class="form-control">
+                        <input type="datetime-local" required id="fechaHgas" name="fechaHgas" class="form-control">
                     </div>
             </div>
             <div class="form-group" id="divguardarClave">
@@ -180,7 +180,7 @@
     </div>
 
     
-    <div id='resultado' class="col-xl-12 col-lg-12""></div>
+    <div id='resultado' class="col-xl-12 col-lg-12"></div>
 </div>
 
 

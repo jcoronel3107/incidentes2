@@ -34,9 +34,12 @@ class MenuController extends Controller
     
     public function index()
     {
+        
        return view("welcome");
     }
 
+
+   
     /**
      * Show the form for creating a new resource.
      *

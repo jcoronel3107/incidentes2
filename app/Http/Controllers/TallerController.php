@@ -3,15 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Vehiculo;
-use App\Http\Requests\CreateVehiculoRequest;
-use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
+
 use Illuminate\Support\Facades\DB;
-use App\Exports\VehiculosExport;
-use App\Imports\VehiculosImport;
-use Barryvdh\DomPDF\PDF;
+use App\Exports\TallerBitacoraExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class TallerController extends Controller
 {
@@ -86,8 +82,7 @@ class TallerController extends Controller
      */
     public function create()
     {
-        //
-			return view( "/vehiculo.crear" );
+        
 		
     }
 
@@ -97,7 +92,7 @@ class TallerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateVehiculoRequest $request)
+    public function store(Request $request)
     {
       
 			
@@ -110,11 +105,14 @@ class TallerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
-		$vehiculo = Vehiculo::findOrFail( $id );
-		return view( "vehiculo.show", compact( "vehiculo" ) );
+        $Listvehiculos = DB::connection('mysql2')->table('v_vehiculos')
+        ->select('codigo','codigodis')
+        ->orderByDesc('codigodis')
+        ->get();
+        return view('mantenimiento_vehicular.consulta',compact('Listvehiculos'));
+    
     }
 
     /**
@@ -126,9 +124,7 @@ class TallerController extends Controller
     public function edit($id)
     {
        
-			$vehiculo = Vehiculo::findOrFail( $id );
-			return view( "vehiculo.edit", compact( "vehiculo" ) );
-		
+			
     }
 
     /**
@@ -141,10 +137,7 @@ class TallerController extends Controller
     public function update(Request $request, $id)
     {
       
-			$vehiculo = Vehiculo::findOrFail( $id );
-			$vehiculo->update( $request->all() );
-			Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
-			return redirect( "/vehiculo" );
+			
 		
     }
 
@@ -157,34 +150,50 @@ class TallerController extends Controller
     public function destroy($id)
     {
        
-			$vehiculo = Vehiculo::findOrFail( $id );
-			$vehiculo->delete();
-			Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
-			return redirect( "/vehiculo" );
+			
 	
     }
 
-    public function export()
+    public function export_bitacora(string $fchD,string $fchH, string $vehiculoid,string $aprov,string $liquid)
     {
-        return Excel::download(new VehiculosExport, 'vehiculos.xlsx');
+        return Excel::download(new TallerBitacoraExport($fchD,$fchH,$vehiculoid,$aprov,$liquid), 'export_bitacora.xlsx');
     }
 
     public function importacion(Request $request)
     {
-        $file = $request->file('file');
-        Excel::import(new VehiculosImport, $file);
-        Session::flash('Importacion_Correcta',"Importacion Realizada con Exito!!!");
-        return redirect( "/vehiculo" );
+      
     }
 
     public function grafica()
     {
-        $vehiculosfabricacion= Vehiculo::select("anio_fab",(DB::raw("count(*) as Cantidad")))->groupBy("anio_fab")->get();
-        return view("/vehiculo.grafic",compact("vehiculosfabricacion"));
+        
     }
 
-    public function importar()
+    public function search_bitacora(Request $request)
     {
-      return view("/vehiculo.import");
+        $ListMantenimientosEntreFechas = DB::connection('mysql2')->table('v_mantenimientos')
+        ->join('v_vehiculos','v_mantenimientos.vehiculo','=','v_vehiculos.codigo')
+        ->join('v_facturas','v_mantenimientos.factura','=','v_facturas.id')
+        ->select('numero','referencia','taller','codigodis','v_mantenimientos.estacion','kilometraje','descripcion','usuaemite','fechaemite','aprobado','liquidado','usuaaprueba','total')
+        ->where('v_mantenimientos.vehiculo',$request->Vehiculo)
+        ->whereBetween('fechaemite',[$request->fechaD, $request->fechaH])
+        ->where('aprobado',$request->aprobado)
+        ->where('liquidado',$request->liquidado)
+        ->orderByDesc('fechaemite')
+        ->paginate(10);
+        $fechaD = $request->fechaD;
+        $fechaH = $request->fechaH;
+        $aprobado = $request->aprobado;
+        $VehiculoId = $request->Vehiculo;
+        $liquidado = $request->liquidado;
+        $Vehiculo = $request->Vehiculo;
+        
+        $Vehiculo = DB::connection('mysql2')->table('v_vehiculos')
+        ->select('placa','marca','modelo','codigodis','clase','motor','chasis','anio_fab')
+        ->where('codigo',$VehiculoId)
+        ->orderByDesc('codigodis')->first();
+
+
+        return view('mantenimiento_vehicular.view_bitacora',compact('ListMantenimientosEntreFechas','fechaD','fechaH','aprobado','Vehiculo','VehiculoId','liquidado'));
     }
 }

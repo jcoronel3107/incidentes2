@@ -22,16 +22,17 @@
     </div>
     
     <div class="tab-pane fade show active" id="General" role="tabpanel" aria-labelledby="General-tab">
-        
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="row justify-content-center">
+            <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
 
-                <p style="text-align: center;" class="text-secondary" id="fch1">Fecha Desde: {{$fechaD}} &nbsp;&nbsp; Fecha Hasta: {{$fechaH}}</p>
-                <p style="text-transform: uppercase; text-align: center;" class="text-info" id="incidente">{{$tabla}}</p>
-                <div class="py-2 " id="container0"></div>
+                    <p style="text-align: center;" class="text-secondary" id="fch1">Fecha Desde: {{$fechaD}} &nbsp;&nbsp; Fecha Hasta: {{$fechaH}}</p>
+                    <p style="text-transform: uppercase; text-align: center;" class="text-info" id="incidente">{{$tabla}}</p>
+                    <div class="py-2 " id="container0"></div>
 
+            </div>
         </div>
         <hr>
-        <div class="row mb-2 mt-2 justify-content-center ">
+        <div class="row mb-2 mt-2 justify-content-center "> <!-- Botones descarga -->
             @can('allow export')
                             @if($tabla=="saluds")
                                     <a class="btn btn-info mr-2" data-toggle="tooltip" title="Descarga Archivo Excel" role="button" href="estadisticas/export3/{{$tabla}},{{$fechaD}},{{$fechaH}}">{!! trans('messages.download records') !!}</a>
@@ -169,7 +170,7 @@
             }
         },
         tooltip: {
-            pointFormat: 'Porcentaje: <b>{point.percentage:.1f}%</b></br>Cantidad: <b>{point.y:.1f}</b>',
+            pointFormat: 'Porcentaje: <b>{point.percentage:.1f}%</b></br>Cant: <b>{point.y}</b>',
 
         },
         plotOptions: {
@@ -178,7 +179,7 @@
             cursor: 'pointer',
             dataLabels: {
                 enabled: true,
-                format: '<b>{point.name}</b></br>Porcentaje:<b> {point.percentage:.1f} %</b></br>Cantidad: <b>{point.y:.1f}</b>'
+                format: '<b>{point.name}</b></br>Porcentaje:<b> {point.percentage:.1f} %</b></br>Cant: <b>{point.y}</b>'
             }
         }
     },
@@ -217,6 +218,16 @@
             pointFormat: '{series.name}: <b>{point.y}</b>',
 
         },
+        plotOptions: {
+            areaspline: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.y}</b>'
+            }
+        }
+    },
         // Enable for x-axis
         xAxis: {
             crosshair: true
@@ -234,7 +245,7 @@
             plotBackgroundColor: null,
             plotBorderWidth: null,
             plotShadow: false,
-            type: 'pie'
+            type: 'areaspline'
         },
         title: {
             text: 'Incidentes en Parroquias'
@@ -249,19 +260,23 @@
             }
         },
         tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+            pointFormat: '{point.name}:</br> <b>{point.y}</b>',
 
         },
         plotOptions: {
-        pie: {
+            areaspline: {
             allowPointSelect: true,
             cursor: 'pointer',
             dataLabels: {
                 enabled: true,
-                format: '<b>{point.name}</b></br>Incidentes: <b>{point.y}</b>'
+                format: '<b>{point.y}</b>'
             }
         }
     },
+        // Enable for x-axis
+        xAxis: {
+            crosshair: true
+        }
     });
 </script>
 

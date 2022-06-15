@@ -22,8 +22,8 @@
     </div>
     
     <div class="tab-pane fade show active" id="General" role="tabpanel" aria-labelledby="General-tab">
-        <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="row justify-content-center">
+            <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
 
                 <p style="text-align: center;" class="text-secondary" id="fch1">Fecha Desde: {{$fechaD}} &nbsp;&nbsp; Fecha Hasta: {{$fechaH}}</p>
                 <p style="text-transform: uppercase; text-align: center;" class="text-info" id="incidente">Todos</p>
@@ -83,7 +83,7 @@
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/highcharts-3d.js"></script>
-<script src="https://code.highcharts.com/cylinder.js"></script>
+
 {{-- Pestaña General --}}
 <script>
     Highcharts.chart('container0', {
@@ -113,9 +113,19 @@
             }
         },
         tooltip: {
-            pointFormat: 'cant: <b>{point.y}</b></br>porcentaje: <b>{point.percentage:.1f}%</b>',
+            pointFormat: '%: <b>{point.percentage:.1f}</b></br>#: <b>{point.y}</b>',
 
+        },
+        plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b></br>Porcentaje:<b> {point.percentage:.1f} %</b></br>Cantidad: <b>{point.y}</b>'
+            }
         }
+    },
     });
 </script>
 

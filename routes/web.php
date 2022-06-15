@@ -4,10 +4,12 @@ use Illuminate\Support\Facades\Route;
 
 use Illuminate\Support\Facades\Auth;
 
+use App\Http\Controllers\AdminReservationsController;
+use App\Http\Controllers\ReservacionController;
+use App\Http\Controllers\UserSolicitudsController;
+use App\Http\Controllers\TallerController;
 
 /*
-
-
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -297,39 +299,39 @@ Route::get('/consultaentrefechasmov',	        	'MovilizacionController@consultae
 /                                   Rutas SubSistema Reservas de vehiculos
 /
 / ------------------------------------------------------------------------------------------------
+*/
 
 
-Route::controller(Reservacion\AdminReservationsController::class)->group(function(){
-    Route::get('/administrar/grafic/','grafica')->name('admin.solicitud.grafic')->middleware('role:employee|assistant|admin|Super-Admin');
-});
 
-Route::controller(Reservacion\ReservacionController::class)->group(function(){
-    Route::get('vehiculosdisponibles','VehiculosDisponibles')->middleware('role:employee|assistant|admin|Super-Admin');
-    Route::get('/solicitud/asistencia','formasistencia')->middleware('role:employee|assistant|admin|Super-Admin');
-    Route::get('/solicitud/calendar','chequearcalendario')->middleware('role:employee|assistant|admin|Super-Admin');
-    Route::get('/serv_institucional','index')->middleware('role:employee|assistant|admin|Super-Admin');
-});
+Route::get('/administrar/grafic/','AdminReservationsController@grafica')->name('admin.solicitud.grafic')->middleware('role:employee|assistant|admin|Super-Admin');
 
-Route::controller(Reservacion\UserSolicitudsController::class)->group(function () {
-    Route::get('applicationclosed','application_closed')->name('user.solicitud.closed')->middleware('role:employee|assistant|admin|Super-Admin');
-    Route::get('/solicitud/calendar', 'calendar')->name('user.solicitud.calendar')->middleware('role:employee|assistant|admin|Super-Admin');
-});
+Route::get('vehiculosdisponibles','ReservacionController@VehiculosDisponibles')->middleware('role:employee|assistant|admin|Super-Admin');
+Route::get('/solicitud/asistencia','ReservacionController@formasistencia')->middleware('role:employee|assistant|admin|Super-Admin');
+Route::get('/solicitud/calendar','ReservacionController@chequearcalendario')->middleware('role:employee|assistant|admin|Super-Admin');
+Route::get('/serv_institucional','ReservacionController@index')->middleware('role:employee|assistant|admin|Super-Admin');
 
-Route::resource('solicitud',      	'Reservacion\UserSolicitudsController')->middleware('role:employee|assistant|admin|Super-Admin');
-Route::resource('administrar', 		'Reservacion\AdminReservationsController')->middleware('role:assistant|admin|Super-Admin');
+
+Route::get('applicationclosed','UserSolicitudsController@application_closed')->name('user.solicitud.closed')->middleware('role:employee|assistant|admin|Super-Admin');
+Route::get('/solicitud/calendar', 'UserSolicitudsController@calendar')->name('user.solicitud.calendar')->middleware('role:employee|assistant|admin|Super-Admin');
+
+
+
+Route::resource('solicitud',      	'UserSolicitudsController')->middleware('role:employee|assistant|admin|Super-Admin');
+Route::resource('administrar', 		'AdminReservationsController')->middleware('role:assistant|admin|Super-Admin');
 
 
 /* ----------------------------------------------------------------------------------------------
 /                                   Rutas SubSistema Taller_Mantenimiento
 /
 / ------------------------------------------------------------------------------------------------
+*/
 
 
-Route::controller(TallerController::class)->group(function(){
-    Route::get('/taller','index')->middleware('role:employee|assistant|admin|Super-Admin');
-});
 
-
+    Route::get('/taller','TallerController@index')->middleware('role:employee|assistant|admin|Super-Admin');
+    Route::get('/search_bitacora','TallerController@search_bitacora')->middleware('role:employee|assistant|admin|Super-Admin');
+    Route::get('/show','TallerController@show')->middleware('role:employee|assistant|admin|Super-Admin');
+    Route::get('/export_bitacora/{p1},{p2},{p3},{p4},{p5}','TallerController@export_bitacora')->middleware('role:operador|consultor|supervisor|admin|Super-Admin');
 
 
 /* ----------------------------------------------------------------------------------------------

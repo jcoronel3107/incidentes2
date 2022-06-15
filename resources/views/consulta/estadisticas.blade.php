@@ -34,9 +34,9 @@
 </ul>
 <div class="tab-content" id="myTabContent">
 	
-	<div class="tab-pane fade show active" id="General" role="tabpanel" aria-labelledby="General-tab">
-		<div class="row">
-			<div class="col-xl-12 col-lg-12">
+	<div class="tab-pane fade show active" id="General" role="tabpanel" aria-labelledby="General-tab"><!-- Contenedor General  -->
+		<div class="row justify-content-center">
+			<div class="col-xl-8 col-lg-8">
 
 				<div class="py-2 " id="container0"></div>
 
@@ -44,7 +44,7 @@
 			
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 200"><path fill="#f3f4f5" fill-opacity="1" d="M0,128L60,122.7C120,117,240,107,360,96C480,85,600,75,720,96C840,117,960,171,1080,186.7C1200,203,1320,181,1380,170.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
 
-			<div class="col-xl-3 col-lg-3 " hidden style="overflow-y: auto; width: 200px;">
+			<div class="col-xl-3 col-lg-3 " hidden style="overflow-y: auto; width: 200px;"> <!-- table0.1 -->
 
 				<div class="py-2"  id="table0.1">
 					<table class="table table-sm" id="datatable0.1">
@@ -68,7 +68,7 @@
 			</div>
 		</div>
 		
-		<div class="row">
+		<div class="row justify-content-center"><!-- container0.10 -->
 			<div class="col-xl-12 col-lg-12 col-md-12">
 
 				<div class="py-2 " id="container0.10"></div>
@@ -111,10 +111,10 @@
 			</div>
 		</div>
 		
-	</div><!-- Contenedor General  -->
+	</div>
 	
 	<div class="tab-pane fade show " id="Inundaciones" role="tabpanel" aria-labelledby="Inundaciones-tab">
-		<div class="row">
+		<div class="row justify-content-center">
 			<div class="col-xl-12 col-lg-12 col-md-12">
 
 				<div class="py-2 " id="container1"></div>
@@ -145,7 +145,7 @@
 			</div>
 		</div>
 		<hr>
-		<div class="row">
+		<div class="row justify-content-center">
 			{{-- Contenedor Inundacion x Incidente --}}
 			<div class="col-xl-6 col-lg-6">
 				<h3>Tipos Inundaciones</h3>
@@ -194,7 +194,7 @@
 			</div>
 		</div>
 		<hr>
-		<div class="row">
+		<div class="row justify-content-center">
 			{{-- Contenedor Inundacion x Parroquias --}}
 			<div hidden class="col-xl-4 col-lg-4">
 				<h3>Inundaciones por Parroquia</h3>
@@ -225,7 +225,7 @@
 	</div><!-- Contenedor Inundaciones -->
 	
 	<div class="tab-pane fade" id="Rescates" role="tabpanel" aria-labelledby="Rescates-tab">
-		<div class="row">{{-- Contenedor Grafico1 --}}
+		<div class="row justify-content-center">{{-- Contenedor Grafico1 --}}
 			<div class="col-xl-12 col-lg-12 col-md-12">
 				<div class="py-2" id="container2"></div>
 			</div>
@@ -898,11 +898,20 @@
 					}
 				},
 				tooltip: {
-					pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
-					/*formatter: function() {
-							return 'Cant <b>' + this.y ;
-						}*/
-				}
+					pointFormat: '<b>{point.percentage:.1f}%</b>'
+				},
+				plotOptions: {
+				pie: {
+					allowPointSelect: true,
+					cursor: 'pointer',
+					shadow: false,
+					center: ['50%', '50%'],
+					dataLabels: {
+						enabled: true,
+						format: '<b>{point.name}</b></br>Cant: <b>{point.y}</b>'
+					}
+					}
+				},
 			});
 		</script>
 		<script>
@@ -913,7 +922,7 @@
 				},
 				chart: {
 					
-					type: 'column'
+					type: 'line'
 				},
 				title: {
 					text: 'Incidentes Por Estacion (Anual)'
@@ -968,30 +977,6 @@
 						table: 'datatable0.2',
 						name: 'Incidentes',
 					},
-				}, {
-					type: 'areaspline',
-					name: 'Rescate',
-					data: [2, 3, 5, 7, 6, 10, 8, 5, 12, 31]
-				}, {
-					type: 'areaspline',
-					name: 'Transito',
-					data: [4, 3, 3, 9, 0, 4, 3, 3, 9, 10]
-				}, {
-					type: 'areaspline',
-					name: 'Salud',
-					data: [14, 14, 13, 19, 10, 8, 5, 12, 31, 45]
-				}, {
-					type: 'areaspline',
-					name: 'Fuego',
-					data: [15, 22, 11, 33, 24, 13, 21, 11, 23, 14]
-				}, {
-					type: 'areaspline',
-					name: 'Fuga',
-					data: [13, 21, 11, 23, 14, 11, 23, 14, 13, 21]
-				}, {
-					type: 'areaspline',
-					name: 'Derrame',
-					data: [3, 21, 12, 3, 14, 21, 11, 23, 14, 11]
 				}],
 
 				title: {
@@ -1080,7 +1065,7 @@
 					table: 'datatable1.3'
 				},
 				chart: {
-					type: 'column'
+					type: 'areaspline'
 				},
 				title: {
 					text: 'Asistencias Inundación por Estacion (Anual)'
@@ -1192,7 +1177,7 @@
 					table: 'datatable2.2'
 				},
 				chart: {
-					type: 'column'
+					type: 'areaspline'
 				},
 				title: {
 					text: 'Asistencias Rescate por Estacion (Anual)'
@@ -1277,7 +1262,7 @@
 					table: 'datatable3.2'
 				},
 				chart: {
-					type: 'column'
+					type: 'areaspline'
 				},
 				title: {
 					text: 'Asistencias Transito por Estacion (Anual)'
@@ -1362,7 +1347,7 @@
 					table: 'datatable4.2'
 				},
 				chart: {
-					type: 'column'
+					type: 'areaspline'
 				},
 				title: {
 					text: 'Asistencias Salud por Estacion (Anual)'
@@ -1440,14 +1425,14 @@
 					}
 				}
 			});
-		</script>{{-- Container Salud x Incidente --}}
+		</script>{{-- Container Fuego x Incidente --}}
 		<script>
 			Highcharts.chart('container5.2', {
 				data: {
 					table: 'datatable5.2'
 				},
 				chart: {
-					type: 'column'
+					type: 'areaspline'
 				},
 				title: {
 					text: 'Asistencias Fuego por Estacion (Anual)'
@@ -1467,14 +1452,14 @@
 					}
 				}
 			});
-		</script>
+		</script>{{-- Container Fuego x Estacion --}}
 		<script>
 			Highcharts.chart('container5.3', {
 				data: {
 					table: 'datatable5.3'
 				},
 				chart: {
-					type: 'bar'
+					type: 'areaspline'
 				},
 				title: {
 					text: 'Asistencias Fuego por Parroquia (Anual)'
@@ -1494,7 +1479,7 @@
 					}
 				}
 			});
-		</script>
+		</script>{{-- Container Fuego x Parroquia --}}
 
 		{{-- Pestaña Fuga --}}
 		<script>
@@ -1559,7 +1544,7 @@
 					table: 'datatable6.2'
 				},
 				chart: {
-					type: 'column'
+					type: 'areaspline'
 				},
 				title: {
 					text: 'Asistencias Fuga por Estacion (Anual)'
@@ -1586,7 +1571,7 @@
 					table: 'datatable6.3'
 				},
 				chart: {
-					type: 'bar'
+					type: 'areaspline'
 				},
 				title: {
 					text: 'Asistencias Fuga por Parroquia (Anual)'
@@ -1712,7 +1697,7 @@
 					table: 'datatable7.2'
 				},
 				chart: {
-					type: 'column'
+					type: 'areaspline'
 				},
 				title: {
 					text: 'Asistencias Derrames por Estacion (Anual)'
@@ -1739,7 +1724,7 @@
 					table: 'datatable7.3'
 				},
 				chart: {
-					type: 'bar'
+					type: 'areaspline'
 				},
 				title: {
 					text: 'Asistencias Derrames por Parroquia (Anual)'

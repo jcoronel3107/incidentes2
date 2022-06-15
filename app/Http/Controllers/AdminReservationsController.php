@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Reservacion;
+namespace App\Http\Controllers;
 
 use App\Assignment;
 use App\Http\Requests\AdminReservationsRequest;

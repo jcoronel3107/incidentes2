@@ -393,6 +393,7 @@ class ConsultasController extends Controller
         }
     }
 
+	
 	public function consultaentrefechas()
 	{
 		$gastation = Gasolinera::all();

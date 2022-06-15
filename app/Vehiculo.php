@@ -38,6 +38,7 @@ class Vehiculo extends Model
 	"valorcomp",
 	"fechabaja",
 	"concepbaja",
+	"observacion",
 	"kmmantrut",
 	"usuacrea",
 	"usuaedit",
