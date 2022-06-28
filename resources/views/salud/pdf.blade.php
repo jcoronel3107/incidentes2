@@ -75,7 +75,7 @@
 			<td>{{$salud->hora_en_base}}</td>
 		</tr>
 	</table>
-	<hr<><br /><br /><br /><br /><br /><br />
+	<hr><br /><br /><br /><br /><br /><br />
 	<table class="table table-striped">
 		<tr>
 			<th>Informacion Inicial</th>

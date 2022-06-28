@@ -253,6 +253,11 @@ Route::put('profile/pass', 							'ProfileController@pass')->name('profile.pass'
 Route::put('profile/avatar', 						'ProfileController@update_avatar')->name('profile.avatar')->middleware('auth');
 Route::get('users/permisos',						'UserController@permisos')->middleware('role:admin|Super-Admin');
 Route::get('users/importar',						'UserController@importar')->middleware('role:admin|Super-Admin');
+Route::get('users/profile/{id}',					'UserController@profile_employed')->name('profile.profile_employed')->middleware('auth');
+Route::get('/downloadPDFCert',		        		'UserController@downloadPDF')->middleware('auth');
+Route::get('/downloadPDFAnticipo',		        	'UserController@downloadPDFAnticipo')->middleware('auth');
+Route::get('/users/rol',			    	       	'UserController@rolPagoMensual')->name('profile.rol')->middleware('auth');
+Route::get('/users/status',			    	       	'UserController@status')->name('profile.status')->middleware('auth');
 
 /* --------------------------------------- Sub modulo Estadisticas    ----------------------- */
 
@@ -328,11 +333,16 @@ Route::resource('administrar', 		'AdminReservationsController')->middleware('rol
 
 
 
-    Route::get('/taller','TallerController@index')->middleware('role:employee|assistant|admin|Super-Admin');
+    Route::get('/taller','TallerController@disponibilidad')->middleware('role:employee|assistant|admin|Super-Admin');
+    Route::get('/solicitudes','TallerController@index')->middleware('role:employee|assistant|admin|Super-Admin');
     Route::get('/search_bitacora','TallerController@search_bitacora')->middleware('role:employee|assistant|admin|Super-Admin');
     Route::get('/show','TallerController@show')->middleware('role:employee|assistant|admin|Super-Admin');
     Route::get('/export_bitacora/{p1},{p2},{p3},{p4},{p5}','TallerController@export_bitacora')->middleware('role:operador|consultor|supervisor|admin|Super-Admin');
-
+    Route::get('/solicitar_mant','TallerController@solicitar_mant')->middleware('role:employee|assistant|admin|Super-Admin');
+    Route::post('/storemaintenancerequest','TallerController@store_maintenance_request')->name('store_maintenance_request')->middleware('role:inspector|admin|Super-Admin');
+    Route::post('/createworkorder','TallerController@create_workorder_ajaxRequestPost')->name('createworkorder')->middleware('role:inspector|admin|Super-Admin');
+    Route::get('/listworkorder','TallerController@listworkorder')->name('listworkorder')->middleware('role:inspector|admin|Super-Admin');
+    Route::get('/profile','TallerController@profile')->name('profile')->middleware('role:inspector|admin|Super-Admin');
 
 /* ----------------------------------------------------------------------------------------------
 /                                   Rutas Menu Principal

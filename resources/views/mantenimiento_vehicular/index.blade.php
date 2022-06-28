@@ -1,193 +1,141 @@
-@extends( "layouts.plantilla" )
 
-@section( "cabeza" )
+	@extends( "layouts.plantilla" )
 
-   
+	@section( "cabeza" )
+	<title>Solicitudes - Index - BCBVC</title>
+	<meta name="csrf-token" content="{{ csrf_token() }}">
+	@endsection
 
-@endsection
-
-@section( "cuerpo" )
-	<div class="row align-items-center mb-5">
-		<h1>Disponibilidad Vehicular Operativa</h1>
-	</div>
-	<div class="row align-items-center">
-			<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-4">
-				<div class="card text-white bg-primary o-hidden h-100">
-						<div class="card-body text-white bg-primary">
-							<div class="card-body-icon"><i class="fas fa-car-alt"></i> </div>
-							<div class="mr-4"> <h5>Vehiculos Operativos</h5></div>
-							<div class="mr-5"> <h1>{{$CantVehiculosOperativos}}</h1></div>
+	@section( "cuerpo" )
+		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Consulta Solicitudes Mantenimiento</h2>
+		@include('inundacion.messages')
+		<div class="row nav justify-content-end">
+			<li class="nav-item">
+				<div class="input-group mb-3">
+					@can('allow export')
+						<div class="input-group-prepend ml-2">
+								<span title="Export" class="input-group-text"><i class="fas fa-file-export"></i></span>
 						</div>
-						<a class="card-footer text-white clearfix small z-1" data-toggle="modal" data-target="#exampleModal1" href="#">
-							<span class="float-left">Ver detalles</span>
-							<span class="float-right"><i class="fas fa-angle-right"></i></span>
-						</a>
-				</div>
-			</div>
-			<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-4">
-				<div class="card text-white bg-danger o-hidden h-100">
-						<div class="card-body text-white bg-danger">
-							<div class="card-body-icon"><i class="fas fa-car-alt"></i> </div>
-							<div class="mr-4"> <h5>Vehiculos Mantenimiento</h5></div>
-							<div class="mr-5"> <h1>{{$CantVehiculosReparacion}}</h1></div>
-						</div>
-						<a class="card-footer text-white clearfix small z-1" data-toggle="modal" data-target="#exampleModal2" href="#">
-							<span class="float-left">Ver detalles</span>
-							<span class="float-right"><i class="fas fa-angle-right"></i></span>
-						</a>
-				</div>
-			</div>	
-			<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-4">
-				<div class="card text-white bg-warning o-hidden h-100">
-						<div class="card-body text-white bg-warning">
-							<div class="card-body-icon"><i class="fas fa-car-alt"></i></div>
-							<div class="mr-4"> <h5>Vehiculos en Reparacion</h5></div>
-							<div class="mr-5"> <h1>{{$CantVehiculosEnMantenimiento}}</h1></div>
-						</div>
-						<a class="card-footer text-white clearfix small z-1" data-toggle="modal" data-target="#exampleModal3" href="#">
-							<span class="float-left">Ver detalles</span>
-							<span class="float-right"><i class="fas fa-angle-right"></i></span>
-						</a>
-				</div>
-			</div>
-	</div>
-
-	
-	<div class="modal fade bd-example-modal-lg" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true"><!-- Modal1 -->
-		<div class="modal-dialog modal-lg" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel1">Vehiculos Operativos</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<table class="table table-striped">
-						<thead>
-								<tr>
-									<th scope="col">id</th>
-									<th scope="col">Codigo</th>
-									<th scope="col">Placa</th>
-									<th scope="col">Marca</th>
-									<th scope="col">Modelo</th>
-								</tr>
-						</thead>
-						<tbody>
-						
-								@foreach ($ListVehiculosOperativos as $vehiculo)
-									<tr>
-										<th scope="row">{{ $vehiculo->id }}</th>
-										<td>{{ $vehiculo->codigodis }}</td>
-										<td>{{$vehiculo->placa}}</td>
-										<td>{{$vehiculo->marca}}</td>
-										<td>{{$vehiculo->modelo}}</td>
-									</tr>
-								@endforeach
-								
-						</tbody>
-					</table>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-info" >Exportar</button>
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<div class="modal fade bd-example-modal-lg" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true"><!-- Modal2 -->
-			<div class="modal-dialog modal-lg" role="document">
-				<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel2">Vehiculos Mantenimiento</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<table class="table table-striped">
-						<thead>
-								<tr>
-									<th scope="col">id</th>
-									<th scope="col">Codigo</th>
-									<th scope="col">Placa</th>
-									<th scope="col">Marca</th>
-									<th scope="col">Modelo</th>
-								</tr>
-						</thead>
-						<tbody>
-						
-								@foreach ($ListVehiculosReparacion as $vehiculo)
-									<tr>
-										<th scope="row">{{ $vehiculo->id }}</th>
-										<td>{{ $vehiculo->codigodis }}</td>
-										<td>{{$vehiculo->placa}}</td>
-										<td>{{$vehiculo->marca}}</td>
-										<td>{{$vehiculo->modelo}}</td>
-									</tr>
-								@endforeach
-								
-						</tbody>
-					</table>
-					
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-info" >Exportar</button>
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					
-				</div>
-				</div>
-			</div>
-	</div>
-	
-	<div class="modal fade bd-example-modal-lg" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3" aria-hidden="true"><!-- Modal3 -->
-		<div class="modal-dialog modal-lg" role="document">
-			<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel3">Vehiculos En Reparacion</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<table class="table table-striped">
-					<thead>
-							<tr>
-								<th scope="col">id</th>
-								<th scope="col">Codigo</th>
-								<th scope="col">Placa</th>
-								<th scope="col">Marca</th>
-								<th scope="col">Modelo</th>
-							</tr>
-					</thead>
-					<tbody>
-					
-							@foreach ($ListVehiculosEnMantenimiento as $vehiculo)
-								<tr>
-									<th scope="row">{{ $vehiculo->id }}</th>
-									<td>{{ $vehiculo->codigodis }}</td>
-									<td>{{$vehiculo->placa}}</td>
-									<td>{{$vehiculo->marca}}</td>
-									<td>{{$vehiculo->modelo}}</td>
-								</tr>
-							@endforeach
-							
-					</tbody>
-				</table>
 			
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-info" >Exportar</button>
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				
-			</div>
-			</div>
+						<a class="btn btn-outline-secondary focus-in-expand" data-toggle="tooltip" title="Export" href="">Exportar</i></a>
+					@endcan
+				</div>
+			</li>
 		</div>
-	</div>
+		
+		<hr style="border:2px;">
+		@include('mantenimiento_vehicular.search')
+		<table class="table table-hover  table-responsive">
+			<thead>
+				<tr class="table-info">
+					<th>id</th>
+					<th>{!! trans('messages.Date') !!}</th>
+					<th>Descipcion</th>
+					<th>Solicitante</th>
+					<th>Vehiculo</th>
+					<th>Placa</th>
+					<th>Km_Ingreso</th>
+					<th>Estado</th>
+					<th>{!! trans('messages.Options') !!}</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach($maintenance_requests as $solicitud)
+				<tr >
+					<td><input hidden value="{{$solicitud->id}}" id="maintenance_request_id"  name="maintenance_request_id">{{$solicitud->id}}</td>
+					<td><input hidden value="{{$solicitud->fecha}}" id="fecha"  name="fecha"> {{$solicitud->fecha}}</td>
+					<td>{{$solicitud->descripcion}}</td>
+					<td>{{$solicitud->user->name}}</td>
+					<td>{{$solicitud->vehiculo->codigodis}}</td>
+					<td>{{$solicitud->vehiculo->placa}}</td>
+					<td><input hidden value="{{$solicitud->km_ingreso}}" id="km_ingreso"  name="km_ingreso">{{$solicitud->km_ingreso}}</td>
+					<td><input hidden type="text" value="{{$solicitud->status}}" id="status"  name="status">{{$solicitud->status}}</td>
+					<td>
+						<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Ver" href="#" role="button"><i class="fas fa-binoculars"></i></a>
+						@can('create pdf')
+						<a class="btn btn-outline-info btn-sm" role="button" data-toggle="tooltip" title="PDF" href="#" ><i class="icon-file-text"></i></a>
+						@endcan
+						@can('create event')
+						<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Asigna_Mecanico" data-target="#exampleModal{{$solicitud->id}}" role="button"><i class="fas fa-car-crash"></i></a>
+						<!-- Modal -->
+						<div class="modal fade" id="exampleModal{{$solicitud->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<form method="post" action="validar_checkbox(this);" class="form-horizontal">
+										<div class="modal-header">
+												<h5 class="modal-title text-primary" id="exampleModalLabel">Mantenimiento {{$solicitud->vehiculo->codigodis}} <br> {{$solicitud->vehiculo->placa}}</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+										</div>
+										<div class="modal-body">
+											<p class="text-info">Seleccione Personal que trabajará en el vehículo.</p>
+											<input value="{{$solicitud->id}}" id="maintenance_request_id" name="maintenance_request_id" hidden>
+											<table class="table">
+												<thead>
+													<tr>
+														<th scope="col">Asignar</th>
+														
+														<th scope="col">Nombre</th>
+														<th scope="col">Actividad</th>
+														
+													</tr>
+												</thead>
+												<tbody > 
+													@foreach ($mecanicos as $user)
+													<tr>
+														<td>
+															<div id="mecanicos" class="form-check">
+																<input class="form-check-input" type="checkbox" id="flexCheckIndeterminate">
+																<label class="form-check-label" for="flexCheckIndeterminate">
+																	{{$user->id}}
+																</label>
+															</div>
+														</td>
+
+														<td>{{$user->user->name }}</td>
+														<td>{{ $user->actividad }}</td>
+													</tr>
+													@endforeach
+												</tbody>
+											</table>
+										</div>
+										<div class="modal-footer">
+											<button id="btnsend" type="submit" value="Submit" class="btn btn-outline-secondary" data-dismiss="modal">Crear Orden Trabajo</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						@endcan
+					</td>
+				</tr>
+				
+		
+				@endforeach
+				
+			</tbody>
+			<tfoot>
+				<tr class="table-info">
+					<th>id</th>
+					<th>{!! trans('messages.Date') !!}</th>
+					<th>Descipcion</th>
+					<th>Solicitante</th>
+					<th>Vehiculo</th>
+					<th>Placa</th>
+					<th>Km_Ingreso</th>
+					<th>Estado</th>
+					<th>{!! trans('messages.Options') !!}</th>
+				</tr>
+			</tfoot>
+		</table>
+		{{ $maintenance_requests -> appends(['busq_status' => $busq_status ,'busq_user' => $busq_user ,'busq_fecha' => $busq_fecha])-> links() }}
+		
+		@push ('scripts')
+		<!-- Funciones for all pages-->
+		<script src="/js/taller.js"></script>
+		
+		@endpush
 @endsection
-
-@section( "piepagina" )
-
-
+@section( "piepagina" ) 
 @endsection

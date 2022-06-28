@@ -75,10 +75,7 @@ class TransitoController extends Controller
             ->get();
 
            
-         return view( "/transito.crear", compact( "incidentes","now","estaciones","users","maquinistas", "parroquias","vehiculos" ) );
-           
-         return view( "/auth.login" );
-         
+         return view( "/transito.crear", compact( "incidentes","now","estaciones","users","maquinistas", "parroquias","vehiculos" ) );    
     }
 
     /**

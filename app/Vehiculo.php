@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Support\Facades\DB;
+
 
 class Vehiculo extends Model
 {
@@ -98,5 +100,13 @@ class Vehiculo extends Model
         ->withPivot('km_salida','km_llegada','driver_id');
     }
 
+	public function list_Id_codigodis_vehiculo(){
+		$array = DB::table('Vehiculos')->select('id','codigodis');
+		return $array;
+	}
+
+	public function maintenance_requests(){
+		return $this->hasMany(Maintenance_request::class);
+		}
 
 }

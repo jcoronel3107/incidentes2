@@ -3,10 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Http\Requests\SaveMaintenanceRequest;
+use App\Maintenance_request;
 use Illuminate\Support\Facades\DB;
 use App\Exports\TallerBitacoraExport;
+use App\Mail\MaintenanceRequestNotification;
+use App\Mecanico;
+use App\User;
+use App\Vehiculo;
+use App\Workorder;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Mail;
 
 
 class TallerController extends Controller
@@ -17,9 +26,38 @@ class TallerController extends Controller
      * @return \Illuminate\Http\Response
      */
   
+    public function index(Request $request){
+        if($request){
+            $busq_user = trim($request->get('busq_user'));
+            $busq_fecha = trim($request->get('busq_fecha'));
+            $busq_status = trim($request->get('busq_status'));
+            $mecanicos = Mecanico::all();
+            $maintenance_requests = Maintenance_request::OrderBy('id','desc')
+          
+            ->where('fecha','LIKE','%'.$busq_fecha.'%')
+            ->where('status','LIKE','%'.$busq_status.'%')
+            ->paginate(10);
+        
+            return view('mantenimiento_vehicular.index',compact("mecanicos","maintenance_requests","busq_user","busq_fecha","busq_status"));
+        }
+    }
 
-    public function index(Request $request)
-    {		
+    public function listworkorder(Request $request){
+        if($request){
+            $busq_vehiculo = trim($request->get('busq_vehiculo'));
+            $busq_fecha = trim($request->get('busq_fecha'));
+            $busq_status = trim($request->get('busq_status'));
+            $busq_orden = trim($request->get('busq_orden'));
+            $work_orders = Workorder::OrderBy('id','desc')
+            
+            
+            ->paginate(10);
+           
+            return view('mantenimiento_vehicular.list_work_order',compact('work_orders','busq_vehiculo','busq_fecha','busq_status','busq_orden'));
+        }
+    }
+
+    public function disponibilidad(Request $request){		
         $CantVehiculosOperativos = DB::table('vehiculos')
         ->select('id')
         ->where('observacion', 'Emergencia')
@@ -69,9 +107,32 @@ class TallerController extends Controller
         ->orderByDesc('codigodis')
         ->get();
         
-        return view('mantenimiento_vehicular.index',compact("CantVehiculosOperativos","CantVehiculosEnMantenimiento","CantVehiculosReparacion","ListVehiculosOperativos","ListVehiculosEnMantenimiento","ListVehiculosReparacion"));
+        return view('mantenimiento_vehicular.disponibilidad',compact("CantVehiculosOperativos","CantVehiculosEnMantenimiento","CantVehiculosReparacion","ListVehiculosOperativos","ListVehiculosEnMantenimiento","ListVehiculosReparacion"));
     }
 
+    public function EnMantenimiento(string $vehiculo_id){
+
+        Vehiculo::where('id', $vehiculo_id)
+              ->where('observacion', 'Emergencia')
+              ->where('activo','1')
+              ->update(['estado' => 'MANTENIMIENTO']);
+    }
+
+    public function EnReparacion(string $vehiculo_id){
+
+        Vehiculo::where('id', $vehiculo_id)
+                ->where('observacion', 'Emergencia')
+                ->where('activo','1')
+                ->update(['estado' => 'REPARACION']);
+    }
+
+    public function Operativo(string $vehiculo_id){
+
+        Vehiculo::where('id', $vehiculo_id)
+                ->where('observacion', 'Emergencia')
+                ->where('activo','1')
+                ->update(['estado' => 'OPERATIVO']);
+    }
 
   
 
@@ -92,13 +153,53 @@ class TallerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store_maintenance_request(SaveMaintenanceRequest $request)
     {
       
-			
+        try
+        {
+          $destinatario = "pereyes@bomberos.gob.ec";
+          $maintenance_request = new Maintenance_request;
+          
+          $maintenance_request->fecha = $request->fecha;
+          $maintenance_request->descripcion = $request->descripcion;
+          $maintenance_request->user_id = auth()->user()->id;
+          $maintenance_request->vehiculo_id = $request->vehiculo;
+          $maintenance_request->km_ingreso = $request->km_ingreso;
+          $maintenance_request->status = "Solicitado";
+          $maintenance_request->save();   
+          $data = Maintenance_request::latest('id')->first();
+          Mail::to($destinatario)->send(new MaintenanceRequestNotification($data));       
+          Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
+          return redirect( "/solicitudes" );
+        }
+        catch(\Exception $e)
+        {
+            dd($e);
+           
+        }
 		
     }
 
+    public function create_workorder_ajaxRequestPost(Request $request){
+        try
+        {
+            $workorder = new Workorder;
+            $workorder->fecha = $request->fecha;
+            $workorder->km_ingreso = $request->km_ingreso;
+            $workorder->status = $request->status;
+            $workorder->maintenance_request_id = $request->maintenance_request_id;
+            $workorder->save();
+            Maintenance_request::where('id', $request->maintenance_request_id)
+              ->update(['status' => 'Asignado']);
+            
+            return redirect( "/listworkorder" );
+        }
+        catch(\Exception $e)
+        {
+            dd($e);
+        }
+    }
     /**
      * Display the specified resource.
      *
@@ -195,5 +296,24 @@ class TallerController extends Controller
 
 
         return view('mantenimiento_vehicular.view_bitacora',compact('ListMantenimientosEntreFechas','fechaD','fechaH','aprobado','Vehiculo','VehiculoId','liquidado'));
+    }
+
+    public function solicitar_mant()
+    {
+        $Vehiculoinfo = Vehiculo::select('id','codigodis')
+        ->where('activo','=','1')
+        ->orderByDesc('codigodis')
+        ->get();
+        $maquinista = auth()->user()->name;
+        $now = Carbon::now();
+        return view('mantenimiento_vehicular.solicitar_mant',compact('Vehiculoinfo','maquinista','now'));
+    }
+
+    public function consultainfovehiculo($idvehiculo)
+    {
+        $consultainfovehiculo = Vehiculo::select('id','placa','marca',)
+        ->where('id','=',$idvehiculo)
+        ->get();
+        return $consultainfovehiculo;
     }
 }

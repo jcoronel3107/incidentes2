@@ -85,5 +85,10 @@ class User extends Authenticatable
         //Muestra informacion de las Claves Realizadas por gasolinera
     return $this->hasMany(Solicitud::class);
     }
+
+    public function mecanico(){
+        //Muestra informacion del vehiculo en la clave consultada
+        return $this->hasOne(Mecanico::class);
+}
     
 }

@@ -24,11 +24,20 @@ use App\Mail\ReportSentClave;
 use App\Mail\ReportSentDerrame;
 use App\Mail\ReportSentServicio;
 use App\Mail\ReportSentPrevencion;
+use App\Mail\ReportSentBitacoraMantVeh;
 use App\Movilizacion;
 
 class MailController extends Controller
 {
-	
+	public function SendMailsBitacoraMantVeh($id,Request $request){
+        
+        $destinatario = $request->email;
+        $data = Inundacion::findOrFail($id);
+        
+        Mail::to($destinatario)->send(new ReportSentBitacoraMantVeh($data));
+        Session::flash('Envio Mail Correcto',"Reporte Enviado con Exito!!!");
+       	return redirect( "/search_bitacora" );
+    }
 
     public function SendMailsInundacion($id,Request $request){
         

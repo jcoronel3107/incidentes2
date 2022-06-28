@@ -110,7 +110,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">{!! trans('messages.Address') !!}</span>
 					</div>
-					<textarea class="form-control" id="pdireccion" name="address" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$derrame->address)}}</textarea>
+					<textarea class="form-control" id="pdireccion" name="address" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$derrame->direccion)}}</textarea>
 					<input type="button" value="Encode" onclick="codeAddress()">
 				</div>
 			</div>

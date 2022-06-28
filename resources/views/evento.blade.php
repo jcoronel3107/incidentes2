@@ -2,42 +2,7 @@
 
 	@section( "cabeza" )
 
-	<style type="text/css">
-		.clockdate-wrapper {
-			background-color: #333;
-			padding: 25px;
-			max-width: 350px;
-			width: 100%;
-			text-align: center;
-			border-radius: 5px;
-			margin: 0 auto;
-		}
-
-		#clock {
-			background-color: #333;
-			font-family: sans-serif;
-			font-size: 50px;
-			text-shadow: 0px 0px 1px #fff;
-			color: #fff;
-		}
-
-		#clock span {
-			color: #888;
-			text-shadow: 0px 0px 1px #333;
-			font-size: 30px;
-			position: relative;
-			top: -27px;
-			left: -10px;
-		}
-
-		#date {
-			letter-spacing: 10px;
-			font-size: 14px;
-			font-family: arial, sans-serif;
-			color: #fff;
-		}
-	</style>
-
+	
 	@endsection
 
 	@section( "cuerpo" )
@@ -47,18 +12,7 @@
 		
 		<input  type="text" hidden name="estacion_id" id="estacion_id" value="{{$estacion_id}}">
 	</div>
-	<div class="row mb-4">
-		<div class="col-xl-12 col-md-12 sm-12 " id="clockdate">
-			<div class="card mb-4 ">
-				<div class="card-body">
-					<div class="clockdate-wrapper">
-						<div id="clock"></div>
-						<div id="date"></div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	
 	<div class="row mb-4">
 		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
 			<div class="card">

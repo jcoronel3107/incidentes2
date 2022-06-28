@@ -12,6 +12,9 @@ use Illuminate\Cookie\CookieValuePrefix;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\App;
 
 
 class UserController extends Controller
@@ -148,8 +151,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-     public function edit($id)
-    {
+     public function edit($id){
         if ( Auth::check() ) {
             $user = User::findorFail($id);
             return view( "user.edit",compact("user"));
@@ -158,8 +160,7 @@ class UserController extends Controller
         }
     }
 
-    protected function createpermiso(Request $request)
-    {
+    protected function createpermiso(Request $request){
 
 
         $datospermiso = request()->except(['_token','_method']);
@@ -168,6 +169,140 @@ class UserController extends Controller
         return redirect()->route('profile.index')->with("status", 'Datos actualizados');
         
      
+    }
+
+    public function profile_employed(string $mail){
+        $Listpersonnel_employee = DB::connection('pgsql')->table('personnel_employee')
+        ->join('personnel_department','personnel_employee.department_id','=', 'personnel_department.id')
+        ->join('personnel_position','personnel_employee.position_id','=','personnel_position.id')
+        ->join('personnel_certification','personnel_employee.emp_type','=','personnel_certification.id')
+        ->where('personnel_employee.email','=',$mail)
+        ->orderByDesc('personnel_employee.emp_code')
+        ->first();
+        
+        return view( "user.profile",compact('Listpersonnel_employee'));
+
+    }
+
+    public function downloadPDF(Request $request) {
+        Carbon::setLocale('es');
+        $date = Carbon::now();
+        if($request->tipocertificado=='1'){
+            $date = $date->format('l jS \\of F Y h:i:s A');
+            $Cert_employee = DB::connection('pgsql')->table('personnel_employee')
+            ->select('first_name','last_name','passport','hire_date','position_name','dept_name','cert_name')
+            ->join('personnel_department','personnel_employee.department_id','=', 'personnel_department.id')
+            ->join('personnel_position','personnel_employee.position_id','=','personnel_position.id')
+            ->join('personnel_certification','personnel_employee.emp_type','=','personnel_certification.id')
+            ->where('personnel_employee.email','=',Auth::user()->email)
+            ->orderByDesc('personnel_employee.emp_code')
+            ->first();
+            $dompdf = App::make("dompdf.wrapper");
+            $dompdf->loadView('user.jobCertificate', compact('Cert_employee','date'));
+            return $dompdf->stream();
+        }
+        if($request->tipocertificado=='2'){
+            $date = $date->format('l jS \\of F Y ');
+            $Cert_employee = DB::connection('pgsql')->table('personnel_employee')
+            ->select('first_name','last_name','passport','hire_date','position_name','dept_name','cert_name')
+            ->join('personnel_department','personnel_employee.department_id','=', 'personnel_department.id')
+            ->join('personnel_position','personnel_employee.position_id','=','personnel_position.id')
+            ->join('personnel_certification','personnel_employee.emp_type','=','personnel_certification.id')
+            ->where('personnel_employee.email','=',Auth::user()->email)
+            ->orderByDesc('personnel_employee.emp_code')
+            ->first();
+            $dompdf = App::make("dompdf.wrapper");
+            $dompdf->loadView('user.salaryCertificate', compact('Cert_employee','date'));
+            return $dompdf->stream();
+        }
+        
+    }
+
+    public function downloadPDFAnticipo(Request $request) {
+     
+        $date = Carbon::now();
+       
+            $date = $date->format('l jS \\of F Y h:i:s A');
+            $monto = $request->monto;
+            $plazo = $request->plazo;
+            $Cert_employee = DB::connection('pgsql')->table('personnel_employee')
+            ->select('first_name','last_name','passport','hire_date','position_name','dept_name','cert_name')
+            ->join('personnel_department','personnel_employee.department_id','=', 'personnel_department.id')
+            ->join('personnel_position','personnel_employee.position_id','=','personnel_position.id')
+            ->join('personnel_certification','personnel_employee.emp_type','=','personnel_certification.id')
+            ->where('personnel_employee.email','=',Auth::user()->email)
+            ->orderByDesc('personnel_employee.emp_code')
+            ->first();
+            $dompdf = App::make("dompdf.wrapper");
+            $dompdf->loadView('user.anticipoRemuneracion', compact('Cert_employee','date','plazo','monto'));
+            return $dompdf->stream();
+               
+    }
+
+    public function rolPagoMensual(Request $request) {
+     
+        $date = Carbon::now();
+        $fecha = Carbon::parse($request->mesrol);
+        $mfecha = $fecha->month;
+        $dfecha = $fecha->day;
+        $afecha = $fecha->year;
+        
+        $meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        $mesletra=$meses[$mfecha - 1];
+        
+       
+        
+        
+        $date = $date->format('l jS \\of F Y ');
+        $rol_employee = DB::connection('mysql2')->table('acumrol')
+            ->join('personal','personal.perscodigo','=', 'acumrol.codigo')
+            ->where('personal.perscedula','=',$request->cedula)
+            ->whereYear('acumrol.fecha',$afecha)
+            ->whereMonth('acumrol.fecha',  $mfecha)
+            ->first();
+          
+        $dompdf = App::make("dompdf.wrapper");
+        $dompdf->loadView('user.rolMensual', compact('rol_employee','mesletra','date','mfecha','afecha'));
+        return $dompdf->stream();
+        
+        
+    }
+
+  
+    public function status(){
+            $date = Carbon::now();
+            $date = $date->format('l jS \\of F Y h:i:s A');
+            
+            $Nombramiento_employee = DB::connection('pgsql')->table('personnel_employee')
+            ->join('personnel_employeecertification','personnel_employee.id','=','personnel_employeecertification.employee_id')
+            ->join('personnel_certification','personnel_certification.id','=','personnel_employeecertification.certification_id')
+            ->where('personnel_certification.id','=','1')
+            ->get();
+            $Codigo_employee = DB::connection('pgsql')->table('personnel_employee')
+            ->join('personnel_employeecertification','personnel_employee.id','=','personnel_employeecertification.employee_id')
+            ->join('personnel_certification','personnel_certification.id','=','personnel_employeecertification.certification_id')
+            ->where('personnel_certification.id','=','2')
+            ->get();
+            $Ocacional_employee = DB::connection('pgsql')->table('personnel_employee')
+            ->join('personnel_employeecertification','personnel_employee.id','=','personnel_employeecertification.employee_id')
+            ->join('personnel_certification','personnel_certification.id','=','personnel_employeecertification.certification_id')
+            ->where('personnel_certification.id','=','3')
+            ->get();
+            $NomProvisional_employee = DB::connection('pgsql')->table('personnel_employee')
+            ->join('personnel_employeecertification','personnel_employee.id','=','personnel_employeecertification.employee_id')
+            ->join('personnel_certification','personnel_certification.id','=','personnel_employeecertification.certification_id')
+            ->where('personnel_certification.id','=','4')
+            ->get();
+            $LibreRemocion_employee = DB::connection('pgsql')->table('personnel_employee')
+            ->join('personnel_employeecertification','personnel_employee.id','=','personnel_employeecertification.employee_id')
+            ->join('personnel_certification','personnel_certification.id','=','personnel_employeecertification.certification_id')
+            ->where('personnel_certification.id','=','5')
+            ->get();
+            $TotalNomina_employee = DB::connection('pgsql')->table('personnel_employee')
+            ->join('personnel_employeecertification','personnel_employee.id','=','personnel_employeecertification.employee_id')
+            ->join('personnel_certification','personnel_certification.id','=','personnel_employeecertification.certification_id')
+            ->get();
+            return view('user.disponibilidad',compact('TotalNomina_employee','LibreRemocion_employee','Nombramiento_employee','Codigo_employee','NomProvisional_employee','Ocacional_employee','date'));
     }
 
 }

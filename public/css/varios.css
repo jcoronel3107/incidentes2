@@ -1,3 +1,6 @@
+.ui-datepicker-calendar {
+  display: none;
+}
 .loader {
   position: fixed;
   left: 0px;

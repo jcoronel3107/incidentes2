@@ -104,11 +104,11 @@
     <hr class="sidebar-divider d-none d-md-block"><!-- Divider -->
 
     <li class="nav-item"><!-- Nav Item - Utilities Collapse Menu Servicios Institucionales-->
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUath" aria-expanded="true" aria-controls="collapseUath">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSI" aria-expanded="true" aria-controls="collapseUath">
         <i class="fas fa-clipboard-check"></i>
         <span>{!! trans('messages.Reservations')!!}</span>
       </a>
-      <div id="collapseUath" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+      <div id="collapseSI" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
          
@@ -130,17 +130,48 @@
           <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
          
             <a title="Estado Disponibilidad" rel="nofollow noopener noreferrer" class="collapse-item" href="/taller">Disponibilidad</a>  
-            <a title="Bitacora" rel="nofollow noopener noreferrer" class="collapse-item" href="/show">Bitacora</a>                
-            
-        
+            <a title="Bitacora" rel="nofollow noopener noreferrer" class="collapse-item" href="/solicitar_mant">Solicitud</a> 
+            <a title="Bitacora" rel="nofollow noopener noreferrer" class="collapse-item" href="/solicitudes">Asignar_Orden</a> 
+            <a title="Bitacora" rel="nofollow noopener noreferrer" class="collapse-item" href="/listworkorder">Ordenes_Trabajo</a> 
+            <a title="Bitacora" rel="nofollow noopener noreferrer" class="collapse-item" href="">Recepcion_Vehicular</a> 
+                          
         </div>
       </div>
     </li>
     
-    
     <hr class="sidebar-divider d-none d-md-block"><!-- Divider -->
-
-    
+    <div class="sidebar-heading"><!--  Heading -->
+      Talento Humano
+    </div>
+    <hr class="sidebar-divider d-none d-md-block"><!-- Divider -->
+    <li class="nav-item"><!-- Nav Item - Utilities Collapse Menu Portal empleado-->
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUath" aria-expanded="true" aria-controls="collapseUath">
+        <i class="fas fa-clipboard-check"></i>
+        <span>Portal Empleado</span>
+      </a>
+      <div id="collapseUath" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
+          @if(Auth::user())
+          <a title="Info Empleado" rel="nofollow noopener noreferrer" class="collapse-item" href="users/profile/{{Auth::user()->email}}">Perfil</a>  
+          @endif
+        </div>
+      </div>
+    </li>
+    <li class="nav-item"><!-- Nav Item - Utilities Collapse Menu Portal empleado-->
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUath2" aria-expanded="true" aria-controls="collapseUath">
+        <i class="fas fa-clipboard-check"></i>
+        <span>Indice</span>
+      </a>
+      <div id="collapseUath2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
+          @if(Auth::user())
+          <a title="Estado Talento Humano" rel="nofollow noopener noreferrer" class="collapse-item" href="/users/status">Estado</a>    
+          @endif
+        </div>
+      </div>
+    </li>
 
     <div class="sidebar-heading"><!--  Heading -->
       Addons
@@ -161,7 +192,6 @@
           <a class="collapse-item" href="{{route('googlemymapsoptions')}}">Mapas</a>
         </div>
       </div>
-
     </li>
 
     <li class="nav-item"><!--         Nav Item - Pages Collapse Menu parametrizacion-->
@@ -172,7 +202,6 @@
       <div id="collapseParametros" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-          
           <a class="collapse-item" href="/incidente/"> {!! trans('messages.Incidents') !!}</a>
           <a class="collapse-item" href="/estacion">{!! trans('messages.Firefighter station') !!}</a>
           <a class="collapse-item" href="/gasolinera">{!! trans('messages.Service Station') !!}</a>

@@ -16,7 +16,7 @@ class Derrame extends Model
 		"tipo_escena",
 		"station_id",
 		"fecha",
-		"address",
+		"direccion",
 		"parroquia_id",
 		"geoposicion",
 		"ficha_ecu911",

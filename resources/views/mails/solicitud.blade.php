@@ -19,7 +19,7 @@
         <li>Estado: {{ $solicitud->status }}</li>
         <li>Inicia: {{ $solicitud->start }}</li>
         <li>Fin: {{ $solicitud->end }}</li>
-    </ul>
+    </ul> 
 
     <p>Gracias.</p>
 </body>

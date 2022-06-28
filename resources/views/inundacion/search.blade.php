@@ -10,7 +10,7 @@
 
     <div id="collapseOne" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
       <div class="card-body">
-	  <form  method="get" action="derrame" autocomplete="off" role="search" >
+	  <form  method="get" action="inundacion" autocomplete="off" role="search" >
 		<div id="search" class="row justify-content-end ">
 				<div class="input-group input-group-sm mb-3 col-sm-12 col-md-4 col-lg-4">
 					<div class="input-group-prepend">

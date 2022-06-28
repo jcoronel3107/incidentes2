@@ -84,6 +84,33 @@
 							@endcan
 						</td>
 					</tr>
+					
+					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"><!-- Modal -->
+						<div class="modal-dialog">
+						    <div class="modal-content">
+								<form method="get" action="" class="form-horizontal">
+									<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">Destinatario</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+									</div>
+									<div class="modal-body">
+											<div class="input-group mb-3">
+											<div class="input-group-prepend">
+													<span class="input-group-text" id="basic-addon1">@</span>
+											</div>
+												<input name="email" type="email" class="form-control" placeholder="example@bomberos.gob.ec" aria-label="Username" aria-describedby="basic-addon1">
+											</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+										<button type="submit" class="btn btn-primary">Enviar</button>
+									</div>
+								</form>
+		 					</div>
+		 				</div>
+					</div>
 				@endforeach
 				</tr>
 			</tbody>
