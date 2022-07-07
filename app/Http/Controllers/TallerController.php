@@ -60,30 +60,26 @@ class TallerController extends Controller
     public function disponibilidad(Request $request){		
         $CantVehiculosOperativos = DB::table('vehiculos')
         ->select('id')
-        ->where('observacion', 'Emergencia')
         ->where('activo','1')
-        ->where('estado','OPERATIVO')
+        ->where('estado','=','OPERATIVO')
         ->get()->count();
        
 
         $CantVehiculosEnMantenimiento = DB::table('vehiculos')
         ->select('id')
-        ->where('observacion', 'Emergencia')
-        ->where('activo','1')
-        ->where('estado','MANTENIMIENTO')
+        ->where('activo','=','1')
+        ->where('estado','=','MANTENIMIENTO')
         ->get()->count();
         
 
         $CantVehiculosReparacion = DB::table('vehiculos')
         ->select('id')
-        ->where('observacion', 'Emergencia')
         ->where('activo','1')
-        ->where('estado','REPARACION')
+        ->where('estado','=','REPARACION')
         ->get()->count();
 
         $ListVehiculosOperativos = DB::table('vehiculos')
                 ->select('id','codigodis','placa','marca','modelo')
-                ->where('observacion', 'Emergencia')
                 ->where('activo','1')
                 ->where('estado','OPERATIVO')
                 ->orderByDesc('codigodis')
@@ -92,18 +88,16 @@ class TallerController extends Controller
         
         $ListVehiculosEnMantenimiento = DB::table('vehiculos')
         ->select('id','codigodis','placa','marca','modelo')
-        ->where('observacion', 'Emergencia')
         ->where('activo','1')
-        ->where('estado','MANTENIMIENTO')
+        ->where('estado','=','MANTENIMIENTO')
         ->orderByDesc('codigodis')
         ->get();
                 
         
         $ListVehiculosReparacion = DB::table('vehiculos')
         ->select('id','codigodis','placa','marca','modelo')
-        ->where('observacion', 'Emergencia')
         ->where('activo','1')
-        ->where('estado','REPARACION')
+        ->where('estado','=','REPARACION')
         ->orderByDesc('codigodis')
         ->get();
         

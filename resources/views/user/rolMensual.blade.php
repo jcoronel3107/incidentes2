@@ -28,10 +28,10 @@
 			</tr>
 			<tr>	
 				<td>VALOR HORAS EXTRA</td>
-				<td>0.0</td>
+				<td>{{$rol_employee->h_extras}}</td>
 				<td class="text-center">|</td>
 				<td># HORAS EXTRA</td>
-				<td>0.0</td>
+				<td>{{$rol_employee->ne100}}</td>
 			</tr>
 		</tbody>
 	</table>
@@ -91,7 +91,7 @@
 				<td>{{$rol_employee->dec_tercer}}</td>
 				<td class="text-center">|</td>
 				<td>Prestamos Hipotecarios</td>
-				<td>{{$rol_employee->presh_iess}}</td>
+				<td>{{$rol_employee->prest_hip}}</td>
 			</tr>
 			<tr>
 				<td></td>

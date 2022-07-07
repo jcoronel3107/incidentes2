@@ -163,13 +163,13 @@
 					</thead>
 					<tbody>
 					
-							@foreach ($ListVehiculosEnMantenimiento as $vehiculo)
+							@foreach ($ListVehiculosEnMantenimiento as $vehiculo1)
 								<tr>
-									<th scope="row">{{ $vehiculo->id }}</th>
-									<td>{{ $vehiculo->codigodis }}</td>
-									<td>{{$vehiculo->placa}}</td>
-									<td>{{$vehiculo->marca}}</td>
-									<td>{{$vehiculo->modelo}}</td>
+									<th scope="row">{{ $vehiculo1->id }}</th>
+									<td>{{ $vehiculo1->codigodis }}</td>
+									<td>{{$vehiculo1->placa}}</td>
+									<td>{{$vehiculo1->marca}}</td>
+									<td>{{$vehiculo1->modelo}}</td>
 								</tr>
 							@endforeach
 							

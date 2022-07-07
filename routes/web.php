@@ -258,6 +258,10 @@ Route::get('/downloadPDFCert',		        		'UserController@downloadPDF')->middlew
 Route::get('/downloadPDFAnticipo',		        	'UserController@downloadPDFAnticipo')->middleware('auth');
 Route::get('/users/rol',			    	       	'UserController@rolPagoMensual')->name('profile.rol')->middleware('auth');
 Route::get('/users/status',			    	       	'UserController@status')->name('profile.status')->middleware('auth');
+Route::get('/users/export',   					    'UserController@export_pdf')->middleware('role:inspector|admin|Super-Admin');
+Route::get('/users/export-xls',   					'UserController@export')->middleware('role:operador|consultor|supervisor|admin|Super-Admin');
+
+
 
 /* --------------------------------------- Sub modulo Estadisticas    ----------------------- */
 

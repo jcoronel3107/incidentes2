@@ -21,7 +21,7 @@
 	<div class="mt-5 ml-5 mr-3">
 			<p >Que, el Sr./Sra./Srta <b> {{$Cert_employee->last_name}} {{$Cert_employee->first_name}}</b>, con número de cédula N° <b>{{$Cert_employee->passport}}</b>, labora
 			en nuestra institución en el cargo <b>{{$Cert_employee->position_name}}</b>, dentro de la <b>{{$Cert_employee->dept_name}}</b> durante el periodo comprendido desde <b>{{$Cert_employee->hire_date}}</b> 
-			 hasta la fecha actual, ademas su estabilidad laboral es  <b>{{$Cert_employee->cert_name}}</b>; generando un salario mensual de USD $ xxx.xx. mas beneficios de Ley</p>
+			 hasta la fecha actual, ademas su estabilidad laboral es  <b>{{$contract}}</b>; generando un salario mensual de USD $ <b>{{$rol_employee->perssueldo}}</b> mas beneficios de Ley</p>
 			<p>Durante su tiempo en la institución  ha demostrando responsabilidad, honestidad y dedicación en las labores que le fueron encomendadas.</p>
 			<p>Se expide la presente a solicitud del interesado, para los fines que crea conveniente.</p>
 			<br>

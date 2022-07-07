@@ -161,7 +161,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label text-sm-right">Seleccion Fecha</label>
                   <div class="col-md-6 text-center mb-2">
-                   <input class="date-picker" type="text" id="mesrol" name="mesrol" >
+                   <input class="date-picker form-control" type="text" id="mesrol" name="mesrol" >
                   </div>
                 </div><!-- /.row -->
                 <hr>
@@ -256,7 +256,6 @@
               </form>
             </div><!-- /#anticipo-tab -->
 
-
           </div><!-- /.tab-content -->
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -268,8 +267,8 @@
 
   window.addEventListener('load', function() {
     tabs();
-    $("#mes").datepicker({
-    format: " yyyy MM",
+    $("#anio").datepicker({
+    format: " yyyy",
     viewMode: "years", 
     minViewMode: "years",
     dayHeaderFormat: "showHeaderShort",

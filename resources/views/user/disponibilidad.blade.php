@@ -10,7 +10,23 @@
 	<div class="row align-items-center mb-5">
 		<h1>Recurso Humano</h1>
 	</div>
-	<div class="row align-items-center ml-5">
+	<div class="row nav justify-content-end">
+		<li class="nav-item">
+			<div class="input-group mb-3">
+					@can('allow export')
+						<div class="input-group-prepend ml-2">
+							<span title="Export PDF" class="input-group-text"><i class="icon-cloud-upload"></i></span>
+						</div>
+						<a class="btn btn-outline-info" title="Export PDF" href="/users/export">Exportar_PDF</a>
+						<div class="input-group-prepend ml-2">
+							<span title="Export XLSX" class="input-group-text"><i class="icon-cloud-upload"></i></span>
+						</div>
+						<a class="btn btn-outline-primary" title="Export XLSX" href="/users/export-xls">Exportar_XLSX</a>
+					@endcan
+			</div> 
+		</li>
+	</div>
+	<div class="row justify-content-center ml-5">
 			<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-4">
 				<div class="card text-white bg-primary o-hidden h-100">
 						<div class="card-body text-white bg-primary">
@@ -51,7 +67,7 @@
 				</div>
 			</div>
 	</div>
-	<div class="row align-items-center ml-5">
+	<div class="row justify-content-center ml-5">
 		<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-4">
 			<div class="card text-black bg-light o-hidden h-100">
 					<div class="card-body text-black bg-light">
@@ -92,7 +108,24 @@
 			</div>
 		</div>	
 		
-</div>
+	</div>
+	<div class="row justify-content-center ml-5">
+		<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-4">
+			<div class="card text-white bg-danger o-hidden h-100">
+					<div class="card-body text-white bg-danger">
+						<div class="card-body-icon"><i class="fas fa-user-slash"></i> </div>
+						<div class="mr-4"> <h5>Desvinculado</h5></div>
+						<div class="mr-5"> <h1>{{$Desvinculado_employee->count()}}</h1></div>
+					</div>
+					<a class="card-footer text-white clearfix small z-1" data-toggle="modal" data-target="#exampleModal7" href="#">
+						<span class="float-left">Ver detalles</span>
+						<span class="float-right"><i class="fas fa-angle-right"></i></span>
+					</a>
+			</div>
+		</div>
+		
+		
+	</div>
 	
 	<div class="modal fade bd-example-modal-lg" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true"><!-- Modal1 -->
 		<div class="modal-dialog modal-lg" role="document">
@@ -110,6 +143,7 @@
 									<th scope="col">Nombre</th>
 									<th scope="col">Apellido</th>
 									<th scope="col">Cedula</th>
+									<th scope="col">Fecha_Contratacion</th>
 								</tr>
 						</thead>
 						<tbody>
@@ -119,6 +153,7 @@
 										<td>{{$item->first_name }}</td>
 										<td>{{$item->last_name}}</td>
 										<td>{{$item->passport}}</td>
+										<td>{{$item->hire_date}}</td>
 									</tr>
 								@endforeach
 								
@@ -149,6 +184,7 @@
 									<th scope="col">Nombre</th>
 									<th scope="col">Apellido</th>
 									<th scope="col">Cedula</th>
+									<th scope="col">Fecha_Contratacion</th>
 								</tr>
 						</thead>
 						<tbody>
@@ -158,6 +194,7 @@
 										<td>{{$item->first_name }}</td>
 										<td>{{$item->last_name}}</td>
 										<td>{{$item->passport}}</td>
+										<td>{{$item->hire_date}}</td>
 									</tr>
 								@endforeach
 						</tbody>
@@ -187,6 +224,7 @@
 								<th scope="col">Nombre</th>
 								<th scope="col">Apellido</th>
 								<th scope="col">Cedula</th>
+								<th scope="col">Fecha_Contratacion</th>
 							</tr>
 					</thead>
 					<tbody>
@@ -195,6 +233,7 @@
 									<td>{{$item->first_name }}</td>
 									<td>{{$item->last_name}}</td>
 									<td>{{$item->passport}}</td>
+									<td>{{$item->hire_date}}</td>
 								</tr>
 							@endforeach
 					</tbody>
@@ -225,6 +264,7 @@
 							<th scope="col">Nombre</th>
 							<th scope="col">Apellido</th>
 							<th scope="col">Cedula</th>
+							<th scope="col">Fecha_Contratacion</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -234,6 +274,7 @@
 								<td>{{$item->first_name }}</td>
 								<td>{{$item->last_name}}</td>
 								<td>{{$item->passport}}</td>
+								<td>{{$item->hire_date}}</td>
 							</tr>
 						@endforeach
 					</tbody>
@@ -265,6 +306,7 @@
 							<th scope="col">Nombre</th>
 							<th scope="col">Apellido</th>
 							<th scope="col">Cedula</th>
+							<th scope="col">Fecha_Contratacion</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -274,6 +316,7 @@
 								<td>{{$item->first_name }}</td>
 								<td>{{$item->last_name}}</td>
 								<td>{{$item->passport}}</td>
+								<td>{{$item->hire_date}}</td>
 							</tr>
 						@endforeach
 					</tbody>
@@ -289,7 +332,7 @@
 		</div>
 	</div>
 
-	<div class="modal fade bd-example-modal-lg" id="exampleModal6" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel6" aria-hidden="true"><!-- Modal5 -->
+	<div class="modal fade bd-example-modal-lg" id="exampleModal6" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel6" aria-hidden="true"><!-- Modal6 -->
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 			<div class="modal-header">
@@ -328,6 +371,143 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="modal fade bd-example-modal-lg" id="exampleModal7" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel7" aria-hidden="true"><!-- Modal7 -->
+		<div class="modal-dialog modal-xl" role="document">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel5">Total Nomina</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col">Nombre</th>
+							<th scope="col">Apellido</th>
+							<th scope="col">Cedula</th>
+							<th scope="col">Fecha_Contratacion</th>
+							<th scope="col">Fecha_Desvinculacion</th>
+							<th scope="col">Motivo</th>
+
+						</tr>
+					</thead>
+					<tbody>
+				
+						@foreach ($Desvinculado_employee as $item)
+							<tr>
+								<td>{{$item->first_name }}</td>
+								<td>{{$item->last_name}}</td>
+								<td>{{$item->passport}}</td>
+								<td>{{$item->hire_date}}</td>
+								<td>{{$item->resign_date}}</td>
+								<td>{{$item->reason}}</td>
+							</tr>
+						@endforeach
+					</tbody>
+				</table>
+			
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-info" >Exportar</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				
+			</div>
+			</div>
+		</div>
+	</div>
+
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 200"><path fill="#f3f4f5" fill-opacity="1" d="M0,128L60,122.7C120,117,240,107,360,96C480,85,600,75,720,96C840,117,960,171,1080,186.7C1200,203,1320,181,1380,170.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+	
+	<div class="row justify-content-center ml-5">
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+				<div class="py-2 " id="container0"></div>
+		</div>
+			
+		<div class="col-xl-3 col-lg-3 "  style="overflow-y: auto; width: 200px;"> <!-- table0.1 -->
+
+				<div class="py-2" hidden id="table0.1">
+					<table class="table table-sm" id="datatable0.1">
+						<thead>
+							<tr>
+								<th class="table-dark">Geenero</th>
+								<th class="table-dark">Cant</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach ($count_gender as $registro)
+							<tr>
+								<td class="table-light">{{($registro->gender)}}</td>
+								<td class="table-light">{{$registro->cant}}</td>
+							</tr>
+							@endforeach
+						</tbody>
+					</table>
+				</div>
+
+		</div>
+	</div>
+		@push ('scripts')
+			<script src="https://code.highcharts.com/highcharts.js"></script>
+			<script src="https://code.highcharts.com/modules/data.js"></script>
+			<script src="https://code.highcharts.com/modules/exporting.js"></script>
+			<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+			<script src="https://code.highcharts.com/modules/export-data.js"></script>
+			<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+			<!-- Pestaña General  -->
+			<script>
+				// Radialize the colors
+				
+				Highcharts.chart('container0', {
+					data: {
+						table: 'datatable0.1',
+						name: 'Genero',
+					},
+					chart: {
+						plotBackgroundColor: null,
+						plotBorderWidth: null,
+						plotShadow: false,
+						type: 'pie',
+						options3d: {
+							enabled: true,
+							alpha: 45,
+							beta: 0
+						}
+					},
+					title: {
+						text: 'Distribución por Genero'
+					},
+					subtitle: {
+						text: 'Grafica'
+					},
+					yAxis: {
+						allowDecimals: false,
+						title: {
+							text: 'Cants'
+						}
+					},
+					tooltip: {
+						pointFormat: '<b>{point.percentage:.1f}%</b>'
+					},
+					plotOptions: {
+					pie: {
+						allowPointSelect: true,
+						cursor: 'pointer',
+						shadow: true,
+						depth: 35,
+						center: ['50%', '50%'],
+						dataLabels: {
+							enabled: true,
+							format: '<b>{point.name}</b></br>Cant: <b>{point.y}</b>'
+						}
+						}
+						
+					},
+				});
+			</script>
+		@endpush
 @endsection
 
 @section( "piepagina" )

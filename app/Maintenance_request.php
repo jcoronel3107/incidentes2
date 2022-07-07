@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -10,7 +10,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Maintenance_request extends Model
 {
     use LogsActivity;
-    use HasFactory;
+ 
     use SoftDeletes;
 
     protected $fillable=[
