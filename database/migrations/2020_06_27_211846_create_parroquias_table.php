@@ -18,6 +18,8 @@ class CreateParroquiasTable extends Migration
             $table->string('nombre')->unique();
             $table->string('Postalcode');
             $table->timestamps();
+			$table->softDeletes();
+            
         });
     }
 

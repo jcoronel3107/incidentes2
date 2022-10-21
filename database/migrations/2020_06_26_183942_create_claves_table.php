@@ -28,6 +28,7 @@ class CreateClavesTable extends Migration
             $table->string("Orden");
             $table->string("factura");
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('gasolinera_id')->references('id')->on('gasolineras')
             ->constrained()
             ->onUpdate('cascade')

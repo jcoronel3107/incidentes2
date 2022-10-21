@@ -161,7 +161,6 @@
 					</table>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info" >Exportar</button>
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -201,7 +200,6 @@
 					</table>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info" >Exportar</button>
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 				</div>
 				</div>
@@ -241,7 +239,6 @@
 			
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-info" >Exportar</button>
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 			</div>
 			</div>
@@ -282,9 +279,7 @@
 			
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-info" >Exportar</button>
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				
 			</div>
 			</div>
 		</div>
@@ -324,9 +319,7 @@
 			
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-info" >Exportar</button>
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				
 			</div>
 			</div>
 		</div>
@@ -364,9 +357,7 @@
 			
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-info" >Exportar</button>
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				
 			</div>
 			</div>
 		</div>
@@ -411,9 +402,7 @@
 			
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-info" >Exportar</button>
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				
 			</div>
 			</div>
 		</div>
@@ -422,8 +411,11 @@
 	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 200"><path fill="#f3f4f5" fill-opacity="1" d="M0,128L60,122.7C120,117,240,107,360,96C480,85,600,75,720,96C840,117,960,171,1080,186.7C1200,203,1320,181,1380,170.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
 	
 	<div class="row justify-content-center ml-5">
-		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+		<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
 				<div class="py-2 " id="container0"></div>
+		</div>
+		<div class="col-xl-6 col-lg- col-md-12 col-sm-12">
+			<div class="py-2 " id="container1"></div>
 		</div>
 			
 		<div class="col-xl-3 col-lg-3 "  style="overflow-y: auto; width: 200px;"> <!-- table0.1 -->
@@ -448,6 +440,28 @@
 				</div>
 
 		</div>
+		<div class="col-xl-3 col-lg-3 "  style="overflow-y: auto; width: 200px;"> <!-- table0.1 -->
+
+			<div class="py-2" hidden id="table1.1">
+				<table class="table table-sm" id="datatable1.1">
+					<thead>
+						<tr>
+							<th class="table-dark">Emp_Type</th>
+							<th class="table-dark">Cant</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach ($count_emptype as $registro)
+						<tr>
+							<td class="table-light">{{($registro->emp_type)}}</td>
+							<td class="table-light">{{$registro->cant}}</td>
+						</tr>
+						@endforeach
+					</tbody>
+				</table>
+			</div>
+
+	</div>
 	</div>
 		@push ('scripts')
 			<script src="https://code.highcharts.com/highcharts.js"></script>
@@ -458,7 +472,6 @@
 			<script src="https://code.highcharts.com/highcharts-3d.js"></script>
 			<!-- Pestaña General  -->
 			<script>
-				// Radialize the colors
 				
 				Highcharts.chart('container0', {
 					data: {
@@ -478,6 +491,53 @@
 					},
 					title: {
 						text: 'Distribución por Genero'
+					},
+					subtitle: {
+						text: 'Grafica'
+					},
+					yAxis: {
+						allowDecimals: false,
+						title: {
+							text: 'Cants'
+						}
+					},
+					tooltip: {
+						pointFormat: '<b>{point.percentage:.1f}%</b>'
+					},
+					plotOptions: {
+					pie: {
+						allowPointSelect: true,
+						cursor: 'pointer',
+						shadow: true,
+						depth: 35,
+						center: ['50%', '50%'],
+						dataLabels: {
+							enabled: true,
+							format: '<b>{point.name}</b></br>Cant: <b>{point.y}</b>'
+						}
+						}
+						
+					},
+				});
+
+				Highcharts.chart('container1', {
+					data: {
+						table: 'datatable1.1',
+						name: 'Emp_Type',
+					},
+					chart: {
+						plotBackgroundColor: null,
+						plotBorderWidth: null,
+						plotShadow: false,
+						type: 'pie',
+						options3d: {
+							enabled: true,
+							alpha: 45,
+							beta: 0
+						}
+					},
+					title: {
+						text: 'Distribución por Tipo Empleado'
 					},
 					subtitle: {
 						text: 'Grafica'

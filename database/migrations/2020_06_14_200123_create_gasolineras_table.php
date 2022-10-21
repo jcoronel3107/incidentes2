@@ -20,7 +20,9 @@ class CreateGasolinerasTable extends Migration
 			$table->string('direccion');
 			$table->string('email');
             $table->timestamps();
+            $table->softDeletes();
 			$table->unique('email');
+            
         });
     }
 

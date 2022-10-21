@@ -18,7 +18,7 @@
 	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
-	
+
 	<!-- Custom styles for Calendar-->
 	<link href="/vendor/fullcalendar/daygrid/main.css" rel="stylesheet">
 	<link href="/vendor/fullcalendar/core/main.css" rel="stylesheet">
@@ -42,180 +42,18 @@
 	<div class="alert alert-secondary text-center" role="alert">
 			@include('cookieConsent::index')
 	</div>
-	
 	<div id="wrapper">
 			@yield("cabeza")
 			
 			@include("layouts.sidebar2")
-			
-				<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"><!-- Logout Modal Logout-->
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">{!! trans('messages.Ready to Leave?') !!}</h5>
-								<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">×</span>
-								</button>
-							</div>
-							<div class="modal-body">{!! trans('messages.Select "Logout" below if you are ready to end your current session.') !!}</div>
-							<div class="modal-footer">
-								<button class="btn btn-outline-secondary" type="button" data-dismiss="modal">Cancel</button>
-
-								<a class="btn btn-outline-danger" href="{{ route('logout') }}" onclick="event.preventDefault();
-																	document.getElementById('logout-form').submit();">Logout</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="modal fade" id="climaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"><!-- Clima Modal -->
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">Consulte Clima</h5>
-								<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">×</span>
-								</button>
-							</div>
-							<div class="modal-body">
-								<div class="col"><!-- Div Clima -->
-						
-									<div class="card">
-										<h4 class="card-header text-white bg-secondary">
-										
-											<div id="searchbox">
-												<input type="text" id="search" placeholder="Digite Ciudad">
-												<button>Search</button>
-											</div>
-											<div id="topbar">Clima<span id="searchicon">🔍</span></div>
-										</h4>
-										<div class="card-body">
-												<div id="mainbody">
-													<img>
-													<span id="city"></span>
-													<span id="temp"></span>
-													<span id="cond"></span>
-													<hr>
-													<div id="more">
-														<span id="label">Humedad: </span><span id="humidity"></span>
-													</div>
-													<div id="more">
-														<span id="label">Viento: </span><span id="wind"></span>
-													</div>
-													<div id="more">
-														<span id="label">Dirección Viento: </span><span id="direction"></span>
-													</div>
-													<div>
-														<span id="label">Sensación Térmica: </span><span id="feel"></span>
-													</div>								
-													<span style="font-size: 8px;">Ultima Actualización: </span><span style="font-size: 8px;" id="update"></span>
-												</div>
-											
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="modal-footer">
-								<button class="btn btn-outline-secondary" type="button" data-dismiss="modal">Cancel</button>
-							</div>
-						</div>
-					</div>
-				</div>
-
+					
 			
 				<div id="content-wrapper" class="d-flex flex-column">
 
 						<!-- Main Content -->
-					
+						@include("layouts.topbar")
 						<div id="content">
-							<!-- Topbar -->
-							<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-								<!-- Sidebar Toggle (Topbar) -->
-								<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-									<i class="fa fa-bars"></i>
-								</button>
-								<!-- Topbar Navbar -->
-								<ul class="navbar-nav ml"><!-- Div Logo -->
-							 	 	<div class="d-flex justify-content-start ">
-										<img style="opacity: 0.3; width: 190px; height: 40px;" src="/images/logotipo-05.jpg" alt="BCBVC">
-									</div> 
-								</ul>
-								<ul class="navbar-nav ml-auto"><!-- Div Reloj -->
-										<div id="clockdate">
-												<div class="clockdate-wrapper">
-													<div id="clock"></div>
-													<div id="date"></div>
-												</div>
-											
-										</div>
-									
-								</ul>
-								<ul class="navbar-nav"><!-- Topbar NavItem Lenguaje -->
-									<div class="topbar-divider d-none d-sm-block"></div>
-									<!--Comprobamos si el status esta a true y existe más de un lenguaje-->
-									@if (config('locale.status') && count(config('locale.languages')) > 1)
-									<div class="top-right links">
-										@foreach (array_keys(config('locale.languages')) as $lang)
-										@if ($lang != App::getLocale())
-										<a class="nav-link" href="{!! route('lang.swap', $lang) !!}" title="{!! trans('messages.language') !!}">
-											<i class="fa fa-language fa-lg"></i>{{$lang}}
-										</a>
-										@endif
-										@endforeach
-									</div>
-									@endif
-
-								</ul>
-								<ul class="navbar-nav">
-									<div class="topbar-divider d-none d-sm-block">
-									</div>
-								</ul>
-								<ul class="navbar-nav">
-									<a class="nav-link" data-toggle="modal" data-target="#climaModal">
-										<i class="fa fa-cloud-sun"></i>
-										Clima
-									</a>
-								</ul>
-								<ul class="navbar-nav ml-right ">
-									<div class="topbar-divider d-none d-sm-block"></div>
-									<!-- Authentication Links -->
-									@guest
-										<li class="nav-item dropdown no-arrow">
-											<a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="{{ route('login') }}">{{ __('Login') }}</a>
-										</li>
-										@if (Route::has('register'))
-										<!-- <li class="nav-item">
-																<a class="nav-link dropdown-toggle" href="{{ route('register') }}">{{ __('Register') }}</a>
-															</li> -->
-										@endif @else
-										<li class="nav-item dropdown no-arrow">
-											<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }} </span><img src="{{ asset('storage/avatar/'.Auth::user()->avatar) }}" height="40px" style="max-width: 100%" /><span class="caret"> </span>
-											</a>
-
-											<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-												<a class="dropdown-item" href="{{route('profile.index')}}">
-													<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>Profile</a>
-												@can('view parametrizacion')
-												<a rel="nofollow noopener noreferrer" class="dropdown-item" target="_blank" href="/activitylog">
-													<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>Activity Log</a>
-												@endcan
-												<div class="dropdown-divider"></div>
-												<a class="dropdown-item" data-toggle="modal" data-target="#logoutModal"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-													{{ __('Logout') }}
-												</a>
-												<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-													@csrf
-												</form>
-											</div>
-											
-										</li>
-									
-									@endguest
-
-								</ul>
-							</nav>
-							<!-- End of Topbar -->
+							
 							<div  class="container-fluid fondo-blur ">
 								@yield("cuerpo")		
 							</div>
@@ -239,8 +77,10 @@
 	<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
-	<script defer src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_API_KEY')}}&callback=initMap">
+	<script defer 
+		src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_API_KEY')}}&callback=initMap">
 	</script>
+	
 	
 	<!-- Carga Loader en cada pagina-->
 	<script src="/js/loader.js"></script>
@@ -249,7 +89,6 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 	<!-- Custom scripts for all pages-->
 	<script src="/js/sb-admin-2.min.js"></script>
-
 	<!-- Page level plugins -->
 	<script src="/vendor/chart.js/Chart.min.js"></script>
 	<script src="/vendor/fullcalendar/core/main.js" ></script> <!-- FullCalendar -->

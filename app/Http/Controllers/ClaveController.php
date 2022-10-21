@@ -62,9 +62,9 @@ class ClaveController extends Controller {
 			  ->whereYear('created_at', '=', date('Y'))
 			  ->whereNull('claves.deleted_at')
 			  ->groupBy('combustible')->get();
-
+			$sidebar = '2';
 			  
- 			return view( "/clave.index", compact("gasaccumulatedmonthly","gasstationexpenses","CountClaves","SumaValClaves", "claves","query" ) );
+ 			return view( "/clave.index", compact("sidebar","gasaccumulatedmonthly","gasstationexpenses","CountClaves","SumaValClaves", "claves","query" ) );
         }
 	}
 
@@ -84,8 +84,8 @@ class ClaveController extends Controller {
         ->orWhere('cargo','=','maquinista')
         ->orderBy("name",'asc')
         ->get();
-		
-			return view( "/clave.crear",compact("gasolineras","vehiculos","users") );
+		$sidebar = '2';
+			return view( "/clave.crear",compact("sidebar","gasolineras","vehiculos","users") );
 	}
 
 	/**
@@ -130,7 +130,8 @@ class ClaveController extends Controller {
 
 	function show( $id ) {
 		$clave = Clave::findOrFail( $id );
-		return view( "clave.show", compact( "clave" ) );
+		$sidebar = '2';
+		return view( "clave.show", compact( "clave","sidebar" ) );
 	}
 
 	/**
@@ -151,7 +152,7 @@ class ClaveController extends Controller {
         ->orWhere('cargo','=','maquinista')
         ->orderBy("name",'asc')
         ->get();
-			
+		$sidebar = '2';	
 			$claves = Clave::findOrFail( $id );
 			return view( "clave.edit", compact("claves","gasolineras","vehiculos","usuarios"));
 		

@@ -32,6 +32,7 @@ $(document).on('ready',function(){
 	if(day < 10)
 		    day = '0' + day.toString();	
 	
+			
 	
 	var maxDate = year + '-' + month + '-' + day;
 	$('#fecha').attr('min', maxDate);
@@ -294,7 +295,7 @@ function mayus( e ) {
 
 function hractual(e) {
 	
-	var hoy = new Date();
+	/* var hoy = new Date();
 	var h1 = hoy.getHours();
 	if(h1>=0 && h1<10) {
 		h1 = "0"+ h1;
@@ -307,38 +308,53 @@ function hractual(e) {
 	if(sec>=0 && sec<10) {
 		sec = "0"+ sec;
 	}
-	var hora = h1  + ':' + min + ':' + sec;
+	var hora = h1  + ':' + min + ':' + sec; */
+	var fecha = new Date(); //Fecha actual
+    var mes = fecha.getMonth()+1; //obteniendo mes
+    var dia = fecha.getDate(); //obteniendo dia
+    var ano = fecha.getFullYear(); //obteniendo año
+    var hora = fecha.getHours(); //obteniendo hora
+    var minutos = fecha.getMinutes(); //obteniendo minuto
+
+    function minTwoDigits(n) {
+		return (n < 10 ? '0' : '') + n;
+	  }
+
 	if(e.name === "horactual")
 	{
-		console.log(e.name);
-		document.getElementById("hora_salida_a_emergencia").value=hora;
-		console.log(document.getElementById("hora_salida_a_emergencia").name);
+		
+		/* document.getElementById("hora_salida_a_emergencia").value=hoy; */
+		document.getElementById("hora_salida_a_emergencia").value=ano+"-"+minTwoDigits(mes)+"-"+minTwoDigits(dia)+"T"+minTwoDigits(hora)+":"+minTwoDigits(minutos);
+		/* console.log(document.getElementById("hora_salida_a_emergencia").name); */
 	}
 	
 	else if (e.name === "horactual1")
 	{
-		console.log(e.name);
-		document.getElementById("hora_llegada_a_emergencia").value=hora;
-		console.log(document.getElementById("hora_llegada_a_emergencia").name);
+		
+		/* document.getElementById("hora_llegada_a_emergencia").value=hora; */
+		document.getElementById("hora_llegada_a_emergencia").value=ano+"-"+minTwoDigits(mes)+"-"+minTwoDigits(dia)+"T"+minTwoDigits(hora)+":"+minTwoDigits(minutos);
+		
 	}
 	else if (e.name == "horactual2")
 	{
-		console.log(e.name);
-		document.getElementById("hora_fin_emergencia").value=hora;
-		console.log(document.getElementById("hora_fin_emergencia").name);
+		document.getElementById("hora_fin_emergencia").value=ano+"-"+minTwoDigits(mes)+"-"+minTwoDigits(dia)+"T"+minTwoDigits(hora)+":"+minTwoDigits(minutos);
+		/* document.getElementById("hora_fin_emergencia").value=hora; */
+	
 	}	
 	
 	else if(e.name == "horactual3")
 	{
-		console.log(e.name);
-		document.getElementById("hora_en_base").value=hora;
-		console.log(document.getElementById("hora_en_base").name);
+		
+		/* document.getElementById("hora_en_base").value=hora; */
+		document.getElementById("hora_en_base").value=ano+"-"+minTwoDigits(mes)+"-"+minTwoDigits(dia)+"T"+minTwoDigits(hora)+":"+minTwoDigits(minutos);
+	
 	}	
 	else if(e.name === "horactual4")
 	{
-		console.log(e.name);
-		document.getElementById("hora_fichaecu911").value=hora;
-		console.log(document.getElementById("hora_fichaecu911").name);
+		document.getElementById("hora_en_base").value=ano+"-"+minTwoDigits(mes)+"-"+minTwoDigits(dia)+"T"+minTwoDigits(hora)+":"+minTwoDigits(minutos);
+		
+		/* document.getElementById("hora_fichaecu911").value=hora; */
+		
 	}
 	
 }
@@ -411,6 +427,7 @@ function validarFormulario(evento) {
 	}
 	
 }
+
 
 /* Script para almacenar pacientes atendidos  */
 

@@ -24,11 +24,11 @@ class CreateInundacionsTable extends Migration
 			$table->unsignedBigInteger("parroquia_id");
 			$table->string("geoposicion")->nullable();
 			$table->string("ficha_ecu911");
-			$table->time("hora_fichaecu911");
-			$table->time("hora_salida_a_emergencia");
-			$table->time("hora_llegada_a_emergencia");
-			$table->time("hora_fin_emergencia");
-			$table->time("hora_en_base");
+			$table->datetime("hora_fichaecu911");
+			$table->datetime("hora_salida_a_emergencia");
+			$table->datetime("hora_llegada_a_emergencia");
+			$table->datetime("hora_fin_emergencia");
+			$table->datetime("hora_en_base");
 			$table->string("informacion_inicial",2000);
 			$table->string("detalle_emergencia",3000);
 			$table->string("usuario_afectado");
@@ -38,6 +38,8 @@ class CreateInundacionsTable extends Migration
             $table->string("fileSCI-201")->nullable();
             $table->string("fileSCI-202")->nullable();
             $table->string("fileSCI-206A")->nullable();
+            $table->timestamps();
+            $table->softDeletes();
             $table->foreign('incidente_id')->references('id')->on('incidentes')
             ->constrained()
             ->onUpdate('cascade')
@@ -50,7 +52,7 @@ class CreateInundacionsTable extends Migration
             ->constrained()
             ->onUpdate('cascade')
             ->onDelete('cascade');
-            $table->timestamps();
+            
 
 
         });

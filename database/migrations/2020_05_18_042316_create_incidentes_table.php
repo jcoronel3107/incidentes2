@@ -18,6 +18,7 @@ class CreateIncidentesTable extends Migration
 			$table->string("tipo_incidente");
 			$table->string("nombre_incidente");
             $table->timestamps();
+            $table->softDeletes();
         });
 
 	}

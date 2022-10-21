@@ -134,7 +134,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Salida A Emergencia</span>
 				</div>
-				<input type="text" class="form-control" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" value="{{old('hora_salida_a_emergencia',$transito->hora_salida_a_emergencia)}}" onblur="CheckTime(this);" placeholder="hh:mm:ss" required="">
+				<input type="datetime-local" class="form-control" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" value="{{old('hora_salida_a_emergencia',$transito->hora_salida_a_emergencia)}}" onblur="CheckTime(this);" placeholder="hh:mm:ss" required="">
 				<div class="input-group-append">
 					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual" id="horactual"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 				</div>
@@ -143,7 +143,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Llegada A Emergencia</span>
 				</div>
-				<input type="text" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" value="{{old('hora_llegada_a_emergencia',$transito->hora_llegada_a_emergencia)}}" placeholder="hh:mm:ss" onblur="CheckTime(this);" required="">
+				<input type="datetime-local" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" value="{{old('hora_llegada_a_emergencia',$transito->hora_llegada_a_emergencia)}}" placeholder="hh:mm:ss" onblur="CheckTime(this);" required="">
 				<div class="input-group-append">
 					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual1" id="horactual1"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 				</div>
@@ -155,7 +155,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Fin Emergencia</span>
 				</div>
-				<input type="text" class="form-control" name="hora_fin_emergencia" value="{{old('hora_fin_emergencia',$transito->hora_fin_emergencia)}}" id="hora_fin_emergencia" onblur="CheckTime(this);" placeholder="hh:mm:ss">
+				<input type="datetime-local" class="form-control" name="hora_fin_emergencia" value="{{old('hora_fin_emergencia',$transito->hora_fin_emergencia)}}" id="hora_fin_emergencia" onblur="CheckTime(this);" placeholder="hh:mm:ss">
 				<div class="input-group-append">
 					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual2" id="horactual2"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 				</div>
@@ -164,7 +164,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora En Base</span>
 				</div>
-				<input type="text" class="form-control" name="hora_en_base" value="{{old('hora_en_base',$transito->hora_en_base)}}" id="hora_en_base" onblur="CheckTime(this);" placeholder="hh:mm:ss">
+				<input type="datetime-local" class="form-control" name="hora_en_base" value="{{old('hora_en_base',$transito->hora_en_base)}}" id="hora_en_base" onblur="CheckTime(this);" placeholder="hh:mm:ss">
 				<div class="input-group-append">
 					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual3" id="horactual3"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 				</div>

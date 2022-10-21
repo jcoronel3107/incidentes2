@@ -21,6 +21,7 @@ class CreateCiesTable extends Migration
             $table->string("concepto",300);
             $table->string("nivel",5);
             $table->timestamps();
+			$table->softDeletes();
         });
     }
 

@@ -19,8 +19,8 @@ use App\Http\Controllers\TallerController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/',										'PagesController@index');
-Route::get('/home',									'PagesController@index');
+Route::get('/',										'PagesController@index')->middleware('auth');
+Route::get('/home',							'PagesController@index')->middleware('auth');
 Auth::routes();
 /* -----------------------------------------------------------------------------------
 /                                   Cambio de Idioma 

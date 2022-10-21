@@ -183,8 +183,8 @@ class UserController extends Controller
         ->where('personnel_employee.email','=',$mail)
         ->orderByDesc('personnel_employee.emp_code')
         ->first();
-        
-        return view( "user.profile",compact('Listpersonnel_employee'));
+        $sidebar='3';
+        return view( "user.profile",compact('Listpersonnel_employee','sidebar'));
 
     }
 
@@ -229,7 +229,7 @@ class UserController extends Controller
             foreach($Cert_employee->Personnel_EmployeeCertification as $item){
                 $contract = $item->cert_name;
             }
-            
+
             $rol_employee = DB::connection('mysql2')->table('personal')
             ->where('personal.perscedula','=',$Cert_employee->passport)
             ->first();
@@ -343,8 +343,15 @@ class UserController extends Controller
             ->groupBy('gender')
             ->where('status','=',0)
             ->get();
-         
-            return view('user.disponibilidad',compact('count_gender','Desvinculado_employee','TotalNomina_employee','LibreRemocion_employee','Nombramiento_employee','Codigo_employee','NomProvisional_employee','Ocacional_employee','date'));
+
+            $count_emptype = DB::connection('pgsql')->table('personnel_employee')
+            ->select('personnel_employee.emp_type',DB::raw('count(emp_type) cant'))
+            ->groupBy('emp_type')
+            ->where('status','=',0)
+            ->get();
+            
+            $sidebar='3';
+            return view('user.disponibilidad',compact('sidebar','count_emptype','count_gender','Desvinculado_employee','TotalNomina_employee','LibreRemocion_employee','Nombramiento_employee','Codigo_employee','NomProvisional_employee','Ocacional_employee','date'));
     }
 
    

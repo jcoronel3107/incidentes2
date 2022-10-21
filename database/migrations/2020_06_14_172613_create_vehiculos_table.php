@@ -45,11 +45,13 @@ class CreateVehiculosTable extends Migration
 			$table->string('usuacrea')->nullable();
 			$table->string('usuaedit')->nullable();
 			$table->string('combustible')->nullable();
+			$table->timestamps();
+			$table->softDeletes();
             $table->foreign('station_id')->references('id')->on('stations')
             ->constrained()
             ->onUpdate('cascade')
             ->onDelete('cascade');
-            $table->timestamps();
+            
         });
     }
 
