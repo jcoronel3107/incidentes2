@@ -59,6 +59,12 @@ class User extends Authenticatable
     public function inundacions(){
         return $this->belongsToMany(Inundacion::class);
     }
+    
+    public function vehiculos(){
+        return $this->belongsToMany(Vehiculo::class)
+        ->withPivot('km_salida','km_llegada','driver_id');
+    }
+
     public function incendios(){
         return $this->belongsToMany(Incendio::class);
     }

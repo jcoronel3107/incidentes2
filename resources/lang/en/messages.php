@@ -109,5 +109,7 @@ return [
     'response times'=>'Response Times',
     'Monthly Fuel Consumption'=>'Monthly Fuel Consumption',
     'staff in the emergency'=>'Staff in the Emergency',
-
+    'Denomination'=>'Denomination',
+    'Term'=>'Term',
+    'Value'=>'Value',
 ];

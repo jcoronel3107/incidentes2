@@ -30,7 +30,20 @@
 		@endif
 		<div class="form-row">
 			{{csrf_field()}}
-			<div class="form-group input-group  col-md-10">
+			<div class="form-group input-group  col-md-4">
+				<div class="input-group-prepend">
+					<span class="input-group-text">Nro Solicitud</span>
+				</div>
+				<select required class="form-control selectpicker" id="gasolinera_id" name="gasolinera_id" data-live-search="true">
+					<option value="">Seleccione...</option>
+					@foreach($solicitudes as $solicitud)
+					<option value="{{$solicitud->id}}">{{$solicitud->vehiculo->codigodis}}--{{$solicitud->created_at}}</option>
+					@endforeach
+				</select>
+			</div>
+		</div>	
+		<div class="form-row">
+			<div class="form-group input-group  col-md-8">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Estaciòn Servicio</span>
 				</div>

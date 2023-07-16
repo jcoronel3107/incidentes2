@@ -13,9 +13,9 @@ class CreateClavesTable extends Migration
      */
     public function up()
     {
-        //Schema::dropIfExists('claves');
+        
         Schema::create('claves', function (Blueprint $table) {
-            $table->increments ('id');
+            $table->id();
 			$table->string("km_salida");
 			$table->string("km_gasolinera");
 			$table->string("km_llegada");
@@ -27,6 +27,8 @@ class CreateClavesTable extends Migration
 			$table->unsignedBigInteger("vehiculo_id");
             $table->string("Orden");
             $table->string("factura");
+            $table->string('usr_creador');
+            $table->string('usr_editor');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('gasolinera_id')->references('id')->on('gasolineras')

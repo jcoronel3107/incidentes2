@@ -58,6 +58,7 @@
 					<td>Ruc</td>
 					<td>Direccion</td>
 					<td>Email</td>
+					<td>Status</td>
 					<td>Opciones</td>
 				<tr>
 			</thead>
@@ -68,6 +69,15 @@
 					<td>{{$gasolinera->ruc}}</td>
 					<td>{{$gasolinera->direccion}}</td>
 					<td>{{$gasolinera->email}}</td>
+					<td>
+						
+						@if(($gasolinera->status)=='0')
+							Desactivo
+						@else
+							Activo
+						@endif
+						
+					</td>
 					<td><a class="btn btn-outline-danger btn-sm" href="{{route('gasolinera.edit',$gasolinera->id)}}" role="button">Edit</a>
 						<a class="btn btn-outline-info btn-sm" href="{{route('gasolinera.show',$gasolinera->id)}}" role="button">Ver</a>
 					</td>

@@ -33,10 +33,7 @@ class Inundacion extends Model
 		"usuario_afectado",
 		"danos_estimados",
 		"usr_creador",
-		"usr_editor",
-		"fileSCI-201",
-		"fileSCI-202",
-		"fileSCI-206A"
+		"usr_editor"
 	];
 
 	protected static $logFillable = true;

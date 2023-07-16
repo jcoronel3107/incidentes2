@@ -419,10 +419,33 @@ class ConsultasController extends Controller
 			->whereNull($tabla . '.deleted_at')
 			->whereBetween($tabla .'.created_at', array($fechaD, $fechaH))
 			->get(); 
-		//dd($busquedaentrefechasclaveveh);	
+		dd($busquedaentrefechasclaveveh);	
 		
 		return view("/consulta/entrefechasclaveveh", compact('tabla','busquedaentrefechasclaveveh','fechaD','fechaH'));
 	}
+
+
+	public function busquedaentrefechasclavexvehiculo(Request $request)
+	{
+		$tabla= "claves";
+		$vehicle = $request->vehiculoclave;
+		$fechaD = $request->fechaDxvehiculo;
+		$fechaH = $request->fechaHxvehiculo;
+		
+
+		$busquedaentrefechasclavexvehiculo = DB::table($tabla)
+		->select('vehiculos.id','codigodis','name','claves.created_at','orden','placa','factura')
+		->join('users',  $tabla . '.user_id', '=', 'users.id')
+		->join('vehiculos',  $tabla . '.vehiculo_id', '=', 'vehiculos.id')
+			->where('vehiculo_id','=',$vehicle)
+			->whereNull($tabla . '.deleted_at')
+			->whereBetween($tabla .'.created_at', array($fechaD, $fechaH))
+		->get(); 
+		($busquedaentrefechasclavexvehiculo);	
+		
+		return view("/consulta/entrefechasclavexvehiculo", compact('tabla','busquedaentrefechasclavexvehiculo','fechaD','fechaH'));
+	}
+
 
 	public function busquedaentrefechasincidenteveh(Request $request)
 	{
@@ -607,7 +630,7 @@ class ConsultasController extends Controller
 		$busquedaentrefechas_xgasolineras = DB::table($tabla)
 			->join('gasolineras', $tabla . '.gasolinera_id', '=', 'gasolineras.id')
 			->select('razonsocial', DB::raw('count(gasolinera_id) Num_cargas'))
-			/* ->where('gasolinera_id','=',$gastation) */
+			->where('gasolinera_id','=',$gastation)
 			->whereYear( $tabla .'.created_at', '=', date('Y'))
 			->whereNull($tabla .'.deleted_at')
 			->whereBetween( $tabla .'.created_at', array($fechaDgas, $fechaHgas)) 
@@ -636,7 +659,7 @@ class ConsultasController extends Controller
 			->havingRaw('count(vehiculos.codigodis) >= ?', [1])
 			->get(); 
 			$gastationname = Gasolinera::findOrFail( $gastation );
-		//return $Busquedaentrefechas_xcombustible;
+		
 		return view("/consulta/entrefechasclaves", compact('gastationname','tabla','Busquedaentrefechas_xvehiculo','Busquedaentrefechas_xcombustible','busquedaentrefechas_xgasolineras','fechaDgas','fechaHgas'));
 	}
 

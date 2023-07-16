@@ -42,15 +42,6 @@
 					</div>
 					<input type="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="email" placeholder="Dirección Correo Electronico" class="form-control"> 
 				</div>
-				<div class="form-group input-group  col-md-6">
-					<div class="input-group-prepend">
-						<span class="input-group-text">Monto Contrato</span>
-					</div>
-					<input type="number" required min="0" step=".01" name="monto_contrato" placeholder="Digite Monto de Contrato" class="form-control"> 
-				</div>
-
-
-
 			</div>
 
 			<div class="form-group">

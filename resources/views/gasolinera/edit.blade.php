@@ -26,7 +26,6 @@
 					</div>
 					<input type="text" name="ruc" value="{{$gasolinera->ruc}}" placeholder="Nombre / Descripcion Incidente" class="form-control">
 				</div>
-
 			</div>
 			<div class="form-row">
 				<div class="form-group input-group  col-md-6">
@@ -41,9 +40,18 @@
 					</div>
 					<input type="text" name="email" value="{{$gasolinera->email}}" placeholder="Dirección Correo Electronico" class="form-control"> {{csrf_field()}}
 				</div>
-
-
-
+			</div>
+			<div class="form-row">
+				<div class="form-group input-group  col-md-6">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Estado</span>
+					</div>
+					<select class="form-control" name="status" id="status" required >
+						<option selected value="">Seleccione...</option>
+						<option value="1">Activo</option>
+						<option value="0">Desactivo</option>
+					</select>
+				</div>
 			</div>
 
 

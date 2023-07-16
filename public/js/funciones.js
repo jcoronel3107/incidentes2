@@ -19,8 +19,11 @@ $(document).on('ready',function(){
 	var dtToday = new Date();
 	var month = dtToday.getMonth() + 1;     // getMonth() is zero-based
 	var day = dtToday.getDate();
-	var year = dtToday.getFullYear();
+	var anio = dtToday.getFullYear();
+	var hora = dtToday.getHours(); //obteniendo hora
+    var minutos = dtToday.getMinutes(); //obteniendo minuto
 
+	
 	var max_chars = 2000;
 	var max_chars1 = 3000;
 	var max_charser = 1000;
@@ -31,13 +34,20 @@ $(document).on('ready',function(){
     		month = '0' + month.toString();
 	if(day < 10)
 		    day = '0' + day.toString();	
-	
+	if(hora < 10)
+			hora = '0' + hora.toString();	
+	if(minutos < 10)
+			minutos = '0' + minutos.toString();	
 			
+	var fecha_actual = `${anio}-${month}-${day}T${hora}:${minutos}`;
+	var maxDate = `${anio}-${month}-${day}T${hora}:${minutos}`;
+	$('#fecha').attr('min', fecha_actual);
+	$('#fecha').attr('value', fecha_actual);
 	
-	var maxDate = year + '-' + month + '-' + day;
-	$('#fecha').attr('min', maxDate);
-	$('#fecha').attr('value', maxDate);
 	
+	$('#hora_fichaecu911').attr('value',fecha_actual);
+	
+
 	$( ".vehiculo_id" ).change(function() {
 		tituloventana();
 	  });

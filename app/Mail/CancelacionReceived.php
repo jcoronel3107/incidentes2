@@ -6,20 +6,20 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Reservation;
+use App\Solicitud;
 
 class CancelacionReceived extends Mailable
 {
     use Queueable, SerializesModels;
-    public $reservation;
+    public $solicitud;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Reservation $reservation)
+    public function __construct(Solicitud $solicitud)
     {
-        $this->reservation = $reservation;
+        $this->solicitud = $solicitud;
     }
 
     /**
@@ -29,6 +29,6 @@ class CancelacionReceived extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.cancelacion');
+        return $this->view('mails.cancelacionsolicitud');
     }
 }

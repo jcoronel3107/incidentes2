@@ -11,8 +11,7 @@ class IncidenteSeeder extends Seeder
      */
     public function run()
     {
-        //
-        //DB::table('incidentes')->truncate();
+       
         DB::table('incidentes')->insert([
             'tipo_incidente'=> '10_20',
             'nombre_incidente'=> 'Inundación Edificaciones',

@@ -13,16 +13,17 @@ class CreateGasolinerasTable extends Migration
      */
     public function up()
     {
+        
         Schema::create('gasolineras', function (Blueprint $table) {
             $table->id();
 			$table->string ('razonsocial');
 			$table->string('ruc');
 			$table->string('direccion');
 			$table->string('email');
+            $table->boolean('status');
+            $table->unique('email');
             $table->timestamps();
-            $table->softDeletes();
-			$table->unique('email');
-            
+            $table->softDeletes(); 
         });
     }
 

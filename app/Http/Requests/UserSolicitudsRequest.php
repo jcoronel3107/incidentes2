@@ -14,18 +14,18 @@ class UserSolicitudsRequest extends FormRequest
     public function rules()
     {
         return [
-            'start'         => 'required',
-            'end'           => 'required'
+            'combustible'         => 'required',
+            'vehiculo_id'         => 'required',
+            'user_id'             => 'required'
         ];
     }
 
     public function messages()
     {
         return [
-            'descripcion.max' => 'El campo de comentario debe tener como máximo 100 caracteres.',
-            'start.required' => 'Campo start Requerido.',
-            'start.before_or_equal' => 'La fecha de inicio debe ser menor o igual a la fecha Fin.',
-            'end.after_or_equal' => 'La fecha Fin debe ser mayor o igual a la fecha Inicio.'
+            'combustible.required' => 'El campo Combustible es requerido.',
+            'vehiculo_id.required' => 'EL campo Vehiculo es requerido.',
+            'user_id.required' => 'El campo Usuario es requerido.',
         ];
     }
 }

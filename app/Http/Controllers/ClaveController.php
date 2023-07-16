@@ -15,7 +15,8 @@ use App\Http\Requests\SaveClaveRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Exports\ClavesExport;
-
+use App\Imports\ClavesImport;
+use App\Solicitud;
 use Illuminate\Support\Facades\App;
 
 
@@ -76,6 +77,7 @@ class ClaveController extends Controller {
 	public function create() {
 		//
 		$gasolineras = Gasolinera::all();
+		$solicitudes = Solicitud::whereRaw('user_id = ? and status = "Confirmado"',auth()->user()->id)->get();
 		
 		$vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
 		$users = DB::table('users')->where([
@@ -85,7 +87,7 @@ class ClaveController extends Controller {
         ->orderBy("name",'asc')
         ->get();
 		$sidebar = '2';
-			return view( "/clave.crear",compact("sidebar","gasolineras","vehiculos","users") );
+			return view( "/clave.crear",compact("solicitudes","sidebar","gasolineras","vehiculos","users") );
 	}
 
 	/**
@@ -165,9 +167,7 @@ class ClaveController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public
-
-	function update( SaveClaveRequest $request , $id ) {
+	public function update( SaveClaveRequest $request , $id ) {
 		
 			DB::begintransaction();
           	try
@@ -236,6 +236,21 @@ class ClaveController extends Controller {
     {
         return Excel::download(new ClavesExport, 'claves.xlsx');
     }
+
+	public function importacion(Request $request)
+    {
+        $file = $request->file('file');
+		
+        Excel::import(new ClavesImport, $file);
+        Session::flash('Importacion_Correcta',"Importacion Realizada con Exito!!!");
+        return redirect( "/clave" );
+    }
+
+	public function importar()
+    {
+      return view("clave.import");
+    }
+
 
     public function downloadPDF($id) {
 		$date = Carbon::now();

@@ -175,7 +175,50 @@
 				 </div>	
             </div>
         </form>
-        
+        <hr>
+        <form method="get" action="/busquedaentrefechasclavexvehiculo">
+            <div class="form-group row mt-2">
+                <label class="col-sm-3 col-form-label text-sm-right">Vehiculo</label>
+                
+                <div class=" col-xl-9 col-lg-9 col-md-12 col-sm-12">
+                        <select class="selectpicker form-control" data-live-search="true" id="vehiculoclave" name="vehiculoclave" required>
+                            <option value="">Seleccione Vehiculo...</option>
+                           
+                            @foreach ($vehicle as $registro)
+                                <option value="{{$registro->id}}">{{$registro->codigodis}}</option>   
+                            @endforeach
+                        </select>
+                </div>
+                
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-sm-right">Fecha Desde</label>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                        <input type="datetime-local" required id="fechaDxvehiculo" name="fechaDxvehiculo" min="2021-01-01" class="form-control">
+                    </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-sm-right">Fecha Hasta</label>
+                
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                        <input type="datetime-local" required id="fechaHxvehiculo" name="fechaHxvehiculo" class="form-control">
+                    </div>
+            </div>
+            <div class="form-group" id="divguardarClave">
+                <input type="hidden" name="token" value="{{csrf_token()}}">
+                
+                <div class="input-group mb-3 justify-content-end">
+						<div class="input-group-prepend">
+							<span title="Grabar" class="input-group-text"><i class="fas fa-check"></i></span>
+						</div>						
+						<button type="submit" id="EnviarClavexvehiculo" name="EnviarClavexvehiculo" value="Enviar" data-toggle="tooltip" title="Buscar" class="btn btn-outline-success">Consultar</button>
+						<div class="input-group-prepend">
+							<span title="Regresar" class="input-group-text"><i class="fas fa-arrow-left"></i></span>
+						</div>
+						<a class="btn btn-outline-secondary" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('consulta.index')}}">Regresar</a>
+				 </div>	
+            </div>
+        </form>
         
     </div>
 

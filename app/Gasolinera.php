@@ -12,11 +12,19 @@ class Gasolinera extends Model
 	use SoftDeletes;
 	use LogsActivity;
 
-	protected $fillable=["razonsocial","ruc","direccion","email","monto_contrato"];
+	protected $fillable=["razonsocial","ruc","direccion","email","status"];
 	protected static $logFillable = true;
 	
 	public function clave(){
-		//Muestra informacion de las Claves Realizadas por gasolinera
 	return $this->hasMany(Clave::class);
-}
+	}
+
+	public function contrato(){
+		return $this->hasMany(Contrato::class);
+	}
+
+	public function solicitud(){
+		return $this->hasMany(Solicitud::class);
+	}
+
 }

@@ -52,7 +52,7 @@ class GasolineraController extends Controller
 			$gasolinera->ruc = $request->ruc;
 			$gasolinera->direccion = $request->direccion;
 			$gasolinera->email = $request->email;
-      $gasolinera->monto_contrato = $request->monto_contrato;
+      $gasolinera->status = 1;
 			$gasolinera->save();
 			Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
 			return redirect( "/gasolinera" );

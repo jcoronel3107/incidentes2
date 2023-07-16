@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateActividadsTable extends Migration
+class CreateContratosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,16 @@ class CreateActividadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('actividads', function (Blueprint $table) {
+        Schema::create('contratos', function (Blueprint $table) {
             $table->id();
-            $table->string("descripcion");
-            $table->string("detalle",1000);
-            $table->unsignedBigInteger("movilizacion_id");
+            $table->string('denominacion')->unique();
+            $table->datetime('fecha');
+            $table->string('plazo');
+            $table->string('valor');
+            $table->unsignedBigInteger("gasolinera_id");
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('movilizacion_id')->references('id')->on('movilizacions')
+            $table->foreign('gasolinera_id')->references('id')->on('gasolineras')
             ->constrained()
             ->onUpdate('cascade')
             ->onDelete('cascade');
@@ -34,6 +36,6 @@ class CreateActividadsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('actividads');
+        Schema::dropIfExists('contratos');
     }
 }

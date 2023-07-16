@@ -43,11 +43,16 @@
             <i class="fas fa-fw fa-wallet"></i>
             <span>{!! trans('messages.Clave14')!!}</span>
           </a>
+          
           <div id="collapseClave14" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+           
             <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
+              <a rel="nofollow noopener noreferrer" class="collapse-item" target="_blank" href="{{route('solicitud.index')}}">{!! trans('messages.Request') !!}</a>
               <a rel="nofollow noopener noreferrer" class="collapse-item" target="_blank" href="{{route('clave.index')}}">{!! trans('messages.Index') !!}</a>
+              <a rel="nofollow noopener noreferrer" class="collapse-item" target="_blank" href="{{route('clave.create')}}">Registrar</a>
             </div>
+            authorize_responsed
           </div>
         </li>
     
@@ -133,6 +138,7 @@
           <a class="collapse-item" href="/incidente/"> {!! trans('messages.Incidents') !!}</a>
           <a class="collapse-item" href="/estacion">{!! trans('messages.Firefighter station') !!}</a>
           <a class="collapse-item" href="/gasolinera">{!! trans('messages.Service Station') !!}</a>
+          <a class="collapse-item" href="/contrato">Contratos Gasolineras</a>
           <a class="collapse-item" href="/parroquia">{!! trans('messages.Parishes') !!}</a>
           <a class="collapse-item" href="/vehiculo">{!! trans('messages.Vehicles') !!}</a>
           <a class="collapse-item" href="/cie10/importar">Cie10</a>

@@ -56,7 +56,7 @@
 				</div>	
 			</div>
 			
-		</div>
+		
 		
 		<ul class="nav nav-pills flex-column flex-sm-row ml-4"><!-- div botones acciones -->
 					<li class="nav-item">
@@ -87,7 +87,7 @@
 											<span title="Import" class="input-group-text"><i class="fas fa-file-import"></i></span>
 										</div>
 										
-										<a class="nav-link btn btn-outline-success focus-in-expand" href="claves/import/">{!! trans('messages.import') !!}</a>
+										<a class="nav-link btn btn-outline-success focus-in-expand" href="/claves/import">{!! trans('messages.import') !!}</a>
 										@endcan
 						</div>
 					</li>
@@ -106,8 +106,6 @@
 					
 				
 		</ul>
-		
-	
 		@include('clave.search')
 		<table class="table p-3 table-hover table-condensed">
 			<thead>
@@ -174,14 +172,13 @@
 						</div>
 					</div>
 				</div>
-				
-				<!-- </tr> -->
+			
 				@endforeach
 			</tbody>
 		</table>
 
 		{{ $claves -> appends(['searchText' => $query]) -> links() }}
-		
+	</div>
 @endsection
 @section( "piepagina" ) 
 @endsection

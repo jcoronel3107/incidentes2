@@ -54,9 +54,15 @@ class Vehiculo extends Model
 	}
 
 	public function station(){
-	//Muestra informacion de las Claves14 por id de vehiculo
+	//Muestra informacion de las Stations por id de vehiculo
 	return $this->belongsTo(Station::class);
 	}
+
+	public function user(){
+		//Muestra informacion de las User por id de vehiculo
+		return $this->belongsToMany(User::class)
+		->withPivot('km_salida','km_llegada','driver_id');
+		}
 
 	public function inundacions(){
         return $this->belongsToMany(Inundacion::class)

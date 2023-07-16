@@ -110,4 +110,8 @@ return [
     'response times'=>'Tiempos Respuesta',
     'Monthly Fuel Consumption'=>'Consumo Mensual Combustible',
     'staff in the emergency'=>'Personal en la Emergencia',
+    'Denomination'=>'Denominación',
+    'Term'=>'Plazo',
+    'Value'=>'Valor',
+
 ];

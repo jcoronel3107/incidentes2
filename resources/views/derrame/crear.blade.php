@@ -7,7 +7,7 @@
 
 	@section( "cuerpo" )
 
-	<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">{!! trans('messages.Hazmat Event Information Record') !!}</h2>
+	<h2 class="mt-3 shadow p-3 mb-3 bg-white rounded text-danger">{!! trans('messages.Hazmat Event Information Record') !!}</h2>
 	
 	<ul class="nav justify-content-end">{{-- Menu Superior Opciones --}}
 		<li class="nav-item">
@@ -15,11 +15,11 @@
 				<div class="input-group-prepend">
 					<span title="Ver Guia MatPel" class="input-group-text"><i class="icon-file"></i></span>
 				</div>
-				<a rel="nofollow noopener noreferrer" href="{{asset('files/hazmat.pdf')}}" target="_blank" role="button" data-toggle="tooltip" title="Ver Guia MatPel" class="btn btn-outline-info">Ver</a>
+				<a rel="nofollow noopener noreferrer" href="{{asset('files/hazmat.pdf')}}" target="_blank" role="button" data-toggle="tooltip" title="Ver Guia MatPel" class="btn btn-outline-info">Ver Guia MatPel</a>
 				<div class="input-group-prepend">
 					<span title="Descargar Guia MatPel" class="input-group-text"><i class="icon-cloud-download"></i></span>
 				</div>
-				<a rel="nofollow noopener noreferrer" href="/download/hazmat.pdf" target="_blank" role="button" data-toggle="tooltip" title="Descargar Guia MatPel" class="btn btn-outline-info">Descargar</a>
+				<a rel="nofollow noopener noreferrer" href="/download/hazmat.pdf" target="_blank" role="button" data-toggle="tooltip" title="Descargar Guia MatPel" class="btn btn-outline-info">Descargar Guia MatPel</a>
 				<div class="input-group-prepend">
 					<span title="Notificar x Whatsapp" class="input-group-text"><i class="icon-comments-alt"></i></span>
 				</div>
@@ -56,155 +56,157 @@
 		</ul>
 		<div class="tab-content" id="myTabContent">
 			<div class="tab-pane fade show active" id="Informacion" role="tabpanel" aria-labelledby="Informacion-tab">
-				<div class="form-row mt-4"><!--Div Fecha-->
-					{{csrf_field()}}
-					<div class="form-group input-group  col-md-4">
-						<div class="input-group-prepend">
-							<span class="input-group-text">{!! trans('messages.Date') !!}</span>
+				<div class="card mt-3">
+					<div class="form-row"><!--Div Fecha-->
+						{{csrf_field()}}
+						<div class="form-group input-group  col-md-4">
+							<div class="input-group-prepend">
+								<span class="input-group-text">{!! trans('messages.Date') !!}</span>
+							</div>
+							<input type="date" required id="fecha" name="fecha" class="form-control">
 						</div>
-						<input type="date" required id="fecha" name="fecha" class="form-control">
+			
 					</div>
-		
-				</div>
-				
-				<div class="form-row "><!--Div Informacion ECU911-->
-					<div class='col-md-6'>
-						<div class="form-group">
-							<div class="input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text">Hora Ficha ECU911</span>
+					
+					<div class="form-row "><!--Div Informacion ECU911-->
+						<div class='col-md-6'>
+							<div class="form-group">
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">Hora Ficha ECU911</span>
+									</div>
+									<input type="time" id="hora_fichaecu911" name="hora_fichaecu911" onblur="CheckTime(this);" class="form-control" placeholder="hh:mm:ss" required value="{{old('hora_fichaecu911',$now->format('H:i:s') )}}">
+									
 								</div>
-								<input type="time" id="hora_fichaecu911" name="hora_fichaecu911" onblur="CheckTime(this);" class="form-control" placeholder="hh:mm:ss" required value="{{old('hora_fichaecu911',$now->format('H:i:s') )}}">
-								
+							</div>
+						</div>
+						<div class='col-md-6'>
+							<div class="form-group">
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">Nro.Ficha ECU911</span>
+									</div>
+									<input type="text" onkeyup="mayus(this);" name="ficha_ecu911" value="{{old('ficha_ecu911')}}" required class="form-control">
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class='col-md-6'>
-						<div class="form-group">
-							<div class="input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text">Nro.Ficha ECU911</span>
+					<div class="form-row">
+						<div class='col-md-12'>
+							<div class="form-group">
+								<div class="input-group date">
+									<div class="input-group-prepend">
+										<span class="input-group-text">{!! trans('messages.Initial information') !!}</span>
+									</div>
+									<textarea class="form-control Text-uppercase" maxlength="2000" id="pinformacion_inicial" name="informacion_inicial" aria-label="With textarea" required=""></textarea>
 								</div>
-								<input type="text" onkeyup="mayus(this);" name="ficha_ecu911" value="{{old('ficha_ecu911')}}" required class="form-control">
+							</div>
+							<p class="text-sm-left" id="pcounter"></p>
+						</div>
+					</div>
+					<div class="form-row"><!--Div Tipo Evento-->
+						<div class="form-group input-group col-md-5">
+							<div class="input-group-prepend">
+								<span class="input-group-text">{!! trans('messages.Incident') !!}</span>
+							</div>
+							<select class="selectpicker form-control" data-live-search="true" name="incidente_id" id="incidente_id" required>
+								<option value="" selected>{{old('incidente_id')}}</option>
+								@foreach($incidentes as $incidente)
+								<option value="{{$incidente->id}}">{{$incidente->nombre_incidente}}</option>
+								@endforeach
+							</select>
+						</div>
+			
+						<div class="form-group input-group col-md-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text">{!! trans('messages.scene') !!}</span>
+							</div>
+							<select class="form-control" name="tipo_escena" required>
+								<option value="" selected>{{old('tipo_escena')}}</option>
+								<option value="Tipo 1">Tipo 1</option>
+								<option value="Tipo 2">Tipo 2</option>
+								<option value="Tipo 3">Tipo 3</option>
+								<option value="Tipo 4">Tipo 4</option>
+							</select>
+						</div>
+						<div class="form-group input-group col-md-4">
+							<div class="input-group-prepend">
+								<span class="input-group-text">{!! trans('messages.Station') !!}</span>
+							</div>
+							<select class="form-control" name="station_id"   required>
+								<option value="" selected>{{old('station_id')}}</option>
+								@foreach($estaciones as $estacion)
+								<option value="{{$estacion->id}}">{{$estacion->nombre}}</option>
+								@endforeach
+							</select>
+						</div>
+					</div>
+					<div class="form-row"><!--Div Horas Evento-->
+						<div class="form-group input-group col-md-6">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="inputDetalle">Hora Salida A Emerg.</span>
+							</div>
+							<input type="datetime-local" class="form-control" name="hora_salida_a_emergencia" onblur="CheckTime(this);" id="hora_salida_a_emergencia" value="{{old('hora_salida_a_emergencia')}}" required>
+							<div class="input-group-append">
+								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual" id="horactual"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+							</div>
+						</div>
+						<div class="form-group  input-group col-md-6">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="inputDetalle">Hora Llegada A Emerg.</span>
+							</div>
+							<input type="datetime-local" class="form-control" name="hora_llegada_a_emergencia" onblur="CheckTime(this);" id="hora_llegada_a_emergencia" value="{{old('hora_llegada_a_emergencia')}}" required="">
+							<div class="input-group-append">
+								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual1" id="horactual1"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="form-row">
-					<div class='col-md-12'>
-						<div class="form-group">
-							<div class="input-group date">
-								<div class="input-group-prepend">
-									<span class="input-group-text">{!! trans('messages.Initial information') !!}</span>
-								</div>
-								<textarea class="form-control Text-uppercase" maxlength="2000" id="pinformacion_inicial" name="informacion_inicial" aria-label="With textarea" required=""></textarea>
+					<div class="form-row"><!--Div Horas Evento-->
+						<div class="form-group  input-group col-md-6">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="inputDetalle">Hora Fin Emerg.</span>
+							</div>
+							<input type="datetime-local" class="form-control" name="hora_fin_emergencia" onblur="CheckTime(this);" id="hora_fin_emergencia" value="{{old('hora_fin_emergencia')}}">
+							<div class="input-group-append">
+								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual2" id="horactual2"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 							</div>
 						</div>
-						<p class="text-sm-left" id="pcounter"></p>
-					</div>
-				</div>
-				<div class="form-row"><!--Div Tipo Evento-->
-					<div class="form-group input-group col-md-5">
-						<div class="input-group-prepend">
-							<span class="input-group-text">{!! trans('messages.Incident') !!}</span>
-						</div>
-						<select class="selectpicker form-control" data-live-search="true" name="incidente_id" id="incidente_id" required>
-							<option value="" selected>{{old('incidente_id')}}</option>
-							@foreach($incidentes as $incidente)
-							<option value="{{$incidente->id}}">{{$incidente->nombre_incidente}}</option>
-							@endforeach
-						</select>
-					</div>
-		
-					<div class="form-group input-group col-md-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text">{!! trans('messages.scene') !!}</span>
-						</div>
-						<select class="form-control" name="tipo_escena" required>
-							<option value="" selected>{{old('tipo_escena')}}</option>
-							<option value="Tipo 1">Tipo 1</option>
-							<option value="Tipo 2">Tipo 2</option>
-							<option value="Tipo 3">Tipo 3</option>
-							<option value="Tipo 4">Tipo 4</option>
-						</select>
-					</div>
-					<div class="form-group input-group col-md-4">
-						<div class="input-group-prepend">
-							<span class="input-group-text">{!! trans('messages.Station') !!}</span>
-						</div>
-						<select class="form-control" name="station_id"   required>
-							<option value="" selected>{{old('station_id')}}</option>
-							@foreach($estaciones as $estacion)
-							<option value="{{$estacion->id}}">{{$estacion->nombre}}</option>
-							@endforeach
-						</select>
-					</div>
-				</div>
-				<div class="form-row"><!--Div Horas Evento-->
-					<div class="form-group input-group col-md-6">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="inputDetalle">Hora Salida A Emerg.</span>
-						</div>
-						<input type="datetime-local" class="form-control" name="hora_salida_a_emergencia" onblur="CheckTime(this);" id="hora_salida_a_emergencia" value="{{old('hora_salida_a_emergencia')}}" required>
-						<div class="input-group-append">
-							<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual" id="horactual"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+						<div class="form-group  input-group col-md-6">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="inputDetalle">Hora En Base</span>
+							</div>
+							<input type="datetime-local" class="form-control" name="hora_en_base" onblur="CheckTime(this);" value="{{old('hora_en_base')}}" id="hora_en_base" value="">
+							<div class="input-group-append">
+								<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual3" id="horactual3"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+							</div>
 						</div>
 					</div>
-					<div class="form-group  input-group col-md-6">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="inputDetalle">Hora Llegada A Emerg.</span>
-						</div>
-						<input type="datetime-local" class="form-control" name="hora_llegada_a_emergencia" onblur="CheckTime(this);" id="hora_llegada_a_emergencia" value="{{old('hora_llegada_a_emergencia')}}" required="">
-						<div class="input-group-append">
-							<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual1" id="horactual1"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-						</div>
-					</div>
-				</div>
-				<div class="form-row"><!--Div Horas Evento-->
-					<div class="form-group  input-group col-md-6">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="inputDetalle">Hora Fin Emerg.</span>
-						</div>
-						<input type="datetime-local" class="form-control" name="hora_fin_emergencia" onblur="CheckTime(this);" id="hora_fin_emergencia" value="{{old('hora_fin_emergencia')}}">
-						<div class="input-group-append">
-							<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual2" id="horactual2"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+					<div class="form-row"><!--Detalle Emergencia-->
+						<div class="form-group input-group col-md-12">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Detalle Emergencia</span>
+							</div>
+							<textarea onkeyup="mayus(this);" class="form-control Text-uppercase" maxlength="3000" id="detalle_emergencia" name="detalle_emergencia" aria-label="With textarea" required="">{{old('detalle_emergencia')}}</textarea>
 						</div>
 					</div>
-					<div class="form-group  input-group col-md-6">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="inputDetalle">Hora En Base</span>
-						</div>
-						<input type="datetime-local" class="form-control" name="hora_en_base" onblur="CheckTime(this);" value="{{old('hora_en_base')}}" id="hora_en_base" value="">
-						<div class="input-group-append">
-							<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual3" id="horactual3"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+					
+					<p class="text-sm-left" id="pcounter1"></p>
+					<div class="form-row">{{--Usuario Afectado--}}
+						<div class="form-group input-group  col-md-8">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Ciud. Afectado</span>
+							</div>
+							<input onkeyup="mayus(this);" type="text" maxlength="83" class="form-control" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado')}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia" required="">
 						</div>
 					</div>
-				</div>
-				<div class="form-row"><!--Detalle Emergencia-->
-					<div class="form-group input-group col-md-12">
-						<div class="input-group-prepend">
-							<span class="input-group-text">Detalle Emergencia</span>
+					<div class="form-row">{{-- Danos Estimados --}}
+						<div class="form-group input-group col-md-12">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="inputDaños">Daños Estimados</span>
+							</div>
+							<textarea onkeyup="mayus(this);" class="form-control Text-uppercase" maxlength="2000" id="danos_estimados" name="danos_estimados" aria-label="With textarea" required="">{{old('danos_estimados')}}</textarea>
+			
 						</div>
-						<textarea onkeyup="mayus(this);" class="form-control Text-uppercase" maxlength="3000" id="detalle_emergencia" name="detalle_emergencia" aria-label="With textarea" required="">{{old('detalle_emergencia')}}</textarea>
-					</div>
-				</div>
-				
-				<p class="text-sm-left" id="pcounter1"></p>
-				<div class="form-row">{{--Usuario Afectado--}}
-					<div class="form-group input-group  col-md-8">
-						<div class="input-group-prepend">
-							<span class="input-group-text">Ciud. Afectado</span>
-						</div>
-						<input onkeyup="mayus(this);" type="text" maxlength="83" class="form-control" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado')}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia" required="">
-					</div>
-				</div>
-				<div class="form-row">{{-- Danos Estimados --}}
-					<div class="form-group input-group col-md-12">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="inputDaños">Daños Estimados</span>
-						</div>
-						<textarea onkeyup="mayus(this);" class="form-control Text-uppercase" maxlength="2000" id="danos_estimados" name="danos_estimados" aria-label="With textarea" required="">{{old('danos_estimados')}}</textarea>
-		
 					</div>
 				</div>
 			</div>

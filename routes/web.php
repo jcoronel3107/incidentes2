@@ -32,8 +32,13 @@ Route::get('lang/{lang}',							'LanguageController@swap')->name('lang.swap');
 /                                              Modulo C14 
 / --------------------------------------------------------------------------------- 
 */
-Route::resource('clave',							'ClaveController')->middleware('role:operador|consultor|supervidor|admin|Super-Admin');
-
+Route::resource('clave',							'ClaveController')->middleware('role:operador|conductor|consultor|supervidor|admin|Super-Admin');
+Route::post('claves/importacion',				    'ClaveController@importacion')->middleware('role:Super-Admin');
+Route::get('claves/import/',		    			'ClaveController@importar')->middleware('role:Super-Admin');
+Route::resource('solicitud',						'SolicitudClaveController')->middleware('role:operador|conductor|consultor|supervisor|admin|Super-Admin');
+Route::patch('authorize_request/{id}',              'SolicitudClaveController@authorize_request')->middleware('role:supervisor|admin|Super-Admin');
+Route::get('/downloadPDFsolicitud/{id}',			'SolicitudClaveController@downloadPDF')->middleware('role:operador|conductor|consultor|supervisor|admin|Super-Admin');
+Route::resource('contrato',						    'ContratoController')->middleware('role:operador|conductor|consultor|supervisor|admin|Super-Admin');
 Route::get('claves/export/',     					'ClaveController@export')->middleware('auth');
 Route::get('claves/grafic/',     					'ClaveController@grafica')->middleware('auth');
 Route::get('/downloadPDFclave/{id}',				'ClaveController@downloadPDF')->middleware('auth');
@@ -273,16 +278,17 @@ Route::get('googlemymapsjson/{tabla},{f1},{f2}',    'ConsultasController@Getjson
 Route::get('/busquedaentrefechas',					'ConsultasController@busquedaentrefechas');
 Route::get('/busquedaentrefechasclaveveh',			'ConsultasController@busquedaentrefechasclaveveh');
 Route::get('/busquedaentrefechasclave',				'ConsultasController@busquedaentrefechasclave');
+Route::get('/busquedaentrefechasclavexvehiculo',	'ConsultasController@busquedaentrefechasclavexvehiculo');
 Route::get('/busquedaentrefechasincidenteveh',		'ConsultasController@busquedaentrefechasincidenteveh');
 Route::get('/busquedaentrefechasmov',				'MovilizacionController@busquedaentrefechas');
 Route::post('users/import/',						'UserController@importacion')->middleware('role:admin|Super-Admin');
 Route::resource('user',								'UserController');
 
 
-Route::get('estadisticas/export/{id},{f1},{f2}', 	'ConsultasController@export')->middleware('role:operador|consultor|supervisor|admin|Super-Admin');
-Route::get('estadisticas/export4/{id},{f1},{f2}', 	'ConsultasController@export4')->middleware('role:operador|consultor|supervisor|admin|Super-Admin');
-Route::get('estadisticas/export3/{id},{f1},{f2}', 	'ConsultasController@export3')->middleware('role:operador|consultor|supervisor|admin|Super-Admin');
-Route::get('estadisticas/export2/{id},{f1},{f2}', 	'ConsultasController@export2')->middleware('role:operador|consultor|supervisor|admin|Super-Admin');
+Route::get('estadisticas/export/{id},{f1},{f2}', 	'ConsultasController@export')->middleware('role:operador|conductor|consultor|supervisor|admin|Super-Admin');
+Route::get('estadisticas/export4/{id},{f1},{f2}', 	'ConsultasController@export4')->middleware('role:operador|conductor|consultor|supervisor|admin|Super-Admin');
+Route::get('estadisticas/export3/{id},{f1},{f2}', 	'ConsultasController@export3')->middleware('role:operador|conductor|consultor|supervisor|admin|Super-Admin');
+Route::get('estadisticas/export2/{id},{f1},{f2}', 	'ConsultasController@export2')->middleware('role:operador|conductor|consultor|supervisor|admin|Super-Admin');
 Route::get('/download/{file}', 						'DownloadsController@download');
 
 /* --------------------------------------- Sub modulo Movilizacion    ----------------------- */
@@ -304,49 +310,6 @@ Route::get('/sendReportMovilizacion/{id}',			'MailController@SendMailsMovilizaci
 Route::get('/sendReportPrevencion/{id}',			'MailController@SendMailsPrevencion')->middleware('role:inspector|admin|Super-Admin');
 Route::get('/consultaentrefechasmov',	        	'MovilizacionController@consultaentrefechas')->name('consultaentrefechasmov')->middleware('role:inspector|admin|Super-Admin');
 
-/* ----------------------------------------------------------------------------------------------
-/                                   Rutas SubSistema Reservas de vehiculos
-/
-/ ------------------------------------------------------------------------------------------------
-*/
-
-
-
-Route::get('/administrar/grafic/','AdminReservationsController@grafica')->name('admin.solicitud.grafic')->middleware('role:employee|assistant|admin|Super-Admin');
-
-Route::get('vehiculosdisponibles','ReservacionController@VehiculosDisponibles')->middleware('role:employee|assistant|admin|Super-Admin');
-Route::get('/solicitud/asistencia','ReservacionController@formasistencia')->middleware('role:employee|assistant|admin|Super-Admin');
-Route::get('/solicitud/calendar','ReservacionController@chequearcalendario')->middleware('role:employee|assistant|admin|Super-Admin');
-Route::get('/serv_institucional','ReservacionController@index')->middleware('role:employee|assistant|admin|Super-Admin');
-
-
-Route::get('applicationclosed','UserSolicitudsController@application_closed')->name('user.solicitud.closed')->middleware('role:employee|assistant|admin|Super-Admin');
-Route::get('/solicitud/calendar', 'UserSolicitudsController@calendar')->name('user.solicitud.calendar')->middleware('role:employee|assistant|admin|Super-Admin');
-
-
-
-Route::resource('solicitud',      	'UserSolicitudsController')->middleware('role:employee|assistant|admin|Super-Admin');
-Route::resource('administrar', 		'AdminReservationsController')->middleware('role:assistant|admin|Super-Admin');
-
-
-/* ----------------------------------------------------------------------------------------------
-/                                   Rutas SubSistema Taller_Mantenimiento
-/
-/ ------------------------------------------------------------------------------------------------
-*/
-
-
-
-    Route::get('/taller','TallerController@disponibilidad')->middleware('role:employee|assistant|admin|Super-Admin');
-    Route::get('/solicitudes','TallerController@index')->middleware('role:employee|assistant|admin|Super-Admin');
-    Route::get('/search_bitacora','TallerController@search_bitacora')->middleware('role:employee|assistant|admin|Super-Admin');
-    Route::get('/show','TallerController@show')->middleware('role:employee|assistant|admin|Super-Admin');
-    Route::get('/export_bitacora/{p1},{p2},{p3},{p4},{p5}','TallerController@export_bitacora')->middleware('role:operador|consultor|supervisor|admin|Super-Admin');
-    Route::get('/solicitar_mant','TallerController@solicitar_mant')->middleware('role:employee|assistant|admin|Super-Admin');
-    Route::post('/storemaintenancerequest','TallerController@store_maintenance_request')->name('store_maintenance_request')->middleware('role:inspector|admin|Super-Admin');
-    Route::post('/createworkorder','TallerController@create_workorder_ajaxRequestPost')->name('createworkorder')->middleware('role:inspector|admin|Super-Admin');
-    Route::get('/listworkorder','TallerController@listworkorder')->name('listworkorder')->middleware('role:inspector|admin|Super-Admin');
-    Route::get('/profile','TallerController@profile')->name('profile')->middleware('role:inspector|admin|Super-Admin');
 
 /* ----------------------------------------------------------------------------------------------
 /                                   Rutas Menu Principal

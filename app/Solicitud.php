@@ -4,38 +4,36 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
+
 
 class Solicitud extends Model
 {
     use SoftDeletes;
+    use LogsActivity;
 
     protected $fillable=[
-        "title",
-        "descripcion",
-        "color",
-        "textColor",
-        "start",
-        "end",
+        "vehiculo_id",
         "user_id",
-        "status",
-        "created_at"
+        "gasolinera_id",
+        "combustible",
+        "status"
         ];
     
-    protected $casts = [
-        'start' => 'datetime',
-        'end'   => 'datetime'
-    ];
+   
 
     public static $status = ['Solicitado', 'Confirmado', 'Cancelado'];
 
     public function user(){
-		
 		return $this->belongsTo(User::class);
 	}
 
-    public function Assignment(){
-		
-		return $this->hasOne(Assignment::class);
+    public function vehiculo(){
+		return $this->belongsTo(Vehiculo::class);
+	}
+
+  public function gasolinera(){
+		return $this->belongsTo(Gasolinera::class);
 	}
 
     
