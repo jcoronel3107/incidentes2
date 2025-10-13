@@ -20,22 +20,22 @@
 		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Consultar Información de Evento Fuga</h2>
 		<p align="right" class="text-info text">Cuenca, {{$date}}</p>
 		<h3>Registro Nro.{{$fuga->id}}</h3>
-		<span class="bg-gray font-weight-bold">Cod_Incidente:</span>
+		<span class="bg-gray font-weight-bold">Cod Incidente:</span>
 		<p class="text-info">{{$fuga->incidente->nombre_incidente}}</p>
-		<span class="bg-gray font-weight-bold">Tipo_Escena:</span>
+		<span class="bg-gray font-weight-bold">Tipo Escena:</span>
 		<p class=" text-info">{{$fuga->tipo_escena}}</p>
-		<span class="bg-gray font-weight-bold">Cod_Estacion:</span>
+		<span class="bg-gray font-weight-bold">Cod Estación:</span>
 		<p class=" text-info">{{$fuga->station_id}}</p>
 		<hr>
 
 		<span class="bg-gray font-weight-bold">Fecha:</span>
 		<p class="text-info">{{$fuga->fecha}}</p>
-		<span class="bg-gray font-weight-bold">Ficha_Ecu911:</span>
+		<span class="bg-gray font-weight-bold">Ficha ECU-911:</span>
 		<p class="text-info">{{$fuga->ficha_ecu911}}</p>
-		<span class="bg-gray font-weight-bold">Hora_FichaEcu911:</span>
+		<span class="bg-gray font-weight-bold">Hora Ficha ECU-911:</span>
 		<p class="text-info">{{$fuga->hora_fichaecu911}}</p>
 		<hr>
-		<span class="bg-gray font-weight-bold">Dirección:</span>
+		<span class="bg-gray font-weight-bold">{!! trans('messages.Address') !!}:</span>
 		<p class="text-info">{{$fuga->direccion}}</p>
 		<span class="bg-gray font-weight-bold">Parroquia: </span>
 		<p class="text-info">{{$fuga->parroquia->nombre}}</p>
@@ -51,7 +51,7 @@
 		<p class="text-info">{{$fuga->hora_fin_emergencia}}</p>
 		<span class="bg-gray font-weight-bold">Hora En Base:</span>
 		<p class="text-info">{{$fuga->hora_en_base}}</p>
-		<span class="bg-gray font-weight-bold">Informacion Inicial:</span>
+		<span class="bg-gray font-weight-bold">Información Inicial:</span>
 		<p class="text-info text-wrap text-break">{{$fuga->informacion_inicial}}</p>
 		<span class="bg-gray font-weight-bold">Detalle Emergencia:</span>
 		<p class="text-info text-wrap text-break">{{$fuga->detalle_emergencia}}</p>
@@ -59,7 +59,7 @@
 		<hr>
 		<span class="bg-gray font-weight-bold">Usuario Afectado:</span>
 		<p class="text-info">{{$fuga->usuario_afectado}}</p>
-		<span class="bg-gray font-weight-bold"> Danos Estimados:</span>
+		<span class="bg-gray font-weight-bold"> Daños Estimados:</span>
 		<p class="text-info text-wrap text-break">{{$fuga->danos_estimados}}</p>
 		<hr>
 		<span class="bg-gray font-weight-bold"> Usuario Elabora:</span>
@@ -104,11 +104,12 @@
 					<thead>
 						<tr>
 							<th scope="col">#</th>
-							<th scope="col">Codigo</th>
+							<th scope="col">Código</th>
 							<th scope="col">Placa</th>
 							<th scope="col">Marca</th>
 							<th scope="col">KM.Salida</th>
 							<th scope="col">KM.Llegada</th>
+							<th scope="col">Conductor</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -120,6 +121,7 @@
 							<td>{{$vehiculo->marca}}</td>
 							<td>{{$vehiculo->pivot->km_salida}}</td>
 							<td>{{$vehiculo->pivot->km_llegada}}</td>
+							<td>{{$vehiculo->pivot->conductor->name ?? 'N/A'}}</td>
 						</tr>
 						@endforeach
 					</tbody>

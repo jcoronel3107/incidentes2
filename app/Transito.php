@@ -56,9 +56,9 @@ class Transito extends Model
 		}
 
 		public function vehiculos(){
-			return $this->belongsToMany(Vehiculo::class)
+			return $this->belongsToMany(Vehiculo::class, 'transito_vehiculo')
+			->using(TransitoVehiculo::class)
 			->withTimestamps()
-			->withPivot('km_salida','km_llegada');
-
+			->withPivot('km_salida','km_llegada', 'driver_id');
 		}
 }

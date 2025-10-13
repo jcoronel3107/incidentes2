@@ -16,7 +16,7 @@ class Derrame extends Model
 		"tipo_escena",
 		"station_id",
 		"fecha",
-		"address",
+		"direccion",
 		"parroquia_id",
 		"geoposicion",
 		"ficha_ecu911",
@@ -44,9 +44,10 @@ class Derrame extends Model
 	}
 
 	public function vehiculos(){
-		return $this->belongsToMany(Vehiculo::class)
+		return $this->belongsToMany(Vehiculo::class, 'derrame_vehiculo')
+		->using(DerrameVehiculo::class)
 		->withTimestamps()
-		->withPivot('km_salida','km_llegada');
+		->withPivot('km_salida','km_llegada', 'driver_id');
 
 	}
 

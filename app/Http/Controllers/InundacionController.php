@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Exports\InundacionsExport;
 use App\Imports\InundacionsImport;
-use PDF;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -29,23 +29,24 @@ class InundacionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(){
-        $this->middleware('auth');
-    }
-
+   
     public function index(Request $request)
     {
       
         if($request)
         {
-          
-          $estacion_id = trim($request->get('estacion_id'));
-          $query = trim($request->get('searchText'));
-          $inundaciones = Inundacion::where("direccion",'LIKE','%'.$query.'%')
-          /* ->where("station_id", "==", $estacion_id) */
-          ->OrderBy('fecha','desc')
-          ->paginate(15);
-		      return view("/inundacion.index", compact( "inundaciones","query"));
+            $busq_direccion = trim($request->get('busq_direccion'));
+            $busq_estacion = trim($request->get('busq_estacion'));
+            $busq_fecha = trim($request->get('busq_fecha'));
+            $busq_usuarioafectado = trim($request->get('busq_usuarioafectado'));
+            
+            $inundaciones = Inundacion::OrderBy('id','desc')
+            ->where("direccion",'LIKE','%'.$busq_direccion.'%')
+            ->where("station_id",'LIKE','%'.$busq_estacion.'%')
+            ->where("fecha",'LIKE','%'.$busq_fecha.'%')
+            ->where("usuario_afectado",'LIKE','%'.$busq_usuarioafectado.'%')
+            ->paginate(10);
+		        return view("inundacion.index",compact( "inundaciones","busq_direccion","busq_estacion","busq_fecha","busq_usuarioafectado" ) );
         }
     }
 
@@ -59,7 +60,7 @@ class InundacionController extends Controller
         $now = Carbon::now();
         $estaciones = Station::all();
         $parroquias = Parroquia::all();
-        $vehiculos = Vehiculo::orderBy('codigodis')->get();
+        $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
         $users = DB::table('users')->where([
           ['cargo','=','Bombero'],
         ])
@@ -72,12 +73,7 @@ class InundacionController extends Controller
     		$incidentes = Incidente::where("tipo_incidente","10_20")
             ->orderBy("nombre_incidente",'asc')
             ->get();
-
-    		if ( Auth::check() ) {
-    			return view( "/inundacion.crear", compact( "incidentes","now","estaciones","users","maquinistas", "parroquias","vehiculos") );
-    		} else {
-    			return view( "/auth.login" );
-    		}
+        return view( "/inundacion.crear", compact( "incidentes","now","estaciones","users","maquinistas", "parroquias","vehiculos") );
     }
 
     /**
@@ -88,12 +84,8 @@ class InundacionController extends Controller
      */
     public function store(SaveInundacionRequest $request)
     {
-  		if ( Auth::check() )
-       {
-          DB::begintransaction();
           try
           {
-            /*$validated = $request->validated();*/
             $inundacion = new Inundacion;
         		$inundacion->incidente_id = $request->incidente_id;
         		$inundacion->tipo_escena = $request->tipo_escena;
@@ -113,30 +105,33 @@ class InundacionController extends Controller
         		$inundacion->usuario_afectado = $request->usuario_afectado;
         		$inundacion->danos_estimados = $request->danos_estimados;
         		$inundacion->usr_creador = auth()->user()->name;
-        			$inundacion->save();
+        		$inundacion->save();
 
             $id = DB::table('inundacions')
                 ->select(DB::raw('max(id) as id'))
-                ->first();
-            $maqui = User::findOrFail($request->conductor_id);
-            $maqui->inundacions()->attach($id);
-            $jefe = User::findOrFail($request->jefeguardia_id);
-            $jefe->inundacions()->attach($id);
-            $bomb = User::findOrFail($request->bombero_id);
-            $bomb->inundacions()->attach($id);
+                ->value('id');
+            $cont=0;
+            $nombresstaff = $request->get('bomberman_id');
+            while ($cont < count($nombresstaff)) {
+              $maqui = User::findOrFail($nombresstaff[$cont]);
+              $maqui->inundacions()->attach($id);
+              $cont=$cont+1;
+            }
             //para almacenar kilimetrajes por vehiculos asistentes al evento
             $cont=0;
             $nombrevehiculo = $request->get('vehiculo_id');
             $kmsalidavehiculo = $request->get('km_salida');
             $kmllegadavehiculo = $request->get('km_llegada');
+            $driver_id= $request->get('driver_id');
             while ($cont < count($nombrevehiculo)) {
-                $vehiculo_id = DB::table('vehiculos')
-                  ->where('codigodis',$nombrevehiculo[$cont])
-                  ->value('id');
-                $carro = vehiculo::findOrFail($vehiculo_id);
-                $carro->inundacions()->sync(
+                
+                $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);
+                $maqui = User::findOrFail($driver_id[$cont]);
+                $carro->inundacions()->attach(
                   $id , [
-                    'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
+                    'km_salida' => $kmsalidavehiculo[$cont],
+                    'km_llegada' => $kmllegadavehiculo[$cont],
+                    'driver_id' => $maqui->id]);
                 $cont=$cont+1;
               }
               Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
@@ -144,12 +139,9 @@ class InundacionController extends Controller
           }
           catch(\Exception $e)
           {
-              DB::rollback();
-              dd($e);
+             
           }
-  		} else {
-  			return view( "/auth.login" );
-  		}
+  		
     }
 
     /**
@@ -173,7 +165,7 @@ class InundacionController extends Controller
      * @return \Illuminate\Http\Response
      */
     function edit($id) {
-        if ( Auth::check() ) {
+       
             $conductor_id = DB::table('users')
             ->where('id', $id)
             ->value('name');
@@ -181,10 +173,15 @@ class InundacionController extends Controller
             ->where('id', $id)
             ->value('name');
             $inundacion = Inundacion::findOrFail( $id );
-            $vehiculos = Vehiculo::all();
-            $bomberos=User::where('cargo','bombero')
+            $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
+            $usuarios = DB::table('users')->where([
+              ['cargo','=','Bombero'],
+            ])
+            ->orWhere('cargo','=','Paramedico')
             ->orderBy("name",'asc')
             ->get();
+          
+            $nropersonas = count($inundacion->users);
             $maquinistas=User::where('cargo','Maquinista')
             ->orderBy("name",'asc')
             ->get();
@@ -194,10 +191,8 @@ class InundacionController extends Controller
             $estaciones = Station::all();
             $parroquias = Parroquia::all();
 
-            return view( "inundacion.edit", compact("inundacion","vehiculos","bomberos","maquinistas","incidentes","estaciones","parroquias"));
-        } else {
-            return view( "/auth.login" );
-        }
+            return view( "inundacion.edit", compact("nropersonas","inundacion","vehiculos","usuarios","maquinistas","incidentes","estaciones","parroquias"));
+        
     }
     /**
      * Update the specified resource in storage.
@@ -207,10 +202,7 @@ class InundacionController extends Controller
      * @return \Illuminate\Http\Response
      */
     function update( SaveInundacionRequest $request , $id ) {
-        //
-        if ( Auth::check() ) {
-
-          DB::begintransaction();
+      
           try
           { 
             $inundacion = Inundacion::findOrFail( $id );
@@ -234,28 +226,52 @@ class InundacionController extends Controller
                                 'danos_estimados' => $request->danos_estimados,
                                 'usr_editor' => auth()->user()->name]);
                                 
-            $inundacion->users()->detach();
-          
-
-            $jefeguardia = User::findOrFail($request->jefeguardia_id);
-            $jefeguardia->inundacions()->attach($id);
-           
-            $bombero = User::findOrFail($request->bombero_id);
-            $bombero->inundacions()->attach($id);
-
-            $maqui = User::findOrFail($request->conductor_id);
-            $maqui->inundacions()->attach($id);
-            Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
-            return redirect( "/inundacion" );
-          }
-          catch(\Exception $e)
-          {
-              DB::rollback();
-              dd($e);
-          }
-        } else {
-            return view( "/auth.login" );
-        }
+                                $inundacion->users()->detach();
+                                $inundacion->vehiculos()->detach();
+                                /*
+                                    Sentencias para guardar Los personal que asisten al incidente
+                                */
+                                $cont=0;
+                                $nombresstaff = $request->get('bomberman_id');   
+                                
+                                while ($cont < count($nombresstaff)) {
+                                        $bombero = User::findOrFail($nombresstaff[$cont]);
+                                     
+                                        $bombero->inundacions()->attach($id);
+                                        $cont=$cont+1;
+                                }
+                               
+                                /*
+                                    Sentencias para guardar Los vehiculos que asisten al incidente
+                                */
+                                $cont=0;
+                                $nombrevehiculo = $request->get('vehiculo_id');
+                                $kmsalidavehiculo = $request->get('km_salida');
+                                $kmllegadavehiculo = $request->get('km_llegada');
+                                $driver_id= $request->get('driver_id');
+                                
+                                while ($cont < count($nombrevehiculo)) {
+                                       
+                                      $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);
+                                      // $maqui = User::findOrFail($driver_id[$cont]);
+                                      
+                                      $carro->inundacions()->attach(
+                                          $id , [
+                                            'km_salida' => $kmsalidavehiculo[$cont],
+                                            'km_llegada' => $kmllegadavehiculo[$cont],
+                                            'driver_id' => $driver_id[$cont]]);
+                                      $cont=$cont+1;
+                                }
+                    
+                                Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
+                                return redirect( "inundacion" );
+                              }
+                              catch(\Exception $e)
+                              {
+                                 dd($e);
+                                
+                              }
+        
     }
 
     /**
@@ -266,20 +282,30 @@ class InundacionController extends Controller
      */
     public function destroy($id)
     {
-        //
-        if ( Auth::check() ) {
+        
             $inundacion = Inundacion::findOrFail( $id );
             $inundacion->delete();
             Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
             return redirect( "/inundacion" );
-        } else {
-            return view( "/auth.login" );
-        }
+       
     }
 
     public function export()
     {
         return Excel::download(new InundacionsExport, 'inundacions.xlsx');
+    }
+
+    
+
+    public function grafica()
+    {
+        $inundaciones= Inundacion::select(DB::raw("count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(DB::raw("Month(fecha)"))->pluck('count');
+            return view("/inundacion.grafic",compact("inundaciones"));
+    }
+
+    public function importar() /* Muestra la vista para realizar la importacion de informacion hacia modelo */
+    {
+      return view("/inundacion.import");
     }
 
     public function importacion(Request $request)
@@ -290,24 +316,14 @@ class InundacionController extends Controller
         return redirect( "/inundacion" );
     }
 
-    public function grafica()
-    {
-        $inundaciones= Inundacion::select(DB::raw("count(*) as count"))->whereYear('fecha',date('Y'))->groupBy(DB::raw("Month(fecha)"))->pluck('count');
-            return view("/inundacion.grafic",compact("inundaciones"));
-    }
-
-    public function importar()
-    {
-      return view("/inundacion.import");
-    }
-
+    
     public function downloadPDF($id) {
-        $date = Carbon::now();
-        $date = $date->format('l jS \\of F Y ');
-        $inundacion = Inundacion::find($id);
-        $pdf = PDF::loadView('inundacion.pdf', compact('inundacion','date'));
-
-        return $pdf->download('inundacion.pdf');
+      $date = Carbon::now();
+      $date = $date->format('l jS \\of F Y ');
+      $inundacion = Inundacion::find($id);
+      $dompdf = App::make("dompdf.wrapper");
+      $dompdf->loadView('inundacion.pdf', compact('inundacion','date'));
+      return $dompdf->stream();
     }
 
     public function cargar($id)
@@ -318,60 +334,55 @@ class InundacionController extends Controller
     public function upload(Request $request)
     {
 
-    //obtenemos el nombre del archivo
-    $file201 = $request->file('fileSCI-201');
-    $nombre = "201." . $file201->getClientOriginalExtension();
-    $validation = $request->validate([
-      'fileSCI-201' => 'required|file|mimes:pdf|max:2048'
-    ]);
-    $file      = $validation['fileSCI-201']; // get the validated file        
-    $path      = $file->storeAs('1020/' . $request->id, $nombre);
-    $exists = Storage::disk('local')->exists($path);
+      //obtenemos el nombre del archivo
+      $file201 = $request->file('fileSCI-201');
+      $nombre = "201." . $file201->getClientOriginalExtension();
+      $validation = $request->validate([
+        'fileSCI-201' => 'required|file|mimes:pdf|max:2048'
+      ]);
+      $file      = $validation['fileSCI-201']; // get the validated file        
+      $path      = $file->storeAs('1020/' . $request->id, $nombre);
+      $exists = Storage::disk('local')->exists($path);
 
-    //obtenemos el nombre del archivo
-    $file207 = $request->file('fileSCI-207');
-    $nombre1 = "207." . $file207->getClientOriginalExtension();
-    $validation = $request->validate([
-      'fileSCI-207' => 'required|file|mimes:pdf|max:2048'
-    ]);
-    $file      = $validation['fileSCI-207']; // get the validated file
-    $path1      = $file->storeAs('1020/' . $request->id, $nombre1);
-    $exists1 = Storage::disk('local')->exists($path1);
+      //obtenemos el nombre del archivo
+      $file207 = $request->file('fileSCI-207');
+      $nombre1 = "207." . $file207->getClientOriginalExtension();
+      $validation = $request->validate([
+        'fileSCI-207' => 'required|file|mimes:pdf|max:2048'
+      ]);
+      $file      = $validation['fileSCI-207']; // get the validated file
+      $path1      = $file->storeAs('1020/' . $request->id, $nombre1);
+      $exists1 = Storage::disk('local')->exists($path1);
 
-    //obtenemos el nombre del archivo
-    $file211 = $request->file('fileSCI-211');
-    $nombre2 = "211." . $file211->getClientOriginalExtension();
-    $validation = $request->validate([
-      'fileSCI-211' => 'required|file|mimes:pdf|max:2048'
-    ]);
-    $file      = $validation['fileSCI-211']; // get the validated file        
-    $path2      = $file->storeAs('1020/' . $request->id, $nombre2);
-    $exists2 = Storage::disk('local')->exists($path2);
-        if ($exists&&$exists1&&$exists2) {
-          Session::flash('Carga_Correcta',"Formularios Subidos con Exito!!!");
-         return redirect( "/inundacion" );
-        } else {
-          Session::flash('Carga_Incorrecta',"Evento Tiene Formularios Cargados con Anterioridad.!!!");
+      //obtenemos el nombre del archivo
+      $file211 = $request->file('fileSCI-211');
+      $nombre2 = "211." . $file211->getClientOriginalExtension();
+      $validation = $request->validate([
+        'fileSCI-211' => 'required|file|mimes:pdf|max:2048'
+      ]);
+      $file      = $validation['fileSCI-211']; // get the validated file        
+      $path2      = $file->storeAs('1020/' . $request->id, $nombre2);
+      $exists2 = Storage::disk('local')->exists($path2);
+          if ($exists&&$exists1&&$exists2) {
+            Session::flash('Carga_Correcta',"Formularios Subidos con Exito!!!");
           return redirect( "/inundacion" );
-        }
-        
-        
-       /*if ($size>1048576) {
-          Session::flash('Tamaño_Excedido',"El tamaño maximo pemitido es de 1 MB por Archivo.!!!".$size/1024);
-          return redirect( "/inundacion" );
-       } 
-       else {
-         if (!$exists) {
-         \Storage::disk('local')->put($nombre,  \File::get($file201));
-         \Storage::disk('local')->put($nombre1,  \File::get($file202));
-         \Storage::disk('local')->put($nombre2,  \File::get($file206));
-         Session::flash('Carga_Correcta',"Formularios Subidos con Exito!!!");
-         return redirect( "/inundacion" );
-         }
-          else
-         {
-          
+          } else {
+            Session::flash('Carga_Incorrecta',"Evento Tiene Formularios Cargados con Anterioridad.!!!");
+            return redirect( "/inundacion" );
           }
-       }*/ 
+          
+          
+        
+    }
+
+    public function inspeccion($id)
+    {
+      
+    }
+
+
+    public function registra_Inspeccion(Request $request)
+    {
+
     }
 }

@@ -17,18 +17,18 @@ class ServiciosExport implements FromCollection, WithHeadings,ShouldAutoSize
     {
         return [
             '#',
-            'fecha_salida',
-            'fecha_retorno',
-            'delegante',
-            'unidad',
-            'km_salida',
-            'km_retorno',
-            'asunto',
-            'codigodis',
-            'user_id',
-            'name',
-            'usr_creador',
-            'usr_editor',
+            'Fecha Salida',
+            'Fecha Retorno',
+            'Delegante',
+            'Unidad',
+            'Km Salida',
+            'Km Retorno',
+            'Asunto',
+            'Codigo Dis',
+            'Usuario ID',
+            'Nombre',
+            'Usuario Creador',
+            'Usuario Editor'
         ];
     }
 

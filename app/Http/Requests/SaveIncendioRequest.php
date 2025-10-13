@@ -37,6 +37,7 @@ class SaveIncendioRequest extends FormRequest
             'hora_fin_emergencia'=>'required',
             'hora_en_base'=>'required',
             'informacion_inicial'=>'required|max:2000',
+            'area_afectacion'=> 'nullable|integer|min:0',
             'detalle_emergencia'=>'required|max:3000',
             'usuario_afectado'=>'required',
             'danos_estimados'=> 'required|max:2000'];

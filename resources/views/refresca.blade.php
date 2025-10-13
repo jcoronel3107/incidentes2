@@ -1,26 +1,14 @@
-@extends( "layouts.plantilla" )
 
-@section( "cabeza" )
 
-    <title>Incidentes2 - BCBVC</title>
-
-@endsection
-
-@section( "cuerpo" )
-
-    <div class="row">
-
-        {{echo $ssd}}
-
+    <div class="alert alert-warning" role="alert">
+        Ha Pasado Inactivo {{$last_activity}}
+        <button type="button"
+				class="close"
+				data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
     </div>
+  
 
-    @push ('scripts')
-        <script src="/js/session.js"></script>
-
-    @endpush
-@endsection
-
-@section( "piepagina" )
-
-
-@endsection
+   

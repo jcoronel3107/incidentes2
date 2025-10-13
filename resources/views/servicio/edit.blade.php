@@ -39,7 +39,7 @@
 						<option>Jefatura</option>
 						<option>U. Operaciones</option>
 						<option>U.Talento Humano</option>
-						<option>Dirección Administrativa Financiera</option>
+		
 						<option>Mantenimiento</option>
 						<option>Bodega</option>
 						<option>Sala Situacional</option>
@@ -52,14 +52,13 @@
 					</div>
 					<select class="form-control selectpicker" id="delegante" name="delegante" data-live-search="true">
 						<option selected>{{old('delegante',$servicio->delegante)}}</option>
-						
-						<option>Tnte.Crnl. P.Lucero</option>
 						<option>Cptn. S.Heras</option>
-						<option>Econ. R.Castro</option>
-						<option>Econ. T.Segarra</option>
+						<option>Psic Santiago Zamora</option>
+				
 						<option>Ing. Efrain Gomez</option>
 						<option>Econ. Johana Parra</option>
 						<option>Sala Situacional</option>
+						<option>Supervisor Operativo</option>
 						
 					</select>
 				</div>

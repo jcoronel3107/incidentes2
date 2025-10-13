@@ -5,26 +5,26 @@
 				    geocoder = new google.maps.Geocoder();
 				    var latlng = new google.maps.LatLng(-2.889074,-79.011777);
 				    var mapOptions = {
-				      zoom: 20,
+				      zoom: 15,
 				      center: latlng,
 				    }
 				    map = new google.maps.Map(document.getElementById('map'), mapOptions);
-				   // Crea la ventana de información inicial.
-				  var infoWindow = new google.maps.InfoWindow (
-				      {contenido: 'Haga clic en el mapa para obtener Lat / Lng!', position: latlng});
-				  infoWindow.open (map);
+				    // Crea la ventana de información inicial.
+					var infoWindow = new google.maps.InfoWindow (
+						{contenido: 'Haga clic en el mapa para obtener Lat / Lng!', position: latlng});
+					infoWindow.open (map);
 
-				  // Configure el escucha de clics.
-				  map.addListener ('click', function (mapsMouseEvent) {
-				    // Cierre la ventana de información actual.
-				    infoWindow.close ();
+					// Configure el escucha de clics.
+					map.addListener ('click', function (mapsMouseEvent) {
+						// Cierre la ventana de información actual.
+							infoWindow.close ();
 
-				    // Cree una nueva ventana de información.
-				    infoWindow = new google.maps.InfoWindow ({position: mapsMouseEvent.latLng});
-				    infoWindow.setContent (mapsMouseEvent.latLng.toString ());
-				    $("#pgeoposicion").val(mapsMouseEvent.latLng.toString ());
-				    infoWindow.open (map);
-				  });
+						// Cree una nueva ventana de información.
+						infoWindow = new google.maps.InfoWindow ({position: mapsMouseEvent.latLng});
+						infoWindow.setContent (mapsMouseEvent.latLng.toString ());
+						$("#pgeoposicion").val(mapsMouseEvent.latLng.toString ());
+						infoWindow.open(map);
+				  	});
 				  }
 
 
@@ -63,6 +63,8 @@
 				  		alert('Campo Dirección esta vacio');
 				  }
 
+				
+				 
 				  
 				  
         		

@@ -28,7 +28,7 @@ class SaveInundacionRequest extends FormRequest
                 'tipo_escena'=>'required',
                 'station_id'=>'required',
                 'fecha'=>'required',
-                'address'=>'required',
+                'direccion'=>'required',
                 'parroquia_id'=>'required',
                 'ficha_ecu911'=>'required',
                 'hora_fichaecu911'=>'required',

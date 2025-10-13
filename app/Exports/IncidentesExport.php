@@ -13,15 +13,16 @@ class IncidentesExport implements FromCollection, WithHeadings,ShouldAutoSize
 	public function headings(): array
     {
         return [
-            '#id',
-            'tipo_incidente',
-            'nombre_incidente',
-            'created_at',
-            'updated_at',
+            '#ID',
+            'Tipo Incidente',
+            'Nombre Incidente',
+            'Fecha Creación',
+            'Fecha Actualización'
         ];
     }
     public function collection()
     {
         return Incidente::all();
     }
+    
 }

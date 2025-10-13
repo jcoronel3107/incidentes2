@@ -6,6 +6,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
+use App\InundacionVehiculo;
 
 class Inundacion extends Model
 {
@@ -60,10 +61,10 @@ class Inundacion extends Model
 		return $this->belongsToMany(User::class);
 	}
 
-	public function vehiculos(){
-		return $this->belongsToMany(Vehiculo::class)
+    public function vehiculos(){
+		return $this->belongsToMany(Vehiculo::class, 'inundacion_vehiculo')
+		->using(InundacionVehiculo::class)
 		->withTimestamps()
-		->withPivot('km_salida','km_llegada');
+		->withPivot('km_salida','km_llegada','driver_id');
 	}
-
 }

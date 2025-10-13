@@ -46,10 +46,10 @@
 
 			<ul class="nav justify-content-end">
   <li class="nav-item">
-    <a class="btn btn-outline-danger" href="parroquia/create">Nuevo</a>
+    <a class="btn btn-outline-danger" href="parroquia/create">{!! trans('messages.new') !!}</a>
 
 
-    <a class="btn btn-outline-success" href="parroquias/export/">Exporta Excel</a>
+    <a class="btn btn-outline-success" href="parroquias/export/">{!! trans('messages.export') !!}</a>
 
 
   </li>

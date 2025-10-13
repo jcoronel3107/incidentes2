@@ -81,5 +81,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Salud::class);
     }
 
+    public function solicitud(){
+        //Muestra informacion de las Claves Realizadas por gasolinera
+    return $this->hasMany(Solicitud::class);
+    }
     
 }

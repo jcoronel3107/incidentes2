@@ -9,41 +9,51 @@
 
 
 	<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Registro Información de Eventos Salud</h2>
-
-	<ul class="nav justify-content-end">
-		<li class="nav-item">
-			<a class="btn btn-outline-info" data-toggle="tooltip" title="Whatsapp" role="button" onclick="notificacionWhatsapp();"><i class="icon-comments-alt icon-2x"></i></a>
-			<a class="btn btn-outline-info" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('salud.index')}}"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i>
-			</a>
-		</li>
-	</ul>
+	<div class="form-row ">
+		<div class="input-group mb-3 justify-content-end">
+				 <div class="input-group-prepend">
+					<span title="Envia ubicaciòn a WhastApp" class="input-group-text"><i class="icon-comments-alt"></i></span>
+				 </div>
+				 <a class="btn btn-outline-info" data-toggle="tooltip" title="Whatsapp" role="button" onclick="notificacionWhatsapp();">WhatsApp</a>
+				 <div class="input-group-prepend ml-2">
+					<span class="input-group-text"><i class="fas fa-arrow-left"></i></span>
+				 </div>
+				 <a class="btn btn-outline-secondary" title="Regresar" role="button" href="{{ route('salud.index')}}">Regresar</a>   
+		 </div>
+	</div>
+	
 	<hr style="border:2px;">
-	<form method="post" action="/salud">
-		<div class="form-row">
+	@if(count($errors)>0)
+		@foreach($errors->all() as $error)
+			<div class="alert alert-danger" role="alert">
+				{{$error}}
+			</div>
+		@endforeach
+	@endif
+	<form id="formulario" method="post" action="{{ route('salud.store')}}">
+		<div class="form-row"><!--Div Fecha-->
 			{{csrf_field()}}
-			<div class="form-group input-group  col-md-4">
+			<div class="form-group input-group  col-md-6">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Fecha</span>
+					<span class="input-group-text">{!! trans('messages.Date') !!}</span>
 				</div>
 				<input type="date" required id="fecha" name="fecha" value="{{old('fecha')}}" class="form-control">
 			</div>
 		</div>
-		<!--Div Fecha-->
-		<div class="form-row ">
-			<div class='col-md-4'>
+		
+		<div class="form-row "><!--Div Informacion ECU911-->
+			<div class='col-md-12'>
 				<div class="form-group">
 					<div class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text">Hora Ficha ECU911</span>
 						</div>
-						<input type="text" required id="hora_fichaecu911" name="hora_fichaecu911" class="form-control" placeholder="hh:mm:ss" onblur="CheckTime(this);" value="{{old('hora_fichaecu911')}}">
-						<div class="input-group-append">
-							<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual0" id="horactual0"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-						</div>
+						<input type="text" required id="hora_fichaecu911" name="hora_fichaecu911" class="form-control" placeholder="hh:mm:ss" onblur="CheckTime(this);" value="{{old('hora_fichaecu911',$now->format('H:i:s') )}}"">
+						
 					</div>
 				</div>
 			</div>
-			<div class='col-md-4'>
+			<div class='col-md-12'>
 				<div class="form-group">
 					<div class="input-group">
 						<div class="input-group-prepend">
@@ -58,74 +68,84 @@
 			</div>
 
 		</div>
-		<!--Div Informacion ECU911-->
+		
 		<hr>
-		<div class="card">
-			<div class="card-header text-white bg-primary">Vehiculos en la Emergencia</div>
-			<div class="card-body">
-				<div class="row">
-					<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
-						<div class="form-group input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text">Vehìculo</span>
+		<div class="card"><!-- Ingreso Vehiculos Detalle -->
+				<div class="card-header">
+					{!! trans('messages.Vehicles in the Emergency') !!}
+				</div>
+				<div class="card-body">
+					<div class="row d-flex">
+						<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+							<div class="form-group input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">{!! trans('messages.Vehicles') !!}</span>
+								</div>
+								<select class="form-control"   name="pvehiculo_id" id="pvehiculo_id">
+									<option value=""></option>
+									@foreach($vehiculos as $vehiculo)
+									<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>
+									@endforeach
+								</select>
 							</div>
-							<select class="form-control selectpicker" name="vehiculo_id" id="pvehiculo_id" data-live-search="true">
-								<option value="" selected>Elija...</option>
-								@foreach($vehiculos as $vehiculo)
-								<option>{{$vehiculo->codigodis}}</option>
-								@endforeach
-							</select>
+						</div>
+						<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+								<div class="form-group  input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputDetalle">Conductor</span>
+									</div>
+									<select class=" form-control"  name="pconductor_id" id="pconductor_id">
+										<option value=""></option>
+										@foreach($maquinistas as $maquinista)
+										<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>
+										@endforeach
+									</select>
+								</div>
+							</div>
+						<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 ">
+							<div class="form-group  input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Km.Salida</span>
+								</div>
+								<input type="number" class="form-control" name="km_salida" id="pkm_salida" placeholder="Digite Valor">
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 ">
+							<div class="form-group  input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="inputDetalle">Km.Llegada</span>
+								</div>
+								<input type="number" class="form-control" id="pkm_llegada" name="km_llegada" placeholder="Digite Valor">
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mb-2 ">
+							<button type="button" id="bt_add" class="btn btn-primary btn-block">{!! trans('messages.add') !!}</button>
 						</div>
 					</div>
-					<div class="col-lg-3 col-sm-6 col-md-6 col-xs-6">
-						<div class="form-group  input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text">Km.Salida</span>
+					<div class="row d-flex ">
+							<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+								<table id="detalles" class="table table-sm table-hover table-striped table-condensed">
+									<thead class="table-info">
+										<th>Opciones</th>
+										<th>Vehiculo</th>
+										<th>Km.Salida</th>
+										<th>Km.Llegada</th>
+										<th>Conductor</th>
+									</thead>
+									<tbody></tbody>
+									<tfoot></tfoot>
+								</table>
 							</div>
-							<input type="number" class="form-control" value="{{old('ikm_salida')}}" name="ikm_salida" id="pkm_salida" placeholder="Digite Valor">
-						</div>
-					</div>
-					<div class="col-lg-3 col-sm-6 col-md-6 col-xs-6">
-						<div class="form-group  input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="inputDetalle">Km.Llegada</span>
-							</div>
-							<input type="number" class="form-control" id="pkm_llegada" name="ikm_llegada" value="{{old('ikm_llegada')}}" placeholder="Digite Valor">
-						</div>
-					</div>
-					<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2">
-						<button type="button" id="bt_add" class="btn btn-primary">Agregar</button>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-						<table id="detalles" class="table table-striped table bordered table condensed table-hover">
-							<thead style="background-color: #A9D0F5 ">
-								<th>Opciones</th>
-								<th>Vehiculo</th>
-								<th>Km.Salida</th>
-								<th>Km.Llegada</th>
-							</thead>
-							<tfoot></tfoot>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<tbody></tbody>
-
-						</table>
-					</div>
-				</div>
-			</div>
 		</div>
-		<!--Vehiculos asisten emergencia -->
 		<hr>
 		<div class="form-row ">
 			<div class='col-md-12'>
 				<div class="form-group">
 					<div class="input-group date" id="datetimepicker3">
 						<div class="input-group-prepend">
-							<span class="input-group-text ">Informacion Inicial</span>
+							<span class="input-group-text ">{!! trans('messages.Initial information') !!}</span>
 						</div>
 						<textarea class="form-control @error('informacion_inicial') is-invalid @enderror" maxlength="2000" id="pinformacion_inicial" name="informacion_inicial" aria-label="With textarea" required>{{old('informacion_inicial')}}</textarea>
 						@error('informacion_inicial')
@@ -135,13 +155,13 @@
 				</div>
 			</div>
 		</div>
-		<div class="counter" id="pcounter">0</div>
-		<div class="form-row">
-			<div class="form-group input-group col-md-5">
+		<div class="counter" id="pcounter"></div>
+		<div class="form-row"><!--Div Tipo Evento-->
+			<div class="form-group input-group col-md-12">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Incidente</span>
+					<span class="input-group-text">{!! trans('messages.Incident') !!}</span>
 				</div>
-				<select required class="form-control @error('informacion_inicial') is-invalid @enderror" name="incidente_id" id="incidente_id">
+				<select required data-live-search="true" class="form-control selectpicker @error('incidente_id') is-invalid @enderror" name="incidente_id" id="incidente_id">
 					<option value="">Seleccione...</option>
 					@foreach($incidentes as $incidente)
 					<option value="{{$incidente->id}}">{{$incidente->nombre_incidente}}</option>
@@ -152,11 +172,11 @@
 				@enderror
 			</div>
 
-			<div class="form-group input-group col-md-3">
+			<div class="form-group input-group col-md-12">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Escenario</span>
+					<span class="input-group-text">{!! trans('messages.scene') !!}</span>
 				</div>
-				<select required class="form-control @error('informacion_inicial') is-invalid @enderror" name="tipo_escena">
+				<select required  class="form-control @error('informacion_inicial') is-invalid @enderror" name="tipo_escena">
 
 					<option selected="" value="Tipo 1">Tipo 1</option>
 					<option value="Tipo 2">Tipo 2</option>
@@ -167,11 +187,11 @@
 				<div class="alert alert-danger">{{ $message }}</div>
 				@enderror
 			</div>
-			<div class="form-group input-group col-md-4">
+			<div class="form-group input-group col-md-12">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Estacion</span>
+					<span class="input-group-text">{!! trans('messages.Station') !!}</span>
 				</div>
-				<select required name="station_id" class="form-control">
+				<select class="form-control"  required name="station_id">
 					<option value="Seleccione..." selected="">Seleccione...</option>
 					@foreach($estaciones as $estacion)
 					<option value="{{$estacion->id}}">{{$estacion->nombre}}</option>
@@ -179,20 +199,20 @@
 				</select>
 			</div>
 		</div>
-		<!--Div Tipo Evento-->
-		<div class="form-row">
-			<div class="form-group input-group col-md-4">
+		
+		<div class="form-row"><!--Div Ubicacion Evento-->
+			<div class="form-group input-group col-md-12">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Dirección</span>
+					<span class="input-group-text">{!! trans('messages.Address') !!}</span>
 				</div>
 				<textarea class="form-control" id="pdireccion" onkeypress="mayus(this)" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea" required></textarea>
 				<input type="button" value="Encode" onclick="codeAddress()">
 			</div>
-			<div class="form-group input-group input-group-prepend col-md-4">
+			<div class="form-group input-group input-group-prepend col-md-12">
 				<div>
-					<span class="input-group-text">Parroquia</span>
+					<span class="input-group-text">{!! trans('messages.Parishes') !!}</span>
 				</div>
-				<select required name="parroquia_id" class="form-control">
+				<select class="form-control selectpicker" data-live-search="true" required name="parroquia_id">
 					<option value="" selected>Selecciones...</option>
 					@foreach($parroquias as $parroquia)
 					<option value="{{$parroquia->id}}">{{$parroquia->nombre}}</option>
@@ -200,54 +220,57 @@
 				</select>
 				<a rel="nofollow noopener noreferrer" href="{{asset('files/MapaCuenca.pdf')}}" target="_blank" role="button" data-toggle="tooltip" title="Mapa" class="btn btn-outline-info"><i class="icon-file icon-2x"></i></a>
 			</div>
-			<div class="form-group input-group col-md-4">
+			<div class="form-group input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputAddress">Geoposicion</span>
 				</div>
 				<textarea class="form-control" id="pgeoposicion" placeholder="Formato:. -2.56985, -79.23658" name="geoposicion" aria-label="With textarea" required></textarea>
 			</div>
 		</div>
-		<!--Div Ubicacion Evento-->
+		
 		<div onload="initMap()" id="map" style="width: 100%; height: 280px;"></div>
 		<hr>
-		<div class="form-row">
-			<div class="form-group input-group col-md-4">
-				<div class="input-group-prepend">
-					<span class="input-group-text">C.I.</span>
+		<div class="card"><!-- Div Personal en Emergencia -->
+				<div class="card-header">
+					{!! trans('messages.staff in the emergency') !!}
 				</div>
-				<select class="form-control" name="jefeguardia_id" required>
-					<option>{{old('jefeguardia_id')}}</option>
-					@foreach($users as $user)
-					<option value="{{$user->id}}">{{$user->name}}</option>
-					@endforeach
-				</select>
-			</div>
-			<div class="form-group input-group col-md-4">
-				<div class="input-group-prepend">
-					<span class="input-group-text">Bombero</span>
+				<div class="card-body">
+					
+					<div class="form-row">
+						<div class="form-group input-group col-lg-12 col-md-12 col-sm-12 col.xs-12 mr-4">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Bombero</span>
+							</div>
+							<select class="selectpicker form-control" data-live-search="true" id="pbombero_id" name="bombero_id">
+								<option selected >{{old('bombero_id')}}</option>
+								@foreach($users as $user)
+								<option value="{{$user->id}}">{{$user->name}}</option>
+								@endforeach
+							</select>	
+						</div>
+						<button type="button" id="bt_addperson" class="btn btn-primary btn-block ml-4 mr-4 mb-4">{!! trans('messages.add') !!}</button>
+						
+					</div>
+					<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<table id="persontable" class="table table-sm table-hover table-striped table-condensed">
+									<thead>
+										<td>Eliminar</td>
+										<td>id</td>
+										<td>Nombres_Completos</td>
+									</thead>
+									<tbody></tbody>
+									<tfoot></tfoot>
+								</table>
+							</div>
+					</div>
+					
 				</div>
-				<select class="form-control" name="bombero_id" required>
-					<option>{{old('bombero_id')}}</option>
-					@foreach($users as $user)
-					<option value="{{$user->id}}">{{$user->name}}</option>
-					@endforeach
-				</select>
-			</div>
-			<div class="form-group input-group col-md-4">
-				<div class="input-group-prepend">
-					<span class="input-group-text">Conductor</span>
-				</div>
-				<select class="form-control" name="conductor_id" required>
-					<option>{{old('conductor_id')}}</option>
-					@foreach($maquinistas as $maquinista)
-					<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>
-					@endforeach
-				</select>
-			</div>
 		</div>
-		<!--Div Personal que asiste Evento-->
-		<div class="form-row">
-			<div class="form-group  input-group col-md-6">
+		<hr>
+		
+		<div class="form-row"><!--Div Horas Evento-->
+			<div class="form-group  input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Salida A Emergencia</span>
 				</div>
@@ -256,7 +279,7 @@
 					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual" id="horactual"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 				</div>
 			</div>
-			<div class="form-group  input-group col-md-6">
+			<div class="form-group  input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Llegada A Emergencia</span>
 				</div>
@@ -266,9 +289,9 @@
 				</div>
 			</div>
 		</div>
-		<!--Div Horas Evento-->
-		<div class="form-row">
-			<div class="form-group  input-group col-md-6">
+		
+		<div class="form-row"><!--Div Horas Evento-->
+			<div class="form-group  input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Arribo C.Salud</span>
 				</div>
@@ -277,7 +300,7 @@
 					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual2" id="horactual2"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 				</div>
 			</div>
-			<div class="form-group  input-group col-md-6">
+			<div class="form-group  input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora En Base</span>
 				</div>
@@ -287,9 +310,9 @@
 				</div>
 			</div>
 		</div>
-		<!--Div Horas Evento-->
+		
 
-		<div class="form-row">
+		<div class="form-row"><!--Detalle Emergencia-->
 			<div class="form-group input-group  col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Detalle Emergencia</span>
@@ -297,17 +320,19 @@
 				<textarea class="form-control"  maxlength="3000" id="detalle_emergencia" name="detalle_emergencia" placeholder="Digite a detalle lo ocurrido en Emergencia" aria-label="With textarea">{{old('detalle_emergencia')}}</textarea>
 			</div>
 		</div>
-		<!--Detalle Emergencia-->
+		
 
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 200"><path fill="#f3f4f5" fill-opacity="1" d="M0,128L60,122.7C120,117,240,107,360,96C480,85,600,75,720,96C840,117,960,171,1080,186.7C1200,203,1320,181,1380,170.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
 
-
-		{{--Usuarios atendidos emergencia --}}
-		<div class="card">
-			<div class="card-header text-white bg-primary">Usuarios Atendidos</div>
+		
+		<div class="card">{{--Usuarios atendidos emergencia --}}
+			<div class="card-header">
+				Usuario Atendidos
+			</div>
 			<div class="card-body">
 
 				<div class="row">
-					<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
+					<div class="col-lg-6 col-sm-12 col-md-12 col-xs-12">
 						<div class="form-group  input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text"># Hoja Prehosp</span>
@@ -315,7 +340,7 @@
 							<input type="number" class="form-control" value="{{old('hoja')}}" name="hoja" id="phoja" placeholder="Digite Valor">
 						</div>
 					</div>
-					<div class="col-lg-8 col-sm-12 col-md-12 col-xs-12">
+					<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
 						<div class="form-group  input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="inputDetalle">Nombres y Apellidos</span>
@@ -347,7 +372,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-lg-6 col-sm-12 col-md-12 col-xs-12">
+					<div class="col-lg-8 col-sm-12 col-md-12 col-xs-12">
 						<div class="form-group  input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text">Casa Salud</span>
@@ -355,6 +380,7 @@
 
 							<select class="form-control selectpicker" name="casasalud" id="pcasasalud" data-live-search="true">
 								<option selected>Elija...</option>
+								<option>Atención en Sitio</option>
 								<option>Clínica Albán</option>
 								<option>Clínica Cisneros</option>
 								<option>Clínica España</option>
@@ -368,6 +394,7 @@
 								<option>Hosp.Del Niño y Familia</option>
 								<option>Hosp.Del.Rio</option>
 								<option>Hosp.Jose.Carrasco</option>
+								<option>Hosp.Homero.Castanier</option>
 								<option>Hosp.Mariano.Estrella</option>
 								<option>Hosp.Materno Infantil</option>
 								<option>Hosp.Carlos.Elizalde</option>
@@ -390,7 +417,7 @@
 				<hr>
 				<div class="row">
 
-					<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
+					<div class="col-lg-6 col-sm-12 col-md-12 col-xs-12">
 						<div class="form-group  input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text">Presión sistólica</span>
@@ -398,7 +425,7 @@
 							<input type="number" class="form-control" value="{{old('presionsis')}}" name="presionsis" id="ppresionsis" max="500" min="0" placeholder="Digite Valor">
 						</div>
 					</div>
-					<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
+					<div class="col-lg-6 col-sm-12 col-md-12 col-xs-12">
 						<div class="form-group  input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text">Presión diastólica</span>
@@ -406,7 +433,7 @@
 							<input type="number" class="form-control" value="{{old('ppresiondias')}}" name="presiondias" id="ppresiondias" min="0" max="500" placeholder="Digite Valor">
 						</div>
 					</div>
-					<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
+					<div class="col-lg-6 col-sm-12 col-md-12 col-xs-12">
 						<div class="form-group  input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text">Temperatura</span>
@@ -414,7 +441,7 @@
 							<input type="number" class="form-control" value="{{old('temperatura')}}" name="temperatura" id="ptemperatura" min="0" max="50" step=0.1 placeholder="Digite Valor">
 						</div>
 					</div>
-					<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
+					<div class="col-lg-6 col-sm-12 col-md-12 col-xs-12">
 						<div class="form-group  input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text">Glasgow</span>
@@ -422,7 +449,7 @@
 							<input type="number" class="form-control" value="{{old('glasgow')}}" name="glasgow" id="pglasgow" min="0" max="15" placeholder="Digite Valor">
 						</div>
 					</div>
-					<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
+					<div class="col-lg-6 col-sm-12 col-md-12 col-xs-12">
 						<div class="form-group  input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text">Saturación</span>
@@ -430,7 +457,7 @@
 							<input type="number" class="form-control" value="{{old('saturación')}}" name="saturación" id="psaturacion" placeholder="Digite Valor">
 						</div>
 					</div>
-					<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
+					<div class="col-lg-6 col-sm-12 col-md-12 col-xs-12">
 						<div class="form-group  input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text">Frecuencia_Cardiaca</span>
@@ -438,7 +465,7 @@
 							<input type="number" class="form-control" value="{{old('Frecuencia_Cardiaca')}}" name="Frecuencia_Cardiaca" id="Frecuencia_Cardiaca" placeholder="Digite Valor">
 						</div>
 					</div>
-					<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
+					<div class="col-lg-6 col-sm-12 col-md-12 col-xs-12">
 						<div class="form-group  input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text">Frecuencia_Respiratoria</span>
@@ -446,7 +473,7 @@
 							<input type="number" class="form-control" value="{{old('Frecuencia_Respiratoria')}}" name="Frecuencia_Respiratoria" id="Frecuencia_Respiratoria" placeholder="Digite Valor">
 						</div>
 					</div>
-					<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
+					<div class="col-lg-6 col-sm-12 col-md-12 col-xs-12">
 						<div class="form-group  input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text">Glicemia</span>
@@ -456,7 +483,7 @@
 					</div>
 
 
-					<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
+					<div class="col-lg-6 col-sm-12 col-md-12 col-xs-12">
 						<div class="form-group  input-group">
 							<div class="input-gro4up-prepend">
 								<span class="input-group-text">Cie</span>
@@ -465,20 +492,20 @@
 							<select class="form-control selectpicker" name="cie10" id="pcie10" data-live-search="true">
 								<option>Elija...</option>
 								@foreach($cies as $cie)
-								<option value="{{$cie->padre}}">{{$cie->padre}}</option>
+								<option value="{{$cie->id}}">{{$cie->codigo}}</option>
 								@endforeach
 							</select>
 						</div>
 					</div>
 
-					<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2">
-						<button type="button" id="bt_addpaciente" class="btn btn-primary">Agregar</button>
+					<div class="col-6">
+						<button type="button" id="bt_addpaciente" class="btn btn-primary">{!! trans('messages.add') !!}</button>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-						<table id="detallespaciente" class="table table-responsive table-hover">
-							<thead style="background-color: #A9D0F5 ">
+						<table id="detallespaciente" class="table table-sm table-responsive table-hover">
+							<thead class="table-info">
 								<th>Opciones</th>
 								<th>Nombres</th>
 								<th>Edad</th>
@@ -495,24 +522,25 @@
 								<th>Casa Salud</th>
 								<th>Cie10</th>
 							</thead>
-							<tfoot></tfoot>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
 							<tbody></tbody>
-						</table>
+							<tfoot class="table-info">
+								<th>Opciones</th>
+								<th>Nombres</th>
+								<th>Edad</th>
+								<th>Genero</th>
+								<th>Presion Sistolica</th>
+								<th>Presion Diastolica</th>
+								<th>Temperatura</th>
+								<th>Glasgow</th>
+								<th>Saturación</th>
+								<th>Frecuencia Cardiaca</th>
+								<th>Frecuencia Respiratoria</th>
+								<th>Glicemia</th>
+								<th>#Hoja Prehosp</th>
+								<th>Casa Salud</th>
+								<th>Cie10</th>
+							</tfoot>
+						</table >
 					</div>
 				</div>
 			</div>
@@ -521,31 +549,26 @@
 
 		<div class="form-group py-3 " id="divguardar">
 			<input type="hidden" name="token" value="{{csrf_token()}}">
-			<ul class="nav justify-content-end">
-				<li class="nav-item">
-					<a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('salud.index')}}"><i class="icon-remove icon-2x"></i>
-					</a>
+				<div class="input-group mb-3 justify-content-end">
+					<div class="input-group-prepend ml-2">
+						<span class="input-group-text"><i class="fas fa-arrow-left"></i></span>
+					 </div>
+					<a class="btn btn-outline-secondary" title="Regresar" role="button" href="{{ route('salud.index')}}">Regresar</a>   
+					
 					<button type="submit" id="Enviar" name="Enviar" value="Enviar" data-toggle="tooltip" title="Grabar" class="btn btn-outline-success"><i class="icon-ok icon-2x"></i></button>
-
-					<a class="btn btn-outline-info" type="reset" name="Borrar" value="Borrar" data-toggle="tooltip" title="Borrar" role="button"><i class="icon-eraser icon-2x"></i>
 					</a>
-				</li>
-			</ul>
+				</div>
 		</div>
 	</form>
-	@if(count($errors)>0)
-	@foreach($errors->all() as $error)
-	<div class="alert alert-danger" role="alert">
-		{{$error}}
-	</div>
-	@endforeach
-	@endif
+	
 
 	@push ('scripts')
 
 
-	<script src="/js/funciones.js"></script>
-
+		<!-- Funciones for all pages-->
+		<script src="/js/funciones.js"></script>
+		<!-- Geolocalizacion  for all pages-->
+		<script src="/js/geocoder.js"></script>
 
 	@endpush
 	@endsection

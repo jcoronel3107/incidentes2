@@ -10,7 +10,10 @@
          <form class="form" action="/cie10/import" method="post" enctype="multipart/form-data">
          	@csrf
          	<input type="file" name="file">
+			
          	<button>Importar CIE10</button>
+			
+
          </form>
     @endsection
 

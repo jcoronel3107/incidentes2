@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Exports\DerramesExport;
 use App\Imports\DerramesImport;
-use PDF;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
 
 class DerrameController extends Controller
@@ -28,24 +28,21 @@ class DerrameController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct(){
-        $this->middleware('auth');
-    }
-
     public function index(Request $request)
     {
         if($request)
         {
-          //dd($request);
-          $query = trim($request->get('searchText'));
-          $estacion_id = trim($request->get('estacion_id'));
-         
-          $derrames = Derrame::where("address",'LIKE','%'.$query.'%')
-          /* ->where("station_id","==", $estacion_id) */
-          ->OrderBy('fecha','desc')
-          ->paginate(15);
-          
-              return view( "/derrame.index", compact( "derrames","query","estacion_id" ) );
+          $busq_direccion = trim($request->get('busq_direccion'));
+          $busq_estacion = trim($request->get('busq_estacion'));
+          $busq_fecha = trim($request->get('busq_fecha'));
+          $busq_usuarioafectado = trim($request->get('busq_usuarioafectado'));
+          $derrames = Derrame::OrderBy('id','desc')
+          ->where("direccion",'LIKE','%'.$busq_direccion.'%')
+          ->where("station_id",'LIKE','%'.$busq_estacion.'%')
+          ->where("fecha",'LIKE','%'.$busq_fecha.'%')
+          ->where("usuario_afectado",'LIKE','%'.$busq_usuarioafectado.'%')
+          ->paginate(10);
+              return view( "/derrame.index", compact( "derrames","busq_direccion","busq_estacion","busq_fecha","busq_usuarioafectado" ) );
         }
     }
 
@@ -59,7 +56,7 @@ class DerrameController extends Controller
         $now = Carbon::now();
         $estaciones = Station::all();
         $parroquias = Parroquia::all();
-        $vehiculos = Vehiculo::orderBy('codigodis')->get();
+        $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
         $users = User::where("cargo","bombero")
             ->orderBy("name",'asc')
             ->get();
@@ -69,12 +66,7 @@ class DerrameController extends Controller
         $incidentes = Incidente::where("tipo_incidente","Hazmat")
             ->orderBy("nombre_incidente",'asc')
             ->get();
-
-        if ( Auth::check() ) {
-                return view( "/derrame.crear", compact( "incidentes","now","estaciones","users","maquinistas", "parroquias","vehiculos" ) );
-        } else {
-                return view( "/auth.login" );
-        }
+                     return view( "/derrame.crear", compact( "incidentes","now","estaciones","users","maquinistas", "parroquias","vehiculos" ) );
     }
 
     /**
@@ -85,71 +77,62 @@ class DerrameController extends Controller
      */
     public function store(SaveDerrameRequest $request)
     {
-        if ( Auth::check() )
-       {
-          DB::begintransaction();
-          try
+       
+        try
           {
-            
-            $validated = $request->validated();
             $derrame = new Derrame;
-            
-                $derrame->incidente_id = $request->incidente_id;
-                $derrame->tipo_escena = $request->tipo_escena;
-                $derrame->station_id = $request->station_id;
-                $derrame->fecha = $request->fecha;
-                $derrame->address = $request->address;
-                $derrame->parroquia_id = $request->parroquia_id;
-                $derrame->geoposicion = $request->geoposicion;
-                $derrame->ficha_ecu911 = $request->ficha_ecu911;
-                $derrame->hora_fichaecu911 = $request->hora_fichaecu911;
-                $derrame->hora_salida_a_emergencia = $request->hora_salida_a_emergencia;
-                $derrame->hora_llegada_a_emergencia = $request->hora_llegada_a_emergencia;
-                $derrame->hora_fin_emergencia = $request->hora_fin_emergencia;
-                $derrame->hora_en_base = $request->hora_en_base;
-                $derrame->informacion_inicial = $request->informacion_inicial;
-                $derrame->detalle_emergencia = $request->detalle_emergencia;
-                $derrame->usuario_afectado = $request->usuario_afectado;
-                $derrame->danos_estimados = $request->danos_estimados;
-                $derrame->usr_creador = auth()->user()->name;
-                $derrame->save();
-
-                $id = DB::table('derrames')
-                  ->select(DB::raw('max(id) as id'))
-                  ->first();
-                $maqui = User::findOrFail($request->conductor_id);
-                $maqui->derrames()->attach($id);
-                $jefe = User::findOrFail($request->jefeguardia_id);
-                $jefe->derrames()->attach($id);
-                $bomb = User::findOrFail($request->bombero_id);
-                $bomb->derrames()->attach($id);
+            $derrame->incidente_id = $request->incidente_id;
+            $derrame->tipo_escena = $request->tipo_escena;
+            $derrame->station_id = $request->station_id;
+            $derrame->fecha = $request->fecha;
+            $derrame->direccion = $request->address;
+            $derrame->parroquia_id = $request->parroquia_id;
+            $derrame->geoposicion = $request->geoposicion;
+            $derrame->ficha_ecu911 = $request->ficha_ecu911;
+            $derrame->hora_fichaecu911 = $request->hora_fichaecu911;
+            $derrame->hora_salida_a_emergencia = $request->hora_salida_a_emergencia;
+            $derrame->hora_llegada_a_emergencia = $request->hora_llegada_a_emergencia;
+            $derrame->hora_fin_emergencia = $request->hora_fin_emergencia;
+            $derrame->hora_en_base = $request->hora_en_base;
+            $derrame->informacion_inicial = $request->informacion_inicial;
+            $derrame->detalle_emergencia = $request->detalle_emergencia;
+            $derrame->usuario_afectado = $request->usuario_afectado;
+            $derrame->danos_estimados = $request->danos_estimados;
+            $derrame->usr_creador = auth()->user()->name;
+            $derrame->save();
+            // $id = DB::table('derrames')
+            //       ->select(DB::raw('max(id) as id'))
+            //       ->first();
+            $id = $derrame->id;
+            $maqui = User::findOrFail($request->conductor_id);
+            $maqui->derrames()->attach($id);
+            $jefe = User::findOrFail($request->jefeguardia_id);
+            $jefe->derrames()->attach($id);
+            $bomb = User::findOrFail($request->bombero_id);
+            $bomb->derrames()->attach($id);
             //para almacenar kilimetrajes por vehiculos asistentes al evento
             $cont=0;
             $nombrevehiculo = $request->get('vehiculo_id');
             $kmsalidavehiculo = $request->get('km_salida');
             $kmllegadavehiculo = $request->get('km_llegada');
+            $driver_id = $request->conductor_id;
+            
+            // dd($nombrevehiculo, $kmsalidavehiculo, $kmllegadavehiculo);
+
+
             while ($cont < count($nombrevehiculo)) {
-                $vehiculo_id = DB::table('vehiculos')
-                  ->where('codigodis',$nombrevehiculo[$cont])
-                  ->value('id');
-                  dd($vehiculo_id);
-                $carro = Vehiculo::findOrFail($vehiculo_id);
+                $carro = Vehiculo::findOrFail($nombrevehiculo[$cont]);
                 $carro->derrames()->attach(
-                  $id , [
-                    'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
+                    $id , ['km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont], 'driver_id' => $driver_id[$cont]]);
                 $cont=$cont+1;
-              }
+            }
               Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
               return redirect( "/derrame" );
           }
           catch(\Exception $e)
           {
-              DB::rollback();
               dd($e);
           }
-        } else {
-            return view( "/auth.login" );
-        }
     }
 
     /**
@@ -160,7 +143,7 @@ class DerrameController extends Controller
      */
     public function show($id)
     {
-         $derrame = Derrame::findOrFail( $id );
+        $derrame = Derrame::findOrFail( $id );
         return view( "derrame.show", compact( "derrame" ) );
     }
 
@@ -171,11 +154,10 @@ class DerrameController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        if ( Auth::check() ) {
-            
-            $derrame = Derrame::findOrFail( $id );
-            $vehiculos = Vehiculo::all();
+    {     
+            $derrame = Derrame::with('vehiculos')->findOrFail($id);
+            // Derrame::findOrFail( $id );
+            $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
             $bomberos=User::where('cargo','bombero')
             ->orderBy("name",'asc')
             ->get();
@@ -190,9 +172,6 @@ class DerrameController extends Controller
             $parroquias = Parroquia::all();
 
             return view( "derrame.edit", compact("derrame","vehiculos","bomberos","maquinistas","incidentes","estaciones","parroquias"));
-        } else {
-            return view( "/auth.login" );
-        }
     }
 
     /**
@@ -204,9 +183,8 @@ class DerrameController extends Controller
      */
     public function update(SaveDerrameRequest $request , $id)
     {
-       if ( Auth::check() ) {
-          DB::begintransaction();
-          try
+        
+        try
           { 
             $derrame = Derrame::findOrFail( $id );
             $derrame->update([
@@ -214,7 +192,7 @@ class DerrameController extends Controller
                                 'tipo_escena' => $request->tipo_escena,
                                 'station_id' => $request->station_id,
                                 'fecha' => $request->fecha,
-                                'address' => $request->address,
+                                'direccion' => $request->address,
                                 'parroquia_id' => $derrame->parroquia->id,
                                 'geoposicion' => $request->geoposicion,
                                 'ficha_ecu911' => $request->ficha_ecu911,
@@ -242,25 +220,24 @@ class DerrameController extends Controller
             $nombrevehiculo = $request->get('vehiculo_id');
             $kmsalidavehiculo = $request->get('km_salida');
             $kmllegadavehiculo = $request->get('km_llegada');
+            $driver_id = $request->conductor_id;
             $derrame->vehiculos()->detach();
             while ($cont < count($nombrevehiculo)) {
                 $carro = Vehiculo::findOrFail($nombrevehiculo[$cont]);
                 $carro->derrames()->attach(
                   $id , [
-                    'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
+                    'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont], 'driver_id' => $driver_id[$cont]]);
                 $cont=$cont+1;
             }
             Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
             return redirect( "/derrame" );
-          }
-          catch(\Exception $e)
-          {
-              DB::rollback();
-              dd($e);
-          }
-        } else {
-            return view( "/auth.login" );
         }
+        catch(\Exception $e)
+          {
+             
+              
+          }
+       
     }
 
     /**
@@ -271,14 +248,10 @@ class DerrameController extends Controller
      */
     public function destroy($id)
     {
-        if ( Auth::check() ) {
             $derrame = Derrame::findOrFail( $id );
             $derrame->delete();
             Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
             return redirect( "/derrame" );
-        } else {
-            return view( "/auth.login" );
-        }
     }
 
     public function export()
@@ -309,9 +282,12 @@ class DerrameController extends Controller
         $date = Carbon::now();
         $date = $date->format('l jS \\of F Y ');
         $derrame = Derrame::find($id);
-        $pdf = PDF::loadView('derrame.pdf', compact('derrame','date'));
-
-        return $pdf->download('derrame.pdf');
+        $dompdf = App::make("dompdf.wrapper");
+        $dompdf->loadView('derrame.pdf', compact('derrame','date'));
+        return $dompdf->stream();
+        
+        
+       
     }
 
     public function cargar($id)
@@ -320,37 +296,25 @@ class DerrameController extends Controller
     }
 
    public function upload(Request $request)
-   {    
-       //obtenemos el nombre del archivo
-        $file201 = $request->file('fileSCI-201');
+   {
+        $file201 = $request->file('fileSCI-201');//obtenemos el nombre del archivo
         $nombre = "201." . $file201->getClientOriginalExtension();
-        $validation = $request->validate([
-            'fileSCI-201' => 'required|file|mimes:pdf|max:2048'
-        ]);
+        $validation = $request->validate(['fileSCI-201' => 'required|file|mimes:pdf|max:2048']);
         $file      = $validation['fileSCI-201']; // get the validated file        
         $path      = $file->storeAs('hazmat/' . $request->id, $nombre);
         $exists = Storage::disk('local')->exists($path);
-       
-        //obtenemos el nombre del archivo
-        $file207 = $request->file('fileSCI-207');
+        $file207 = $request->file('fileSCI-207');//obtenemos el nombre del archivo
         $nombre1 = "207." . $file207->getClientOriginalExtension();
-        $validation = $request->validate([
-            'fileSCI-207' => 'required|file|mimes:pdf|max:2048'
-        ]);
+        $validation = $request->validate(['fileSCI-207' => 'required|file|mimes:pdf|max:2048']);
         $file      = $validation['fileSCI-207']; // get the validated file
         $path1      = $file->storeAs('hazmat/' . $request->id, $nombre1);
         $exists1 = Storage::disk('local')->exists($path1);
-        
-        //obtenemos el nombre del archivo
-        $file211 = $request->file('fileSCI-211');
+        $file211 = $request->file('fileSCI-211');//obtenemos el nombre del archivo
         $nombre2 = "211.".$file211->getClientOriginalExtension();
-        $validation = $request->validate([
-            'fileSCI-211' => 'required|file|mimes:pdf|max:2048'
-        ]);  
+        $validation = $request->validate(['fileSCI-211' => 'required|file|mimes:pdf|max:2048']);  
         $file      = $validation['fileSCI-211']; // get the validated file        
         $path2      = $file->storeAs('hazmat/'.$request->id, $nombre2);
         $exists2 = Storage::disk('local')->exists($path2);
-        
         if ($exists && $exists1 && $exists2) 
         {
           Session::flash('Carga_Correcta',"Formularios Subidos con Exito!!!");
@@ -361,20 +325,37 @@ class DerrameController extends Controller
           Session::flash('Carga_Incorrecta',"Evento Tiene Formularios Cargados con Anterioridad.!!!");
           return redirect( "/derrame" );
         }
-
     }
-
-
 
     public function inspeccion($id)
     {
-        return view("prevencion.crear");
+       
+            $conductor_id = DB::table('users')
+            ->where('id', $id)
+            ->value('name');
+            $bombero_id = DB::table('users')
+            ->where('id', $id)
+            ->value('name');
+            $derrame = Derrame::findOrFail( $id );
+            $vehiculos = Vehiculo::all();
+            $bomberos=User::where('cargo','bombero')
+            ->orderBy("name",'asc')
+            ->get();
+            $maquinistas=User::where('cargo','Maquinista')
+            ->orderBy("name",'asc')
+            ->get();
+            $incidentes = Incidente::where("tipo_incidente","hazmat")
+            ->orderBy("nombre_incidente",'asc')
+            ->get();
+            $estaciones = Station::all();
+            $parroquias = Parroquia::all();
+            return view( "/derrame.inspeccion", compact("derrame","vehiculos","bomberos","maquinistas","incidentes","estaciones","parroquias"));
+      
+        
     }
-
 
     public function registra_Inspeccion(Request $request)
     {
-
     }
 
 

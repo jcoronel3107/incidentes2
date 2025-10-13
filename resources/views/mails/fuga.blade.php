@@ -27,14 +27,14 @@
 					<p class=" text-info">{{$fuga->station_id}}</p>
 			<hr>
 
-					<span class="bg-gray font-weight-bold">Fecha:</span>
+					<span class="bg-gray font-weight-bold">{!! trans('messages.Date') !!}:</span>
 					<p class="text-info">{{$fuga->fecha}}</p>
 					<span class="bg-gray font-weight-bold">Ficha_Ecu911:</span>
 					<p class="text-info">{{$fuga->ficha_ecu911}}</p>
 					<span class="bg-gray font-weight-bold">Hora_FichaEcu911:</span>
 					<p class="text-info">{{$fuga->hora_fichaecu911}}</p>
 			<hr>
-					<span class="bg-gray font-weight-bold">Dirección:</span>
+					<span class="bg-gray font-weight-bold">{!! trans('messages.Address') !!}:</span>
 					 <p class="text-info">{{$fuga->direccion}}</p>
 					<span class="bg-gray font-weight-bold">Parroquia: </span>
 					<p class="text-info">{{$fuga->parroquia->nombre}}</p><br/>

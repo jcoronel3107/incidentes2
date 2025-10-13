@@ -19,24 +19,16 @@ use Illuminate\Support\Facades\Auth;
 
 class PagesController extends Controller
 {
-    public function __construct(){
+     public function __construct(){
         $this->middleware('auth');
 
-    }
+    } 
 
     public function index()
     {
        
-        $date = Carbon::now();
-        $lifetime = config('session.lifetime');
-        $date->toDateTimeString();  
-        $endDate = $date->subHour($lifetime);
-        $timestamp = $date->getTimestamp();
-        $loggedin_instances = DB::table('sessions')
-        ->where('user_id', Auth::user()->id)
-        ->where('last_activity','>', $timestamp) //This condition is needed only if lifetime is set and expire_on_close is false;
-        ->get();
-    	
+        
+
 
 		$date = Carbon::now();
 		$fechaComoEntero = strtotime($date);
@@ -79,7 +71,57 @@ class PagesController extends Controller
         ->whereYear('fecha', '=', date('Y'))
         ->whereNull('derrames.deleted_at')
         ->get()->count();
-    	return view("welcome",compact("mensualesInundacion","mensualesRescate","mensualesIncendio","mensualesSalud","mensualesTransito","mensualesFuga","mensualesClave","mensualesServicio","mensualesDerrame","loggedin_instances"));
+
+        $mensualesDerramesGraph= DB::table('derrames')->select(DB::raw("'derrames' as Incidentes,Month(fecha) as Mes,count(*) as cant"))
+				->whereYear('fecha',date('Y'))
+				->whereNull('derrames.deleted_at')
+				->groupBy(DB::raw("Month(fecha)"))
+				->get();
+
+		$mensualesGasGraph= DB::table('fugas')->select(DB::raw("'fugas' as Incidentes,Month(fecha) as Mes,count(*) as cant"))
+				->whereYear('fecha',date('Y'))
+				->whereNull('fugas.deleted_at')
+				->groupBy(DB::raw("Month(fecha)"))
+				->get();
+		$mensualesFuegoGraph= DB::table('incendios')->select(DB::raw("'incendios' as Incidentes,Month(fecha) as Mes,count(*) as cant"))
+				->whereYear('fecha',date('Y'))	
+				->whereNull('incendios.deleted_at')
+				->groupBy(DB::raw("Month(fecha)"))	
+				->get();
+        $mensualesSaludGraph= DB::table('saluds')->select(DB::raw("'saluds' as Incidentes,Month(fecha) as Mes,count(*) as cant"))
+				->whereYear('fecha',date('Y'))	
+				->whereNull('saluds.deleted_at')
+				->groupBy(DB::raw("Month(fecha)"))	
+				->get();
+
+        $mensualesTransitoGraph= DB::table('transitos')->select(DB::raw("'transitos' as Incidentes,Month(fecha) as Mes,count(*) as cant"))
+				->whereYear('fecha',date('Y'))
+				->whereNull('transitos.deleted_at')	
+				->groupBy(DB::raw("Month(fecha)"))
+                ->get();
+        $mensualesRescateGraph= DB::table('rescates')->select( DB::raw("'rescates' as Incidentes,Month(fecha) as Mes,count(*) as cant"))
+				->whereYear('fecha',date('Y'))
+				->whereNull('rescates.deleted_at')
+				->groupBy(DB::raw("Month(fecha)"))
+                ->get();
+                
+        $mensualesInundacionGraph= DB::table('inundacions')->select(DB::raw("'inundaciones' as Incidentes ,Month(fecha) as Mes,count(*) as cant"))
+        		->whereYear('fecha',date('Y'))
+        		->whereNull('inundacions.deleted_at')
+        		->groupBy(DB::raw("Month(fecha)"))
+        		->get();
+             
+                $EventosMensuales = $mensualesInundacionGraph->merge($mensualesRescateGraph);
+                $EventosMensuales = $EventosMensuales->merge($mensualesTransitoGraph);
+                $EventosMensuales = $EventosMensuales->merge($mensualesSaludGraph);
+                $EventosMensuales = $EventosMensuales->merge($mensualesFuegoGraph);
+                $EventosMensuales = $EventosMensuales->merge($mensualesGasGraph);
+                $EventosMensuales = $EventosMensuales->merge($mensualesDerramesGraph);
+                
+            $EventosxIncidente = $mensualesInundacion+$mensualesRescate+$mensualesIncendio+$mensualesSalud+$mensualesTransito+$mensualesFuga+$mensualesDerrame;
+
+
+    	return view("welcome",compact("EventosMensuales","mensualesRescateGraph","EventosxIncidente","mensualesInundacion","mensualesRescate","mensualesIncendio","mensualesSalud","mensualesTransito","mensualesFuga","mensualesClave","mensualesServicio","mensualesDerrame"/* ,"loggedin_instances" */));
     }
 
     

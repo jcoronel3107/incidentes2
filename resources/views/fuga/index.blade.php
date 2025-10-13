@@ -8,32 +8,54 @@
 	@section( "cuerpo" )
 		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">{!! trans('messages.Consult Leak Information') !!}</h2>
 		@include('fuga.messages')
-		<ul class="nav justify-content-end">
-		  <li class="nav-item">
-		  	@can('create evento')
-		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Nuevo" href="fuga/create"><i class="icon-plus icon-2x"></i></a>
-		    @endcan
-			@can('allow export')
-		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Export" href="fugas/export/"><i class="icon-download-alt icon-2x"></i></a>
-		    @endcan
-		    @can('allow import')
-		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Import" href="/fugas/importar"><i class="icon-cloud-upload icon-2x"></i></a>
-		    @endcan
-		    <a class="btn btn-outline-info" data-toggle="tooltip" title="Estadistica" href="fugas/grafic/"><i class="icon-filter icon-2x"></i> </a>
-		  </li>
-		</ul>
+		<div class="row nav justify-content-end">
+			<li class="nav-item">
+				<div class="input-group mb-3">
+									@can('create event')	
+									<div class="input-group-prepend ml-2">
+										<span title="Nuevo" class="input-group-text"><i class="fas fa-plus"></i></span>
+									</div>
+									<a class="btn btn-outline-primary focus-in-expand" data-toggle="tooltip" title="Nuevo" href="fuga/create">{!! trans('messages.new') !!}</i></a>
+									@endcan
+									@can('allow export')
+									<div class="input-group-prepend ml-2">
+										<span title="Export" class="input-group-text"><i class="fas fa-file-export"></i></span>
+									</div>
+									
+									<a class="btn btn-outline-secondary focus-in-expand" data-toggle="tooltip" title="Export" href="fugas/export/">{!! trans('messages.export') !!}</i></a>
+									@endcan
+									@can('allow import')
+									<div class="input-group-prepend ml-2">
+										<span title="Import" class="input-group-text"><i class="fas fa-file-import"></i></span>
+									</div>
+									
+									<a class="btn btn-outline-secondary focus-in-expand" data-toggle="tooltip" title="Import" href="/fugas/importar">{!! trans('messages.import') !!}</a>
+									@endcan
+									@can('estadistica')
+									<div class="input-group-prepend ml-2">
+										<span title="Grafic" class="input-group-text"><i class="fas fa-chart-line"></i></span>
+									</div>
+									
+									<a class="btn btn-outline-info focus-in-expand" data-toggle="tooltip" title="Estadistica" href="fugas/grafic/">{!! trans('messages.grafic') !!}</a>
+									@endcan
+				
+				</div>
+			</li>
+		</div>
+
+		
 		<hr style="border:2px;">
 
 		@include('fuga.search')
-		<table class="table table-hover table-condensed">
+		<table class="table table-hover table-condensed table-responsive">
 			<thead>
-				<tr class="table-primary">
+				<tr class="table-info">
 					<th>id</th>
 					<th>{!! trans('messages.Incident') !!}</th>
 					<th>{!! trans('messages.Station') !!}</th>
 					<th>{!! trans('messages.Date') !!}</th>
 					<th>{!! trans('messages.Address') !!}</th>					
-					
+					<th>Usuario_Afectado</th>
 					<th>{!! trans('messages.Options') !!}</th>
 				</tr>
 			</thead>
@@ -46,23 +68,25 @@
 					<td>{{$fuga->fecha}}</td>
 					<td>{{$fuga->direccion}}</td>
 					
+					<td>{{$fuga->usuario_afectado}}</td>
 					<td>
-						@can('edit evento')
+						@can('edit event')
 						<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Edit" href="{{route('fuga.edit',$fuga->id)}}"><i class="icon-edit"></i></a>
 						@endcan
 						@can('allow upload')
 						<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Forms SCI" href="/fugas/carga/{{$fuga->id}}"><i class="fa fa-upload" aria-hidden="true"></i></a>
 						@endcan
-						<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Ver" href="{{route('fuga.show',$fuga->id)}}" role="button"><i class="icon-search"></i></a>
+						@can('create inspeccion')
+						<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Inspeccion" href="{{route('inspeccionfuga',$fuga->id)}}"><i class="fas fa-notes-medical"></i></a>
+						@endcan
+						<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Ver" href="{{route('fuga.show',$fuga->id)}}" role="button"><i class="fas fa-binoculars"></i></a>
 						@can('send mail')
 						<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" data-target="#exampleModal" role="button"><i class="icon-envelope"></i></a>
 						@endcan
 						@can('create pdf')
 						<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="PDF" href="{{action('FugaController@downloadPDF', $fuga->id)}}" role="button"><i class="icon-file-text"></i></a>
 						@endcan
-						@can('create prevencion')
-						<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" href="{{route('inspeccion',$fuga->id)}}"><i class="fas fa-notes-medical"></i></a>
-						@endcan
+						
 
 				</tr>
 					<!-- Modal -->
@@ -95,13 +119,13 @@
 				@endforeach
 			</tbody>
 			<tfoot>
-				<tr class="table-primary">
+				<tr class="table-info">
 					<th>id</th>
 					<th>{!! trans('messages.Incident') !!}</th>
 					<th>{!! trans('messages.Station') !!}</th>
 					<th>{!! trans('messages.Date') !!}</th>
 					<th>{!! trans('messages.Address') !!}</th>					
-					
+					<th>Usuario_Afectado</th>
 					<th>{!! trans('messages.Options') !!}</th>
 
 					
@@ -112,5 +136,6 @@
 			</tfoot>
 		</table>
 
-		{{ $fugas -> appends(['searchText' => $query]) -> links() }}
+		
+		{{ $fugas -> appends(['busq_direccion' => $busq_direccion ,'busq_estacion' => $busq_estacion ,'busq_fecha'=>$busq_fecha,'busq_usuarioafectado'=>$busq_usuarioafectado])-> links() }}
 @endsection @section( "piepagina" ) @endsection

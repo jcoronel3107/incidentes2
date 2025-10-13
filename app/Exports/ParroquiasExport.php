@@ -18,8 +18,8 @@ class ParroquiasExport implements FromCollection, WithHeadings,ShouldAutoSize
         return [
             '#',
             'Nombre',
-            'created_at',
-            'updated_at',
+            'Fecha Creación',
+            'Fecha Actualización',
         ];
     }
 

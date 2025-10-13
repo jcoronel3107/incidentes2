@@ -27,14 +27,14 @@
 					<p class=" text-info">{{$incendio->station_id}}</p>
 			<hr>
 
-					<span class="bg-gray font-weight-bold">Fecha:</span>
+					<span class="bg-gray font-weight-bold">{!! trans('messages.Date') !!}:</span>
 					<p class="text-info">{{$incendio->fecha}}</p>
 					<span class="bg-gray font-weight-bold">Ficha_Ecu911:</span>
 					<p class="text-info">{{$incendio->ficha_ecu911}}</p>
 					<span class="bg-gray font-weight-bold">Hora_FichaEcu911:</span>
 					<p class="text-info">{{$incendio->hora_fichaecu911}}</p>
 			<hr>
-					<span class="bg-gray font-weight-bold">Dirección:</span>
+					<span class="bg-gray font-weight-bold">{!! trans('messages.Address') !!}:</span>
 					 <p class="text-info">{{$incendio->direccion}}</p>
 					<span class="bg-gray font-weight-bold">Parroquia: </span>
 					<p class="text-info">{{$incendio->parroquia->nombre}}</p><br/>

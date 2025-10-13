@@ -23,6 +23,9 @@ define('LARAVEL_START', microtime(true));
 
 require __DIR__.'/../vendor/autoload.php';
 
+// PCRE JIT (Just In Time) compilation can cause issues with some regular expressions in PHP.
+ini_set('pcre.jit', 0);
+
 /*
 |--------------------------------------------------------------------------
 | Turn On The Lights

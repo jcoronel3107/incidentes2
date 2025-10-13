@@ -2,7 +2,7 @@
 
 	@section( "cabeza" )
 
-	<title>Rescate - Edición - BCBVC</title>
+	<title>Rescate - Edición - BCBVC </title>
 	@endsection
 
 	@section( "cuerpo" )
@@ -19,7 +19,7 @@
 		<div class="form-row">
 			<div class="form-group input-group  col-md-4">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Fecha</span>
+					<span class="input-group-text">{!! trans('messages.Date') !!}</span>
 				</div>
 				<input type="text" name="fecha" class="form-control" placeholder="AA-MM-DD" value="{{old('fecha',$rescate->fecha)}}">
 			</div>
@@ -46,24 +46,26 @@
 					</div>
 				</div>
 			</div>
-			<div class='col-md-4'>
+		</div>
+		<div class="form-row "><!--Div Informacion ECU911-->
+			<div class='col-md-12'>
 				<div class="form-group">
-					<div class="input-group date" id="datetimepicker3">
+					<div class="input-group date">
 						<div class="input-group-prepend">
-							<span class="input-group-text">Información Inicial</span>
+							<span class="input-group-text">{!! trans('messages.Initial information') !!}</span>
 						</div>
 						<textarea class="form-control" maxlength="2000" name="informacion_inicial" id="pinformacion_inicial" aria-label="With textarea">{{old('informacion_inicial',$rescate->informacion_inicial)}}</textarea>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!--Div Informacion ECU911-->
-		<div class="form-row">
+		
+		<div class="form-row"><!--Div Tipo Evento-->
 			<div class="form-group input-group col-md-5">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Incidente</span>
+					<span class="input-group-text">{!! trans('messages.Incident') !!}</span>
 				</div>
-				<select class="form-control" name="incidente_id" id="incidente_id">
+				<select class="selectpicker form-control" data-live-search="true" name="incidente_id" id="incidente_id">
 					<option value="{{$rescate->incidente->id}}" selected>{{old('incidente_id',$rescate->incidente->nombre_incidente)}}</option>
 					@foreach($incidentes as $incidente)
 					<option value="{{$incidente->id}}">{{$incidente->nombre_incidente}}</option>
@@ -73,9 +75,9 @@
 
 			<div class="form-group input-group col-md-3">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Escenario</span>
+					<span class="input-group-text">{!! trans('messages.scene') !!}</span>
 				</div>
-				<select class="form-control" name="tipo_escena">
+				<select class="selectpicker form-control" data-live-search="true" name="tipo_escena">
 					<option value="{{$rescate->tipo_escena}}" selected>{{old('tipo_escena',$rescate->tipo_escena)}}</option>
 					<option value="Tipo 1">Tipo 1</option>
 					<option value="Tipo 2">Tipo 2</option>
@@ -85,9 +87,9 @@
 			</div>
 			<div class="form-group input-group col-md-4">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Estacion</span>
+					<span class="input-group-text">{!! trans('messages.Station') !!}</span>
 				</div>
-				<select name="station_id" class="form-control">
+				<select class="selectpicker form-control" data-live-search="true" name="station_id">
 					<option value="{{$rescate->station->id}}" selected>{{old('station_id',$rescate->station->nombre)}}</option>
 					@foreach($estaciones as $estacion)
 					<option value="{{$estacion->id}}">{{$estacion->nombre}}</option>
@@ -95,20 +97,23 @@
 				</select>
 			</div>
 		</div>
-		<!--Div Tipo Evento-->
-		<div class="form-row">
-			<div class="form-group input-group col-md-4">
+		
+		<div class="form-row"><!--Div Tipo Direccion-->
+			<div class="form-group input-group col-md-10">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Dirección</span>
+					<span class="input-group-text">{!! trans('messages.Address') !!}</span>
 				</div>
 				<textarea class="form-control" id="pdireccion" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$rescate->direccion)}}</textarea>
 				<input type="button" value="Encode" onclick="codeAddress()">
 			</div>
-			<div class="form-group input-group input-group-prepend col-md-4">
+		</div>
+
+		<div class="form-row"><!--Div Ubicacion Evento-->
+			<div class="form-group input-group input-group-prepend col-md-6">
 				<div>
-					<span class="input-group-text">Parroquia</span>
+					<span class="input-group-text">{!! trans('messages.Parishes') !!}</span>
 				</div>
-				<select name="parroquia_id" class="form-control">
+				<select class="selectpicker form-control" data-live-search="true" name="parroquia_id">
 					<option value="{{$rescate->parroquia->id}}" selected>{{old('parroquia_id',$rescate->parroquia->nombre)}}</option>
 					@foreach($parroquias as $parroquia)
 					<option value="{{$parroquia->id}}">{{$parroquia->nombre}}</option>
@@ -116,53 +121,152 @@
 				</select>
 				<a rel="nofollow noopener noreferrer" href="{{asset('files/MapaCuenca.pdf')}}" target="_blank" role="button" data-toggle="tooltip" title="Mapa" class="btn btn-outline-info"><i class="icon-file icon-2x"></i></a>
 			</div>
-			<div class="form-group input-group col-md-4">
+			<div class="form-group input-group col-md-6">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputAddress">Geoposicion</span>
 				</div>
 				<textarea class="form-control" id="pgeoposicion" name="geoposicion" aria-label="With textarea">{{old('geoposicion',$rescate->geoposicion)}}</textarea>
 			</div>
 		</div>
-		<!--Div Ubicacion Evento-->
+		
 		<div onload="initMap()" id="map" style="width: 100%; height: 280px;"></div>
 		<hr>
-		<div class="form-row">
-			<div class="form-group input-group col-lg-6 col-md-4 col-sm-12">
-				<div class="input-group-prepend">
-					<span class="input-group-text">Jefe Guardia</span>
-				</div>
-				<select class="form-control" name="jefeguardia_id">
-					<option value="{{$rescate->users[2]->id}}" selected="{{$rescate->users[2]->id}}">{{$rescate->users[2]->name}}</option>
-					@foreach($bomberos as $bombero)
-					<option value="{{$bombero->id}}">{{$bombero->name}}</option>
-					@endforeach
-				</select>
+
+		<div class="card"><!-- Div Personal en Emergencia -->
+			<div class="card-header">
+				{!! trans('messages.staff in the emergency') !!}
 			</div>
-			<div class="form-group input-group col-lg-6 col-md-4 col-sm-12">
-				<div class="input-group-prepend">
-					<span class="input-group-text">Bombero</span>
+			<div class="card-body">
+				
+				<div class="form-row">
+					<div class="form-group input-group col-lg-12 col-md-12 col-sm-12 col-xs-12 mr-4">
+						<div class="input-group-prepend">
+							<span class="input-group-text">Bombero</span>
+						</div>
+						<select class="selectpicker form-control" data-live-search="true" id="pbombero_id" name="bombero_id">
+							<option selected >{{old('bombero_id')}}</option>
+							@foreach($usuarios as $user)
+							
+							<option value="{{$user->id}}">{{$user->name}}</option>
+							@endforeach
+						</select>	
+					</div>
+					<button type="button" id="bt_addperson" class="btn btn-primary btn-block ml-4 mr-4 mb-4">{!! trans('messages.add') !!}</button>
 				</div>
-				<select class="form-control" name="bombero_id">
-					<option value="{{$rescate->users[1]->id}}" selected="{{$rescate->users[1]->id}}">{{$rescate->users[1]->name}}</option>
-					@foreach($bomberos as $bombero)
-					<option value="{{$bombero->id}}">{{$bombero->name}}</option>
-					@endforeach
-				</select>
-			</div>
-			<div class="form-group input-group col-lg-6 col-md-4 col-sm-12">
-				<div class="input-group-prepend">
-					<span class="input-group-text">Conductor</span>
+				<div class="row"><!--Vehiculos en incidente -->
+						<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+						<input id="nropersonas" type="hidden" value="{{$nropersonas}}"># Pers{{$cont = 0}}nas:. {{$nropersonas}}
+						<table id="persontable" class="table table-hover table-striped">
+						
+							<thead>
+									<td>Eliminar</td>
+									<td>#</td>
+									<td>id</td>
+									<td>Nombres_Completos</td>
+								</thead>
+								<tbody></tbody>
+								
+									
+									@foreach($rescate->users as $users)
+									<tr id="fila{{$cont = $cont + 1}}">
+										
+										<td><button type="button" class="btn btn-warning" onclick="eliminar('{{$cont}}')" type="button">X</button></td>
+										<td>{{$cont}}</td>
+										<td><input type="hidden" class="form-control" name="user_id[]" value="{{$users->id}}">{{$users->id}}</td>
+										<td><input type="hidden" class="form-control" name="user_name[]" value="{{$users->name}}">{{$users->name}}</td>
+									</tr>
+									
+									@endforeach
+							</table>
+						</div>
 				</div>
-				<select class="form-control" name="conductor_id">
-					<option value="{{$rescate->users[0]->id}}" selected="{{$rescate->users[0]->id}}">{{$rescate->users[0]->name}}</option>
-					@foreach($maquinistas as $maquinista)
-					<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>
-					@endforeach
-				</select>
+
+				<div class="card"><!-- Ingreso Vehiculos Detalle -->
+					<div class="card-header">
+						{!! trans('messages.Vehicles in the Emergency') !!}
+					</div>
+					<div class="card-body">
+						<div class="row d-flex">
+							<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+								<div class="form-group input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">{!! trans('messages.Vehicles') !!}</span>
+									</div>
+									<select class="selectpicker form-control" data-live-search="true"  name="pvehiculo_id" id="pvehiculo_id">
+										<option selected></option>
+										@foreach($vehiculos as $vehiculo)
+										<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>
+										@endforeach
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+									<div class="form-group  input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="inputDetalle">Conductor</span>
+										</div>
+										<select class="form-control" name="pconductor_id" id="pconductor_id">
+											@foreach($maquinistas as $maquinista)
+											<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>
+											@endforeach
+										</select>
+									</div>
+								</div>
+							<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+								<div class="form-group  input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">Km.Salida</span>
+									</div>
+									<input type="number" class="form-control" name="km_salida" id="pkm_salida" placeholder="Digite Valor">
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+								<div class="form-group  input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputDetalle">Km.Llegada</span>
+									</div>
+									<input type="number" class="form-control" id="pkm_llegada" name="km_llegada" placeholder="Digite Valor">
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mb-2 ">
+								<button type="button" id="bt_add" class="btn btn-primary btn-block">{!! trans('messages.add') !!}</button>
+							</div>
+						</div>
+						<div class="row d-flex ">
+								<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+									<table id="detalles" class="table table-hover">
+										<thead style="background-color: #A9D0F5 ">
+											<th>Opciones</th>
+											<th>Vehiculo</th>
+											<th>Km.Salida</th>
+											<th>Km.Llegada</th>
+											<th>Conductor</th>
+										</thead>
+										<tbody>
+											{{$cont = 0}}
+											@foreach($rescate->vehiculos as $items)
+											{{$cont = $cont + 1}}
+											<tr id="fila{{$cont}}">
+											<td><button type="button" class="btn btn-warning" onclick="eliminar('{{$cont}}')" type="button">X</button></td>
+											<td><input type="hidden" class="form-control" name="vehiculo_id[]" value="{{$items->id}}">{{$items->codigodis}}</td>
+											<td><input type="number" class="form-control" name="km_salida[]" value="{{$items->pivot->km_salida}}"></td>
+											<td><input type="number" class="form-control" name="km_llegada[]" value="{{$items->pivot->km_llegada}}"></td>
+											<td><input type="text" class="form-control" name="driver_id[]" value="{{$items->pivot->driver_id}}"></td>
+											</tr>
+											
+											@endforeach
+										</tbody>
+										
+									</table>
+								</div>
+						 </div>
+					</div>
+				</div>
+				 
 			</div>
 		</div>
-		<!--Div Personal que asiste Evento-->
-		<div class="form-row">
+
+		<div class="form-row"><!-- Div Horas Evento -->
 			<div class="form-group  input-group col-lg-6 col-md-4 col-sm-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Salida A Emergencia</span>
@@ -175,8 +279,9 @@
 				</div>
 				<input type="text" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm:ss" value="{{old('hora_llegada_a_emergencia',$rescate->hora_llegada_a_emergencia)}}">
 			</div>
-		</div>{{--Div Horas Evento--}}
-		<div class="form-row">
+		</div>
+
+		<div class="form-row"><!-- Div Horas Evento -->
 			<div class="form-group  input-group col-lg-6 col-md-4 col-sm-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Fin Emergencia</span>
@@ -189,9 +294,11 @@
 				</div>
 				<input type="text" class="form-control" name="hora_en_base" id="hora_en_base" placeholder="hh:mm:ss" value="{{old('hora_en_base',$rescate->hora_en_base)}}">
 			</div>
-		</div>{{--Div Horas Evento--}}
-		<div class="form-row">
-			<div class="col-lg-8 col-md-8 col-sm-12">
+		</div>
+
+		<div class="form-row"><!-- Detalle Emergencia -->
+
+			<div class="col-lg-12 col-md-12 col-sm-12">
 				<div class="form-group input-group">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Detalle Emergencia</span>
@@ -199,8 +306,9 @@
 					<textarea class="form-control" maxlength="3000" name="detalle_emergencia" id="detalle_emergencia" aria-label="With textarea" placeholder="Digite a detalle lo ocurrido en Emergencia">{{old('detalle_emergencia',$rescate->detalle_emergencia)}}</textarea>
 				</div>
 			</div>
-		</div>{{--Detalle Emergencia--}}
-		<div class="form-row">
+		</div>
+
+		<div class="form-row"><!-- Usuario Afectado  -->
 			<div class="col-8">
 				<div class="form-group input-group">
 					<div class="input-group-prepend">
@@ -209,27 +317,29 @@
 					<input onkeyup="mayus(this);" type="text" class="form-control" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado',$rescate->usuario_afectado)}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia">
 				</div>
 			</div>
-		</div>{{--Usuario Afectado --}}
-		<div class="form-row">
+		</div>
+		
+		<div class="form-row"><!-- Daños Estimados  -->
 			<div class="form-group input-group col-lg-8 col-md-8 col-sm-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDaños">Daños Estimados</span>
 				</div>
 				<input onkeyup="mayus(this);" type="text" class="form-control" name="danos_estimados" id="danos_estimados" value="{{old('danos_estimados',$rescate->danos_estimados)}}" placeholder="Detalle los daños producidos por  el incidente">
 			</div>
-		</div>{{-- Daños Estimados --}}
+		</div>
 
 		<hr>
-		<div class="card">
-			<div class="card-header text-white bg-primary">Vehiculos en la Emergencia</div>
+
+		<div class="card"><!-- Vehiculos en Emergencia -->
+			<div class="card-header text-white bg-primary">{!! trans('messages.Vehicles in the Emergency') !!}</div>
 			<div class="card-body">
 				<div class="row">
 					<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
 						<div class="form-group input-group">
 							<div class="input-group-prepend">
-								<span class="input-group-text">Vehìculo</span>
+								<span class="input-group-text">{!! trans('messages.Vehicles') !!}</span>
 							</div>
-							<select class="form-control selectpicker" name="vehiculo_id" id="pvehiculo_id" data-live-search="true" required="">
+							<select class="form-control selectpicker" name="pvehiculo_id" id="pvehiculo_id" data-live-search="true" required="">
 								<option selected>Elija...</option>
 								@foreach($vehiculos as $vehiculo)
 								<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>
@@ -254,7 +364,7 @@
 						</div>
 					</div>
 					<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2">
-						<button type="button" id="bt_add" class="btn btn-primary">Agregar</button>
+						<button type="button" id="bt_add" class="btn btn-primary">{!! trans('messages.add') !!}</button>
 					</div>
 				</div>
 				<div class="row">
@@ -270,9 +380,9 @@
 							@foreach($rescate->vehiculos as $vehiculo)
 							<tr class="selected" id="fila{{count($rescate->vehiculos)}}">
 								<td><button type="button" class="btn btn-warning" onclick="eliminar1('{{count($rescate->vehiculos)}}')" type="button">X</button></td>
-								<td><input type="hidden" name="vehiculo_id[]" value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</td>
-								<td><input type="number" name="km_salida[]" value="{{$vehiculo->pivot->km_salida}}">{{$vehiculo->pivot->km_salida}}</td>
-								<td><input type="number" name="km_llegada[]" value="{{$vehiculo->pivot->km_llegada}}">{{$vehiculo->pivot->km_llegada}}</td>
+								<td><input type="hidden" class="form-control" name="vehiculo_id[]" value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</td>
+								<td><input type="number" class="form-control" name="km_salida[]" value="{{$vehiculo->pivot->km_salida}}">{{$vehiculo->pivot->km_salida}}</td>
+								<td><input type="number" class="form-control" name="km_llegada[]" value="{{$vehiculo->pivot->km_llegada}}">{{$vehiculo->pivot->km_llegada}}</td>
 							</tr>
 
 							<tbody></tbody>
@@ -284,11 +394,11 @@
 		</div>
 		<hr>
 
-		<div class="form-group">
+		<div class="form-group"><!-- Botones  -->
 			<button type="submit" name="Enviar" value="Enviar" class="btn btn-success">Actualizar</button>
 			<a class="btn btn btn-primary" role="button" href="{{ route('rescate.index')}}">Cancelar
 			</a>
-		</div>{{-- Botones --}}
+		</div>
 	</form>
 	<form method="post" action="/rescate/{{$rescate->id}}">
 		{{csrf_field()}}
@@ -318,7 +428,9 @@
 	</form>
 
 	@push ('scripts')
-	<!-- Script para almacenar vehiculos asisten }-->
+	<!-- Geolocalizacion  for all pages-->
+	<script src="/js/geocoder.js"></script>
+	<!-- Script para almacenar vehiculos asisten -->
 	<script type="text/javascript">
 		//total=0;
 		var cont = 0;
@@ -373,10 +485,10 @@
 			jqkm_salida = $("#pkm_salida").val();
 			jqkm_llegada = $("#pkm_llegada").val();
 			jqvehiculo = $("#pvehiculo_id").val();
-			jqvehiculo_id = $("#pvehiculo_id option.selected").text();
+			jqvehiculo_id = $('#pvehiculo_id').find('option:selected').text();
 			if (jqkm_salida != "" && jqkm_salida >= 0 && jqkm_llegada != "" && jqkm_llegada >= 0 && jqvehiculo != "") {
 				//total = total + subtotal[cont];
-				var fila = '<tr class = "selected" id="fila' + cont + '"><td><button type="button" class="btn btn-warning" onclick="eliminar1(' + cont + ')" type="button">X</button></td><td><input type="hidden" name="vehiculo_id[]" value="' + jqvehiculo + '">' + jqvehiculo + '</td><td><input type="number"  name="km_salida[]" value="' + jqkm_salida + '"></td><td><input type="number"  name="km_llegada[]" value="' + jqkm_llegada + '"></td></tr>';
+				var fila = '<tr class = "selected" id="fila' + cont + '"><td><button type="button" class="btn btn-warning" onclick="eliminar1(' + cont + ')" type="button">X</button></td><td><input type="hidden" name="vehiculo_id[]" value="' + jqvehiculo + '">' + jqvehiculo_id + '</td><td><input class="form-control" type="number"  name="km_salida[]" value="' + jqkm_salida + '"></td><td><input class="form-control" type="number"  name="km_llegada[]" value="' + jqkm_llegada + '"></td></tr>';
 				cont++;
 				limpiar();
 				evaluar();

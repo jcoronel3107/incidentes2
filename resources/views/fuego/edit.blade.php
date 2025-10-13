@@ -2,31 +2,42 @@
 
 	@section( "cabeza" )
 
-	<title>Fuego - Edicion - BCBVC</title>
+	<title>Fuego-Edición-BCBVC</title>
 	@endsection
 
 	@section( "cuerpo" )
 	<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Editar Información de Eventos Incendio</h2>
 	<ul class="nav justify-content-end">
 		<li class="nav-item">
-			<a class="btn btn-outline-info" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('fuego.index')}}"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i>
-			</a>
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span title="Regresar" class="input-group-text"><i class="fa fa-arrow-left" aria-hidden="true"></i></span>
+				</div>
+				<a class="btn btn-outline-secondary" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('fuego.index')}}">Regresar</a>
+			</div>
 		</li>
 	</ul>
+	@if(count($errors)>0)
+		@foreach($errors->all() as $error)
+			<div class="alert alert-danger" role="alert">
+				{{$error}}
+			</div>
+		@endforeach
+	@endif
 	<hr style="border:2px;">
-	<form method="post" action="/fuego/{{$incendio->id}}">
+	<form id="formulario" method="post" action="/fuego/{{$incendio->id}}"><!-- Form Guarda Registro -->
 		@csrf @method('PATCH')
-		<div class="form-row">
+		<div class="form-row"><!--Div Fecha-->
 			<div class="form-group input-group  col-md-4">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Fecha</span>
+					<span class="input-group-text">{!! trans('messages.Date') !!}</span>
 				</div>
 				<input required="" type="text" name="fecha" class="form-control" placeholder="AA-MM-DD" value="{{old('fecha',$incendio->fecha)}}">
 			</div>
 		</div>
-		<!--Div Fecha-->
-		<div class="form-row ">
-			<div class='col-md-4'>
+		
+		<div class="form-row "><!--Div Informacion ECU911-->
+			<div class='col-md-6'>
 				<div class="form-group">
 					<div class="input-group">
 						<div class="input-group-prepend">
@@ -36,7 +47,7 @@
 					</div>
 				</div>
 			</div>
-			<div class='col-md-4'>
+			<div class='col-md-6'>
 				<div class="form-group">
 					<div class="input-group">
 						<div class="input-group-prepend">
@@ -53,20 +64,20 @@
 				<div class="form-group">
 					<div class="input-group date" id="datetimepicker3">
 						<div class="input-group-prepend">
-							<span class="input-group-text">Informacion Inicial</span>
+							<span class="input-group-text">{!! trans('messages.Initial information') !!}</span>
 						</div>
 						<textarea required="" id="pinformacion_inicial" class="form-control" maxlength="2000" name="informacion_inicial" aria-label="With textarea">{{old('informacion_inicial',$incendio->informacion_inicial)}}</textarea>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!--Div Informacion ECU911-->
+
 		<div class="form-row">
 			<div class="form-group input-group col-md-5">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Incidente</span>
+					<span class="input-group-text">{!! trans('messages.Incident') !!}</span>
 				</div>
-				<select required class="form-control" name="incidente_id" id="incidente_id">
+				<select required class="selectpicker form-control" data-live-search="true" name="incidente_id" id="incidente_id">
 					<option value="{{$incendio->incidente->id}}" selected>{{old('incidente_id',$incendio->incidente->nombre_incidente)}}</option>
 					@foreach($incidentes as $incidente)
 					<option value="{{$incidente->id}}">{{$incidente->nombre_incidente}}</option>
@@ -76,9 +87,9 @@
 
 			<div class="form-group input-group col-md-3">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Escenario</span>
+					<span class="input-group-text">{!! trans('messages.scene') !!}</span>
 				</div>
-				<select required class="form-control" name="tipo_escena">
+				<select required class="selectpicker form-control" data-live-search="true" name="tipo_escena">
 					<option value="{{$incendio->tipo_escena}}" selected>{{old('tipo_escena',$incendio->tipo_escena)}}</option>
 					<option value="Tipo 1">Tipo 1</option>
 					<option value="Tipo 2">Tipo 2</option>
@@ -88,9 +99,9 @@
 			</div>
 			<div class="form-group input-group col-md-4">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Estacion</span>
+					<span class="input-group-text">{!! trans('messages.Station') !!}</span>
 				</div>
-				<select required name="station_id" class="form-control">
+				<select required name="station_id" class="selectpicker form-control" data-live-search="true">
 					<option value="{{$incendio->station->id}}" selected>{{old('station_id',$incendio->station->nombre)}}</option>
 					@foreach($estaciones as $estacion)
 					<option value="{{$estacion->id}}">{{$estacion->nombre}}</option>
@@ -100,18 +111,35 @@
 		</div>
 		<!--Div Tipo Evento-->
 		<div class="form-row">
-			<div class="form-group input-group col-md-4">
+			<div class="form-group input-group col-lg-8 col-md-8 col-ms-12">
 				<div class="input-group-prepend">
-					<span class="input-group-text">Dirección</span>
+					<span class="input-group-text">{!! trans('messages.Address') !!}</span>
 				</div>
 				<textarea required class="form-control" id="pdireccion" name="direccion" placeholder="Ubicacion del Evento" aria-label="With textarea">{{old('direccion',$incendio->direccion)}}</textarea>
 				<input type="button" value="Encode" onclick="codeAddress()">
 			</div>
+		</div>
+
+		<!--Div Area Afectacion-->
+		<div class="form-row">
+			<div class="form-group input-group col-lg-8 col-md-8 col-ms-12" id="area_afectacion_container">
+				<div class="input-group-prepend">
+					<span class="input-group-text">Área de Afectación</span>
+				</div>
+				<!--<textarea id="area_afectacion" class="form-control" maxlength="2000" name="area_afectacion" aria-label="With textarea">{{old('area_afectacion', $incendio->area_afectacion)}}</textarea>-->
+				<input type="number" class="form-control" name="km_salida" id="area_afectacion" placeholder="Digite Valor en m2" value="{{ old('area_afectacion', $incendio->area_afectacion) }}">
+				<input type="button" value="m2" onclick="codeAddress()">
+			</div>
+		</div>
+
+		
+
+		<div class="form-row"><!--Div Ubicacion Evento-->
 			<div class="form-group input-group input-group-prepend col-md-4">
 				<div>
-					<span class="input-group-text">Parroquia</span>
+					<span class="input-group-text">{!! trans('messages.Parishes') !!}</span>
 				</div>
-				<select required name="parroquia_id" class="form-control">
+				<select class="selectpicker form-control" data-live-search="true" required name="parroquia_id" >
 					<option value="{{$incendio->parroquia->id}}" selected>{{old('parroquia_id',$incendio->parroquia->nombre)}}</option>
 					@foreach($parroquias as $parroquia)
 					<option value="{{$parroquia->id}}">{{$parroquia->nombre}}</option>
@@ -125,89 +153,121 @@
 				<textarea required class="form-control" id="pgeoposicion" name="geoposicion" aria-label="With textarea">{{old('geoposicion',$incendio->geoposicion)}}</textarea>
 			</div>
 		</div>
-		<!--Div Ubicacion Evento-->
+
+		<!-- <div class="form-row" style="display: none;">
+			<div class='col-md-12'>
+				<div class="form-group">
+					<div class="input-group date" id="datetimepicker3">
+						<div class="input-group-prepend">
+							<span class="input-group-text">Área de afectación</span>
+						</div>
+						<textarea required="" id="area_afectacion" class="form-control" maxlength="2000" name="area_afectacion" aria-label="With textarea">{{old('area_afectacion',$incendio->area_afectacion)}}</textarea>
+						<input type="button" value="m2" onclick="codeAddress()">
+					</div>
+				</div>
+			</div>
+		</div> -->
+		
 		<div onload="initMap()" id="map" style="width: 100%; height: 280px;"></div>
-		<hr>
-		<div class="form-row">
-			<div class="form-group input-group col-md-4">
-				<div class="input-group-prepend">
-					<span class="input-group-text">Jefe Guardia</span>
-				</div>
-				<select required class="form-control" name="jefeguardia_id">
-					@if((count($incendio->users) === 3)&&($incendio->users->isNotEmpty())){
-					<option value="{{$incendio->users[2]->id}}" selected="{{$incendio->users[2]->id}}">{{$incendio->users[2]->name}}</option>
-					@else{
-					<option value="">{{old('jefeguardia_id')}}</option>
-					}@endif
-					@foreach($bomberos as $bombero)
-					<option value="{{$bombero->id}}">{{$bombero->name}}</option>
-					@endforeach
-				</select>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="0.1" d="M0,224L48,192C96,160,192,96,288,106.7C384,117,480,203,576,208C672,213,768,139,864,128C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,224L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z" style="--darkreader-inline-fill: #3d86b6;" data-darkreader-inline-fill=""></path></svg>
+		
+		<div class="card"><!-- Div Personal en Emergencia -->
+			<div class="card-header">
+				{!! trans('messages.staff in the emergency') !!}
 			</div>
-			<div class="form-group input-group col-md-4">
-				<div class="input-group-prepend">
-					<span class="input-group-text">Bombero</span>
+			<div class="card-body">
+				
+				<div class="form-row">
+					<div class="form-group input-group col-lg-12 col-md-12 col-sm-12 col.xs-12 mr-4">
+						<div class="input-group-prepend">
+							<span class="input-group-text">Bombero</span>
+						</div>
+						<select class="selectpicker form-control" data-live-search="true" id="pbombero_id" name="bombero_id">
+							<option selected >{{old('bombero_id')}}</option>
+							@foreach($usuarios as $user)
+							
+							<option value="{{$user->id}}">{{$user->name}}</option>
+							@endforeach
+						</select>	
+					</div>
+					<button type="button" id="bt_addperson" class="btn btn-primary btn-block ml-4 mr-4 mb-4">{!! trans('messages.add') !!}</button>
 				</div>
-				<select required class="form-control" name="bombero_id">
-					@if((count($incendio->users) === 3)&&($incendio->users->isNotEmpty())){
-					<option value="{{$incendio->users[1]->id}}" selected="{{$incendio->users[1]->id}}">{{$incendio->users[1]->name}}</option>
-					@else{
-					<option value="">{{old('bombero_id')}}</option>
-					}@endif
-					@foreach($bomberos as $bombero)
-					<option value="{{$bombero->id}}">{{$bombero->name}}</option>
-					@endforeach
-				</select>
-			</div>
-			<div class="form-group input-group col-md-4">
-				<div class="input-group-prepend">
-					<span class="input-group-text">Conductor</span>
-				</div>
-				<select required class="form-control" name="conductor_id">
-					@if((count($incendio->users) === 3 )&&($incendio->users->isNotEmpty())){
-					<option value="{{$incendio->users[0]->id}}" selected="{{$incendio->users[0]->id}}">{{$incendio->users[0]->name}}</option>
-					@else{
-					<option value="">{{old('conductor_id')}}</option>
-					}@endif
-					@foreach($maquinistas as $maquinista)
-					<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>
-					@endforeach
-				</select>
+				<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<input id="nropersonas" type="hidden" value="{{$nropersonas}}"># Pers{{$cont = 0}}nas:. {{$nropersonas}}
+							<table id="persontable" class="table table-hover">
+							
+								<thead>
+										<td>Eliminar</td>
+										<td>id</td>
+										<td>Nombres_Completos</td>
+									</thead>
+									
+									
+										
+										@foreach($incendio->users as $users)
+										<tr id="filabomber{{$cont = $cont + 1}}">
+											
+											<td><button type="button" class="btn btn-warning" onclick="eliminarbomberman('{{$cont}}')" type="button">X</button></td>
+											<td for="id"><input type="hidden" class="form-control" id="bomberman_id[]" name="bomberman_id[]" value="{{$users->id}}">{{$users->id}}</td>
+											<td><input type="hidden" class="form-control" id="bomberman_name[]" name="bomberman_name[]" value="{{$users->name}}">{{$users->name}}</td>
+										</tr>
+										
+										@endforeach
+								</table>
+							</div>
+					</div>
+				 
 			</div>
 		</div>
-		<!--Div Personal que asiste Evento-->
-		<div class="form-row">
+		<hr>
+		
+		
+		
+		<div class="form-row"><!--Div Horas Evento-->
 			<div class="form-group  input-group col-md-6">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Salida A Emergencia</span>
 				</div>
 				<input required type="text" class="form-control" name="hora_salida_a_emergencia" id="hora_salida_a_emergencia" value="{{old('hora_salida_a_emergencia',$incendio->hora_salida_a_emergencia)}}" placeholder="hh:mm:ss">
+				<div class="input-group-append">
+					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual" id="horactual"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+				</div>
 			</div>
 			<div class="form-group  input-group col-md-6">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Llegada A Emergencia</span>
 				</div>
 				<input required type="text" class="form-control" name="hora_llegada_a_emergencia" id="hora_llegada_a_emergencia" placeholder="hh:mm:ss" value="{{old('hora_llegada_a_emergencia',$incendio->hora_llegada_a_emergencia)}}">
+				<div class="input-group-append">
+					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual1" id="horactual1"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+				</div>
 			</div>
 		</div>
-		<!--Div Horas Evento-->
-		<div class="form-row">
+		
+		<div class="form-row"><!--Div Horas Evento-->
 			<div class="form-group  input-group col-md-6">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora Fin Emergencia</span>
 				</div>
 				<input required type="text" class="form-control" name="hora_fin_emergencia" id="hora_fin_emergencia" placeholder="hh:mm:ss" value="{{old('hora_fin_emergencia',$incendio->hora_fin_emergencia)}}">
+				<div class="input-group-append">
+					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual2" id="horactual2"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+				</div>
 			</div>
 			<div class="form-group  input-group col-md-6">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDetalle">Hora En Base</span>
 				</div>
 				<input required type="text" class="form-control" name="hora_en_base" id="hora_en_base" placeholder="hh:mm:ss" value="{{old('hora_en_base',$incendio->hora_en_base)}}">
+				<div class="input-group-append">
+					<button type="button" title="Captura Hora Actual" class="btn-outline-info" name="horactual3" id="horactual3"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+				</div>
 			</div>
 		</div>
-		<!--Div Horas Evento-->
-		<!--Detalle Emergencia-->
-		<div class="form-row">
+		
+		
+		<div class="form-row"><!--Detalle Emergencia-->
 			<div class="form-group input-group  col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Detalle Emergencia</span>
@@ -216,16 +276,17 @@
 
 			</div>
 		</div>
-		<!--Usuario Afectado-->
-		<div class="form-row">
+		
+		<div class="form-row"><!--Usuario Afectado-->
 			<div class="form-group input-group  col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Ciud. Afectado</span>
 				</div>
-				<input required onkeyup="mayus(this);" type="text" class="form-control" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado',$incendio->usuario_afectado)}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia">
+				<input required type="text" class="form-control" name="usuario_afectado" id="usuario_afectado" value="{{old('usuario_afectado',$incendio->usuario_afectado)}}" placeholder="Digite Nombre Completo ciudadano afectado en la Emergencia">
 			</div>
 		</div>
-		<div class="form-row">
+		
+		<div class="form-row"><!-- Daños Estimados -->
 			<div class="form-group input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDaños">Daños Estimados</span>
@@ -234,87 +295,124 @@
 			</div>
 		</div>
 
-		<!-- Vehiculos asisten emergencia -->
-		<hr>
-		<div class="card">
-			<div class="card-header text-white bg-primary">Vehiculos en la Emergencia</div>
+		<div class="card"><!-- Ingreso Vehiculos Detalle -->
+			<div class="card-header">
+				{!! trans('messages.Vehicles in the Emergency') !!}
+			</div>
 			<div class="card-body">
-				<div class="row">
-					<div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
+				<div class="row d-flex">
+					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 						<div class="form-group input-group">
 							<div class="input-group-prepend">
-								<span class="input-group-text">Vehìculo</span>
+								<span class="input-group-text">{!! trans('messages.Vehicles') !!}</span>
 							</div>
-							<select class="form-control selectpicker" name="vehiculo_id" id="pvehiculo_id" data-live-search="true">
-								<option selected>Elija...</option>
+							<select class="selectpicker form-control" data-live-search="true"  name="pvehiculo_id" id="pvehiculo_id">
+								<option selected></option>
 								@foreach($vehiculos as $vehiculo)
-								<option>{{$vehiculo->codigodis}}</option>
+								<option value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</option>
 								@endforeach
 							</select>
 						</div>
 					</div>
-					<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+							<div class="form-group  input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="inputDetalle">Conductor</span>
+								</div>
+								<select class="form-control" name="pconductor_id" id="pconductor_id">
+									@foreach($maquinistas as $maquinista)
+									<option value="{{$maquinista->id}}">{{$maquinista->name}}</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
+					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
 						<div class="form-group  input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text">Km.Salida</span>
 							</div>
-							<input type="number" class="form-control" value="{{old('ikm_salida')}}" name="ikm_salida" id="pkm_salida" placeholder="Digite Valor">
+							<input type="number" class="form-control" name="km_salida" id="pkm_salida" placeholder="Digite Valor">
 						</div>
 					</div>
-					<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
 						<div class="form-group  input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="inputDetalle">Km.Llegada</span>
 							</div>
-							<input type="number" class="form-control" id="pkm_llegada" name="ikm_llegada" value="{{old('ikm_llegada')}}" placeholder="Digite Valor">
+							<input type="number" class="form-control" id="pkm_llegada" name="km_llegada" placeholder="Digite Valor">
 						</div>
 					</div>
-					<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2">
-						<button type="button" id="bt_add" class="btn btn-primary">Agregar</button>
+					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mb-2 ">
+						<button type="button" id="bt_add" class="btn btn-primary btn-block">{!! trans('messages.add') !!}</button>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-						<table id="detalles" class="table table-striped table bordered table condensed table-hover">
-							<thead style="background-color: #A9D0F5 ">
-								<th>Opciones</th>
-								<th>Vehiculo</th>
-								<th>Km.Salida</th>
-								<th>Km.Llegada</th>
-							</thead>
-							<tfoot></tfoot>
-							@foreach($incendio->vehiculos as $vehiculo)
-							<tr class="selected" id="fila{{count($incendio->vehiculos)}}">
-								<td><button type="button" class="btn btn-warning" onclick="eliminar1('{{count($incendio->vehiculos)}}')" type="button">X</button></td>
-								<td><input type="hidden" name="vehiculo_id[]" value="{{$vehiculo->id}}">{{$vehiculo->codigodis}}</td>
-								<td><input type="number" name="km_salida[]" value="{{$vehiculo->pivot->km_salida}}">{{$vehiculo->pivot->km_salida}}</td>
-								<td><input type="number" name="km_llegada[]" value="{{$vehiculo->pivot->km_llegada}}">{{$vehiculo->pivot->km_llegada}}</td>
-							</tr>
-							<tbody></tbody>
-							@endforeach
-						</table>
-					</div>
-				</div>
+				<div class="row d-flex ">
+						<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+							<table id="detalles" class="table table-hover">
+								<thead style="background-color: #A9D0F5 ">
+									<th>Opciones</th>
+									<th>Vehiculo</th>
+									<th>Km.Salida</th>
+									<th>Km.Llegada</th>
+									<th>Conductor</th>
+								</thead>
+								<tbody>
+									{{$cont = 0}}
+									@foreach($incendio->vehiculos as $items)
+									{{$cont = $cont + 1}}
+									<tr id="fila{{$cont}}">
+									<td><button type="button" class="btn btn-warning" onclick="eliminar('{{$cont}}')" type="button">X</button></td>
+									<td><input type="hidden" class="form-control" name="vehiculo_id[]" value="{{$items->id}}">{{$items->codigodis}}</td>
+									<td><input type="number" class="form-control" name="km_salida[]" value="{{$items->pivot->km_salida}}"></td>
+									<td><input type="number" class="form-control" name="km_llegada[]" value="{{$items->pivot->km_llegada}}"></td>
+									<td><input type="text" class="form-control" name="driver_id[]" value="{{$items->pivot->driver_id}}"></td>
+									</tr>
+									
+									@endforeach
+								</tbody>
+								
+							</table>
+						</div>
+				 </div>
 			</div>
 		</div>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 200"><path fill="#f3f4f5" fill-opacity="1" d="M0,128L60,122.7C120,117,240,107,360,96C480,85,600,75,720,96C840,117,960,171,1080,186.7C1200,203,1320,181,1380,170.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+		
 		<hr>
-
-		<div class="form-group py-3 " id="divguardar">
+	
+		<div class="form-group py-3 " id="divguardar"><!-- Botones  -->
 			<input type="hidden" name="token" value="{{csrf_token()}}">
-			<ul class="nav justify-content-end">
+			<div class="row nav justify-content-end">
 				<li class="nav-item">
-					<button type="submit" id="Enviar" name="Enviar" value="Enviar" data-toggle="tooltip" title="Grabar" class="btn btn-outline-success"><i class="icon-ok icon-2x"></i></button>
-					<a class="btn btn-outline-info" data-toggle="tooltip" title="Cancel" role="button" href="{{ route('fuego.index')}}"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i>
-					</a>
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span title="Grabar" class="input-group-text"><i class="fas fa-check"></i></span>
+						</div>						
+						<button type="submit" id="Enviar" name="Enviar" value="Enviar" data-toggle="tooltip" title="Grabar"  class="btn btn-outline-success">{!! trans('messages.to register') !!}</button>
+						<div class="input-group-prepend">
+							<span title="Regresar" class="input-group-text"><i class="fas fa-arrow-left"></i></span>
+						</div>
+						<a class="btn btn-outline-secondary" data-toggle="tooltip" title="Regresar" role="button" href="{{ route('fuego.index')}}">Regresar</a>
+						
+					</div>				
 				</li>
-			</ul>
-		</div>{{-- Botones --}}
+			</div>
+			
+		</div>
 	</form>
-	<form method="post" action="/fuego/{{$incendio->id}}">
+	<form method="post" action="/fuego/{{$incendio->id}}"><!-- Form Borra registro -->
 		{{csrf_field()}}
 		<input type="hidden" name="_method" value="DELETE">
-
-		<button type="button" class="btn btn-outline-danger" data-toggle="modal" title="Eliminar" data-target="#exampleModal"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
+		<ul class="nav justify-content-end">
+			<li class="nav-item">	
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span title="Eliminar" class="input-group-text"><i class="fa fa-trash" aria-hidden="true"></i></span>
+					</div>
+					<button type="button" class="btn btn-outline-danger" data-toggle="modal" title="Eliminar" data-target="#exampleModal">Eliminar</button>
+				</div>
+			</li>
+		</ul>
 		<!-- Modal -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -337,109 +435,65 @@
 		</div>
 	</form>
 	@push ('scripts')
-	<!-- Script para almacenar vehiculos asisten-->
+
+	<!-- Script para la validacion de campos -->
 	<script>
-		$(document).ready(function() {
-			$("#divguardar").show();
-			$("#Enviar").show();
-			$("#bt_add").click(function() {
-				agregar();
-			});
-			$("#bt_addpaciente").click(function() {
-				agregarpaciente();
-			});
+		document.addEventListener('DOMContentLoaded', () => {
+		const selectIncidente = document.getElementById('incidente_id');
+		const campoOculto = document.getElementById('area_afectacion').closest('.form-row');
+		const areaAfectacion = document.getElementById('area_afectacion');
 
-			var max_chars = 2000;
-			var max_chars1 = 3000;
-			$('#max').html(max_chars);
+		selectIncidente.addEventListener('change', () => {
+			const selectedValue = selectIncidente.value;
 
-			$("#pinformacion_inicial").keyup(function() {
-				var chars = $("#pinformacion_inicial").val().length;
-				var diff = max_chars - chars;
-				var leyenda = "Caracteres Permitidos 2000 - Digitados: ";
-				var res = leyenda.concat(chars);
-				$("#pcounter").html(res);
-				if (chars > 2000) {
-					$("#pinformacion_inicial").addClass('error');
-					$("#pinformacion_inicial").addClass('error');
-				} else {
-					$("#pinformacion_inicial").removeClass('error');
-					$("#pinformacion_inicial").removeClass('error');
-				}
-			});
-			$("#detalle_emergencia").keyup(function() {
-				var chars = $("#detalle_emergencia").val().length;
-				var diff = max_chars1 - chars;
-				var leyenda = "Caracteres Permitidos 3000 - Digitados: ";
-				var res = leyenda.concat(chars);
-				$("#pcounter1").html(res);
-				if (chars > 3000) {
-					$("#detalle_emergencia").addClass('error');
-					$("#detalle_emergencia").addClass('error');
-				} else {
-					$("#detalle_emergencia").removeClass('error');
-					$("#detalle_emergencia").removeClass('error');
-				}
-			});
-
-		});
-
-		//total=0;
-		var cont = 0;
-		var jqkm_salida = 0;
-		var jqkm_llegada = 0;
-		subtotal = [];
-		/*$("#Enviar").hide();*/
-
-
-		function agregar() {
-			jqkm_salida = $("#pkm_salida").val();
-			jqkm_llegada = $("#pkm_llegada").val();
-			jqvehiculo = $("#pvehiculo_id").val();
-			jqvehiculo_id = $("#pvehiculo_id option.selected").text();
-			if (jqkm_salida != "" && jqkm_salida >= 0 && jqkm_llegada != "" && jqkm_llegada >= 0 && jqvehiculo != "") {
-				//total = total + subtotal[cont];
-				var fila = '<tr class = "selected" id="fila' + cont + '"><td><button type="button" class="btn btn-warning" onclick="eliminar1(' + cont + ')" type="button">X</button></td><td><input type="hidden" name="vehiculo_id[]" value="' + jqvehiculo + '">' + jqvehiculo + '</td><td><input type="number"  name="km_salida[]" value="' + jqkm_salida + '"></td><td><input type="number"  name="km_llegada[]" value="' + jqkm_llegada + '"></td></tr>';
-				cont++;
-				limpiar();
-				evaluar();
-				$('#detalles').append(fila);
-
+			// Mostrar el campo si se selecciona un incidente específico (por ejemplo, con ID 1)
+			if (['16', '29', '30'].includes(selectedValue)) {
+				campoOculto.style.display = 'block';
+				areaAfectacion.setAttribute('required', 'required');
 			} else {
-				alert("Error al ingresar el detalle de vehiculos,revise los datos!!!");
+				campoOculto.style.display = 'none';
 			}
-		}
-
-		function limpiar() {
-			$("#pkm_salida").val("");
-			$("#pkm_llegada").val("");
-		}
-
-		function evaluar() {
-			$("#divguardar").show();
-			$("#Enviar").show();
-
-		}
-
-		function eliminar1(index) {
-			//total = total - subtotal[index];
-			$("#fila" + index).remove();
-			evaluar();
-		}
-
-		function mayus(e) {
-			e.value = e.value.toUpperCase();
-		}
+		});
+		});
 	</script>
+
+	<!-- <script>
+		document.addEventListener('DOMContentLoaded', () => {
+			const selectIncidente = document.getElementById('incidente_id');
+			const campoOculto = document.getElementById('area_afectacion_container');
+			const areaAfectacion = document.getElementById('area_afectacion');
+
+			// Función para verificar y ajustar la visibilidad del campo
+			const verificarVisibilidad = () => {
+				const selectedValue = selectIncidente.value;
+
+				// Mostrar el campo si el valor seleccionado coincide con los IDs específicos
+				if (['16', '29', '30'].includes(selectedValue)) {
+					campoOculto.style.display = 'block';
+					areaAfectacion.setAttribute('required', 'required');
+				} else {
+					campoOculto.style.display = 'none';
+					areaAfectacion.removeAttribute('required');
+				}
+			};
+
+			// Ejecutar la verificación inicial al cargar la página
+			verificarVisibilidad();
+
+			// Escuchar cambios en el select para ajustar la visibilidad dinámicamente
+			selectIncidente.addEventListener('change', verificarVisibilidad);
+		});
+	</script> -->
+
+	<script src="/js/funciones.js"></script>
+	<!-- Geolocalizacion  for all pages -->
+	<script src="/js/geocoder.js"></script>
+	<!-- Script para almacenar vehiculos asisten-->
+
 	@endpush
 	@endsection
 
 	@section( "piepagina" )
-	@if(count($errors)>0) @foreach($errors->all() as $error)
-	<div class="alert alert-danger" role="alert">
-		{{$error}}
-	</div>
-	@endforeach
-	@endif
+	
 
 	@endsection

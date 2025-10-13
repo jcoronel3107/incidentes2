@@ -17,21 +17,19 @@ class IncidenteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(){
+    /* public function __construct(){
         $this->middleware('auth');
 
-    }
+    } */
     public function index(Request $request)
     {
-        //
         if($request)
         {
           $query = trim($request->get('searchText'));
-        //
-        $incidentes = Incidente::where("nombre_incidente",'LIKE','%'.$query.'%')
+          $incidentes = Incidente::where("nombre_incidente",'LIKE','%'.$query.'%')
           ->OrderBy('tipo_incidente','asc')
           ->paginate(10);
-          return view( "/incidente.index", compact( "incidentes","query" ) );
+          return view( "incidente.index", compact( "incidentes","query" ) );
         }
 
 
@@ -45,13 +43,9 @@ class IncidenteController extends Controller
      */
     public function create()
     {
-        //
-		if ( Auth::check() ) {
-			return view( "/incidente.crear" );
-		} else {
-			return view( "/auth.login" );
-		}
-
+       
+			return view( "incidente.crear" );
+		
     }
 
     /**
@@ -62,18 +56,15 @@ class IncidenteController extends Controller
      */
     public function store(CreateIncidenteRequest $request)
     {
-        //
-		if ( Auth::check() ) {
+        
 			$validated = $request->validated();
 			$incidente = new Incidente;
 			$incidente->tipo_incidente = $request->tipo_incidente;
 			$incidente->nombre_incidente = $request->nombre_incidente;
 			$incidente->save();
 			Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
-			return redirect( "/incidente" );
-		} else {
-			return view( "/auth.login" );
-		}
+			return redirect( "incidente" );
+		
     }
 
     /**
@@ -97,13 +88,10 @@ class IncidenteController extends Controller
      */
     public function edit($id)
     {
-        //
-		if ( Auth::check() ) {
+        
 			$incidente = Incidente::findOrFail( $id );
 			return view( "incidente.edit", compact( "incidente" ) );
-		} else {
-			return view( "/auth.login" );
-		}
+		
     }
 
     /**
@@ -115,15 +103,12 @@ class IncidenteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-		if ( Auth::check() ) {
+        
 			$incidente = Incidente::findOrFail( $id );
 			$incidente->update( $request->all() );
 			Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
-			return redirect( "/incidente" );
-		} else {
-			return view( "/auth.login" );
-		}
+			return redirect( "incidente" );
+		
     }
 
     /**
@@ -134,15 +119,12 @@ class IncidenteController extends Controller
      */
     public function destroy($id)
     {
-        //
-		if ( Auth::check() ) {
+        
 			$incidente = Incidente::findOrFail( $id );
 			$incidente->delete();
 			Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
-			return redirect( "/incidente" );
-		} else {
-			return view( "/auth.login" );
-		}
+			return redirect( "incidente" );
+		
     }
 
 	public function export()

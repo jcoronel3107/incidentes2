@@ -46,8 +46,8 @@
 
 		<ul class="nav justify-content-end">
 		  <li class="nav-item">
-		      <a class="btn btn-outline-danger" href="estacion/create">Nuevo</a>
-		      <a class="btn btn-outline-success" href="stations/export/">Exporta Excel</a>
+		      <a class="btn btn-outline-danger" href="estacion/create">{!! trans('messages.new') !!}</a>
+		      <a class="btn btn-outline-success" href="stations/export/">{!! trans('messages.export') !!}</a>
 		    </li>
 		</ul>
 <hr style="border:2px;">

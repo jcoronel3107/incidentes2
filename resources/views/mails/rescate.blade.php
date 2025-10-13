@@ -27,14 +27,14 @@
 					<p class=" text-info">{{$rescate->station_id}}</p>
 			<hr>
 
-					<span class="bg-gray font-weight-bold">Fecha:</span>
+					<span class="bg-gray font-weight-bold">{!! trans('messages.Date') !!}:</span>
 					<p class="text-info">{{$rescate->fecha}}</p>
 					<span class="bg-gray font-weight-bold">Ficha_Ecu911:</span>
 					<p class="text-info">{{$rescate->ficha_ecu911}}</p>
 					<span class="bg-gray font-weight-bold">Hora_FichaEcu911:</span>
 					<p class="text-info">{{$rescate->hora_fichaecu911}}</p>
 			<hr>
-					<span class="bg-gray font-weight-bold">Dirección:</span>
+					<span class="bg-gray font-weight-bold">{!! trans('messages.Address') !!}:</span>
 					 <p class="text-info">{{$rescate->direccion}}</p>
 					<span class="bg-gray font-weight-bold">Parroquia: </span>
 					<p class="text-info">{{$rescate->parroquia->nombre}}</p><br/>

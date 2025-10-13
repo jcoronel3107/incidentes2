@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Exports\TransitosExport;
 use App\Imports\TransitosImport;
-use PDF;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -29,23 +29,24 @@ class TransitoController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct(){
-        $this->middleware('auth');
-
-    }
-
+  
     public function index(Request $request)
     {
         //
         if($request)
         {
-          $query = trim($request->get('searchText'));
-            $estacion_id = trim($request->get('estacion_id'));
-          $transitos = Transito::where("direccion",'LIKE','%'.$query.'%')
-           /* ->where("station_id", "==", $estacion_id) */
-          ->OrderBy('fecha','desc')
-          ->paginate(15);
-              return view( "/transito.index", compact( "transitos","query"));
+          $busq_direccion = trim($request->get('busq_direccion'));
+            $busq_estacion = trim($request->get('busq_estacion'));
+            $busq_fecha = trim($request->get('busq_fecha'));
+            $busq_usuarioafectado = trim($request->get('busq_usuarioafectado'));
+          $transitos = Transito::OrderBy('id','desc')
+          ->where("direccion",'LIKE','%'.$busq_direccion.'%')
+          ->where("station_id",'LIKE','%'.$busq_estacion.'%')
+          ->where("fecha",'LIKE','%'.$busq_fecha.'%')
+          ->where("usuario_afectado",'LIKE','%'.$busq_usuarioafectado.'%')
+          ->paginate(10);
+              
+              return view( "transito.index", compact( "transitos","busq_direccion","busq_estacion","busq_fecha","busq_usuarioafectado" ) );
         }
     }
 
@@ -59,9 +60,9 @@ class TransitoController extends Controller
         $now = Carbon::now();
         $estaciones = Station::all();
         $parroquias = Parroquia::all();
-        $vehiculos = Vehiculo::orderBy('codigodis')->get();
-        $bomberos = DB::table('users')->where([
-          ['cargo','=','Bombero'],
+        $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
+        $users = DB::table('users')->where([
+          ['cargo','=','Bombero']
         ])
         ->orWhere('cargo','=','Paramedico')
         ->orderBy("name",'asc')
@@ -73,11 +74,11 @@ class TransitoController extends Controller
             ->orderBy("nombre_incidente",'asc')
             ->get();
 
-            if ( Auth::check() ) {
-                return view( "/transito.crear", compact( "incidentes","now","estaciones","bomberos","maquinistas", "parroquias","vehiculos" ) );
-            } else {
-                return view( "/auth.login" );
-            }
+           
+         return view( "/transito.crear", compact( "incidentes","now","estaciones","users","maquinistas", "parroquias","vehiculos" ) );
+           
+         return view( "/auth.login" );
+         
     }
 
     /**
@@ -88,9 +89,6 @@ class TransitoController extends Controller
      */
     public function store(SaveTransitoRequest $request)
     {
-        if ( Auth::check() )
-       {
-          DB::begintransaction();
           try
           {
             $transito = new Transito;
@@ -113,42 +111,57 @@ class TransitoController extends Controller
             $transito->danos_estimados = $request->danos_estimados;
             $transito->usr_creador = auth()->user()->name;
             $transito->save();
-            $id = DB::table('transitos')
-              ->select(DB::raw('max(id) as id'))
-              ->first();
-            $maqui = User::findOrFail($request->conductor_id);
-            $maqui->transitos()->attach($id);
-            $jefe = User::findOrFail($request->jefeguardia_id);
-            $jefe->transitos()->attach($id);
-            $bomb = User::findOrFail($request->bombero_id);
-            $bomb->transitos()->attach($id);
-
-            //para almacenar kilimetrajes por vehiculos asistentes al evento
-            $cont=0;
-            $nombrevehiculo = $request->get('vehiculo_id');
-            $kmsalidavehiculo = $request->get('km_salida');
-            $kmllegadavehiculo = $request->get('km_llegada');
-            while ($cont < count($nombrevehiculo)) {
-                $vehiculo_id = DB::table('vehiculos')
-                  ->where('codigodis',$nombrevehiculo[$cont])
+              $id = DB::table('transitos')
+                  ->select(DB::raw('max(id) as id'))
                   ->value('id');
-                $carro = vehiculo::findOrFail($vehiculo_id);
-                $carro->transitos()->attach(
-                  $id , [
-                    'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
-                $cont=$cont+1;
-            }
-            Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
-            return redirect( "/transito" );
+              
+              /*
+                Sentencias para guardar Los personal que asisten al incidente
+                */  
+                
+                $cont=0;
+                $nombresstaff = $request->get('bomberman_id');
+                
+                while ($cont < count($nombresstaff)) {
+                    $maqui = User::findOrFail($nombresstaff[$cont]);
+                    $maqui->transitos()->attach($id);
+                    $cont+=1;
+                }
+            
+                /*
+                Sentencias para guardar Los vehiculos que asisten al incidente
+                */
+
+                $cont=0;
+             
+                $nombrevehiculo = $request->get('vehiculo_id');
+                $kmsalidavehiculo = $request->get('km_salida');
+                $kmllegadavehiculo = $request->get('km_llegada');
+                $driver_id= $request->get('driver_id');
+                  
+
+                while ($cont < count($nombrevehiculo)) {
+                  
+                  $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);
+                  
+                  $carro->transitos()->attach(
+                        $id, [
+                          'km_salida' => $kmsalidavehiculo[$cont],
+                          'km_llegada' => $kmllegadavehiculo[$cont],
+                          'driver_id' => $driver_id[$cont]
+                        ]
+                      );
+                        $cont+=1;
+                }              
+              Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
+              return redirect( "transito" );
           }
           catch(\Exception $e)
           {
-              DB::rollback();
               dd($e);
+             
           }
-        } else {
-            return view( "/auth.login" );
-        }
+        
     }
 
     /**
@@ -171,31 +184,30 @@ class TransitoController extends Controller
      */
     public function edit($id)
     {
-        if ( Auth::check() ) {
+      
             $conductor_id = DB::table('users')
             ->where('id', $id)
             ->value('name');
-            $bombero_id = DB::table('users')
-            ->where('id', $id)
-            ->value('name');
             $transito = Transito::findOrFail( $id );
-            $vehiculos = Vehiculo::all();
-            $bomberos=User::where('cargo','bombero')
+            $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
+            $usuarios = DB::table('users')->where([
+              ['cargo','=','Bombero'],
+            ])
+            ->orWhere('cargo','=','Paramedico')
             ->orderBy("name",'asc')
             ->get();
             $maquinistas=User::where('cargo','Maquinista')
             ->orderBy("name",'asc')
             ->get();
-            $incidentes = Incidente::where("tipo_incidente","10_33")
+            $incidentes = Incidente::where("tipo_incidente","10_42")
             ->orderBy("nombre_incidente",'asc')
             ->get();
+            $nropersonas = count($transito->users);
             $estaciones = Station::all();
             $parroquias = Parroquia::all();
 
-            return view( "transito.edit", compact("transito","vehiculos","bomberos","maquinistas","incidentes","estaciones","parroquias"));
-        } else {
-            return view( "/auth.login" );
-        }
+            return view( "transito.edit", compact("nropersonas","transito","vehiculos","usuarios","maquinistas","incidentes","estaciones","parroquias"));
+    
     }
 
     /**
@@ -207,8 +219,8 @@ class TransitoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if ( Auth::check() ) {
-          DB::begintransaction();
+       
+         
           try
           {
                 $transito = Transito::findOrFail( $id );
@@ -231,39 +243,51 @@ class TransitoController extends Controller
                                 'usuario_afectado' => $request->usuario_afectado,
                                 'danos_estimados' => $request->danos_estimados,
                                 'usr_editor' => auth()->user()->name ]);
-                $transito->users()->detach();
-                $jefeguardia = User::findOrFail($request->jefeguardia_id);
-                $jefeguardia->transitos()->attach($id);
-           
-                $bombero = User::findOrFail($request->bombero_id);
-                $bombero->transitos()->attach($id);
-
-                $maqui = User::findOrFail($request->conductor_id);
-                $maqui->transitos()->attach($id);
-                $cont=0;
-                $nombrevehiculo = $request->get('vehiculo_id');
-                $kmsalidavehiculo = $request->get('km_salida');
-                $kmllegadavehiculo = $request->get('km_llegada');
-                $transito->vehiculos()->detach();
-                 while ($cont < count($nombrevehiculo)) {
-                
-                $carro = Vehiculo::findOrFail($nombrevehiculo[$cont]);
-                $carro->transitos()->attach(
-                  $id , [
-                    'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
-                $cont=$cont+1;
-                }
-                Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
-                return redirect( "/transito" );
-          }
-          catch(\Exception $e)
-          {
-              DB::rollback();
-              dd($e);
-          }
-        } else {
-            return view( "/auth.login" );
-        }
+                                $transito->users()->detach();
+                                $transito->vehiculos()->detach();
+                                /*
+                                    Sentencias para guardar Los personal que asisten al incidente
+                                */
+                                $cont=0;
+                                $nombresstaff = $request->get('bomberman_id');   
+                                
+                                while ($cont < count($nombresstaff)) {
+                                        $bombero = User::findOrFail($nombresstaff[$cont]);
+                                     
+                                        $bombero->transitos()->attach($id);
+                                        $cont=$cont+1;
+                                }
+                               
+                                /*
+                                    Sentencias para guardar Los vehiculos que asisten al incidente
+                                */
+                                $cont=0;
+                                $nombrevehiculo = $request->get('vehiculo_id');
+                                $kmsalidavehiculo = $request->get('km_salida');
+                                $kmllegadavehiculo = $request->get('km_llegada');
+                                $driver_id= $request->get('driver_id');
+                                
+                                while ($cont < count($nombrevehiculo)) {
+                                       
+                                      $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);
+                                      // $maqui = User::findOrFail($driver_id[$cont]);
+                                      
+                                      $carro->transitos()->attach(
+                                          $id , [
+                                            'km_salida' => $kmsalidavehiculo[$cont],
+                                            'km_llegada' => $kmllegadavehiculo[$cont],
+                                            'driver_id' => $driver_id[$cont]]);
+                                      $cont=$cont+1;
+                                }
+                    
+                                Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
+                                return redirect( "transito" );
+                              }
+                              catch(\Exception $e)
+                              {
+                                 dd($e);
+                                
+                              }
     }
 
     /**
@@ -274,14 +298,12 @@ class TransitoController extends Controller
      */
     public function destroy($id)
     {
-        if ( Auth::check() ) {
+       
             $transito = Transito::findOrFail( $id );
             $transito->delete();
             Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
             return redirect( "/transito" );
-        } else {
-            return view( "/auth.login" );
-        }
+      
     }
 
     public function export()
@@ -309,11 +331,12 @@ class TransitoController extends Controller
     }
 
     public function downloadPDF($id) {
-        $date = Carbon::now();
-        $date = $date->format('l jS \\of F Y ');
-        $transito = Transito::find($id);
-        $pdf = PDF::loadView('transito.pdf', compact('transito','date'));
-        return $pdf->download('transito.pdf');
+      $date = Carbon::now();
+      $date = $date->format('l jS \\of F Y ');
+      $transito = Transito::find($id);
+      $dompdf = App::make("dompdf.wrapper");
+      $dompdf->loadView('transito.pdf', compact('transito','date'));
+      return $dompdf->stream();
     }
 
     public function cargar($id)

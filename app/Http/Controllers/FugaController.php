@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Exports\FugasExport;
 use App\Imports\FugasImport;
-use PDF;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
 
 class FugaController extends Controller
@@ -28,21 +28,22 @@ class FugaController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct(){
-        $this->middleware('auth');
-    }
 
     public function index(Request $request)
     {
         if($request)
         {
-          $estacion_id = trim($request->get('estacion_id'));
-          $query = trim($request->get('searchText'));
-          $fugas = Fuga::where("direccion",'LIKE','%'.$query.'%')
-          /* ->where("station_id", "==", $estacion_id) */
-          ->OrderBy('fecha','desc')
-          ->paginate(15);
-              return view( "/fuga.index", compact( "fugas","query","estacion_id"));
+            $busq_direccion = trim($request->get('busq_direccion'));
+            $busq_estacion = trim($request->get('busq_estacion'));
+            $busq_fecha = trim($request->get('busq_fecha'));
+            $busq_usuarioafectado = trim($request->get('busq_usuarioafectado'));
+          $fugas = Fuga::OrderBy('id','desc')
+          ->where("direccion",'LIKE','%'.$busq_direccion.'%')
+          ->where("station_id",'LIKE','%'.$busq_estacion.'%')
+          ->where("fecha",'LIKE','%'.$busq_fecha.'%')
+          ->where("usuario_afectado",'LIKE','%'.$busq_usuarioafectado.'%')
+          ->paginate(10);
+          return view("fuga.index",compact( "fugas","busq_direccion","busq_estacion","busq_fecha","busq_usuarioafectado" ) );
         }
     }
 
@@ -56,7 +57,7 @@ class FugaController extends Controller
         $now = Carbon::now();
         $estaciones = Station::all();
         $parroquias = Parroquia::all();
-        $vehiculos = Vehiculo::orderBy('codigodis')->get();
+        $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
         $users = DB::table('users')->where([
           ['cargo','=','Bombero'],
         ])
@@ -70,11 +71,9 @@ class FugaController extends Controller
             ->orderBy("nombre_incidente",'asc')
             ->get();
 
-        if ( Auth::check() ) {
+        
                 return view( "/fuga.crear", compact( "incidentes","now","estaciones","users","maquinistas", "parroquias","vehiculos" ) );
-        } else {
-                return view( "/auth.login" );
-        }
+       
     }
 
     /**
@@ -85,73 +84,83 @@ class FugaController extends Controller
      */
     public function store(SaveFugaRequest $request)
     {
-        if ( Auth::check() )
-       {
-          DB::begintransaction();
-          try
-          {
-            
-            $validated = $request->validated();
-            $fuga = new Fuga;
-            
-                $fuga->incidente_id = $request->incidente_id;
-                $fuga->tipo_escena = $request->tipo_escena;
-                $fuga->station_id = $request->station_id;
-                $fuga->fecha = $request->fecha;
-                $fuga->direccion = $request->direccion;
-                $fuga->parroquia_id = $request->parroquia_id;
-                $fuga->geoposicion = $request->geoposicion;
-                $fuga->ficha_ecu911 = $request->ficha_ecu911;
-                $fuga->hora_fichaecu911 = $request->hora_fichaecu911;
-                $fuga->hora_salida_a_emergencia = $request->hora_salida_a_emergencia;
-                $fuga->hora_llegada_a_emergencia = $request->hora_llegada_a_emergencia;
-                $fuga->hora_fin_emergencia = $request->hora_fin_emergencia;
-                $fuga->hora_en_base = $request->hora_en_base;
-                $fuga->informacion_inicial = $request->informacion_inicial;
-                $fuga->detalle_emergencia = $request->detalle_emergencia;
-                $fuga->tipo_cilindro = $request->tipo_cilindro;
-                $fuga->color_cilindro = $request->color_cilindro;
-                $fuga->tipo_fallo = $request->tipo_fallo;
-                $fuga->usuario_afectado = $request->usuario_afectado;
-                $fuga->danos_estimados = $request->danos_estimados;
-                $fuga->usr_creador = auth()->user()->name;
-                $fuga->save();
+      try
+      {
+          $fuga = new Fuga;
+          $fuga->incidente_id = $request->incidente_id;
+          $fuga->tipo_escena = $request->tipo_escena;
+          $fuga->station_id = $request->station_id;
+          $fuga->fecha = $request->fecha;
+          $fuga->direccion = $request->direccion;
+          $fuga->parroquia_id = $request->parroquia_id;
+          $fuga->geoposicion = $request->geoposicion;
+          $fuga->ficha_ecu911 = $request->ficha_ecu911;
+          $fuga->hora_fichaecu911 = $request->hora_fichaecu911;
+          $fuga->hora_salida_a_emergencia = $request->hora_salida_a_emergencia;
+          $fuga->hora_llegada_a_emergencia = $request->hora_llegada_a_emergencia;
+          $fuga->hora_fin_emergencia = $request->hora_fin_emergencia;
+          $fuga->hora_en_base = $request->hora_en_base;
+          $fuga->informacion_inicial = $request->informacion_inicial;
+          $fuga->detalle_emergencia = $request->detalle_emergencia;
+          $fuga->usuario_afectado = $request->usuario_afectado;
+          $fuga->danos_estimados = $request->danos_estimados;
+          $fuga->Tipo_cilindro = $request->tipo_cilindro;
+          $fuga->Color_cilindro = $request->color_cilindro;
+          $fuga->Tipo_fallo = $request->tipo_fallo;
+          $fuga->usr_creador = auth()->user()->name;
 
-            $id = DB::table('fugas')
-                ->select(DB::raw('max(id) as id'))
-                ->first();
-            $maqui = User::findOrFail($request->conductor_id);
-            $maqui->fugas()->attach($id);
-            $jefe = User::findOrFail($request->jefeguardia_id);
-            $jefe->fugas()->attach($id);
-            $bomb = User::findOrFail($request->bombero_id);
-            $bomb->fugas()->attach($id);
-            //para almacenar kilimetrajes por vehiculos asistentes al evento
+          $fuga->save();
+
+          $id = DB::table('fugas')
+              ->select(DB::raw('max(id) as id'))
+              ->value('id');
+          /*
+            Sentencias para guardar Los personal que asisten al incidente
+            */  
+            
+            $cont=0;
+            $nombresstaff = $request->get('bomberman_id');
+            
+            while ($cont < count($nombresstaff)) {
+                $maqui = User::findOrFail($nombresstaff[$cont]);
+               
+                $maqui->fugas()->attach($id);
+                $cont+=1;
+            }
+
+            /*
+            Sentencias para guardar Los vehiculos que asisten al incidente
+            */
+
             $cont=0;
             $nombrevehiculo = $request->get('vehiculo_id');
             $kmsalidavehiculo = $request->get('km_salida');
             $kmllegadavehiculo = $request->get('km_llegada');
+            $driver_id= $request->get('driver_id');
+            
             while ($cont < count($nombrevehiculo)) {
-                $vehiculo_id = DB::table('vehiculos')
-                  ->where('codigodis',$nombrevehiculo[$cont])
-                  ->value('id');
-                $carro = vehiculo::findOrFail($vehiculo_id);
-                $carro->fugas()->attach(
+               
+              $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);
+              $maqui = User::findOrFail($driver_id[$cont]);
+              
+              $carro->fugas()->attach(
                   $id , [
-                    'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
-                $cont=$cont+1;
-              }
-              Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
-              return redirect( "/fuga" );
-          }
-          catch(\Exception $e)
-          {
-              DB::rollback();
-              //dd($e);
-          }
-        } else {
-            return view( "/auth.login" );
-        }
+                    'km_salida' => $kmsalidavehiculo[$cont],
+                    'km_llegada' => $kmllegadavehiculo[$cont],
+                    'driver_id' => $maqui->id]);
+              $cont=$cont+1;
+            }
+
+          
+          Session::flash('Registro_Almacenado',"Registro Almacenado con Exito!!!");
+          return redirect( "fuga" );
+      }
+      catch(\Exception $e)
+      {
+          dd($e);
+         
+      }
+  		
     }
 
     /**
@@ -172,29 +181,35 @@ class FugaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        if ( Auth::check() ) {
-            
-            $fuga = Fuga::findOrFail( $id );
-            $vehiculos = Vehiculo::all();
-            $bomberos=User::where('cargo','bombero')
-            ->orderBy("name",'asc')
-            ->get();
-            $maquinistas=User::where('cargo','Maquinista')
-            ->orderBy("name",'asc')
-            ->get();
-            $incidentes = Incidente::where("tipo_incidente","Fuga")
-            ->orderBy("nombre_incidente",'asc')
-            ->get();
-            $estaciones = Station::all();
-            $parroquias = Parroquia::all();
+    function edit($id) {
+       
+      $fuga = Fuga::findOrFail( $id );
+      $vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
+      
+      $maquinistas=User::where('cargo','Maquinista')
+      ->orderBy("name",'asc')
+      ->get();
+      
+      $incidentes = Incidente::where("tipo_incidente","10_33")
+      ->orderBy("nombre_incidente",'asc')
+      ->get();
+      
+      $usuarios = DB::table('users')->where([
+        ['cargo','=','Bombero'],
+      ])
+      ->orWhere('cargo','=','Paramedico')
+      ->orderBy("name",'asc')
+      ->get();
+    
+      $nropersonas = count($fuga->users);
+      $estaciones = Station::all();
+      $parroquias = Parroquia::all();
 
-            return view( "fuga.edit", compact("fuga","vehiculos","bomberos","maquinistas","incidentes","estaciones","parroquias"));
-        } else {
-            return view( "/auth.login" );
-        }
-    }
+      return view( "fuga.edit", compact("nropersonas","fuga","vehiculos","usuarios","maquinistas","incidentes","estaciones","parroquias"));
+    
+
+ 
+}
 
     /**
      * Update the specified resource in storage.
@@ -203,72 +218,81 @@ class FugaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SaveFugaRequest $request , $id)
-    {
-        if ( Auth::check() ) 
-        {
-          DB::begintransaction();
-          try
-          {
-           $fuga = Fuga::findOrFail( $id );
-           $fuga->update([
-                                'incidente_id' => $request->incidente_id,
-                                'tipo_escena' => $request->tipo_escena,
-                                'station_id' => $request->station_id,
-                                'fecha' => $request->fecha,
-                                'direccion' => $request->direccion,
-                                'parroquia_id' => $fuga->parroquia->id,
-                                'geoposicion' => $request->geoposicion,
-                                'ficha_ecu911' => $request->ficha_ecu911,
-                                'hora_fichaecu911' => $request->hora_fichaecu911,
-                                'hora_salida_a_emergencia' => $request->hora_salida_a_emergencia,
-                                'hora_llegada_a_emergencia' => $request->hora_llegada_a_emergencia,
-                                'hora_fin_emergencia' => $request->hora_fin_emergencia,
-                                'hora_en_base' => $request->hora_en_base,
-                                'informacion_inicial' => $request->informacion_inicial,
-                                'detalle_emergencia' => $request->detalle_emergencia,
-                                'tipo_cilindro'=>$request->tipo_cilindro,
-                                'color_cilindro' => $request->color_cilindro,
-                                'tipo_fallo'=> $request->tipo_fallo,
-                                'usuario_afectado' => $request->usuario_afectado,
-                                'danos_estimados' => $request->danos_estimados,
-                                'usr_editor' => auth()->user()->name ]);
-           $fuga->users()->detach();
+    function update(SaveFugaRequest $request , $id ) {
+     
           
-
-           $jefeguardia = User::findOrFail($request->jefeguardia_id);
-           $jefeguardia->fugas()->attach($id);
-           
-           $bombero = User::findOrFail($request->bombero_id);
-           $bombero->fugas()->attach($id);
-
-           $maqui = User::findOrFail($request->conductor_id);
-           $maqui->fugas()->attach($id);
-
-           $cont=0;
-            $nombrevehiculo = $request->get('vehiculo_id');
-            $kmsalidavehiculo = $request->get('km_salida');
-            $kmllegadavehiculo = $request->get('km_llegada');
-            $fuga->vehiculos()->detach();
-            while ($cont < count($nombrevehiculo)) {
-                $carro = Vehiculo::findOrFail($nombrevehiculo[$cont]);
-                $carro->fugas()->attach(
-                  $id , [
-                    'km_salida' => $kmsalidavehiculo[$cont],'km_llegada' => $kmllegadavehiculo[$cont]]);
+      try
+      {
+        $fuga = Fuga::findOrFail( $id );
+        $fuga->update([
+                            'incidente_id' => $request->incidente_id,
+                            'tipo_escena' => $request->tipo_escena,
+                            'station_id' => $request->station_id,
+                            'fecha' => $request->fecha,
+                            'direccion' => $request->direccion,
+                            'parroquia_id' => $request->parroquia_id,
+                            'geoposicion' => $request->geoposicion,
+                            'ficha_ecu911' => $request->ficha_ecu911,
+                            'hora_fichaecu911' => $request->hora_fichaecu911,
+                            'hora_salida_a_emergencia' => $request->hora_salida_a_emergencia,
+                            'hora_llegada_a_emergencia' => $request->hora_llegada_a_emergencia,
+                            'hora_fin_emergencia' => $request->hora_fin_emergencia,
+                            'hora_en_base' => $request->hora_en_base,
+                            'informacion_inicial' => $request->informacion_inicial,
+                            'detalle_emergencia' => $request->detalle_emergencia,
+                            'usuario_afectado' => $request->usuario_afectado,
+                            'danos_estimados' => $request->danos_estimados,
+                            'tipo_cilindro' => $request->tipo_cilindro,
+                            'color_cilindro' => $request->color_cilindro,
+                            'tipo_fallo' => $request->tipo_fallo,
+                            'usr_editor' => auth()->user()->name
+                         ]);
+        $fuga->users()->detach();
+        $fuga->vehiculos()->detach();
+        /*
+            Sentencias para guardar Los personal que asisten al incidente
+        */
+        $cont=0;
+        $nombresstaff = $request->get('bomberman_id');   
+        
+        while ($cont < count($nombresstaff)) {
+                $bombero = User::findOrFail($nombresstaff[$cont]);
+             
+                $bombero->fugas()->attach($id);
                 $cont=$cont+1;
-           }
-           Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
-           return redirect( "/fuga" );
-          }
-          catch(\Exception $e)
-          {
-              DB::rollback();
-              //dd($e);
-          }
-        } else {
-            return view( "/auth.login" );
         }
-    }
+       
+        /*
+            Sentencias para guardar Los vehiculos que asisten al incidente
+        */
+        $cont=0;
+        $nombrevehiculo = $request->get('vehiculo_id');
+        $kmsalidavehiculo = $request->get('km_salida');
+        $kmllegadavehiculo = $request->get('km_llegada');
+        $driver_id= $request->get('driver_id');
+        
+        while ($cont < count($nombrevehiculo)) {
+               
+              $carro = vehiculo::findOrFail($nombrevehiculo[$cont]);
+              // $maqui = User::findOrFail($driver_id[$cont]);
+              
+              $carro->fugas()->attach(
+                  $id , [
+                    'km_salida' => $kmsalidavehiculo[$cont],
+                    'km_llegada' => $kmllegadavehiculo[$cont],
+                    'driver_id' => $driver_id[$cont]]);
+              $cont=$cont+1;
+        }
+
+        Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
+        return redirect( "fuga" );
+      }
+      catch(\Exception $e)
+      {
+         dd($e);
+      }
+    
+  }
 
     /**
      * Remove the specified resource from storage.
@@ -278,14 +302,12 @@ class FugaController extends Controller
      */
     public function destroy($id)
     {
-        if ( Auth::check() ) {
+        
             $fuga = Fuga::findOrFail( $id );
             $fuga->delete();
             Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
             return redirect( "/fuga" );
-        } else {
-            return view( "/auth.login" );
-        }
+        
     }
 
     public function export()
@@ -316,9 +338,9 @@ class FugaController extends Controller
         $date = Carbon::now();
         $date = $date->format('l jS \\of F Y ');
         $fuga = Fuga::find($id);
-        $pdf = PDF::loadView('fuga.pdf', compact('fuga','date'));
-
-        return $pdf->download('fuga.pdf');
+        $dompdf = App::make("dompdf.wrapper");
+        $dompdf->loadView('fuga.pdf', compact('fuga','date'));
+        return $dompdf->stream();
     }
 
     public function cargar($id)

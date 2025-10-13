@@ -20,22 +20,22 @@
 		<h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">Consultar Información de Evento Rescate (10-33)</h2>
 		<p align="right" class="text-info text">Cuenca, {{$date}}</p>
 		<h3>Registro Nro.{{$rescate->id}}</h3>
-		<span class="bg-gray font-weight-bold">Cod_Incidente:</span>
+		<span class="bg-gray font-weight-bold">Cod Incidente:</span>
 		<p class="text-info">{{$rescate->incidente->nombre_incidente}}</p>
-		<span class="bg-gray font-weight-bold">Tipo_Escena:</span>
+		<span class="bg-gray font-weight-bold">Tipo Escena:</span>
 		<p class=" text-info">{{$rescate->tipo_escena}}</p>
-		<span class="bg-gray font-weight-bold">Cod_Estacion:</span>
+		<span class="bg-gray font-weight-bold">Cod Estación:</span>
 		<p class=" text-info">{{$rescate->station_id}}</p>
 		<hr>
 
 		<span class="bg-gray font-weight-bold">Fecha:</span>
 		<p class="text-info">{{$rescate->fecha}}</p>
-		<span class="bg-gray font-weight-bold">Ficha_Ecu911:</span>
+		<span class="bg-gray font-weight-bold">Ficha ECU-911:</span>
 		<p class="text-info">{{$rescate->ficha_ecu911}}</p>
-		<span class="bg-gray font-weight-bold">Hora_FichaEcu911:</span>
+		<span class="bg-gray font-weight-bold">Hora Ficha ECU-911:</span>
 		<p class="text-info">{{$rescate->hora_fichaecu911}}</p>
 		<hr>
-		<span class="bg-gray font-weight-bold">Dirección:</span>
+		<span class="bg-gray font-weight-bold">{!! trans('messages.Address') !!}:</span>
 		<p class="text-info">{{$rescate->direccion}}</p>
 		<span class="bg-gray font-weight-bold">Parroquia: </span>
 		<p class="text-info">{{$rescate->parroquia->nombre}}</p>
@@ -44,14 +44,14 @@
 		<hr>
 		<span class="bg-gray font-weight-bold">Hora Salida a Emergencia:</span>
 		<p class="text-info">{{$rescate->hora_salida_a_emergencia}}</p><br />
-		<span class="bg-gray font-weight-bold">Hora Llegada A Emergencia:</span>
+		<span class="bg-gray font-weight-bold">Hora Llegada a Emergencia:</span>
 		<p class="text-info">{{$rescate->hora_llegada_a_emergencia}}</p><br />
 		<hr>
 		<span class="bg-gray font-weight-bold">Hora Fin Emergencia:</span>
 		<p class="text-info">{{$rescate->hora_fin_emergencia}}</p>
 		<span class="bg-gray font-weight-bold">Hora En Base:</span>
 		<p class="text-info">{{$rescate->hora_en_base}}</p>
-		<span class="bg-gray font-weight-bold">Informacion Inicial:</span>
+		<span class="bg-gray font-weight-bold">Información Inicial:</span>
 		<p class="text-info text-wrap text-break">{{$rescate->informacion_inicial}}</p>
 		<span class="bg-gray font-weight-bold">Detalle Emergencia:</span>
 		<p class="text-info text-wrap text-break">{{$rescate->detalle_emergencia}}</p>
@@ -59,7 +59,7 @@
 		<hr>
 		<span class="bg-gray font-weight-bold">Usuario Afectado:</span>
 		<p class="text-info">{{$rescate->usuario_afectado}}</p>
-		<span class="bg-gray font-weight-bold"> Danos Estimados:</span>
+		<span class="bg-gray font-weight-bold"> Daños Estimados:</span>
 		<p class="text-info text-wrap text-break">{{$rescate->danos_estimados}}</p>
 		<hr>
 		<span class="bg-gray font-weight-bold"> Usuario Elabora:</span>
@@ -104,11 +104,12 @@
 					<thead>
 						<tr>
 							<th scope="col">#</th>
-							<th scope="col">Codigo</th>
+							<th scope="col">Código</th>
 							<th scope="col">Placa</th>
 							<th scope="col">Marca</th>
 							<th scope="col">KM.Salida</th>
 							<th scope="col">KM.Llegada</th>
+							<th scope="col">Conductor</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -120,6 +121,7 @@
 							<td>{{$vehiculo->marca}}</td>
 							<td>{{$vehiculo->pivot->km_salida}}</td>
 							<td>{{$vehiculo->pivot->km_llegada}}</td>
+							<td>{{$vehiculo->pivot->conductor->name ?? 'N/A'}}</td>
 						</tr>
 						@endforeach
 					</tbody>

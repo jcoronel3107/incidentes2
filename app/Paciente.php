@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Cie;
+use App\Salud;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -26,7 +27,8 @@ class Paciente extends Model
 			"casasalud",
 			"Frecuencia_Cardiaca",
 			"Frecuencia_Respiratoria",
-			"Glicemia"
+			"Glicemia",
+			"hojapre"
 		];
 	protected static $logFillable = true;
 
@@ -37,6 +39,6 @@ class Paciente extends Model
 
     public function cie()
     {
-        return $this->hasOne(Cie::class);
+        return $this->belongsTo(Cie::class);
     }
 }

@@ -17,14 +17,17 @@ class ClavesExport implements FromCollection, WithHeadings,ShouldAutoSize
     {
         return [
             '#',
-            'Km_salida',
-            'Km_gasolinera',
-            'Km_llegada',
-            'Dolares',
+            'Fecha Creación',
+            'Km Salida',
+            'Km Gasolinera',
+            'Km Llegada',
+            'Dólares',
             'Galones',
             'Combustible',
-            'Razonsocial',
-            'Vehiculo',
+            'Nro Orden',
+            'Factura',
+            'Razon Social',
+            'Vehículo',
             'Conductor',
         ];
     }
@@ -35,7 +38,7 @@ class ClavesExport implements FromCollection, WithHeadings,ShouldAutoSize
         ->join('vehiculos','vehiculos.id','=','claves.vehiculo_id')
         ->join('users','users.id','=','claves.user_id')
         ->join('gasolineras','gasolineras.id','=','claves.gasolinera_id')
-        ->select('claves.id','claves.km_salida','claves.km_gasolinera','claves.km_llegada','claves.dolares','claves.galones','claves.combustible','gasolineras.razonsocial','vehiculos.codigodis','users.name')
+        ->select('claves.id','claves.created_at','claves.km_salida','claves.km_gasolinera','claves.km_llegada','claves.dolares','claves.galones','claves.combustible','claves.orden','claves.factura','gasolineras.razonsocial','vehiculos.codigodis','users.name')
         ->get();
     }
 

@@ -7,18 +7,12 @@ use App\Inundacion;
 use App\Derrame;
 use App\Clave;
 use App\Rescate;
-use App\Incidente;
-use App\Station;
-use App\User;
 use App\Fuga;
 use App\Incendio;
 use App\Transito;
 use App\Salud;
-use App\Parroquia;
-use App\Vehiculo;
 use App\Servicio;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Mail\ReportSentInundacions;
 use App\Mail\ReportSentRescate;
@@ -29,19 +23,18 @@ use App\Mail\ReportSentGas;
 use App\Mail\ReportSentClave;
 use App\Mail\ReportSentDerrame;
 use App\Mail\ReportSentServicio;
-
+use App\Mail\ReportSentPrevencion;
+use App\Movilizacion;
 
 class MailController extends Controller
 {
-	public function __construct(){
-		$this->middleware('auth');
-
-	}
+	
 
     public function SendMailsInundacion($id,Request $request){
-        /*$destinatario = auth()->user()->email;*/
+        
         $destinatario = $request->email;
         $data = Inundacion::findOrFail($id);
+        
         Mail::to($destinatario)->send(new ReportSentInundacions($data));
         Session::flash('Envio Mail Correcto',"Reporte Enviado con Exito!!!");
        	return redirect( "/inundacion" );
@@ -112,10 +105,18 @@ class MailController extends Controller
 
     public function SendMailsServicio($id,Request $request){
         $destinatario = $request->email;
-        /*$destinatario = auth()->user()->email;*/
         $data = Servicio::findOrFail($id);
         Mail::to($destinatario)->send(new ReportSentServicio($data));
         Session::flash('Envio Mail Correcto',"Reporte Enviado con Exito!!!");
         return redirect( "/servicio" );
+    }
+
+    public function SendMailsPrevencion($id,Request $request){
+        $destinatario = $request->email;
+        $data = Movilizacion::findOrFail($id);
+        
+        Mail::to($destinatario)->send(new ReportSentPrevencion($data));
+        Session::flash('Envio Mail Correcto',"Reporte Enviado con Exito!!!");
+        return redirect( "/prevencion" );
     }
 }

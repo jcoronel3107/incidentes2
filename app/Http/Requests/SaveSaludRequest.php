@@ -37,11 +37,7 @@ class SaveSaludRequest extends FormRequest
                 'hora_salida_a_emergencia'=>'required',
                 'hora_llegada_a_emergencia'=>'required',
                 'informacion_inicial'=>'required|max:2000',
-                'detalle_emergencia' => 'required|max:3000',
-                'vehiculo_id'=>'required',
-                'jefeguardia_id'=>'required',
-                'bombero_id'=>'required',
-                'conductor_id'=>'required'
+                'detalle_emergencia' => 'required|max:3000'
             ];
     }
 }

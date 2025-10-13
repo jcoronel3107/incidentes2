@@ -68,6 +68,7 @@
 										<option>NISSAN</option>
 										<option>PIERCE</option>
 										<option>ROSENBAUER</option>
+										<option>RENAULT</option>
 
 									</select>
 								</div>
@@ -176,18 +177,18 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text">Estacion</span>
 									</div>
-									<select class="form-control" name="estacion">
+									<select class="form-control" name="station_id">
 										<option selected>{{old('estacion')}}</option>
-										<option>Estación1</option>
-										<option>Estación2</option>
-										<option>Estación3</option>
-										<option>Estación4</option>
-										<option>Estación5</option>
-										<option>Estación6</option>
-										<option>Estación7</option>
-										<option>Estación8</option>
-										<option>Estación9</option>
-										<option>Estación10</option>
+										<option value="1">Estación1</option>
+										<option value="2">Estación2</option>
+										<option value="3">Estación3</option>
+										<option value="4">Estación4</option>
+										<option value="5">Estación5</option>
+										<option value="6">Estación6</option>
+										<option value="7">Estación7</option>
+										<option value="8">Estación8</option>
+										<option value="9">Estación9</option>
+										<option value="10">Estación10</option>
 									</select>
 								</div>
 							</div>
@@ -209,9 +210,9 @@
 									</div>
 									<select class="form-control" name="estado">
 										<option selected>{{old('estado')}}</option>
-										<option>Bueno</option>
-										<option>Regular</option>
-										<option>Malo</option>
+										<option>OPERATIVO</option>
+										<option>MANTENIMIENTO</option>
+										<option>REPARACION</option>
 									</select>
 								</div>
 								<div class="form-group input-group col-md-4">
@@ -278,7 +279,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="inputDetalle">Observaciones</span>
 									</div>
-									<input type="text" onkeyup="mayus(this);" class="form-control" name="observacion" id="observacion" placeholder="" value="{{old('observacion')}}">
+									<input type="text" class="form-control" name="observacion" id="observacion" placeholder="" value="{{old('observacion')}}">
 								</div>
 
 							</div>
@@ -329,11 +330,14 @@
 			<div>
 				<br>{{csrf_field()}}
 			</div>
-			<div class="form-group">
-				<button type="submit" name="Enviar" value="Enviar" class="btn btn-success">Registrar</button>
-				<button type="reset" name="Borrar" value="Borrar" class="btn btn-danger">Borrar Formulario</button>
+			<div class="input-group mb-3 justify-content-end">
+				
+					<div class="input-group-prepend">
+                            	<span class="input-group-text"><i class="fas fa-check"></i></span>
+                      </div>
+					<button type="submit" name="Enviar" value="Enviar" class="btn btn-outline-success">{!! trans('messages.to register') !!}</button>
+				
 			</div>
-
 		</form>
 
 	@if(count($errors)>0)

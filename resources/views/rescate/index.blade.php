@@ -1,37 +1,59 @@
 @extends( "layouts.plantilla" )
 
 @section( "cabeza" )
-<title>Rescate - Index - BCBVC</title>
+<title>Rescate - Index - BCBVC </title>
 @endsection
 
 @section( "cuerpo" )
 <h2 class="mt-5 shadow p-3 mb-5 bg-white rounded text-danger">{!! trans('messages.Consult Rescue Information') !!}</h2>
 @include('rescate.messages')
-<ul class="nav justify-content-end">
+<div class="row nav justify-content-end">
 	<li class="nav-item">
-		@can('create evento')
-		<a class="btn btn-outline-info" data-toggle="tooltip" title="Nuevo" href="rescate/create"><i class="icon-plus icon-2x"></i></a>
-		@endcan
-		@can('allow export')
-		<a class="btn btn-outline-info" data-toggle="tooltip" title="Export" href="rescates/export/"><i class="icon-download-alt icon-2x"></i></a>
-		@endcan
-		@can('allow import')
-		<a class="btn btn-outline-info" data-toggle="tooltip" title="Import" href="/rescates/importar"><i class="icon-cloud-upload icon-2x"></i></a>
-		@endcan
-		<a class="btn btn-outline-info" data-toggle="tooltip" title="Estadistica" href="rescates/grafic/"><i class="icon-filter icon-2x"></i> </a>
+		<div class="input-group mb-3">
+									@can('create event')	
+									<div class="input-group-prepend">
+										<span title="Nuevo" class="input-group-text"><i class="fas fa-plus"></i></span>
+									</div>
+									<a class="btn btn-outline-primary focus-in-expand" data-toggle="tooltip" title="Nuevo" href="rescate/create">{!! trans('messages.new') !!}</i></a>
+									@endcan
+									@can('allow export')
+									<div class="input-group-prepend ml-2">
+										<span title="Export" class="input-group-text"><i class="fas fa-file-export"></i></span>
+									</div>
+									
+									<a class="btn btn-outline-secondary focus-in-expand" data-toggle="tooltip" title="Export" href="rescates/export/">{!! trans('messages.export') !!}</i></a>
+									@endcan
+									@can('allow import')
+									<div class="input-group-prepend ml-2">
+										<span title="Import" class="input-group-text"><i class="fas fa-file-import"></i></span>
+									</div>
+									
+									<a class="btn btn-outline-secondary focus-in-expand" data-toggle="tooltip" title="Import" href="/rescates/importar">{!! trans('messages.import') !!}</a>
+									@endcan
+									@can('estadistica')
+									<div class="input-group-prepend ml-2">
+										<span title="Grafic" class="input-group-text"><i class="fas fa-chart-line"></i></span>
+									</div>
+									
+									<a class="btn btn-outline-info focus-in-expand" data-toggle="tooltip" title="Estadistica" href="rescates/grafic/">{!! trans('messages.grafic') !!}</a>
+									@endcan
+				
+		</div>
 	</li>
-</ul>
+</div>
+
 <hr style="border:2px;">
 @include('rescate.search')
 
-<table id="dataTable" class="table table-hover table-condensed" role="grid" aria-describedby="dataTable_info">
+<table id="dataTable" class="table table-sm table-hover table-striped table-condensed table-responsive" role="grid" aria-describedby="dataTable_info">
 	<thead>
-		<tr role="row" class="table-primary">
+		<tr role="row" class="table-info">
 			<th>id</th>
 			<th>{!! trans('messages.Incident') !!}</th>
 			<th>{!! trans('messages.Station') !!}</th>
 			<th>{!! trans('messages.Date') !!}</th>
 			<th>{!! trans('messages.Address') !!}</th>
+			<th>Usuario_Afectado</th>
 			<th>{!! trans('messages.Options') !!}</th>
 
 		</tr>
@@ -44,23 +66,22 @@
 			<td>{{$rescate->station->nombre}}</td>
 			<td>{{$rescate->fecha}}</td>
 			<td align="left">{{$rescate->direccion}}</td>
+			<td>{{$rescate->usuario_afectado}}</td>
 			<td>
-				@can('edit evento')
-				<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Edit" href="{{route('rescate.edit',$rescate->id)}}"><i class="icon-edit"></i></a>
+				@can('edit event')
+				<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Edit" href="{{route('rescate.edit',$rescate->id)}}"><i class="fas fa-edit"></i></a>
 				@endcan
 				@can('allow upload')
-				<a class="btn btn-outline-info btn-sm " data-toggle="tooltip" title="Forms SCI" href="/rescates/carga/{{$rescate->id}}"><i class="fa fa-upload" aria-hidden="true"></i></a>
+				<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Forms SCI" href="/rescates/carga/{{$rescate->id}}"><i class="fa fa-upload"></i></a>
 				@endcan
-				<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Ver" href="{{route('rescate.show',$rescate->id)}}" role="button"><i class="icon-search"></i></a>
+				<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="Ver" href="{{route('rescate.show',$rescate->id)}}" role="button"><i class="fas fa-binoculars"></i></a>
 				@can('send mail')
 				<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" data-target="#exampleModal" role="button"><i class="icon-envelope"></i></a>
 				@endcan
 				@can('create pdf')
-				<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="PDF" href="{{action('RescateController@downloadPDF', $rescate->id)}}" role="button"><i class="icon-file-text"></i></a>
+				<a class="btn btn-outline-info btn-sm" data-toggle="tooltip" title="PDF" href="{{action('RescateController@downloadPDF', $rescate->id)}}" role="button"><i class="icon-file-text" aria-hidden="true"></i></a>
 				@endcan
-				@can('create prevencion')
-				<a class="btn btn-outline-info btn-sm" data-toggle="modal" title="Enviar" href="{{route('inspeccion',$rescate->id)}}"><i class="fas fa-notes-medical"></i></a>
-				@endcan
+				
 			</td>
 		</tr>
 		<!-- Modal -->
@@ -94,15 +115,17 @@
 
 	</tbody>
 	<tfoot>
-		<tr class="table-primary">
+		<tr class="table-info">
 			<th>id</th>
 			<th>{!! trans('messages.Incident') !!}</th>
 			<th>{!! trans('messages.Station') !!}</th>
 			<th>{!! trans('messages.Date') !!}</th>
 			<th>{!! trans('messages.Address') !!}</th>
+			<th>Usuario_Afectado</th>
 			<th>{!! trans('messages.Options') !!}</th>
 		</tr>
 	</tfoot>
 </table>
-{{ $rescates -> appends(['searchText' => $query]) -> links() }}
+
+{{ $rescates -> appends(['busq_direccion' => $busq_direccion ,'busq_estacion' => $busq_estacion ,'busq_fecha'=>$busq_fecha])-> links() }}
 @endsection @section( "piepagina" ) @endsection

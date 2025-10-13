@@ -15,8 +15,8 @@ use App\Http\Requests\SaveClaveRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Exports\ClavesExport;
-use PDF;
-use Spatie\Activitylog\Traits\LogsActivity;
+
+use Illuminate\Support\Facades\App;
 
 
 class ClaveController extends Controller {
@@ -25,27 +25,46 @@ class ClaveController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function __construct(){
-		$this->middleware('auth');
-		
-	}
+	
 
 	
 
 	function index(Request $request) {
-
-
+		$date = Carbon::now();
+		$fechaComoEntero = strtotime($date);
+		$mes = date("m", $fechaComoEntero);
 		if($request)
         {
-			
-		
-
 	        $query = trim($request->get('searchText'));
 	        //
-	        $claves = Clave::where("created_at",'LIKE','%'.$query.'%')
+	        $claves = Clave::where("Orden",'LIKE','%'.$query.'%')
 	          ->OrderBy('created_at','desc')
 	          ->paginate(10);
- 			return view( "/clave.index", compact( "claves","query" ) );
+
+			  $SumaValClaves= Clave::whereMonth('created_at', $mes)
+			  ->whereYear('created_at', '=', date('Y'))
+			  ->whereNull('claves.deleted_at')
+			  ->sum('dolares');
+			  
+			  $CountClaves= Clave::whereMonth('created_at', $mes)
+			  ->whereYear('created_at', '=', date('Y'))
+			  ->whereNull('claves.deleted_at')
+			  ->count('id');
+	  
+			  $gasstationexpenses = Clave::whereMonth('created_at', $mes)
+			  ->select('combustible', DB::raw('sum(galones) Glns'))
+			  ->whereYear('created_at', '=', date('Y'))
+			  ->whereNull('claves.deleted_at')
+			  ->groupBy('combustible')->get();
+	  
+			  $gasaccumulatedmonthly = Clave::whereMonth('created_at', $mes)
+			  ->select('combustible', DB::raw('sum(dolares) accumulated_monthly'))
+			  ->whereYear('created_at', '=', date('Y'))
+			  ->whereNull('claves.deleted_at')
+			  ->groupBy('combustible')->get();
+
+			  
+ 			return view( "/clave.index", compact("gasaccumulatedmonthly","gasstationexpenses","CountClaves","SumaValClaves", "claves","query" ) );
         }
 	}
 
@@ -54,26 +73,19 @@ class ClaveController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public
-
-	function create() {
+	public function create() {
 		//
 		$gasolineras = Gasolinera::all();
-		$vehiculos = Vehiculo::orderBy('codigodis','asc')->get();
+		
+		$vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
 		$users = DB::table('users')->where([
           ['cargo','=','Bombero'],
         ])
         ->orWhere('cargo','=','maquinista')
         ->orderBy("name",'asc')
         ->get();
-		/*$users = User::where('cargo','maquinista')
-			->get();*/
-
-		if ( Auth::check() ) {
+		
 			return view( "/clave.crear",compact("gasolineras","vehiculos","users") );
-		} else {
-			return view( "/auth.login" );
-		}
 	}
 
 	/**
@@ -85,8 +97,7 @@ class ClaveController extends Controller {
 	public
 
 	function store( SaveClaveRequest $request ) {
-		if ( Auth::check() ) {
-			$validated = $request->validated();
+		
 			
 			$clave = new Clave;
 			$clave->km_salida = $request->km_salida;
@@ -99,14 +110,14 @@ class ClaveController extends Controller {
 			$clave->user_id = $request->user_id;
 			$clave->vehiculo_id = $request->vehiculo_id;;
 			$clave->Orden = $request->Orden;
+			$clave->factura = $request->factura;
+			$clave->usr_creador = auth()->user()->name;
 			$clave->save();
 			if ($clave->save()) {
 				Session::flash('Registro_Almacenado', "Registro Almacenado con Exito!!!");
 				return redirect("/clave");
 			}
-		} else {
-			return view( "/auth.login" );
-		}
+		
 	}
 
 	/**
@@ -118,7 +129,6 @@ class ClaveController extends Controller {
 	public
 
 	function show( $id ) {
-		//
 		$clave = Clave::findOrFail( $id );
 		return view( "clave.show", compact( "clave" ) );
 	}
@@ -132,22 +142,19 @@ class ClaveController extends Controller {
 	public
 
 	function edit($id) {
-		//
-		if ( Auth::check() ) {
+		
 			$gasolineras = Gasolinera::all();
-			$vehiculos = Vehiculo::orderBy('codigodis','asc')->get();
+			$vehiculos = Vehiculo::orderBy('codigodis')->where('activo','1')->get();
 			$usuarios = DB::table('users')->where([
           ['cargo','=','Bombero'],
         ])
         ->orWhere('cargo','=','maquinista')
         ->orderBy("name",'asc')
         ->get();
-			//$usuarios=User::all();
+			
 			$claves = Clave::findOrFail( $id );
 			return view( "clave.edit", compact("claves","gasolineras","vehiculos","usuarios"));
-		} else {
-			return view( "/auth.login" );
-		}
+		
 	}
 
 	/**
@@ -160,13 +167,13 @@ class ClaveController extends Controller {
 	public
 
 	function update( SaveClaveRequest $request , $id ) {
-		//
-		if ( Auth::check() ) {
+		
 			DB::begintransaction();
           	try
           	{	
 				$clave = Clave::findOrFail( $id );
 				$clave->update([
+								'created_at' => $request->created_at,
 								'km_salida' => $request->km_salida,
 								'km_gasolinera' => $request->km_gasolinera,
 								'km_llegada' => $request->km_llegada,
@@ -176,7 +183,10 @@ class ClaveController extends Controller {
 								'gasolinera_id' => $request->gasolinera_id,
 								'user_id' => $request->user_id,
 								'vehiculo_id' => $request->vehiculo_id,
-								'Orden'	=> $request->Orden]);
+								'Orden'	=> $request->Orden,
+								'factura' => $request->factura,
+								'usr_editor' => auth()->user()->name 
+							]);
 			
 				Session::flash('Registro_Actualizado',"Registro Actualizado con Exito!!!");
 				return redirect( "/clave" );
@@ -184,11 +194,8 @@ class ClaveController extends Controller {
           	catch(\Exception $e)
           	{
               DB::rollback();
-              dd($e);
           	}
-		} else {
-			return view( "/auth.login" );
-		}
+		
 	}
 
 	/**
@@ -200,15 +207,14 @@ class ClaveController extends Controller {
 	public
 
 	function destroy( $id ) {
-		//
-		if ( Auth::check() ) {
+		
 			$clave = Clave::findOrFail( $id );
 			$clave->delete();
 			Session::flash('Registro_Borrado',"Registro eliminado con Exito!!!");
 			return redirect( "/clave" );
-		} else {
+		/* } else {
 			return view( "/auth.login" );
-		}
+		} */
 	}
 
 	public function grafica()
@@ -231,9 +237,23 @@ class ClaveController extends Controller {
     }
 
     public function downloadPDF($id) {
+		$date = Carbon::now();
+        $date = $date->format('l jS \\of F Y ');
         $clave = Clave::find($id);
-        $pdf = PDF::loadView('clave.pdf', compact('clave'));
+        $dompdf = App::make("dompdf.wrapper");
+        $dompdf->loadView('clave.pdf', compact('clave','date'));
+        return $dompdf->stream();
+	}
 
-        return $pdf->download('clave.pdf');
+	public function gasavailablebalancemonthly($id){
+		$gasavailablebalancemonthly = Clave::whereMonth('claves.created_at', date('m'))
+			  ->join('gasolineras', 'claves.gasolinera_id', '=', 'gasolineras.id')
+			  ->select(DB::raw('(gasolineras.monto_contrato - sum(claves.dolares)) gasavailablebalancemonthly'))
+			  ->whereYear('claves.created_at', '=', date('Y'))
+			  ->whereNull('claves.deleted_at')
+			  ->where('claves.gasolinera_id','=',$id)
+			  ->groupBy ('gasolinera_id')
+			  ->get();	
+		return $gasavailablebalancemonthly;
 	}
 }

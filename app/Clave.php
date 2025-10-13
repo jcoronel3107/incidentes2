@@ -22,7 +22,10 @@ class Clave extends Model
 		"gasolinera_id",
 		"user_id",
 		"vehiculo_id",
-		"Orden"];
+		"Orden",
+		"factura",
+		"usr_creador",
+		"usr_editor"];
 
 	protected static $logFillable = true;
 
