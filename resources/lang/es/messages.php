@@ -52,6 +52,8 @@ return [
     'Station'=>'Estación',
     'Date'=>'Fecha',
     'Address'=>'Dirección',
+    'Geolocation'=>'Geoposición',
+    'affected_user'=>'Usuario_Afectado',
     'Options'=>'Opciones',
     'Order'=>'Orden',
     'Dollars'=>'Dolares',

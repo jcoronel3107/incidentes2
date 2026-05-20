@@ -415,8 +415,11 @@ class SaludController extends Controller
       $date = $date->format('l jS \\of F Y ');
       $salud = Salud::find($id);
       $dompdf = App::make("dompdf.wrapper");
-      $dompdf->loadView('salud.pdf', compact('salud','date'));
-      return $dompdf->stream();
+      /*$dompdf->loadView('salud.pdf', compact('salud','date'));
+      return $dompdf->stream();*/
+      $dompdf->loadView('salud.pdf', compact('salud','date'))
+      ->setPaper('a4', 'portrait'); // Asegura el formato estándar
+return $dompdf->stream();
     }
 
     public function cargar($id)

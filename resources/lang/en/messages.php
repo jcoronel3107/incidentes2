@@ -50,6 +50,8 @@ return [
     'Station'=>'Station',
     'Date'=>'Date',
     'Address'=>'Address',
+    'Geolocation'=>'Geolocation',
+    'affected_user'=>'affected_user',
     'Options'=>'Options',
     'Order'=>'Order',
     'Dollars'=>'Dollars',

@@ -92,6 +92,7 @@
 			<td>{{$salud->detalle_emergencia}}</td>
 		</tr>
 	</table>
+	<br>
 	<table class="table table-striped">
 	<caption class="text-info text">Pacientes Atendidos</caption>
 							<tr>
