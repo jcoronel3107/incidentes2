@@ -309,6 +309,19 @@ Route::get('/downloadPDFmovilizacion/{id}', 		'MovilizacionController@downloadPD
 Route::get('/sendReportMovilizacion/{id}',			'MailController@SendMailsMovilizacion')->middleware('role:inspector|admin|Super-Admin');
 Route::get('/sendReportPrevencion/{id}',			'MailController@SendMailsPrevencion')->middleware('role:inspector|admin|Super-Admin');
 Route::get('/consultaentrefechasmov',	        	'MovilizacionController@consultaentrefechas')->name('consultaentrefechasmov')->middleware('role:inspector|admin|Super-Admin');
+// Rutas para Inspecciones
+Route::resource('inspeccion', 'InspeccionController')->middleware('auth');
+
+Route::get('inspeccion/{id}/pdf', [App\Http\Controllers\InspeccionController::class, 'exportPdf'])->name('inspeccion.pdf')->middleware('auth');
+
+Route::get('/test-pdf', function() {
+    $pdf = new \TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
+    $pdf->setPrintHeader(false);
+    $pdf->setPrintFooter(false);
+    $pdf->AddPage();
+    $pdf->writeHTML('<h1>Test PDF</h1><p>Funciona correctamente!</p>', true, false, true, false, '');
+    return $pdf->Output('test.pdf', 'D');
+});
 
 
 /* ----------------------------------------------------------------------------------------------

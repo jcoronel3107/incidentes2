@@ -2,7 +2,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
   <!-- Sidebar - Brand -->
-  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/') }}">
     <div class="sidebar-brand-icon rotate-n-15">
       <i class="fas fa-car"></i>
     </div>
@@ -29,7 +29,7 @@
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">{!! trans('messages.Choices') !!}:</h6>
-        <a rel="nofollow noopener noreferrer" class="collapse-item" target="_blank" href="/inundacion">{!! trans('messages.Index') !!}</a>
+        <a rel="nofollow noopener noreferrer" class="collapse-item" target="_blank" href="{{ url('/inundacion') }}">{!! trans('messages.Index') !!}</a>
       </div>
     </div>
   </li>
@@ -43,7 +43,7 @@
     <div id="collapseDerrame" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">{!! trans('messages.Choices') !!}:</h6>
-        <a rel="nofollow noopener noreferrer" class="collapse-item" target="_blank" href="/derrame">{!! trans('messages.Index') !!}</a>
+        <a rel="nofollow noopener noreferrer" class="collapse-item" target="_blank" href="{{ url('/derrame') }}">{!! trans('messages.Index') !!}</a>
       </div>
     </div>
   </li>
@@ -57,7 +57,7 @@
     <div id="collapseRescate" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-        <a rel="nofollow noopener noreferrer" class="collapse-item" target="_blank" href="/rescate">{!! trans('messages.Index') !!}</a>
+        <a rel="nofollow noopener noreferrer" class="collapse-item" target="_blank" href="{{ url('/rescate') }}">{!! trans('messages.Index') !!}</a>
       </div>
     </div>
   </li>
@@ -70,7 +70,7 @@
     <div id="collapseTransito" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-        <a rel="nofollow noopener noreferrer" class="collapse-item" target="_blank" href="/transito">{!! trans('messages.Index') !!}</a>
+        <a rel="nofollow noopener noreferrer" class="collapse-item" target="_blank" href="{{ url('/transito') }}">{!! trans('messages.Index') !!}</a>
       </div>
     </div>
   </li>
@@ -83,7 +83,7 @@
     <div id="collapseSalud" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-        <a rel="nofollow noopener noreferrer" class="collapse-item" target="_blank" href="/salud">{!! trans('messages.Index') !!}</a>
+        <a rel="nofollow noopener noreferrer" class="collapse-item" target="_blank" href="{{ url('/salud') }}">{!! trans('messages.Index') !!}</a>
       </div>
     </div>
   </li>
@@ -96,7 +96,7 @@
     <div id="collapseFuego" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-        <a rel="nofollow noopener noreferrer" class="collapse-item" target="_blank" href="/fuego">{!! trans('messages.Index') !!}</a>
+        <a rel="nofollow noopener noreferrer" class="collapse-item" target="_blank" href="{{ url('/fuego') }}">{!! trans('messages.Index') !!}</a>
       </div>
     </div>
   </li>
@@ -109,7 +109,7 @@
     <div id="collapseFGas" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-        <a rel="nofollow noopener noreferrer" class="collapse-item" target="_blank" href="/fuga">{!! trans('messages.Index') !!}</a>
+        <a rel="nofollow noopener noreferrer" class="collapse-item" target="_blank" href="{{ url('/fuga') }}">{!! trans('messages.Index') !!}</a>
       </div>
     </div>
   </li>
@@ -122,7 +122,7 @@
     <div id="collapseClave14" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-        <a rel="nofollow noopener noreferrer" class="collapse-item" target="_blank" href="/clave">{!! trans('messages.Index') !!}</a>
+        <a rel="nofollow noopener noreferrer" class="collapse-item" target="_blank" href="{{ url('/clave') }}">{!! trans('messages.Index') !!}</a>
       </div>
     </div>
   </li>
@@ -135,7 +135,7 @@
     <div id="collapseServicios" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-        <a rel="nofollow noopener noreferrer" class="collapse-item" target="_blank" href="/servicio">{!! trans('messages.Index') !!}</a>
+        <a rel="nofollow noopener noreferrer" class="collapse-item" target="_blank" href="{{ url('/servicio') }}">{!! trans('messages.Index') !!}</a>
       </div>
     </div>
   </li>
@@ -156,7 +156,7 @@
     <div id="collapseEstadistica" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-        <a class="collapse-item" href="/consulta">{!! trans('messages.Index') !!}</a>
+        <a class="collapse-item" href="{{ url('/consulta') }}">{!! trans('messages.Index') !!}</a>
       </div>
     </div>
   </li>
@@ -171,13 +171,13 @@
     <div id="collapseParametros" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">{!! trans('messages.Choices') !!}</h6>
-        <a class="collapse-item" href="/incidente/"> {!! trans('messages.Incidents') !!}</a>
-        <a class="collapse-item" href="/estacion">{!! trans('messages.Firefighter station') !!}</a>
-        <a class="collapse-item" href="/gasolinera">{!! trans('messages.Service Station') !!}</a>
-        <a class="collapse-item" href="/parroquia">{!! trans('messages.Parishes') !!}</a>
-        <a class="collapse-item" href="/vehiculo">{!! trans('messages.Vehicles') !!}</a>
-        <a class="collapse-item" href="/users/importar/">{!! trans('messages.Users') !!}</a>
-        <a class="collapse-item" href="/cie10/importar">Cie10</a>
+        <a class="collapse-item" href="{{ url('/incidente') }}">{!! trans('messages.Incidents') !!}</a>
+        <a class="collapse-item" href="{{ url('/estacion') }}">{!! trans('messages.Firefighter station') !!}</a>
+        <a class="collapse-item" href="{{ url('/gasolinera') }}">{!! trans('messages.Service Station') !!}</a>
+        <a class="collapse-item" href="{{ url('/parroquia') }}">{!! trans('messages.Parishes') !!}</a>
+        <a class="collapse-item" href="{{ url('/vehiculo') }}">{!! trans('messages.Vehicles') !!}</a>
+        <a class="collapse-item" href="{{ url('/users/importar') }}">{!! trans('messages.Users') !!}</a>
+        <a class="collapse-item" href="{{ url('/cie10/importar') }}">Cie10</a>
       </div>
     </div>
   </li>

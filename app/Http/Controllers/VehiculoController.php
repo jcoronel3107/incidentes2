@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use App\Exports\VehiculosExport;
 use App\Imports\VehiculosImport;
-use Barryvdh\DomPDF\PDF;
+
 
 class VehiculoController extends Controller
 {
